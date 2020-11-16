@@ -1,0 +1,57 @@
+/*!
+ * Copyright (c) 2020. Kassenärztliche Bundesvereinigung, KBV
+ *
+ * This file is part of MIO Viewer.
+ *
+ * MIO Viewer is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation version 3 of the License only.
+ *
+ * MIO Viewer is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with MIO Viewer. If not, see <https://www.gnu.org/licenses/>.
+ */
+
+@import "./src/assets/css/variables";
+
+// ==================
+// SCROLLBAR
+// ==================
+
+$scrollbar-track-color: rgba(white, 0.1);
+$scrollbar-thumb-color: rgba(black, 0.3);
+
+/* width */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: $scrollbar-track-color;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background-color: $scrollbar-thumb-color;
+    border-radius: 5px;
+    transition: background-color 0.2s ease;
+    border: 1px solid white;
+
+    /* Handle on hover */
+    &:hover {
+        background-color: rgba(black, 0.2);
+    }
+}
+
+/* Mozilla Firefox */
+.moz-scroller {
+    scrollbar-face-color: $scrollbar-thumb-color; /* Firefox 63 compatibility */
+    scrollbar-track-color: $scrollbar-track-color; /* Firefox 63 compatibility */
+    scrollbar-color: $scrollbar-thumb-color $scrollbar-track-color;
+    scrollbar-width: thin;
+}

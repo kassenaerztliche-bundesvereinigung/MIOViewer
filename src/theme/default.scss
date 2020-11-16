@@ -1,0 +1,66 @@
+/*!
+ * Copyright (c) 2020. Kassenärztliche Bundesvereinigung, KBV
+ *
+ * This file is part of MIO Viewer.
+ *
+ * MIO Viewer is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation version 3 of the License only.
+ *
+ * MIO Viewer is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with MIO Viewer. If not, see <https://www.gnu.org/licenses/>.
+ */
+
+@import "../assets/css/colors";
+@import "../assets/css/variables";
+@import "../assets/css/fonts";
+
+@import "../assets/css/ui/typography";
+
+/* Ionic Variables and Theming. For more info, please see:
+http://ionicframework.com/docs/theming/ */
+/** Ionic CSS Variables **/
+
+:root {
+    /** primary **/
+
+    --ion-border-radius: #{$space};
+
+    --ion-font-family: "Montserrat-Regular";
+    --ion-text-color: $black;
+
+    --ion-margin: #{$space};
+    --ion-padding: #{$space};
+
+    --ion-input-highlight-color: #{$green-8};
+    --highlight-color-focused: yellow;
+}
+
+ion-item {
+    --border-color: #{$anthracite-8};
+
+    --ion-input-highlight-color-focused: #{$green-8};
+
+    --background: transparent;
+    --background-activated: #{$green-9};
+    --background-focused: #{$green-9};
+    --background-hover: #{$green-9};
+    --background-activated-opacity: 1;
+    --background-focused-opacity: 1;
+    --background-hover-opacity: 1;
+
+    &.item-disabled {
+        opacity: 1;
+    }
+}
+
+ion-toast {
+    --border-radius: 0px;
+    --background: #{$anthracite-3};
+    --color: white;
+}

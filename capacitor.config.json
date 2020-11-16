@@ -1,0 +1,15 @@
+{
+    "appId": "de.kbv.mioviewer",
+    "appName": "MIO Viewer",
+    "bundledWebRuntime": false,
+    "npmClient": "npm",
+    "webDir": "build",
+    "plugins": {
+        "SplashScreen": {
+            "showSpinner": true,
+            "spinnerColor": "#d3d3d3",
+            "iosSpinnerStyle": "medium",
+            "androidSpinnerStyle": "medium"
+        }
+    }
+}

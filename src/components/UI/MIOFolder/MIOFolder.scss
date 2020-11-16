@@ -1,0 +1,150 @@
+/*!
+ * Copyright (c) 2020. Kassenärztliche Bundesvereinigung, KBV
+ *
+ * This file is part of MIO Viewer.
+ *
+ * MIO Viewer is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation version 3 of the License only.
+ *
+ * MIO Viewer is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with MIO Viewer. If not, see <https://www.gnu.org/licenses/>.
+ */
+
+@import "../../../assets/css/colors";
+@import "../../../assets/css/variables";
+
+.mio-folder {
+    float: left;
+    cursor: pointer;
+    width: 160px;
+    height: 128px;
+    position: relative;
+    z-index: 0;
+    display: inline-block;
+    box-sizing: border-box;
+
+    .text-container {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        z-index: 1;
+        width: 100%;
+        height: 50px;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .inner {
+            padding: 0 calc(#{$space-small} * 1.5);
+            width: 100%;
+            overflow: hidden;
+            text-align: center;
+
+            label,
+            p {
+                display: block;
+                color: $white;
+                font-family: "Montserrat-Medium", sans-serif;
+                line-height: 1.25rem;
+
+                margin: 0;
+                padding: 0;
+                overflow: hidden;
+                width: 100%;
+            }
+
+            &.has-subline {
+                text-align: left;
+
+                label,
+                p {
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                    line-height: 18px;
+                }
+            }
+
+            label {
+                font-size: 0.625rem;
+                font-family: "Montserrat-SemiBold", sans-serif;
+            }
+
+            p {
+                font-size: 0.625rem;
+            }
+        }
+    }
+
+    svg.folder {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        z-index: 0;
+        fill: $green-6;
+
+        &.outlined {
+            fill: transparent;
+            stroke: rgba($anthracite, 0.3);
+            stroke-width: 2px;
+        }
+
+        .label-bg {
+            mix-blend-mode: luminosity;
+        }
+    }
+
+    .content {
+        overflow: hidden;
+        position: relative;
+        height: 100%;
+        width: 100%;
+        z-index: 0;
+        text-overflow: ellipsis;
+        padding-top: $space + $space-small;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &.hasLabel {
+            padding-bottom: $space;
+        }
+    }
+
+    &.impfpass {
+        svg.folder {
+            fill: $impfpass-color;
+            stroke: transparent;
+        }
+    }
+
+    &.zaeb {
+        svg.folder {
+            fill: $zaeb-color;
+            stroke: transparent;
+        }
+    }
+
+    &.mutterpass {
+        svg.folder {
+            fill: $mutterpass-color;
+            stroke: transparent;
+        }
+    }
+
+    &.uheft {
+        svg.folder {
+            fill: $uheft-color;
+            stroke: transparent;
+        }
+    }
+}

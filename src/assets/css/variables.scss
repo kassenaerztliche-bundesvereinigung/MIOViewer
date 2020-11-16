@@ -1,0 +1,97 @@
+/*!
+ * Copyright (c) 2020. Kassenärztliche Bundesvereinigung, KBV
+ *
+ * This file is part of MIO Viewer.
+ *
+ * MIO Viewer is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation version 3 of the License only.
+ *
+ * MIO Viewer is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with MIO Viewer. If not, see <https://www.gnu.org/licenses/>.
+ */
+
+$duration: 0.2s;
+$easing: cubic-bezier(0.33, 1, 0.68, 1); // ease-out;
+
+$space-small: 0.5rem;
+$space: 1rem;
+$space-big: 2rem;
+$space-wide: 4.75rem;
+
+$desktop-space: 5rem;
+
+$border-radius: 2px;
+
+$box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.15);
+
+@mixin for-tablet-down {
+    @media (min-width: 767px) {
+        // 768 - 1
+        @content;
+    }
+}
+
+@mixin for-tablet-up {
+    @media (min-width: 769px) {
+        // 768 + 1
+        @content;
+    }
+}
+
+@mixin for-desktop-up {
+    @media (min-width: 1199px) {
+        // 1200 - 1
+        @content;
+    }
+}
+
+@mixin for-desktop-big-up {
+    @media (min-width: 1399px) {
+        // 1400 - 1
+        @content;
+    }
+}
+
+// ==================
+// SCROLLBAR
+// ==================
+
+$scrollbar-track-color: rgba(white, 0.1);
+$scrollbar-thumb-color: rgba(black, 0.3);
+
+/* width */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: $scrollbar-track-color;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background-color: $scrollbar-thumb-color;
+    border-radius: 5px;
+    transition: background-color 0.2s ease;
+    border: 1px solid white;
+
+    /* Handle on hover */
+    &:hover {
+        background-color: rgba(black, 0.2);
+    }
+}
+
+/* Mozilla Firefox */
+.moz-scroller {
+    scrollbar-face-color: $scrollbar-thumb-color; /* Firefox 63 compatibility */
+    scrollbar-track-color: $scrollbar-track-color; /* Firefox 63 compatibility */
+    scrollbar-color: $scrollbar-thumb-color $scrollbar-track-color;
+    scrollbar-width: thin;
+}

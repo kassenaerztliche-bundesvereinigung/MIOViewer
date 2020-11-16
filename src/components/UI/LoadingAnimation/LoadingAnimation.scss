@@ -1,0 +1,46 @@
+/*!
+ * Copyright (c) 2020. Kassenärztliche Bundesvereinigung, KBV
+ *
+ * This file is part of MIO Viewer.
+ *
+ * MIO Viewer is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation version 3 of the License only.
+ *
+ * MIO Viewer is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with MIO Viewer. If not, see <https://www.gnu.org/licenses/>.
+ */
+
+@import "../../../assets/css/colors";
+@import "../../../assets/css/variables";
+
+.loading-animation {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background-color: rgba(white, 0.75);
+
+    .content {
+        max-width: 230px;
+
+        svg {
+            width: 100%;
+        }
+
+        p {
+            width: 100%;
+            text-align: center !important;
+            margin-top: $space-big;
+        }
+    }
+}

@@ -1,0 +1,120 @@
+/*
+ * Copyright (c) 2020. Kassenärztliche Bundesvereinigung, KBV
+ *
+ * This file is part of MIO Viewer.
+ *
+ * MIO Viewer is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation version 3 of the License only.
+ *
+ * MIO Viewer is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with MIO Viewer. If not, see <https://www.gnu.org/licenses/>.
+ */
+
+import { History } from "history";
+
+import { KBVBundleResource, ParserUtil, Vaccination } from "@kbv/mioparser";
+import { IM } from "../../components";
+
+import BaseModel, { ModelValue } from "../BaseModel";
+
+export default class PractitionerModel extends BaseModel<
+    | Vaccination.V1_00_000.Profile.Practitioner
+    | Vaccination.V1_00_000.Profile.PractitionerAddendum
+> {
+    constructor(
+        value:
+            | Vaccination.V1_00_000.Profile.Practitioner
+            | Vaccination.V1_00_000.Profile.PractitionerAddendum,
+        parent: KBVBundleResource,
+        history?: History
+    ) {
+        super(value, parent, history);
+        this.headline = IM.Util.getPractitionerName(this.value);
+        this.values = [
+            {
+                value: IM.Util.getPractitionerMaidenName(this.value),
+                label: "Geburtsname"
+            },
+            {
+                value: this.getQualification(),
+                label: "Funktionsbezeichnung"
+            },
+            this.getIdentifier()
+        ];
+    }
+
+    protected getQualification(): string {
+        if (this.value.qualification) {
+            return this.value.qualification
+                .map((q) => {
+                    if (q.code.text) {
+                        return q.code.text;
+                    } else {
+                        return q.code.coding
+                            .map((c) => {
+                                if (c.display) return c.display;
+                                else return c.code;
+                            })
+                            .join(", ");
+                    }
+                })
+                .join(", ");
+        }
+
+        return "-";
+    }
+
+    protected getIdentifier(): ModelValue {
+        if (this.value.identifier) {
+            const ANR = ParserUtil.getSlice<
+                Vaccination.V1_00_000.Profile.PractitionerANR
+            >(Vaccination.V1_00_000.Profile.PractitionerANR, this.value.identifier);
+
+            if (ANR)
+                return {
+                    value: ANR.value,
+                    label: "Lebenslange Arztnummer (LANR)"
+                };
+
+            const EFN = ParserUtil.getSlice<
+                Vaccination.V1_00_000.Profile.PractitionerEFN
+            >(Vaccination.V1_00_000.Profile.PractitionerEFN, this.value.identifier);
+
+            if (EFN)
+                return {
+                    value: EFN.value,
+                    label: "Einheitliche Fortbildungsnummer (EFN)"
+                };
+
+            const ID = ParserUtil.getSlice<Vaccination.V1_00_000.Profile.PractitionerId>(
+                Vaccination.V1_00_000.Profile.PractitionerId,
+                this.value.identifier
+            );
+
+            if (ID)
+                return {
+                    value: ID.value,
+                    label:
+                        "Nicht näher spezifizierter Identifikator einer nicht ärztlichen, behandelnden Person"
+                };
+        }
+
+        return {
+            value: "-",
+            label: "Identifier"
+        };
+    }
+
+    public toString(): string {
+        return this.values
+            .filter((v) => v.value !== "-" && !v.label.includes("Geburtsname"))
+            .map((v) => v.label + ": " + v.value)
+            .join("\n");
+    }
+}

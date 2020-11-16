@@ -1,0 +1,110 @@
+/*!
+ * Copyright (c) 2020. Kassenärztliche Bundesvereinigung, KBV
+ *
+ * This file is part of MIO Viewer.
+ *
+ * MIO Viewer is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation version 3 of the License only.
+ *
+ * MIO Viewer is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with MIO Viewer. If not, see <https://www.gnu.org/licenses/>.
+ */
+
+@import "../../../assets/css/colors";
+@import "../../../assets/css/variables";
+
+$shadow-height: #{$space + $space};
+
+ion-footer {
+    background-color: white;
+    padding: $space-small;
+
+    bottom: calc(-#{$space-big} - #{$shadow-height});
+    transition: bottom $duration * 2 $easing, left $duration * 2 $easing;
+
+    button.icon {
+        width: calc(33% - #{$space});
+    }
+
+    &.visible {
+        bottom: 0;
+    }
+
+    .mio-viewer-logo {
+        display: none;
+    }
+
+    @include for-tablet-up {
+        position: absolute;
+        border-right: 1px solid $anthracite-9;
+        width: 33%;
+        height: 100%;
+        padding: $space-big + $space;
+        padding-top: 0;
+        bottom: 0;
+        left: -33%;
+
+        .mio-viewer-logo {
+            display: inline-block;
+            width: 100%;
+            height: $space-big * 4;
+            position: relative;
+            margin-bottom: $space;
+
+            img {
+                position: absolute;
+                bottom: 0;
+                height: auto;
+                max-height: 112px;
+                width: auto;
+            }
+        }
+
+        button.icon {
+            width: calc(100% - #{$space});
+            margin: $space-big $space-small;
+
+            &:first-of-type {
+                margin-top: $space-small;
+            }
+        }
+
+        &.visible {
+            left: 0;
+        }
+
+        padding-left: $space-big + $space;
+
+        .mio-viewer-logo {
+            height: $space-big * 6;
+
+            img {
+                max-height: 160px;
+                width: 100%;
+            }
+        }
+
+        button.icon {
+            padding-left: $space-big;
+            margin: $space-small $space-small;
+
+            &:first-of-type {
+                margin-top: $space-small + $space-big;
+            }
+        }
+    }
+}
+
+ion-footer::before {
+    top: -$shadow-height !important;
+    height: $shadow-height !important;
+    width: 100% !important;
+    background: linear-gradient(rgba($white, 0) 0%, rgba($white, 1) 100%) !important;
+    pointer-events: none;
+}

@@ -1,0 +1,7 @@
+<svg width="32px" height="32px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Icon / Zum Ende</title>
+    <g fill="none" stroke="#239398" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round">
+        <polyline  points="9 24 17 16 9 8" />
+        <line x1="22" y1="8" x2="22" y2="24" />
+    </g>
+</svg>

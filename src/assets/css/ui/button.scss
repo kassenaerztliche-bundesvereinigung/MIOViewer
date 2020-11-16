@@ -1,0 +1,174 @@
+/*!
+ * Copyright (c) 2020. Kassenärztliche Bundesvereinigung, KBV
+ *
+ * This file is part of MIO Viewer.
+ *
+ * MIO Viewer is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation version 3 of the License only.
+ *
+ * MIO Viewer is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with MIO Viewer. If not, see <https://www.gnu.org/licenses/>.
+ */
+
+@import "../colors";
+@import "../variables";
+
+/**
+ * Buttons
+ */
+$padding-button: $space-small $space;
+$width-button: 10rem;
+
+button {
+    outline: 0;
+    border: 0;
+    margin: $space-small;
+    -webkit-tap-highlight-color: transparent;
+
+    color: $white;
+    text-align: center;
+    line-height: 0.983rem;
+    font-size: 0.983rem;
+    font-family: "Montserrat-Medium", sans-serif;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    transition: background-color $duration $easing, opacity $duration $easing;
+
+    &:not(.icon) {
+        height: $space-big;
+        background-color: rgba($green, 1);
+        padding: $padding-button;
+        border-radius: $space;
+        min-width: $width-button;
+    }
+
+    &:hover,
+    &:focus,
+    &:active,
+    &.active {
+        background-color: rgba($green, 0.7);
+        outline: 0;
+    }
+
+    &:active {
+        cursor: default;
+    }
+
+    &:disabled {
+        background-color: rgba($anthracite, 0.2);
+        cursor: default;
+    }
+
+    // Secondary
+    &.secondary {
+        background-color: transparent;
+        color: $green;
+
+        &:hover,
+        &:focus,
+        &:active,
+        &.active {
+            background-color: rgba($anthracite, 0.2);
+        }
+
+        &:disabled {
+            background-color: transparent;
+            color: rgba($anthracite, 0.3);
+        }
+    }
+
+    // Icon
+    &.icon {
+        background-color: transparent;
+        width: $space-big;
+        height: $space-big;
+        padding: 0;
+        margin: $space-small;
+
+        svg {
+            width: $space-big;
+            height: $space-big;
+            stroke: $green;
+            stroke-width: 0.125rem;
+        }
+
+        &:hover,
+        &:focus,
+        &:active,
+        &.active {
+            // TODO: opacity: 0.7;
+        }
+
+        &:disabled {
+            // TODO: opacity: 0.3;
+
+            svg {
+                stroke: $anthracite;
+                opacity: 0.3;
+            }
+        }
+    }
+
+    .ghost &,
+    .ghost & & {
+        &:not(.icon) {
+            background-color: rgba($white, 0.3);
+
+            &:hover,
+            &:focus,
+            &:active,
+            &.active {
+                background-color: rgba($white, 0.5);
+            }
+
+            &:disabled {
+                background-color: rgba($white, 0.3);
+                opacity: 0.5;
+            }
+        }
+
+        &.icon {
+            opacity: 0.8;
+
+            svg {
+                stroke: $white;
+            }
+
+            &:hover,
+            &:focus,
+            &:active,
+            &.active {
+                opacity: 1;
+            }
+
+            &:disabled {
+                opacity: 0.35;
+            }
+        }
+    }
+
+    .row &,
+    .row & & {
+        width: auto;
+        min-width: $space-big;
+    }
+
+    .column & {
+        width: 100%;
+        max-width: $width-button * 1.75;
+        display: block;
+    }
+
+    &.soft {
+        background-color: white;
+        color: $green;
+    }
+}

@@ -1,0 +1,103 @@
+/*!
+ * Copyright (c) 2020. Kassenärztliche Bundesvereinigung, KBV
+ *
+ * This file is part of MIO Viewer.
+ *
+ * MIO Viewer is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation version 3 of the License only.
+ *
+ * MIO Viewer is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with MIO Viewer. If not, see <https://www.gnu.org/licenses/>.
+ */
+
+@import "../../../assets/css/colors";
+@import "../../../assets/css/variables";
+
+$pagination-height: $space-big + $space;
+
+.pagination {
+    position: relative;
+    height: $pagination-height;
+
+    .pagination-bullets-container {
+        position: absolute;
+        bottom: 0;
+        height: $pagination-height;
+        z-index: 1;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        padding: 0 $space;
+
+        width: 100%;
+        @include for-desktop-up {
+            width: calc(100% - #{$desktop-space} * 4 - #{$space-big} * 3);
+            left: $desktop-space * 2 + $space-big * 1.5;
+        }
+
+        .pagination-bullets {
+            width: auto;
+            display: inline-block;
+            margin: 0 auto;
+
+            .pagination-bullet {
+                display: inline-block;
+                width: $space-small;
+                height: $space-small;
+                border-radius: $space-small;
+                margin: 0 $space-small / 2;
+
+                background-color: $anthracite-8;
+                opacity: 0.4;
+                transition: opacity $duration $easing;
+
+                &.active {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+
+    .pagination-buttons {
+        display: none;
+        position: absolute;
+        width: 100%;
+        height: $pagination-height;
+        bottom: 0;
+        padding: 0 $space-big;
+        z-index: 2;
+
+        .prev,
+        .first {
+            float: left;
+            margin-left: 0;
+            margin-right: 0;
+        }
+
+        .next,
+        .last {
+            float: right;
+            margin-left: 0;
+            margin-right: 0;
+        }
+    }
+
+    @include for-desktop-up {
+        .pagination-buttons {
+            display: block;
+            padding: 0 $desktop-space * 2 + $space;
+
+            &.first-and-last {
+                padding: 0 $desktop-space * 2 + $space - $space-big;
+            }
+        }
+    }
+}

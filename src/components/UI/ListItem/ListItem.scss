@@ -1,0 +1,128 @@
+/*!
+ * Copyright (c) 2020. Kassenärztliche Bundesvereinigung, KBV
+ *
+ * This file is part of MIO Viewer.
+ *
+ * MIO Viewer is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation version 3 of the License only.
+ *
+ * MIO Viewer is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with MIO Viewer. If not, see <https://www.gnu.org/licenses/>.
+ */
+
+@import "../../../assets/css/colors";
+@import "../../../assets/css/variables";
+
+.list-item {
+    ion-label {
+        padding: $space-small 0 !important;
+        min-height: 4rem !important;
+
+        label,
+        p {
+            display: block;
+            font-family: "Montserrat-Regular", sans-serif;
+            width: 100%;
+        }
+
+        p {
+            font-family: "Montserrat-Regular", sans-serif;
+            font-size: 1rem;
+            line-height: 1.5rem;
+            color: $black;
+            white-space: normal;
+            margin: $space-small / 4 0;
+        }
+
+        label {
+            font-size: 0.625rem;
+            line-height: 1rem;
+            margin-top: $space-small / 2;
+        }
+
+        &.disabled {
+            label,
+            p {
+                color: $anthracite-8;
+            }
+        }
+
+        &.no-value {
+            display: flex !important;
+
+            label {
+                margin-top: 0 !important;
+            }
+        }
+    }
+
+    ion-note {
+        height: 100%;
+        display: flex;
+
+        svg {
+            height: $space;
+            width: $space;
+            stroke: $green;
+            stroke-width: 3px; // Original size is 24px, size now 16px so we need to scale the size * 1.5
+        }
+    }
+
+    &.clickable:not(.small) {
+        ion-label {
+            p {
+                font-family: "Montserrat-Bold", sans-serif;
+                font-size: 1rem;
+                line-height: 1.5rem;
+                margin-top: $space-small / 2;
+                white-space: normal;
+            }
+
+            label {
+                font-family: "Montserrat-Regular", sans-serif;
+                font-size: 0.625rem;
+                line-height: 1rem;
+                margin-top: $space-small / 2;
+                margin-bottom: 0;
+            }
+
+            &.no-value {
+                label {
+                    font-family: "Montserrat-Bold", sans-serif;
+                    font-size: 1rem;
+                    line-height: 1.5rem;
+                    margin-top: $space-small / 2;
+                    white-space: normal;
+                }
+            }
+        }
+    }
+
+    &.small {
+        --border-color: transparent;
+
+        --ion-input-highlight-color-focused: transparent;
+
+        --background-activated: transparent;
+        --background-focused: transparent;
+        --background-hover: transparent;
+
+        ion-label {
+            min-height: 3rem !important;
+            cursor: pointer !important;
+
+            label {
+                cursor: pointer !important;
+                color: $green;
+                font-family: "Montserrat-Medium", sans-serif !important;
+                text-align: right;
+            }
+        }
+    }
+}

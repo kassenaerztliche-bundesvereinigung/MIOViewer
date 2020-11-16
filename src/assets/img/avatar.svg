@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="96px" height="96px" viewBox="0 0 96 96" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <title>Avatar</title>
+    <g id="Avatar" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M78.0625,84.75 L78.0625,77.25 C78.0625,68.9657288 71.3467712,62.25 63.0625,62.25 L33.0625,62.25 C24.7782288,62.25 18.0625,68.9657288 18.0625,77.25 L18.0625,84.75 L18.0625,96 L78.0625,96 L78.0625,84.75 Z" id="Path" fill="#EBEEF0" />
+        <circle id="Oval" fill="#EBEEF0" cx="48.0625" cy="32.25" r="15" />
+    </g>
+</svg>

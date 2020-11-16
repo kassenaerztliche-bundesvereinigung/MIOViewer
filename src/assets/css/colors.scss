@@ -1,0 +1,75 @@
+/*!
+ * Copyright (c) 2020. Kassenärztliche Bundesvereinigung, KBV
+ *
+ * This file is part of MIO Viewer.
+ *
+ * MIO Viewer is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation version 3 of the License only.
+ *
+ * MIO Viewer is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with MIO Viewer. If not, see <https://www.gnu.org/licenses/>.
+ */
+
+// Primaries
+$white: #ffffff;
+$black: #000000;
+$yellow: #ffc001;
+$green: #239398;
+$anthracite: #385c6b;
+
+// Gradation Green
+$green-2: #389da2;
+$green-3: #4ea8ac;
+$green-4: #65b3b6;
+$green-5: #7bbec1;
+$green-6: #91c9cb;
+$green-7: #a7d3d5;
+$green-8: #bddee0;
+$green-9: #d3e9ea;
+$green-10: #e9f4f4;
+
+$green-gradation: $green-2 $green-3 $green-4 $green-5 $green-6 $green-7 $green-8 $green-9
+    $green-10;
+
+// Gradation Anthracite
+$anthracite-2: #4b6c79;
+$anthracite-3: #5f7c88;
+$anthracite-4: #738c97;
+$anthracite-5: #879da6;
+$anthracite-6: #9badb5;
+$anthracite-7: #afbdc3;
+$anthracite-8: #c3ced2;
+$anthracite-9: #d7dee1;
+$anthracite-10: #ebeef0;
+
+$anthracite-gradation: $anthracite-2 $anthracite-3 $anthracite-4 $anthracite-5
+    $anthracite-6 $anthracite-7 $anthracite-8 $anthracite-9 $anthracite-10;
+
+// Highlights
+$high-chroma: #37cad1;
+$triade-1: #9d238e;
+$triade-2: #8e9d23;
+$analog-1: #23519d;
+$analog-2: #239d6f;
+$red: #ff0000;
+
+// States
+$info: #{$analog-1};
+$success: #{$triade-2};
+$warning: #{$red};
+$danger: #{$red};
+
+// MIOs
+$impfpass-color: #{$yellow};
+$zaeb-color: #6585ba; // rgba($analog-1, 0.7);
+$mutterpass-color: #569fc9;
+$uheft-color: #abb541;
+
+// Others
+$headings-green: #{$green-4};

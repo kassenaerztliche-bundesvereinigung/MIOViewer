@@ -1,0 +1,66 @@
+/*!
+ * Copyright (c) 2020. Kassenärztliche Bundesvereinigung, KBV
+ *
+ * This file is part of MIO Viewer.
+ *
+ * MIO Viewer is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation version 3 of the License only.
+ *
+ * MIO Viewer is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with MIO Viewer. If not, see <https://www.gnu.org/licenses/>.
+ */
+
+@import "../../../assets/css/colors";
+@import "../../../assets/css/fonts";
+@import "../../../assets/css/variables";
+@import "../../../assets/css/ui/form";
+
+.input-container {
+    position: relative;
+    overflow: hidden;
+    padding: $space-small $space-small 0;
+    transition: background-color $duration $easing;
+
+    label {
+        font-size: 0.75rem;
+        margin-top: 0;
+    }
+
+    svg {
+        position: absolute;
+        right: 0;
+        opacity: 0;
+
+        top: 50%;
+        transform: translate(0, -50%);
+
+        transition: opacity $easing $duration, right $easing $duration;
+
+        &.success {
+            stroke: $success;
+        }
+
+        &.warning {
+            stroke: $warning;
+        }
+
+        &.danger {
+            stroke: $danger;
+        }
+
+        &.visible {
+            right: $space-small;
+            opacity: 1;
+        }
+    }
+
+    &:focus-within {
+        background-color: $green-9;
+    }
+}

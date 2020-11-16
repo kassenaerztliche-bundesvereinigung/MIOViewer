@@ -1,0 +1,159 @@
+/*!
+ * Copyright (c) 2020. Kassenärztliche Bundesvereinigung, KBV
+ *
+ * This file is part of MIO Viewer.
+ *
+ * MIO Viewer is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation version 3 of the License only.
+ *
+ * MIO Viewer is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with MIO Viewer. If not, see <https://www.gnu.org/licenses/>.
+ */
+
+@import "../colors";
+@import "../variables";
+
+/**
+ * Typography
+ */
+
+// Headings
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: "Montserrat-Bold", sans-serif;
+    color: $black;
+    margin: $space-small 0;
+
+    &.green {
+        color: $headings-green;
+    }
+}
+
+h1 {
+    font-size: 2.125rem;
+    line-height: 2.5rem;
+}
+
+h2 {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+}
+
+h3 {
+    font-size: 1.618rem;
+    line-height: 2rem;
+}
+
+h4 {
+    font-size: 1.375rem;
+    line-height: 1.75rem;
+}
+
+h5 {
+    font-size: 1rem;
+    line-height: 1.5rem;
+}
+
+h6 {
+    font-size: 0.618rem;
+    line-height: 1rem;
+}
+
+// Paragraphs
+p,
+span,
+small,
+blockquote {
+    font-family: "Montserrat-Regular", sans-serif;
+    color: $black;
+    // margin: $space-small 0;
+
+    &:first-of-type {
+        margin-top: 0;
+    }
+
+    &.green {
+        color: $green-6;
+    }
+
+    &.success {
+        color: $success;
+    }
+
+    &.info {
+        color: $info;
+    }
+
+    &.warning {
+        color: $warning;
+    }
+
+    &.danger {
+        color: $danger;
+    }
+}
+
+p,
+blockquote,
+cite {
+    font-size: 1rem;
+    line-height: 1.5rem;
+}
+
+p {
+    &.lead {
+        font-size: 1.618rem;
+        line-height: 2rem;
+    }
+}
+
+a {
+    color: $green;
+    text-decoration: none;
+    border-bottom: 1px solid $green;
+
+    &.white {
+        color: white;
+        border-bottom: 1px solid white;
+    }
+}
+
+small {
+    display: inline-block;
+    font-size: 0.625rem;
+    line-height: 1rem;
+}
+
+blockquote,
+cite {
+    font-family: "Montserrat-RegularItalic", sans-serif;
+}
+
+cite {
+    color: $anthracite-8;
+}
+
+// Lists
+ul,
+ol {
+    font-family: "Montserrat-Regular", sans-serif;
+    color: $black;
+    font-size: 14px;
+    line-height: 22px;
+}
+
+ul {
+    li {
+        list-style-type: circle;
+    }
+}

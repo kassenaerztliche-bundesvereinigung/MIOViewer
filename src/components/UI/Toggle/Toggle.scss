@@ -1,0 +1,80 @@
+/*!
+ * Copyright (c) 2020. Kassenärztliche Bundesvereinigung, KBV
+ *
+ * This file is part of MIO Viewer.
+ *
+ * MIO Viewer is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation version 3 of the License only.
+ *
+ * MIO Viewer is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with MIO Viewer. If not, see <https://www.gnu.org/licenses/>.
+ */
+
+@import "../../../assets/css/colors";
+@import "../../../assets/css/variables";
+
+ion-toggle {
+    --background: #{$anthracite-9};
+    --background-checked: #{$green-9};
+
+    --handle-background: white;
+    --handle-background-checked: #{$green};
+
+    --handle-box-shadow: none;
+
+    --handle-spacing: 3px;
+
+    --handle-width: 26px;
+
+    height: 32px;
+    width: 76px;
+
+    &:before,
+    &:after {
+        position: absolute;
+        top: 0px;
+        font-size: 14px;
+        line-height: 32px;
+        z-index: 1;
+        font-family: "Montserrat-Medium", sans-serif;
+        transition: opacity $duration $easing;
+    }
+
+    &:before {
+        opacity: 0;
+        left: 12px;
+        content: "ON";
+        color: #239398;
+    }
+
+    &:after {
+        opacity: 1;
+        right: 12px;
+        content: "OFF";
+        color: white;
+    }
+
+    &.toggle-checked {
+        &:before {
+            opacity: 1;
+        }
+
+        &:after {
+            opacity: 0;
+        }
+    }
+
+    .toggle-inner {
+        z-index: 2 !important;
+    }
+}
+
+.toggle-icon {
+    height: 32px !important;
+}

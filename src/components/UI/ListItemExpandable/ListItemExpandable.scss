@@ -1,0 +1,84 @@
+/*!
+ * Copyright (c) 2020. Kassenärztliche Bundesvereinigung, KBV
+ *
+ * This file is part of MIO Viewer.
+ *
+ * MIO Viewer is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation version 3 of the License only.
+ *
+ * MIO Viewer is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with MIO Viewer. If not, see <https://www.gnu.org/licenses/>.
+ */
+
+@import "../../../assets/css/colors";
+@import "../../../assets/css/variables";
+
+.list-item-expandable {
+    .expandable-wrapper {
+        background-color: transparent;
+        transition: background-color $duration $easing;
+
+        ion-item {
+            --border-color: transparent !important;
+            position: relative;
+
+            ion-label {
+                margin: 0;
+                padding: $space-small 0 !important;
+                color: $green !important;
+                transition: color $duration $easing;
+                display: flex;
+
+                label {
+                    font-size: 1rem;
+                    line-height: 1.5rem !important;
+                    white-space: normal;
+                    padding-left: $space;
+                }
+            }
+
+            ion-note {
+                height: 100%;
+                display: flex;
+
+                svg {
+                    height: $space;
+                    width: $space;
+                    stroke: $green;
+                    stroke-width: 3px; // Original size is 24px, size now 16px so we need to scale the size * 1.5
+                    transition: transform $duration $easing;
+                }
+            }
+        }
+
+        &.expanded {
+            background-color: $green-6;
+            ion-item {
+                ion-label {
+                    color: $white !important;
+                }
+
+                svg {
+                    transform: rotate(180deg);
+                    stroke: $white;
+                }
+            }
+        }
+    }
+
+    .animate-height-container {
+        border-bottom: 1px solid $anthracite-8;
+        margin-left: $space;
+
+        p {
+            padding-top: $space-small;
+            padding-bottom: $space-small;
+        }
+    }
+}

@@ -1,0 +1,7 @@
+<svg width="32px" height="32px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Icon / Zum Anfang</title>
+    <g fill="none" stroke="#239398" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="10" y1="8" x2="10" y2="24" />
+        <polyline  points="23 24 15 16 23 8" />
+    </g>
+</svg>

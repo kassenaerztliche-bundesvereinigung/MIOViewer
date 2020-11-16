@@ -1,0 +1,104 @@
+/*!
+ * Copyright (c) 2020. Kassenärztliche Bundesvereinigung, KBV
+ *
+ * This file is part of MIO Viewer.
+ *
+ * MIO Viewer is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation version 3 of the License only.
+ *
+ * MIO Viewer is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with MIO Viewer. If not, see <https://www.gnu.org/licenses/>.
+ */
+
+@import "./assets/css/colors";
+@import "./assets/css/fonts";
+@import "./assets/css/scrollbar";
+@import "./assets/css/variables";
+
+body,
+html {
+    #root {
+        height: 100vh;
+    }
+
+    #app {
+        margin: 0;
+        padding: 0;
+        background-color: white;
+
+        #main-content {
+            left: 0 !important;
+        }
+    }
+
+    #desktop-footer {
+        display: none;
+        width: 100%;
+        max-width: 1024px;
+        height: $space-big;
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translate(-50%, 0);
+        line-height: $space-big;
+        color: white;
+        font-size: 10px;
+        padding: 0 $desktop-space;
+
+        nav {
+            float: right;
+
+            a {
+                color: white;
+                border: 0;
+                padding: 0 $space-small;
+            }
+
+            div {
+                display: inline;
+                padding: 0 $space-small;
+                color: white;
+                size: 9px;
+                cursor: pointer;
+            }
+        }
+    }
+
+    @include for-tablet-up {
+        #app {
+            #main-content {
+                position: absolute !important;
+                left: 0;
+                width: 100%;
+
+                &.has-tab-bar {
+                    left: 33% !important;
+                    width: calc(100% - 33%);
+                }
+            }
+        }
+    }
+
+    @include for-desktop-big-up {
+        background-color: $anthracite-2;
+
+        #desktop-footer {
+            display: block;
+        }
+
+        #app {
+            max-width: 1024px;
+            margin: $space-big auto;
+        }
+
+        .page-content-inner {
+            padding-top: $space-big;
+        }
+    }
+}

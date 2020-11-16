@@ -1,0 +1,89 @@
+/*!
+ * Copyright (c) 2020. Kassenärztliche Bundesvereinigung, KBV
+ *
+ * This file is part of MIO Viewer.
+ *
+ * MIO Viewer is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation version 3 of the License only.
+ *
+ * MIO Viewer is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with MIO Viewer. If not, see <https://www.gnu.org/licenses/>.
+ */
+
+@import "../../../assets/css/ui/button";
+@import "../../../assets/css/variables";
+
+button.icon {
+    svg {
+        transition: stroke $duration $easing;
+        stroke-width: 1.75px;
+        stroke: $green;
+    }
+
+    @include for-desktop-up {
+        width: auto;
+    }
+
+    &:disabled {
+        svg {
+            stroke: $anthracite;
+            opacity: 0.3;
+        }
+    }
+
+    .button-text {
+        display: none;
+        float: left;
+        color: $green;
+        font-family: "Montserrat-Medium", sans-serif;
+        line-height: $space-big;
+        padding: 0 0 0 $space-big;
+        font-size: 15px;
+    }
+
+    &.rtl {
+        .button-text {
+            padding: 0 $space-big 0 0;
+        }
+
+        svg {
+            float: right;
+        }
+    }
+
+    &.black {
+        svg {
+            stroke: $black;
+        }
+
+        .button-text {
+            color: black;
+        }
+    }
+
+    &.white {
+        svg {
+            stroke: white;
+        }
+
+        .button-text {
+            color: white;
+        }
+    }
+
+    @include for-tablet-up {
+        .button-text {
+            display: inline-block;
+        }
+
+        svg {
+            float: left;
+        }
+    }
+}

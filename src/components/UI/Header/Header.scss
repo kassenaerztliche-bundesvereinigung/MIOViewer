@@ -1,0 +1,141 @@
+/*!
+ * Copyright (c) 2020. Kassenärztliche Bundesvereinigung, KBV
+ *
+ * This file is part of MIO Viewer.
+ *
+ * MIO Viewer is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation version 3 of the License only.
+ *
+ * MIO Viewer is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with MIO Viewer. If not, see <https://www.gnu.org/licenses/>.
+ */
+
+@import "../../../assets/css/colors";
+@import "../../../assets/css/variables";
+
+ion-header.miov {
+    height: $space-big * 4;
+    position: relative;
+    background-color: $white;
+
+    $shadow-height: #{$space + $space-small};
+    &::after {
+        content: " ";
+        position: absolute;
+        bottom: -$shadow-height;
+        height: $shadow-height;
+        width: 100%;
+        background: linear-gradient(rgba($white, 1) 0%, rgba($white, 0) 100%);
+    }
+
+    nav {
+        position: fixed;
+        width: 100%;
+        height: $space-big * 2;
+        top: 10px;
+        z-index: 2;
+
+        button.icon {
+            margin: $space;
+
+            &.pdf-download {
+                float: right;
+            }
+        }
+    }
+
+    .headline-container {
+        position: absolute;
+        left: $space-big * 1.75;
+        right: $space-big * 1.75;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: flex;
+        align-items: flex-end;
+        bottom: 0;
+
+        @include for-desktop-up {
+            left: $space-big * 5;
+            right: $space-big * 5;
+        }
+
+        h2,
+        h5 {
+            position: absolute;
+            width: 100%;
+            padding: 0;
+            margin: 0;
+            text-align: center;
+            color: $headings-green;
+        }
+
+        h5 {
+            top: 50%;
+            transform: translate(0, -50%);
+            line-height: 18px;
+        }
+
+        h2 {
+            bottom: 0;
+            max-height: 4.5rem;
+        }
+    }
+
+    &.impfpass,
+    &.zaeb,
+    &.mutterpass,
+    &.uheft {
+        nav {
+            button.icon {
+                svg {
+                    stroke: $white;
+                }
+
+                .button-text {
+                    color: white;
+                }
+            }
+        }
+
+        h2,
+        h5 {
+            color: $white;
+        }
+    }
+
+    &.impfpass {
+        background-color: $impfpass-color;
+    }
+
+    &.zaeb {
+        background-color: $zaeb-color;
+    }
+
+    &.mutterpass {
+        background-color: $mutterpass-color;
+    }
+
+    &.uheft {
+        background-color: $uheft-color;
+    }
+
+    @include for-tablet-up {
+        height: $space-big * 6;
+
+        nav {
+            padding-top: $space-big;
+        }
+    }
+}
+
+.text-fit-container {
+    // background-color: red;
+    height: 100%;
+    width: 100%;
+}

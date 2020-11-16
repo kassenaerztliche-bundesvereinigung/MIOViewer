@@ -1,0 +1,36 @@
+/*!
+ * Copyright (c) 2020. Kassenärztliche Bundesvereinigung, KBV
+ *
+ * This file is part of MIO Viewer.
+ *
+ * MIO Viewer is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation version 3 of the License only.
+ *
+ * MIO Viewer is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with MIO Viewer. If not, see <https://www.gnu.org/licenses/>.
+ */
+
+// Montserrat
+$font-faces: "Montserrat-Black", "Montserrat-BlackItalic", "Montserrat-ExtraBold",
+    "Montserrat-ExtraBoldItalic", "Montserrat-Bold", "Montserrat-BoldItalic",
+    "Montserrat-SemiBold", "Montserrat-SemiBoldItalic", "Montserrat-Medium",
+    "Montserrat-MediumItalic", "Montserrat-Regular", "Montserrat-RegularItalic",
+    "Montserrat-Light", "Montserrat-LightItalic", "Montserrat-ExtraLight",
+    "Montserrat-ExtraLightItalic", "Montserrat-Thin", "Montserrat-ThinItalic";
+
+@mixin font-face($name, $path) {
+    @font-face {
+        font-family: $name;
+        src: url($path + $name + ".ttf") format("truetype");
+    }
+}
+
+@each $font in $font-faces {
+    @include font-face($font, "./../../assets/fonts/Montserrat/");
+}
