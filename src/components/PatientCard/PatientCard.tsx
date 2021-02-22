@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -18,19 +18,22 @@
 
 import React from "react";
 
-import { Vaccination, ZAEB } from "@kbv/mioparser";
-import { getPatientName } from "../Util";
+import { Vaccination, ZAEB, MR } from "@kbv/mioparser";
+import { Util } from "../";
 
 import "./PatientCard.scss";
 
 type PatientProps = {
-    patient: Vaccination.V1_00_000.Profile.Patient | ZAEB.V1_00_000.Profile.Patient;
+    patient:
+        | Vaccination.V1_00_000.Profile.Patient
+        | ZAEB.V1_00_000.Profile.Patient
+        | MR.V1_00_000.Profile.PatientMother;
 };
 
 export default class PatientCard extends React.Component<PatientProps> {
     render(): JSX.Element {
         const patient = this.props.patient;
-        const name = getPatientName(patient);
+        const name = Util.Misc.getPatientName(patient);
 
         return (
             <div className={"patient-card"} data-testid={"patient-card"}>

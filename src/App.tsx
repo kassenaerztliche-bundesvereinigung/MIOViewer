@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -16,7 +16,7 @@
  * along with MIO Viewer. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import React, { RefObject } from "react";
+import React from "react";
 
 import { IonApp, IonContent, IonPage, IonRouterOutlet } from "@ionic/react";
 
@@ -48,9 +48,10 @@ import MIOParser from "@kbv/mioparser";
 import Intro from "./views/Comprehensive/Intro";
 import Home from "./views/Comprehensive/Home";
 import Main from "./views/Comprehensive/Main";
-import Info from "./views/Comprehensive/Info";
 import Profil from "./views/Comprehensive/Profil";
 import Overview from "./views/Comprehensive/Overview";
+import OverviewSection from "./views/Comprehensive/OverviewSection";
+import * as Info from "./views/Comprehensive/Info";
 
 import Detail from "./views/Comprehensive/Detail";
 import StartScreen from "./views/Comprehensive/StartScreen";
@@ -127,11 +128,41 @@ class App extends React.Component<Record<string, unknown>, AppState> {
                                         component={Detail}
                                     />
 
+                                    <Route
+                                        path={"/section/:id/:section/:patient?"}
+                                        component={OverviewSection}
+                                    />
+
                                     <Route path={"/mio/:id"} component={Overview} />
+
                                     <Redirect exact from="/mio" to="/main" />
 
-                                    <Route exact path={"/info"} component={Info} />
-                                    <Route path={"/info/:id"} component={Info} />
+                                    <Route exact path={"/info"} component={Info.Info} />
+                                    <Route
+                                        exact
+                                        path={"/info/intro"}
+                                        component={Info.Intro}
+                                    />
+                                    <Route
+                                        exact
+                                        path={"/info/technical"}
+                                        component={Info.Technical}
+                                    />
+                                    <Route
+                                        exact
+                                        path={"/info/commenting"}
+                                        component={Info.Commenting}
+                                    />
+                                    <Route
+                                        exact
+                                        path={"/info/version"}
+                                        component={Info.AppDetail}
+                                    />
+                                    <Route
+                                        exact
+                                        path={"/info/impressum"}
+                                        component={Info.Imprint}
+                                    />
 
                                     <Route exact path={"/"} component={StartScreen} />
                                 </IonRouterOutlet>
@@ -156,8 +187,12 @@ class App extends React.Component<Record<string, unknown>, AppState> {
                             Datenschutz
                         </a>
                         |
-                        <a href={"mailto:support.mio@kbv.de"}>
-                            E-Mail: support.mio@kbv.de
+                        <a
+                            href={"https://mio.kbv.de/support"}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            MIO-Support
                         </a>
                     </nav>
                 </div>

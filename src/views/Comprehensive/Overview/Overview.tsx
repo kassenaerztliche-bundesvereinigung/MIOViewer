@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -21,12 +21,13 @@ import React from "react";
 import { RouteComponentProps } from "react-router";
 
 import { MIOConnector, MIOConnectorType } from "../../../store";
-import { Vaccination, ZAEB } from "@kbv/mioparser";
+import { Vaccination, ZAEB, MR } from "@kbv/mioparser";
 
 import { UI } from "../../../components";
 
 import OverviewIM from "../../IM/Overview";
 import OverviewZAEB from "../../ZB/Overview";
+import OverviewMP from "../../MP/Overview";
 
 class Overview extends React.Component<MIOConnectorType & RouteComponentProps> {
     render(): JSX.Element {
@@ -45,6 +46,10 @@ class Overview extends React.Component<MIOConnectorType & RouteComponentProps> {
                 headline = "Zahnärztliches Bonusheft";
                 mioClass = "zaeb";
                 component = <OverviewZAEB mio={mio} history={history} />;
+            } else if (MR.V1_00_000.Profile.Bundle.is(mio)) {
+                headline = "Mutterpass";
+                mioClass = "mutterpass";
+                component = <OverviewMP mio={mio} history={history} />;
             }
         }
 
@@ -56,7 +61,7 @@ class Overview extends React.Component<MIOConnectorType & RouteComponentProps> {
                     padding={false}
                     back={() => history.goBack()}
                     pdfDownload={() => makePDF(mio)}
-                    id={mio?.identifier.value ?? ""}
+                    id={mio?.identifier.value}
                 >
                     {component}
                 </UI.BasicView>
@@ -65,7 +70,7 @@ class Overview extends React.Component<MIOConnectorType & RouteComponentProps> {
             const errors = [
                 !mio ? "MIO nicht gefunden" : "Für dieses MIO gibt es noch keine Ansicht"
             ];
-            return <UI.Error errors={errors} backClick={() => history.push("/main")} />;
+            return <UI.Error errors={errors} backClick={() => history.goBack()} />;
         }
     }
 }

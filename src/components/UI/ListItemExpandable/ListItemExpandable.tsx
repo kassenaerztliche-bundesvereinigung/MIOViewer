@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -53,25 +53,23 @@ export default class ListItemExpandable extends ListItem<
     };
 
     render(): JSX.Element {
+        const { expanded, onClick } = this.state;
         const { label, value, disabled, className, innerHTML } = this.props;
 
-        const height = this.state.expanded ? "auto" : 0;
+        const height = expanded ? "auto" : 0;
 
         return (
             <div className={"list-item-expandable"}>
-                <div
-                    className={
-                        "expandable-wrapper" + (this.state.expanded ? " expanded" : "")
-                    }
-                >
+                <div className={"expandable-wrapper" + (expanded ? " expanded" : "")}>
                     <IonItem
                         className={
                             "list-item expandable item ios in-list item-label ion-no-padding" +
                             className +
-                            (this.state.onClick ? " ion-activatable ion-focusable" : "")
+                            (onClick ? " ion-activatable ion-focusable" : "")
                         }
-                        onClick={this.state.onClick}
+                        onClick={onClick}
                         disabled={disabled}
+                        data-testid={`list-item-${label}`}
                     >
                         <IonLabel class={"ion-no-margin ion-align-items-center"}>
                             <label>{label}</label>

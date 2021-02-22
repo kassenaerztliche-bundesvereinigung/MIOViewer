@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -74,7 +74,9 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
                             location.pathname === "/home" ||
                             location.pathname === "/main" ||
                             location.pathname.startsWith("/mio") ||
-                            location.pathname.startsWith("/entry")
+                            location.pathname.startsWith("/entry") ||
+                            location.pathname.startsWith("/subEntry") ||
+                            location.pathname.startsWith("/section")
                                 ? "black"
                                 : ""
                         }

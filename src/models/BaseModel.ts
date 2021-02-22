@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -24,7 +24,7 @@ import { Content } from "pdfmake/interfaces";
 
 import * as Models from "./index";
 import { horizontalLine } from "../pdf/PDFMaker";
-import { ListItemProps } from "../components/UI/ListItem/ListItem";
+import { ListItemProps } from "../components/UI";
 
 export type RenderComponent = React.ComponentType<ListItemProps>;
 
@@ -43,6 +43,7 @@ export interface ModelValue {
 
 export default abstract class BaseModel<T extends KBVResource> {
     protected headline = "";
+    protected noHeadline = false;
     protected values: ModelValue[] = [];
 
     protected constructor(
@@ -59,35 +60,54 @@ export default abstract class BaseModel<T extends KBVResource> {
         return this.values;
     }
 
+    public showHeadline(): boolean {
+        return !this.noHeadline;
+    }
+
     public abstract toString(): string;
 
-    public toPDFContent(styles: string[] = [], subTable?: boolean): Content {
-        return [
-            {
-                layout: "noBorders",
-                table: {
-                    widths: ["*"],
-                    body: [
-                        [
-                            {
-                                text: this.getHeadline(),
-                                style: ["filledHeader", ...styles],
-                                margin: [0, 0, 0, 0]
-                            }
-                        ]
+    public toPDFContent(
+        styles: string[] = [],
+        subTable?: boolean,
+        removeHTML?: boolean
+    ): Content {
+        const heading = {
+            layout: "noBorders",
+            table: {
+                widths: ["*"],
+                body: [
+                    [
+                        {
+                            text: this.getHeadline(),
+                            style: ["filledHeader", ...styles],
+                            margin: [0, 0, 0, 0]
+                        }
                     ]
-                }
-            },
+                ]
+            }
+        };
+
+        if (!this.values.length) {
+            return [heading, this.pdfContentHint(this.headline)];
+        }
+
+        return [
+            this.noHeadline ? "" : heading,
             {
                 layout: "noBorders",
                 table: {
                     headerRows: 0,
                     widths: [subTable ? "50%" : "40%", "*"],
                     body: this.values.map((value) => {
-                        // let content = ;
+                        let textValue = value.value;
+
+                        if (removeHTML) {
+                            textValue = textValue.replace(/<[^>]*>?/gm, "");
+                        }
+
                         const content: Content[] = [
                             { text: value.label + ":", bold: true, style: styles },
-                            { text: value.value, style: styles }
+                            { text: textValue, style: styles }
                         ];
 
                         if (
@@ -119,5 +139,11 @@ export default abstract class BaseModel<T extends KBVResource> {
                 }
             }
         ];
+    }
+
+    protected pdfContentHint(topic: string, parent = "MIO"): Content {
+        return {
+            text: `Unter „${topic}“ sind in diesem ${parent} derzeit keine Einträge vorhanden.`
+        };
     }
 }

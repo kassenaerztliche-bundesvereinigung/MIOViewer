@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -59,6 +59,12 @@ class StartScreen extends React.Component<
         }
     }
 
+    forward = (): void => {
+        const { history, showIntro } = this.props;
+        if (this.animation) this.animation.removeEventListener("segmentStart");
+        history.push(showIntro ? "/intro" : "/home");
+    };
+
     ionViewDidLeave() {
         if (this.animation) {
             this.animation.removeEventListener("segmentStart");
@@ -84,14 +90,12 @@ class StartScreen extends React.Component<
     }
 
     render(): JSX.Element {
-        const { history, showIntro } = this.props;
-
         return (
             <IonPage key={"start-screen"}>
                 <div
                     id={"start-screen"}
                     data-testid={"start-screen"}
-                    onClick={() => history.push(showIntro ? "/intro" : "/home")}
+                    onClick={this.forward}
                 >
                     <div id={"lottie-splash"} data-testid={"lottie-splash"} />
                     <img

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -30,6 +30,7 @@ export default class ListItemHint extends ListItem<ListItemProps, unknown> {
         disabled: false,
         className: "info", // "info" | "success" | "warning" | "danger"
         noValue: false,
+        clampValue: false,
         innerHTML: false
     };
 

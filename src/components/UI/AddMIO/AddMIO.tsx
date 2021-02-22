@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -95,9 +95,10 @@ export default abstract class AddMIO<P, S extends AddMIOState> extends React.Com
 
         return (
             <div className={"error-content"}>
-                <p>Beim Import des MIOs ist ein Fehler aufgetreten.</p>
-
-                <p>{errorMessage}</p>
+                <div className={"texts"}>
+                    <p>Beim Import des MIOs ist ein Fehler aufgetreten.</p>
+                    <p>{errorMessage}</p>
+                </div>
                 {this.state.errorDetailMessage && (
                     <div className={"error-details"}>
                         <UI.ContentCopyBox
@@ -245,24 +246,20 @@ export default abstract class AddMIO<P, S extends AddMIOState> extends React.Com
                             console.log(parsed);
                             if (parsed.message) {
                                 results = new Error(parsed.message);
-                                console.log("Created Error");
+
                                 if (parsed.details) {
                                     results = new GeneralError(
                                         parsed.message,
                                         parsed.details
                                     );
-
-                                    console.log("Created GeneralError");
                                 }
                             }
-                        } catch (e) {
+                        } catch (exception) {
                             // Nothing to do here
                         }
 
                         if (results.name !== "proxy") {
                             this.props.setLoading(false).then(() => handle(results));
-                        } else {
-                            // console.log(results);
                         }
                     };
                 } else {

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -16,7 +16,6 @@
  * along with MIO Viewer. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import AdditionalCommentModel from "./AdditionalCommentModel";
 import ConditionModel from "./ConditionModel";
 import ObservationModel from "./ObservationModel";
 import OrganizationModel from "./OrganizationModel";
@@ -26,7 +25,6 @@ import RecordAddendumModel from "./RecordAddendumModel";
 import RecordPrimeModel from "./RecordPrimeModel";
 
 export {
-    AdditionalCommentModel,
     ConditionModel,
     ObservationModel,
     OrganizationModel,

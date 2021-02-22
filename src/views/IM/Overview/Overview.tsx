@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -22,14 +22,14 @@ import { RouteComponentProps } from "react-router";
 import { History } from "history";
 
 import {
+    Vaccination,
     ParserUtil,
     VaccinationResource,
-    Vaccination,
     MIOEntry,
     KBVResource
 } from "@kbv/mioparser";
 
-import { IM, UI, Util } from "../../../components/";
+import { UI, Util } from "../../../components/";
 
 import { ListVaccination, ListObservation, ListCondition } from "../Possibilities";
 import PatientCard from "../../../components/PatientCard";
@@ -112,8 +112,10 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
                 return (
                     <UI.ListItem
                         value={codes.join(", ")}
-                        label={Util.formatDate(values.entry.resource.occurrenceDateTime)}
-                        onClick={Util.toEntry(history, mio, values.entry)}
+                        label={Util.Misc.formatDate(
+                            values.entry.resource.occurrenceDateTime
+                        )}
+                        onClick={Util.Misc.toEntry(history, mio, values.entry)}
                         key={`item_${values.index}`}
                     />
                 );
@@ -129,17 +131,15 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
             };
 
             const templateObservation = (
-                values: UI.EntryGroupTemplateValues<
-                    Vaccination.V1_00_000.Profile.ObservationImmunizationStatus
-                >
+                values: UI.EntryGroupTemplateValues<Vaccination.V1_00_000.Profile.ObservationImmunizationStatus>
             ): JSX.Element | undefined => {
                 const entry = values.entry;
 
                 return (
                     <UI.ListItem
                         value={entry.resource.code.text}
-                        label={Util.formatDate(values.entry.resource.issued)}
-                        onClick={Util.toEntry(history, mio, values.entry)}
+                        label={Util.Misc.formatDate(values.entry.resource.issued)}
+                        onClick={Util.Misc.toEntry(history, mio, values.entry)}
                         key={`item_${values.index}`}
                     />
                 );
@@ -155,17 +155,15 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
             };
 
             const templateCondition = (
-                values: UI.EntryGroupTemplateValues<
-                    Vaccination.V1_00_000.Profile.Condition
-                >
+                values: UI.EntryGroupTemplateValues<Vaccination.V1_00_000.Profile.Condition>
             ): JSX.Element | undefined => {
                 const entry = values.entry;
 
                 return (
                     <UI.ListItem
                         value={entry.resource.code.text}
-                        label={Util.formatDate(entry.resource.recordedDate)}
-                        onClick={Util.toEntry(history, mio, entry)}
+                        label={Util.Misc.formatDate(entry.resource.recordedDate)}
+                        onClick={Util.Misc.toEntry(history, mio, entry)}
                         key={`item_${values.index}`}
                     />
                 );
@@ -213,19 +211,19 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
             return (
                 <UI.Error
                     errors={["MIO nicht gefunden"]}
-                    backClick={() => history.push("/main", "back")}
+                    backClick={() => history.goBack()}
                 />
             );
         }
 
-        const patient = IM.Util.getPatient(mio);
+        const patient = Util.IM.getPatient(mio);
 
         return (
             <div className={"im-overview"} data-testid={"im-overview"}>
                 {patient && (
                     <div
                         className={"ion-padding"}
-                        onClick={Util.toEntry(history, mio, patient)}
+                        onClick={Util.Misc.toEntry(history, mio, patient)}
                     >
                         <PatientCard patient={patient.resource} />
                     </div>

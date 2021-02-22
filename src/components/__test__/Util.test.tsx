@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -23,9 +23,8 @@ import * as TestUtil from "miotestdata";
 
 import MIOParser, { Vaccination, ZAEB } from "@kbv/mioparser";
 
-import { IM, ZB } from "../";
-
-import { formatDate, getPatientIdentifier } from "../Util";
+import { Util } from "../";
+import { formatDate, getPatientIdentifier } from "../Util/Misc";
 
 describe("<Util/>", () => {
     const mioParser = new MIOParser();
@@ -38,19 +37,19 @@ describe("<Util/>", () => {
         {
             mioString: "IM",
             functions: [
-                IM.Util.getPatient,
-                IM.Util.getPractitioners,
-                IM.Util.getRecord,
-                IM.Util.getOrganization,
-                IM.Util.getOrganizations
+                Util.IM.getPatient,
+                Util.IM.getPractitioners,
+                Util.IM.getRecord,
+                Util.IM.getOrganization,
+                Util.IM.getOrganizations
             ]
         },
         {
             mioString: "ZB",
             functions: [
-                ZB.Util.getPatient,
-                ZB.Util.getOrganization,
-                ZB.Util.getObservations
+                Util.ZB.getPatient,
+                Util.ZB.getOrganization,
+                Util.ZB.getObservations
             ]
         }
     ];
@@ -132,18 +131,17 @@ describe("<Util/>", () => {
         const profiles = [
             {
                 patient: Vaccination.V1_00_000.Profile.Patient,
-                getFunction: IM.Util.getPatientName
+                getFunction: Util.IM.getPatientName
             },
             {
                 patient: ZAEB.V1_00_000.Profile.Patient,
-                getFunction: ZB.Util.getPatientName
+                getFunction: Util.ZB.getPatientName
             }
         ];
 
         profiles.forEach((profile) => {
             test(profile.patient.name, (done) => {
                 values.forEach((value) => {
-                    // TODO: Weird error: profile not defined
                     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                     // @ts-ignore
                     const patient = JSON.parse(value.in) as profile.patient;

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -21,7 +21,7 @@ import * as Icons from "react-feather";
 
 import { UI } from "../../../components";
 
-import { IonItem, IonLabel } from "@ionic/react";
+import { IonItem, IonLabel, withIonLifeCycle } from "@ionic/react";
 
 import { SettingsConnector, SettingsConnectorType } from "../../../store";
 
@@ -50,7 +50,7 @@ class Profil extends React.Component<SettingsConnectorType, ProfilState> {
         const headline = "Applikationseinstellungen";
         return (
             <UI.BasicView headline={"Profil"} padding={false} id={"profil"}>
-                <UI.DetailListStickyHeader className={"detail-list"}>
+                <UI.DetailList.StickyHeader className={"detail-list"}>
                     <h5 className={"ion-padding ion-no-margin green sticky"}>
                         {headline}
                     </h5>
@@ -75,10 +75,10 @@ class Profil extends React.Component<SettingsConnectorType, ProfilState> {
                         show={this.state.showModal}
                         onClose={() => this.setShowModal(false)}
                     />
-                </UI.DetailListStickyHeader>
+                </UI.DetailList.StickyHeader>
             </UI.BasicView>
         );
     }
 }
 
-export default SettingsConnector(Profil);
+export default SettingsConnector(withIonLifeCycle(Profil));

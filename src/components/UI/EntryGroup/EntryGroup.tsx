@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -17,6 +17,8 @@
  */
 
 import React from "react";
+import AnimateHeight from "react-animate-height";
+import * as Icons from "react-feather";
 
 import { IonList } from "@ionic/react";
 
@@ -33,7 +35,7 @@ export type EntryGroupTemplateValues<T extends KBVResource> = {
 
 export type EntryGroupProps<T extends KBVResource> = {
     type: string;
-    headline: string;
+    headline?: string;
     subline?: string;
     entries: MIOEntry<KBVResource>[];
     baseValues: (MIOEntry<T> | unknown)[];
@@ -41,21 +43,37 @@ export type EntryGroupProps<T extends KBVResource> = {
     compare?: (a: MIOEntry<T>, b: MIOEntry<T>) => number;
     smallLinkText?: string;
     toSmallLink?: () => void;
+    expandable?: boolean;
 };
+
+export type EntryGroupState = {
+    expanded: boolean;
+} & UI.DetailList.StickyHeaderState;
 
 export default class EntryGroup<T extends KBVResource> extends React.Component<
     EntryGroupProps<T>,
-    UI.DetailListStickyHeaderState
+    EntryGroupState
 > {
     constructor(props: EntryGroupProps<T>) {
         super(props);
 
         this.state = {
-            stuck: false
+            stuck: false,
+            expanded: !props.expandable ? true : false
         };
     }
 
+    toggle = (): void => {
+        if (this.props.expandable) {
+            this.setState({
+                expanded: !this.state.expanded
+            });
+        }
+    };
+
     render(): JSX.Element {
+        const { stuck, expanded } = this.state;
+
         const {
             type,
             headline,
@@ -63,8 +81,11 @@ export default class EntryGroup<T extends KBVResource> extends React.Component<
             template,
             compare,
             smallLinkText,
-            toSmallLink
+            toSmallLink,
+            expandable
         } = this.props;
+
+        const height = expanded ? "auto" : 0;
 
         const filtered: MIOEntry<T>[] = [];
         this.props.entries.forEach((entry) => {
@@ -91,25 +112,49 @@ export default class EntryGroup<T extends KBVResource> extends React.Component<
             .filter(notUndefined);
 
         return (
-            <UI.DetailListStickyHeader className={"entry-group"}>
-                <h5
-                    className={
-                        "ion-padding ion-no-margin green sticky" +
-                        (this.state.stuck ? " stuck" : "")
-                    }
-                >
-                    {headline}
-                </h5>
-                {subline && <small className={"ion-padding-horizontal"}>{subline}</small>}
-
-                {(!content || content.length <= 0) && (
-                    <UI.ListItemHint
-                        label={"Hinweis"}
-                        value={`Unter „${headline}“ sind in diesem ${type} derzeit keine Einträge vorhanden.`}
-                    />
+            <UI.DetailList.StickyHeader
+                className={
+                    "detail-list" +
+                    (expandable ? " expandable" : "") +
+                    (expanded ? " expanded" : "")
+                }
+            >
+                {headline && (
+                    <h5
+                        className={"green sticky" + (stuck ? " stuck" : "")}
+                        onClick={this.toggle}
+                    >
+                        <div className={"inner"}>
+                            {expandable ? (
+                                <span className={"text"}>{headline}</span>
+                            ) : (
+                                headline
+                            )}
+                            {expandable && (
+                                <span className={"toggle"}>
+                                    <Icons.ChevronDown size={16} />
+                                </span>
+                            )}
+                        </div>
+                    </h5>
                 )}
 
-                <IonList className={"ion-no-padding"}>{content}</IonList>
+                <AnimateHeight
+                    duration={300}
+                    height={height}
+                    className={"animate-height-container"}
+                >
+                    {subline && (
+                        <small className={"ion-padding-horizontal"}>{subline}</small>
+                    )}
+                    {(!content || content.length <= 0) && (
+                        <UI.ListItemHint
+                            label={"Hinweis"}
+                            value={`Unter „${headline}“ sind in diesem ${type} derzeit keine Einträge vorhanden.`}
+                        />
+                    )}
+                    <IonList className={"ion-no-padding"}>{content}</IonList>
+                </AnimateHeight>
 
                 {toSmallLink && smallLinkText && (
                     <UI.ListItem
@@ -119,7 +164,7 @@ export default class EntryGroup<T extends KBVResource> extends React.Component<
                         className={"small"}
                     />
                 )}
-            </UI.DetailListStickyHeader>
+            </UI.DetailList.StickyHeader>
         );
     }
 }

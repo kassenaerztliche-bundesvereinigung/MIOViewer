@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -16,14 +16,13 @@
  * along with MIO Viewer. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { KBVResource, KBVBundleResource, Vaccination, ZAEB } from "@kbv/mioparser";
+import { KBVResource, KBVBundleResource, Vaccination, ZAEB, MR } from "@kbv/mioparser";
 import { Util } from "../components";
 import { TDocumentDefinitions, Content } from "pdfmake/interfaces";
 import * as pdfMake from "pdfmake/build/pdfmake";
 import { vfs } from "../assets/fonts/vfs_fonts";
 
-import { getZAEBContent } from "./ZB";
-import { getVaccinationContent } from "./IM";
+import { IMtoPDF, ZBtoPDF, MRtoPDF } from "./toPDF";
 
 import splashLogos from "../assets/img/logos-pdf.png";
 
@@ -47,6 +46,10 @@ export const horizontalLine = {
     }
 };
 
+export const pageBreakBefore: Content = { text: "", pageBreak: "before" };
+
+export const pageBreakAfter: Content = { text: "", pageBreak: "after" };
+
 export default class PDFMaker {
     public static async create(
         value: KBVResource | KBVBundleResource | undefined
@@ -57,15 +60,18 @@ export default class PDFMaker {
         let exportHeader = "";
         let valueContent: Content = [];
         if (Vaccination.V1_00_000.Profile.BundleEntry.is(value)) {
-            valueContent = getVaccinationContent(value);
+            valueContent = new IMtoPDF(value).getContent();
             style = "vaccination";
             exportHeader = "Impfpass";
         } else if (ZAEB.V1_00_000.Profile.Bundle.is(value)) {
-            valueContent = getZAEBContent(value);
+            valueContent = new ZBtoPDF(value).getContent();
             style = "zaeb";
             exportHeader = "Zahnärztliches Bonusheft";
+        } else if (MR.V1_00_000.Profile.Bundle.is(value)) {
+            valueContent = new MRtoPDF(value).getContent();
+            style = "mr";
+            exportHeader = "Mutterpass";
         }
-
         const baseContent: Content = [
             {
                 text: "",
@@ -111,9 +117,10 @@ export default class PDFMaker {
             defaultStyle: {
                 font: "Yantramanav"
             },
+            pageMargins: [40, 40, 40, 70],
             footer: (currentPage, pageCount) => {
                 return {
-                    margin: [0, 5, 0, 0],
+                    margin: [0, 30, 0, 0],
                     columns: [
                         {
                             image: splashLogos,
@@ -127,7 +134,8 @@ export default class PDFMaker {
                         },
                         {
                             text:
-                                "Ein Service der Kassenärztlichen Bundesvereinigung (KBV) \n Generiert durch MIO Viewer 0.0.1",
+                                "Ein Service der Kassenärztlichen Bundesvereinigung (KBV) \n Generiert durch MIO Viewer " +
+                                process.env.REACT_APP_VERSION,
                             margin: [24, 0, 0, 0],
                             fontSize: 9,
                             color: "#000000",
@@ -141,11 +149,11 @@ export default class PDFMaker {
                                 " von ",
                                 { text: pageCount.toString(), bold: true },
                                 "\n",
-                                Util.formatDate(new Date().toISOString(), true),
+                                Util.Misc.formatDate(new Date().toISOString(), true),
                                 " Uhr"
                             ],
                             alignment: "right",
-                            width: 100,
+                            width: 150,
                             fontSize: 9,
                             color: "#000000"
                         },
@@ -168,7 +176,7 @@ export default class PDFMaker {
                     margin: [0, 16, 0, 4]
                 },
                 h2: {
-                    fontSize: 13,
+                    fontSize: 16,
                     color: headingGreen,
                     bold: true,
                     margin: [0, 16, 0, 4]
@@ -177,17 +185,25 @@ export default class PDFMaker {
                     fontSize: 13,
                     color: headingGreen,
                     bold: true,
-                    margin: [0, 12, 0, 4]
+                    margin: [0, 16, 0, 4]
                 },
                 p: {
                     fontSize: 13,
                     margin: [0, 5],
                     lineHeight: 1.2
                 },
+                hint: {
+                    fontSize: 12,
+                    color: "#5f7c88",
+                    margin: [0, 5, 0, 20]
+                },
                 zaeb: {
                     color: headingGreen
                 },
                 vaccination: {
+                    color: headingGreen
+                },
+                mr: {
                     color: headingGreen
                 },
                 filledHeader: {

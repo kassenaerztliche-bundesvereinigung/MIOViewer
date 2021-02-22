@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -22,9 +22,7 @@ import { ParserUtil, KBVBundleResource, Vaccination } from "@kbv/mioparser";
 
 import RecordModel from "./RecordModel";
 
-export default class RecordAddendumModel extends RecordModel<
-    Vaccination.V1_00_000.Profile.RecordAddendum
-> {
+export default class RecordAddendumModel extends RecordModel<Vaccination.V1_00_000.Profile.RecordAddendum> {
     constructor(
         value: Vaccination.V1_00_000.Profile.RecordAddendum,
         parent: KBVBundleResource,

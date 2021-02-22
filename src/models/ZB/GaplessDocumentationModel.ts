@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -19,14 +19,12 @@
 import { History } from "history";
 
 import { ParserUtil, KBVBundleResource, ZAEB } from "@kbv/mioparser";
-import { Util, ZB, UI } from "../../components";
+import { Util, UI } from "../../components";
 
 import { AddressModel, BaseModel, TelecomModel } from "../";
 import { OrganizationModel } from "./";
 
-export default class GaplessDocumentationModel extends BaseModel<
-    ZAEB.V1_00_000.Profile.GaplessDocumentation
-> {
+export default class GaplessDocumentationModel extends BaseModel<ZAEB.V1_00_000.Profile.GaplessDocumentation> {
     constructor(
         value: ZAEB.V1_00_000.Profile.GaplessDocumentation,
         parent: KBVBundleResource,
@@ -39,34 +37,34 @@ export default class GaplessDocumentationModel extends BaseModel<
         const composition = ParserUtil.getEntry<ZAEB.V1_00_000.Profile.Composition>(
             this.parent,
             [ZAEB.V1_00_000.Profile.Composition]
-        );
+        )?.resource;
 
-        const authorRef = composition?.resource.author[0].reference;
+        const authorRef = composition?.author[0].reference;
 
-        const organization = ZB.Util.getOrganization(
+        const organization = Util.ZB.getOrganization(
             this.parent as ZAEB.V1_00_000.Profile.Bundle,
             authorRef
         );
 
-        const disclaimer = ParserUtil.getSlice<
-            ZAEB.V1_00_000.Profile.GaplessDocumentationDisclaimer
-        >(ZAEB.V1_00_000.Profile.GaplessDocumentationDisclaimer, value.extension)
-            ?.valueString;
+        const disclaimer = ParserUtil.getSlice<ZAEB.V1_00_000.Profile.GaplessDocumentationDisclaimer>(
+            ZAEB.V1_00_000.Profile.GaplessDocumentationDisclaimer,
+            value.extension
+        )?.valueString;
 
         this.values = [
             {
-                value: Util.formatDate(this.value.valueDateTime),
+                value: Util.Misc.formatDate(this.value.valueDateTime),
                 label: "Datum"
             },
             {
                 value: organization ? organization.resource.name : "-",
                 label: "Eintrag durch",
-                onClick: Util.toEntry(history, parent, organization, true),
+                onClick: Util.Misc.toEntry(history, parent, organization, true),
                 subEntry: organization,
                 subModels: [OrganizationModel, AddressModel, TelecomModel]
             },
             {
-                value: composition ? Util.formatDate(composition.resource.date) : "-",
+                value: composition ? Util.Misc.formatDate(composition.date) : "-",
                 label: "Datum des Eintrags"
             },
             {

@@ -1,0 +1,97 @@
+/*
+ * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ *
+ * This file is part of MIO Viewer.
+ *
+ * MIO Viewer is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation version 3 of the License only.
+ *
+ * MIO Viewer is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with MIO Viewer. If not, see <https://www.gnu.org/licenses/>.
+ */
+
+import React from "react";
+import { MR, ParserUtil } from "@kbv/mioparser";
+
+import DetailComponent from "../../../../components/Detail/Detail";
+import * as Models from "../../../../models";
+
+import Section, { SectionProps } from "../Section";
+import { UI } from "../../../../components";
+
+export default class InitialExamination extends Section<MR.V1_00_000.Profile.CompositionAnamneseUndAllgemeineBefunde> {
+    constructor(props: SectionProps) {
+        super(props);
+
+        this.state = {
+            details: [],
+            listGroups: []
+        };
+
+        this.section = this.getSection([
+            MR.V1_00_000.Profile.CompositionAnamneseUndAllgemeineBefunde
+        ]);
+    }
+
+    protected getDetails(): JSX.Element[] {
+        const { mio, history, location, match } = this.props;
+
+        const details: JSX.Element[] = [];
+        this.section?.entry.forEach((entry) => {
+            const ref = entry.reference;
+            const res = ParserUtil.getEntryWithRef<MR.V1_00_000.Profile.ClinicalImpressionInitialExamination>(
+                mio,
+                [MR.V1_00_000.Profile.ClinicalImpressionInitialExamination],
+                ref
+            )?.resource;
+
+            if (res) {
+                const model = new Models.MP.Basic.ClinicalImpressionModel(
+                    res,
+                    mio,
+                    history,
+                    undefined
+                );
+
+                const finding = new Models.MP.Basic.ClinicalImpressionFindingModel(
+                    res,
+                    mio,
+                    history,
+                    undefined
+                );
+
+                const investigationModel = new Models.MP.Basic.ClinicalImpressionInvestigationModel(
+                    res,
+                    mio,
+                    history
+                );
+
+                const component = (
+                    <DetailComponent
+                        models={[model, finding, investigationModel]}
+                        mio={mio}
+                        entry={res}
+                        location={location}
+                        history={history}
+                        match={match}
+                        key={details.length}
+                    />
+                );
+
+                details.push(component);
+            }
+        });
+
+        return details;
+    }
+
+    protected getListGroups(): UI.DetailList.Props[] {
+        return [];
+    }
+}

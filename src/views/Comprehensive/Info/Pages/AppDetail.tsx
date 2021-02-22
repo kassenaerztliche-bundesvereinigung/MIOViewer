@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -18,9 +18,10 @@
 
 import React from "react";
 import { RouteComponentProps } from "react-router";
+import { withIonLifeCycle } from "@ionic/react";
 import { UI } from "../../../../components";
 
-export default class AppDetail extends React.Component<RouteComponentProps> {
+class AppDetail extends React.Component<RouteComponentProps> {
     render(): JSX.Element {
         const { history } = this.props;
 
@@ -39,12 +40,12 @@ export default class AppDetail extends React.Component<RouteComponentProps> {
             },
             {
                 label: "Copyright",
-                value: "© 2020 KASSENÄRZTLICHE BUNDESVEREINIGUNG (KBV)"
+                value: "© 2020 - 2021 KASSENÄRZTLICHE BUNDESVEREINIGUNG (KBV)"
             },
             {
-                label: "E-Mail",
+                label: "MIO-Support",
                 value:
-                    "<a href='mailto:support.mio@kbv.de' target='_blank' rel='noopener noreferrer'>support.mio@kbv.de</a>"
+                    "<a href='https://mio.kbv.de/support' target='_blank' rel='noopener noreferrer'>https://mio.kbv.de/support</a>"
             }
         ];
 
@@ -55,7 +56,7 @@ export default class AppDetail extends React.Component<RouteComponentProps> {
                 back={() => history.goBack()}
                 id={"app-detail"}
             >
-                <UI.DetailListStickyHeader className={"detail-list"}>
+                <UI.DetailList.StickyHeader className={"detail-list"}>
                     <div className={"ion-padding-bottom"}>
                         {parts.map((part, index) => (
                             <UI.ListItem
@@ -66,8 +67,10 @@ export default class AppDetail extends React.Component<RouteComponentProps> {
                             />
                         ))}
                     </div>
-                </UI.DetailListStickyHeader>
+                </UI.DetailList.StickyHeader>
             </UI.BasicView>
         );
     }
 }
+
+export default withIonLifeCycle(AppDetail);

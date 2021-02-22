@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -20,20 +20,19 @@ import AddMIO, { AddMIOState } from "./AddMIO/AddMIO";
 import BasicView from "./BasicView";
 import ButtonIcon from "./ButtonIcon";
 import ContentCopyBox, { ContentCopyBoxProps } from "./ContentCopyBox";
-import DetailList, { DetailListProps, DetailListContentPart } from "./DetailList";
-import DetailListModel, { DetailListModelProps } from "./DetailListModel";
-import DetailListStickyHeader, {
-    DetailListStickyHeaderProps,
-    DetailListStickyHeaderState
-} from "./DetailListStickyHeader";
+import * as DetailList from "./DetailList";
 import EntryGroup, { EntryGroupTemplateValues, EntryGroupProps } from "../UI/EntryGroup";
 import Header from "./Header";
 import Error from "./Error";
 import Input from "./Input";
 import InputFile from "./InputFile";
-import ListItem from "./ListItem";
+import ListItem, { ListItemProps } from "./ListItem";
 import ListItemExpandable from "./ListItemExpandable";
 import ListItemHint from "./ListItemHint";
+import ListItemBullet from "./ListItemBullet";
+import ListItemHTML from "./ListItemHTML";
+import ListItemNoLabel from "./ListItemNoLabel";
+import ListItemNoValue from "./ListItemNoValue";
 import LoadingAnimation from "./LoadingAnimation";
 import MIOFolder, { MIOFolderProps } from "./MIOFolder";
 import Modal, { ModalProps } from "./Modal";
@@ -45,11 +44,7 @@ import { MIOClassName } from "./Statics";
 export type {
     AddMIOState,
     ContentCopyBoxProps,
-    DetailListProps,
-    DetailListContentPart,
-    DetailListModelProps,
-    DetailListStickyHeaderProps,
-    DetailListStickyHeaderState,
+    ListItemProps,
     MIOFolderProps,
     EntryGroupTemplateValues,
     EntryGroupProps,
@@ -66,8 +61,6 @@ export {
     ContentCopyBox,
     Header,
     DetailList,
-    DetailListModel,
-    DetailListStickyHeader,
     EntryGroup,
     Error,
     Input,
@@ -75,6 +68,10 @@ export {
     ListItem,
     ListItemExpandable,
     ListItemHint,
+    ListItemBullet,
+    ListItemHTML,
+    ListItemNoLabel,
+    ListItemNoValue,
     LoadingAnimation,
     MIOFolder,
     Modal,

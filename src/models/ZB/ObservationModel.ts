@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -19,14 +19,12 @@
 import { History } from "history";
 
 import { ParserUtil, KBVBundleResource, ZAEB } from "@kbv/mioparser";
-import { Util, ZB } from "../../components";
+import { Util } from "../../components";
 
 import { AddressModel, BaseModel, TelecomModel } from "../";
 import { OrganizationModel } from "./";
 
-export default class ObservationModel extends BaseModel<
-    ZAEB.V1_00_000.Profile.Observation
-> {
+export default class ObservationModel extends BaseModel<ZAEB.V1_00_000.Profile.Observation> {
     constructor(
         value: ZAEB.V1_00_000.Profile.Observation,
         parent: KBVBundleResource,
@@ -37,30 +35,30 @@ export default class ObservationModel extends BaseModel<
         const composition = ParserUtil.getEntry<ZAEB.V1_00_000.Profile.Composition>(
             this.parent,
             [ZAEB.V1_00_000.Profile.Composition]
-        );
+        )?.resource;
 
-        const authorRef = composition?.resource.author[0].reference;
+        const authorRef = composition?.author[0].reference;
 
-        const organization = ZB.Util.getOrganization(
+        const organization = Util.ZB.getOrganization(
             this.parent as ZAEB.V1_00_000.Profile.Bundle,
             authorRef
         );
 
-        this.headline = Util.formatDate(this.value.effectiveDateTime);
+        this.headline = Util.Misc.formatDate(this.value.effectiveDateTime);
         this.values = [
             {
-                value: ZB.Util.getObservationDisplay(this.value),
+                value: Util.ZB.getObservationDisplay(this.value),
                 label: "Art der Untersuchung"
             },
             {
                 value: organization ? organization.resource.name : "-",
                 label: "Eintrag durch",
-                onClick: Util.toEntry(history, parent, organization, true),
+                onClick: Util.Misc.toEntry(history, parent, organization, true),
                 subEntry: organization,
                 subModels: [OrganizationModel, AddressModel, TelecomModel]
             },
             {
-                value: composition ? Util.formatDate(composition.resource.date) : "-",
+                value: composition ? Util.Misc.formatDate(composition.date) : "-",
                 label: "Datum des Eintrags"
             }
         ];

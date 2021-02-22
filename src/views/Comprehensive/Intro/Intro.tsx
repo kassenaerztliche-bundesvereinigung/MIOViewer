@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -45,6 +45,7 @@ import "./Intro.scss";
 type IntroState = {
     currentIndex: number;
     slides: JSX.Element[];
+    visible: boolean;
 };
 
 class Intro extends React.Component<
@@ -87,7 +88,8 @@ class Intro extends React.Component<
 
         this.state = {
             currentIndex: 0,
-            slides: []
+            slides: [],
+            visible: false
         };
     }
 
@@ -119,11 +121,20 @@ class Intro extends React.Component<
         );
     }
 
+    ionViewDidEnter(): void {
+        this.setState({ visible: true });
+    }
+
     ionViewDidLeave() {
         this.animations = [];
         this.setState({
-            slides: []
+            slides: [],
+            visible: false
         });
+    }
+
+    ionViewWillLeave(): void {
+        this.setState({ visible: false });
     }
 
     protected createSlides = (): JSX.Element[] => {
@@ -176,12 +187,12 @@ class Intro extends React.Component<
     };
 
     render(): JSX.Element {
-        const { slides, currentIndex } = this.state;
+        const { slides, currentIndex, visible } = this.state;
         const options = { speed: 300 };
 
         return (
-            <IonPage>
-                <IonContent>
+            <IonPage className={visible ? " current-active-page" : ""}>
+                <IonContent id={"page-content"}>
                     <div className={"intro-view"}>
                         <UI.ButtonIcon
                             icon={Icons.XCircle}

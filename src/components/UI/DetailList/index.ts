@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -16,6 +16,29 @@
  * along with MIO Viewer. If not, see <https://www.gnu.org/licenses/>.
  */
 
-export type { DetailListContentPart, DetailListProps } from "./DetailList";
+import { DetailListProps } from "./Interfaces";
 
-export { default } from "./DetailList";
+import DetailListModel, { DetailListModelProps } from "./DetailListModel";
+
+import DetailListSimple from "./DetailListSimple";
+
+import DetailListCollapsible from "./DetailListCollapsible";
+
+import DetailListStickyHeader, {
+    DetailListStickyHeaderProps,
+    DetailListStickyHeaderState
+} from "./DetailListStickyHeader";
+
+export type {
+    DetailListProps as Props,
+    DetailListModelProps as ModelProps,
+    DetailListStickyHeaderProps as StickyHeaderProps,
+    DetailListStickyHeaderState as StickyHeaderState
+};
+
+export {
+    DetailListModel as Model,
+    DetailListStickyHeader as StickyHeader,
+    DetailListSimple as Simple,
+    DetailListCollapsible as Collapsible
+};

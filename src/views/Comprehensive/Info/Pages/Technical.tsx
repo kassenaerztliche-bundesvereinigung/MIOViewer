@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -18,9 +18,10 @@
 
 import React from "react";
 import { RouteComponentProps } from "react-router";
+import { withIonLifeCycle } from "@ionic/react";
 import { UI } from "../../../../components";
 
-export default class Technical extends React.Component<RouteComponentProps> {
+class Technical extends React.Component<RouteComponentProps> {
     render(): JSX.Element {
         const { history } = this.props;
 
@@ -43,7 +44,7 @@ export default class Technical extends React.Component<RouteComponentProps> {
             {
                 label: "Wo kann ich Fehler oder Verbesserungen melden?",
                 value:
-                    "Idealerweise legen Sie ein <a href='https://github.com/kassenaerztliche-bundesvereinigung/MIOViewer/issues' target='_blank' rel='noopener noreferrer'>GitHub-Ticket</a> an. Alternativ ist auch eine Mail an <a href='mailto:support.mio@kbv.de' target='_blank' rel='noopener noreferrer'>support.mio@kbv.de</a> möglich. Die Anfrage wird dann geprüft und Rückmeldung wird gegeben."
+                    "Idealerweise legen Sie ein <a href='https://github.com/kassenaerztliche-bundesvereinigung/MIOViewer/issues' target='_blank' rel='noopener noreferrer'>GitHub-Ticket</a> an. Alternativ können Sie Kontakt über die Seite <a href='https://mio.kbv.de/support' target='_blank' rel='noopener noreferrer'>MIO-Support</a> aufnehmen. Die Anfrage wird dann geprüft und Rückmeldung wird gegeben."
             },
             {
                 label: "Mit welcher Lizenz wird dieses Produkt vertrieben?",
@@ -87,3 +88,5 @@ export default class Technical extends React.Component<RouteComponentProps> {
         );
     }
 }
+
+export default withIonLifeCycle(Technical);

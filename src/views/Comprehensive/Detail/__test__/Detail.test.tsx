@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -23,38 +23,59 @@ import * as TestUtil from "miotestdata";
 
 import MIOParser, { ParserUtil, KBVBundleResource } from "@kbv/mioparser";
 
-import { IM, ZB } from "../../../../components";
+import { Util } from "../../../../components";
 
 import Detail from "../";
 
 describe("<Detail />", () => {
     type DetailValue = {
-        testId: string;
-        getFunctions: any[]; // eslint-disable-line
+        values: {
+            testId: string;
+            getFunction: any; // eslint-disable-line
+        }[];
     } & TestUtil.HasMioString;
 
     const detailList: DetailValue[] = [
         {
             mioString: "IM",
-            testId: "im-detail",
-            getFunctions: [
-                IM.Util.getPatient,
-                IM.Util.getOrganization,
-                IM.Util.getPractitioner,
-                IM.Util.getPractitioners,
-                IM.Util.getRecord,
-                IM.Util.getRecordAddendum,
-                IM.Util.getRecordPrime
+            values: [
+                {
+                    testId: "detail-VaccinationPatient",
+                    getFunction: Util.IM.getPatient
+                },
+                {
+                    testId: "detail-VaccinationOrganization",
+                    getFunction: Util.IM.getOrganization
+                },
+                {
+                    testId: "detail-VaccinationRecordAddendum",
+                    getFunction: Util.IM.getRecordAddendum
+                },
+                {
+                    testId: "detail-VaccinationRecordPrime",
+                    getFunction: Util.IM.getRecordPrime
+                }
             ]
         },
         {
             mioString: "ZB",
-            testId: "zb-detail",
-            getFunctions: [
-                ZB.Util.getPatient,
-                ZB.Util.getOrganization,
-                ZB.Util.getObservation,
-                ZB.Util.getGaplessDocumentation
+            values: [
+                {
+                    testId: "detail-ZAEBPatient",
+                    getFunction: Util.ZB.getPatient
+                },
+                {
+                    testId: "detail-ZAEBOrganization",
+                    getFunction: Util.ZB.getOrganization
+                },
+                {
+                    testId: "detail-ZAEBObservation",
+                    getFunction: Util.ZB.getObservation
+                },
+                {
+                    testId: "detail-ZAEBGaplessDocumentation",
+                    getFunction: Util.ZB.getGaplessDocumentation
+                }
             ]
         }
     ];
@@ -62,8 +83,8 @@ describe("<Detail />", () => {
     const mioParser = new MIOParser();
 
     const detailTest = (bundles: string[], detail: DetailValue) => {
-        detail.getFunctions.forEach((func) => {
-            describe(func.name, () => {
+        detail.values.forEach((value) => {
+            describe(value.getFunction.name, () => {
                 bundles.forEach((file) => {
                     it(file, async (done) => {
                         const blob = new Blob([fs.readFileSync(file)]);
@@ -71,7 +92,7 @@ describe("<Detail />", () => {
                         const bundle = result.value as KBVBundleResource;
                         const store = ViewerTestUtil.createStoreWithMios([bundle]);
 
-                        const entryFound = func(bundle);
+                        const entryFound = value.getFunction(bundle);
 
                         const renderDetail = (
                             entry: { fullUrl: string },
@@ -94,9 +115,9 @@ describe("<Detail />", () => {
 
                             if (entry) {
                                 if (arr) {
-                                    expect(getAllByTestId(detail.testId)).toBeDefined();
+                                    expect(getAllByTestId(value.testId)).toBeDefined();
                                 } else {
-                                    expect(getByTestId(detail.testId)).toBeDefined();
+                                    expect(getByTestId(value.testId)).toBeDefined();
                                 }
                             } else {
                                 expect(getByTestId("error-list")).toBeDefined();

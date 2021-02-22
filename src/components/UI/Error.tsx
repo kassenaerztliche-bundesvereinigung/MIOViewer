@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -29,7 +29,7 @@ export default class Error extends React.Component<ErrorProps> {
     render(): JSX.Element {
         const { errors, backClick } = this.props;
         return (
-            <UI.BasicView headline={"Sorry"} back={backClick} id={"error"}>
+            <UI.BasicView headline={"Sorry"} back={backClick}>
                 <h5 className={"green"}>Folgende Fehler sind aufgetreten:</h5>
                 <ul data-testid={"error-list"}>
                     {errors.map((error, index) =>

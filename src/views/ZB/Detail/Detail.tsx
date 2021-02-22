@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -16,155 +16,63 @@
  * along with MIO Viewer. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import React from "react";
+import { MIOConnector } from "../../../store";
+import { UI, Util } from "../../../components";
 
-import { RouteComponentProps } from "react-router";
-import { MIOConnector, MIOConnectorType } from "../../../store";
+import * as Models from "../../../models";
+import DetailBase, { DetailMapping } from "../../Comprehensive/Detail/DetailBase";
 
 import { ZAEB } from "@kbv/mioparser";
-import { UI, ZB } from "../../../components/";
-import * as Models from "../../../models";
-import DetailComponent from "../../../components/Detail";
-import PatientDetailList from "../../../components/PatientDetailList";
 
-type DetailProps = MIOConnectorType & RouteComponentProps;
-
-class Detail extends React.Component<DetailProps, Record<string, unknown>> {
-    getDetail = ():
-        | { headline: string; testIdSuffix?: string; component: JSX.Element }
-        | undefined => {
-        const { mio, entry, history, location, match } = this.props;
-
-        if (mio && entry) {
-            const resource = entry.resource;
-            const props = {
-                mio: mio,
-                entry: resource,
-                history: history,
-                location: location,
-                match: match
-            };
-
-            if (ZAEB.V1_00_000.Profile.Observation.is(resource)) {
-                const model = new Models.ZB.ObservationModel(resource, mio, history);
-                return {
-                    headline: "Details der Untersuchung",
-                    testIdSuffix: "observation",
-                    component: <DetailComponent {...props} models={[model]} />
-                };
-            } else if (ZAEB.V1_00_000.Profile.GaplessDocumentation.is(resource)) {
-                const model = new Models.ZB.GaplessDocumentationModel(
-                    resource,
-                    mio,
-                    history
-                );
-                return {
-                    headline: "Lückenlose Dokumentation",
-                    testIdSuffix: "gapless-documentation",
-                    component: <DetailComponent {...props} models={[model]} />
-                };
-            } else if (ZAEB.V1_00_000.Profile.Patient.is(resource)) {
-                const patient = new Models.ZB.PatientModel(resource, mio, history);
-                const address = new Models.AddressModel<ZAEB.V1_00_000.Profile.Patient>(
-                    resource,
-                    mio,
-                    history
-                );
-                return {
-                    headline: "Patient/-in",
-                    testIdSuffix: "patient",
-                    component: <DetailComponent {...props} models={[patient, address]} />
-                };
-            } else if (ZAEB.V1_00_000.Profile.Organization.is(resource)) {
-                const organization = new Models.ZB.OrganizationModel(
-                    resource,
-                    mio,
-                    history
-                );
-                const address = new Models.AddressModel<
-                    ZAEB.V1_00_000.Profile.Organization
-                >(resource, mio, history);
-                const telecom = new Models.TelecomModel<
-                    ZAEB.V1_00_000.Profile.Organization
-                >(resource, mio, history);
-                return {
-                    headline: "Details zur Organisation",
-                    testIdSuffix: "organization",
-                    component: (
-                        <DetailComponent
-                            {...props}
-                            models={[organization, address, telecom]}
-                        />
-                    )
-                };
-            } else {
-                const profile: string = entry.resource.meta.profile[0];
-                return {
-                    headline: "Sorry",
-                    component: (
-                        <UI.Error
-                            errors={[
-                                `Das Detail zum Profil ${profile
-                                    .split("/")
-                                    .pop()} kann nicht angezeigt werden`
-                            ]}
-                            backClick={() => history.goBack()}
-                        />
-                    )
-                };
-            }
+class Detail extends DetailBase<ZAEB.V1_00_000.Profile.Bundle> {
+    protected getHeaderClass(): UI.MIOClassName {
+        return "zaeb";
+    }
+    static mappings = [
+        {
+            profile: ZAEB.V1_00_000.Profile.Observation,
+            header: "Details der Untersuchung",
+            models: [Models.ZB.ObservationModel]
+        },
+        {
+            profile: ZAEB.V1_00_000.Profile.GaplessDocumentation,
+            header: "Lückenlose Dokumentation",
+            models: [Models.ZB.GaplessDocumentationModel]
+        },
+        {
+            profile: ZAEB.V1_00_000.Profile.Patient,
+            header: "Patient/-in",
+            models: [Models.ZB.PatientModel, Models.AddressModel]
+        },
+        {
+            profile: ZAEB.V1_00_000.Profile.Organization,
+            header: "Details zur Organisation",
+            models: [
+                Models.ZB.OrganizationModel,
+                Models.AddressModel,
+                Models.TelecomModel
+            ]
         }
-    };
+    ];
+    protected getMappings(): DetailMapping[] {
+        return Detail.mappings;
+    }
 
-    render(): JSX.Element {
-        const { mio, entry, history, location, match, makePDF } = this.props;
-        const detail = this.getDetail();
-
-        if (mio && entry && detail) {
-            const patient = ZB.Util.getPatient(mio as ZAEB.V1_00_000.Profile.Bundle);
-
-            const showPatient =
-                ZAEB.V1_00_000.Profile.Observation.is(entry.resource) ||
-                ZAEB.V1_00_000.Profile.GaplessDocumentation.is(entry.resource);
-
+    protected showPatient(): boolean {
+        const { entry } = this.props;
+        if (entry) {
             return (
-                <UI.BasicView
-                    headline={detail.headline}
-                    headerClass={"zaeb"}
-                    padding={false}
-                    back={() => history.goBack()}
-                    pdfDownload={() => makePDF(mio)}
-                    testId={"zb-detail"}
-                    id={mio.identifier.value + "-" + entry.fullUrl}
-                >
-                    <div
-                        className={"zb-detail"}
-                        data-testid={
-                            "zb-detail" +
-                            (detail.testIdSuffix ? `-${detail.testIdSuffix}` : "")
-                        }
-                    >
-                        {detail.component}
-
-                        {showPatient && patient && (
-                            <PatientDetailList
-                                mio={mio}
-                                entry={patient.resource}
-                                history={history}
-                                location={location}
-                                match={match}
-                            />
-                        )}
-                    </div>
-                </UI.BasicView>
+                ZAEB.V1_00_000.Profile.Observation.is(entry.resource) ||
+                ZAEB.V1_00_000.Profile.GaplessDocumentation.is(entry.resource)
             );
         } else {
-            const errors = [
-                !mio ? "MIO nicht gefunden" : "",
-                !entry ? "Eintrag nicht gefunden" : ""
-            ];
-            return <UI.Error errors={errors} backClick={() => history.push("/main")} />;
+            return false;
         }
+    }
+
+    protected getPatient(): ZAEB.V1_00_000.Profile.Patient | undefined {
+        const { mio } = this.props;
+        return Util.ZB.getPatient(mio as ZAEB.V1_00_000.Profile.Bundle)?.resource;
     }
 }
 

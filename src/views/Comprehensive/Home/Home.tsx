@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -21,7 +21,7 @@ import React from "react";
 import lottie from "lottie-web";
 
 import { RouteComponentProps } from "react-router";
-import { IonRow } from "@ionic/react";
+import { IonRow, withIonLifeCycle } from "@ionic/react";
 
 import { MIOConnector, MIOConnectorType } from "../../../store";
 
@@ -109,4 +109,4 @@ class Home extends UI.AddMIO<RouteComponentProps, UI.AddMIOState> {
     }
 }
 
-export default MIOConnector(Home);
+export default MIOConnector(withIonLifeCycle(Home));

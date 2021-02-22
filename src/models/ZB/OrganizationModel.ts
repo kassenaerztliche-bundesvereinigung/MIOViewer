@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -22,9 +22,7 @@ import { ParserUtil, KBVBundleResource, ZAEB } from "@kbv/mioparser";
 
 import BaseModel, { ModelValue } from "../BaseModel";
 
-export default class OrganizationModel extends BaseModel<
-    ZAEB.V1_00_000.Profile.Organization
-> {
+export default class OrganizationModel extends BaseModel<ZAEB.V1_00_000.Profile.Organization> {
     constructor(
         value: ZAEB.V1_00_000.Profile.Organization,
         parent: KBVBundleResource,
@@ -38,9 +36,7 @@ export default class OrganizationModel extends BaseModel<
 
     protected getIdentifier(): ModelValue {
         if (this.value.identifier) {
-            const iknr = ParserUtil.getSlice<
-                ZAEB.V1_00_000.Profile.OrganizationInstitutionskennzeichen
-            >(
+            const iknr = ParserUtil.getSlice<ZAEB.V1_00_000.Profile.OrganizationInstitutionskennzeichen>(
                 ZAEB.V1_00_000.Profile.OrganizationInstitutionskennzeichen,
                 this.value.identifier
             );
@@ -51,9 +47,7 @@ export default class OrganizationModel extends BaseModel<
                     label: "Institutionskennzeichen (IKNR)"
                 };
 
-            const bsnr = ParserUtil.getSlice<
-                ZAEB.V1_00_000.Profile.OrganizationBetriebsstaettennummer
-            >(
+            const bsnr = ParserUtil.getSlice<ZAEB.V1_00_000.Profile.OrganizationBetriebsstaettennummer>(
                 ZAEB.V1_00_000.Profile.OrganizationBetriebsstaettennummer,
                 this.value.identifier
             );
@@ -65,9 +59,7 @@ export default class OrganizationModel extends BaseModel<
                 };
             }
 
-            const kzva = ParserUtil.getSlice<
-                ZAEB.V1_00_000.Profile.OrganizationKZVAbrechnungsnummer
-            >(
+            const kzva = ParserUtil.getSlice<ZAEB.V1_00_000.Profile.OrganizationKZVAbrechnungsnummer>(
                 ZAEB.V1_00_000.Profile.OrganizationKZVAbrechnungsnummer,
                 this.value.identifier
             );

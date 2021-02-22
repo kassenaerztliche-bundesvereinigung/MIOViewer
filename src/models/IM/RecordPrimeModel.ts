@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -23,9 +23,7 @@ import { UI } from "../../components";
 
 import RecordModel from "./RecordModel";
 
-export default class RecordPrimeModel extends RecordModel<
-    Vaccination.V1_00_000.Profile.RecordPrime
-> {
+export default class RecordPrimeModel extends RecordModel<Vaccination.V1_00_000.Profile.RecordPrime> {
     constructor(
         value: Vaccination.V1_00_000.Profile.RecordPrime,
         parent: KBVBundleResource,
@@ -33,9 +31,10 @@ export default class RecordPrimeModel extends RecordModel<
     ) {
         super(value, parent, history);
 
-        const disclaimer = ParserUtil.getSlice<
-            Vaccination.V1_00_000.Profile.RecordPrimeNoteHinweis
-        >(Vaccination.V1_00_000.Profile.RecordPrimeNoteHinweis, this.value.note);
+        const disclaimer = ParserUtil.getSlice<Vaccination.V1_00_000.Profile.RecordPrimeNoteHinweis>(
+            Vaccination.V1_00_000.Profile.RecordPrimeNoteHinweis,
+            this.value.note
+        );
 
         const notes = this.value.note?.filter((note) => note.text !== disclaimer?.text);
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -18,10 +18,11 @@
 
 import { History } from "history";
 
-import { KBVBundleResource, Vaccination, ZAEB } from "@kbv/mioparser";
+import { KBVBundleResource, Vaccination, ZAEB, MR } from "@kbv/mioparser";
 import { UI, Util } from "../../components/";
 
-import BaseModel from "../BaseModel";
+import BaseModel, { ModelValue } from "../BaseModel";
+import { Content } from "pdfmake/interfaces";
 
 export default class TelecomModel<
     T extends
@@ -29,14 +30,22 @@ export default class TelecomModel<
         | Vaccination.V1_00_000.Profile.PractitionerAddendum
         | Vaccination.V1_00_000.Profile.Organization
         | ZAEB.V1_00_000.Profile.Organization
+        | MR.V1_00_000.Profile.Organization
+        | MR.V1_00_000.Profile.Practitioner
 > extends BaseModel<T> {
     constructor(value: T, parent: KBVBundleResource, history?: History) {
         super(value, parent, history);
 
         this.headline = "Kontaktinformationen";
-        const telecom = Util.getTelecom(this.value);
+        const telecom = Util.Misc.getTelecom(this.value);
         this.values = telecom.length
-            ? telecom
+            ? telecom.map((t) => {
+                  return {
+                      value: t.value,
+                      label: t.label,
+                      renderAs: UI.ListItemHTML
+                  } as ModelValue;
+              })
             : [
                   {
                       value: `Unter „${this.headline}“ sind derzeit keine Inhalte vorhanden.`,
@@ -44,6 +53,14 @@ export default class TelecomModel<
                       renderAs: UI.ListItemHint
                   }
               ];
+    }
+
+    public toPDFContent(
+        styles: string[] = [],
+        subTable?: boolean,
+        removeHTML?: boolean
+    ): Content {
+        return super.toPDFContent(styles, subTable, removeHTML ?? true);
     }
 
     public toString(): string {

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -22,10 +22,10 @@ import * as Icons from "react-feather";
 import { RouteComponentProps } from "react-router";
 import { IonSlide, IonSlides, withIonLifeCycle } from "@ionic/react";
 
-import { Vaccination, ZAEB } from "@kbv/mioparser";
+import { Vaccination, ZAEB, MR } from "@kbv/mioparser";
 import { MIOConnector, MIOConnectorType } from "../../../store";
 
-import { UI, IM, ZB } from "../../../components";
+import { UI, Util } from "../../../components";
 
 import "./Main.scss";
 
@@ -34,7 +34,7 @@ export type MainViewState = {
     currentIndex: number;
 } & UI.AddMIOState;
 
-class MainView extends UI.AddMIO<RouteComponentProps, MainViewState> {
+class MainView extends UI.AddMIO<MIOConnectorType & RouteComponentProps, MainViewState> {
     protected slidesRef: React.RefObject<HTMLIonSlidesElement>;
 
     constructor(props: MIOConnectorType & RouteComponentProps) {
@@ -95,7 +95,6 @@ class MainView extends UI.AddMIO<RouteComponentProps, MainViewState> {
     };
 
     throttle = (func: () => void, delay: number) => {
-        // TODO: should rather check exceed window size breakpoints
         let inProgress = false;
         return () => {
             if (inProgress) return;
@@ -135,19 +134,19 @@ class MainView extends UI.AddMIO<RouteComponentProps, MainViewState> {
 
         const mioComponents = mios.map((mio, index) => {
             if (Vaccination.V1_00_000.Profile.BundleEntry.is(mio)) {
-                const patient = IM.Util.getPatient(mio);
+                const patient = Util.IM.getPatient(mio);
                 return (
                     <UI.MIOFolder
                         key={mio.identifier.value + index.toString()}
                         onClick={() => history.push("/mio/" + mio.identifier.value)}
                         className={"impfpass"}
                         label={"Impfpass"}
-                        subline={patient ? IM.Util.getPatientName(patient.resource) : ""}
+                        subline={patient ? Util.IM.getPatientName(patient.resource) : ""}
                         labelBG={true}
                     />
                 );
             } else if (ZAEB.V1_00_000.Profile.Bundle.is(mio)) {
-                const patient = ZB.Util.getPatient(mio);
+                const patient = Util.ZB.getPatient(mio);
                 return (
                     <UI.MIOFolder
                         key={mio.identifier.value + index.toString()}
@@ -155,7 +154,21 @@ class MainView extends UI.AddMIO<RouteComponentProps, MainViewState> {
                         className={"zaeb"}
                         label={"Zahnärztliches Bonusheft"}
                         labelBG={true}
-                        subline={patient ? ZB.Util.getPatientName(patient.resource) : ""}
+                        subline={patient ? Util.ZB.getPatientName(patient.resource) : ""}
+                    />
+                );
+            } else if (MR.V1_00_000.Profile.Bundle.is(mio)) {
+                const patient = Util.MP.getPatientMother(mio);
+                return (
+                    <UI.MIOFolder
+                        key={mio.identifier.value + index.toString()}
+                        onClick={() => history.push("/mio/" + mio.identifier.value)}
+                        className={"mutterpass"}
+                        label={"Mutterpass"}
+                        labelBG={true}
+                        subline={
+                            patient ? Util.MP.getPatientMotherName(patient.resource) : ""
+                        }
                     />
                 );
             } else {

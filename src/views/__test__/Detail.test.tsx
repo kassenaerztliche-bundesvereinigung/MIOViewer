@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -29,7 +29,7 @@ import MIOParser, {
     KBVBundleResource
 } from "@kbv/mioparser";
 
-import { IM, ZB } from "../../components";
+import { Util } from "../../components";
 
 import DetailIM from "../IM/Detail";
 import DetailZB from "../ZB/Detail";
@@ -53,32 +53,32 @@ describe("<Detail-View />", () => {
             component: DetailIM,
             details: [
                 {
-                    getFunction: IM.Util.getPatient,
-                    testId: "im-detail-patient",
+                    getFunction: Util.IM.getPatient,
+                    testId: "detail-VaccinationPatient",
                     profile: Vaccination.V1_00_000.Profile.Patient,
                     required: ["Geburtsdatum"]
                 },
                 {
-                    getFunction: IM.Util.getOrganization,
-                    testId: "im-detail-organization",
+                    getFunction: Util.IM.getOrganization,
+                    testId: "detail-VaccinationOrganization",
                     profile: Vaccination.V1_00_000.Profile.Organization,
                     required: []
                 },
                 {
-                    getFunction: IM.Util.getRecordPrime,
-                    testId: "im-detail-record",
+                    getFunction: Util.IM.getRecordPrime,
+                    testId: "detail-VaccinationRecordPrime",
                     profile: Vaccination.V1_00_000.Profile.RecordPrime,
                     required: []
                 },
                 {
-                    getFunction: IM.Util.getRecordAddendum,
-                    testId: "im-detail-record",
+                    getFunction: Util.IM.getRecordAddendum,
+                    testId: "detail-VaccinationRecordAddendum",
                     profile: Vaccination.V1_00_000.Profile.RecordAddendum,
                     required: ["Datum der Impfung"]
                 },
                 {
-                    getFunction: IM.Util.getPractitioner,
-                    testId: "im-detail-practitioner",
+                    getFunction: Util.IM.getPractitioner,
+                    testId: undefined, // TODO: "detail-VaccinationPractitioner" | "detail-VaccinationPractitionerAddendum"
                     profile: Vaccination.V1_00_000.Profile.Practitioner,
                     required: ["Funktionsbezeichnung"]
                 }
@@ -89,26 +89,26 @@ describe("<Detail-View />", () => {
             component: DetailZB,
             details: [
                 {
-                    getFunction: ZB.Util.getPatient,
-                    testId: "zb-detail-patient",
+                    getFunction: Util.ZB.getPatient,
+                    testId: "detail-ZAEBPatient",
                     profile: ZAEB.V1_00_000.Profile.Patient,
                     required: ["Geburtsdatum"]
                 },
                 {
-                    getFunction: ZB.Util.getOrganization,
-                    testId: "zb-detail-organization",
+                    getFunction: Util.ZB.getOrganization,
+                    testId: "detail-ZAEBOrganization",
                     profile: ZAEB.V1_00_000.Profile.Organization,
                     required: []
                 },
                 {
-                    getFunction: ZB.Util.getObservation,
-                    testId: "zb-detail-observation",
+                    getFunction: Util.ZB.getObservation,
+                    testId: "detail-ZAEBObservation",
                     profile: ZAEB.V1_00_000.Profile.Observation,
                     required: ["Art der Untersuchung", "Datum"]
                 },
                 {
-                    getFunction: ZB.Util.getGaplessDocumentation,
-                    testId: "zb-detail-gapless-documentation",
+                    getFunction: Util.ZB.getGaplessDocumentation,
+                    testId: "detail-ZAEBGaplessDocumentation",
                     profile: ZAEB.V1_00_000.Profile.GaplessDocumentation,
                     required: ["Datum", "Eintrag durch", "Datum des Eintrags"]
                 }

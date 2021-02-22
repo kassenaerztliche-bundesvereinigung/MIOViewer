@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -22,8 +22,10 @@ import * as Icons from "react-feather";
 import { IonHeader } from "@ionic/react";
 import ButtonIcon from "../ButtonIcon";
 
+// import TextFit from "react-textfit";
+import { ReactFitty } from "react-fitty";
+
 import "./Header.scss";
-import TextFit from "./TextFit";
 
 type HeaderProps = {
     headline: string;
@@ -89,14 +91,24 @@ export default class Header extends React.Component<HeaderProps> {
 
                 <div className={"headline-container"} style={textStyle}>
                     <h2 style={hlStyle} data-testid={"header-headline"}>
-                        <TextFit compressor={1.5} maxFontSize={30}>
+                        {/*
+                        <TextFit mode={"multi"} min={12} max={32}>
                             {headline}
                         </TextFit>
+                        */}
+                        <ReactFitty minSize={20} maxSize={32} wrapText={true}>
+                            {headline}
+                        </ReactFitty>
                     </h2>
                     <h5 style={hl5Style}>
-                        <TextFit compressor={1.5} maxFontSize={16}>
+                        {/*
+                        <TextFit mode={"multi"} min={8} max={16}>
                             {headline}
                         </TextFit>
+                        */}
+                        <ReactFitty minSize={8} maxSize={16}>
+                            {headline}
+                        </ReactFitty>
                     </h5>
                 </div>
             </IonHeader>

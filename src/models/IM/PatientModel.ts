@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -20,13 +20,11 @@ import { History } from "history";
 import { Content } from "pdfmake/interfaces";
 
 import { KBVBundleResource, Vaccination } from "@kbv/mioparser";
-import { Util, IM } from "../../components";
+import { Util } from "../../components";
 
 import BaseModel, { ModelValue } from "../BaseModel";
 
-export default class PatientModel extends BaseModel<
-    Vaccination.V1_00_000.Profile.Patient
-> {
+export default class PatientModel extends BaseModel<Vaccination.V1_00_000.Profile.Patient> {
     constructor(
         value: Vaccination.V1_00_000.Profile.Patient,
         parent: KBVBundleResource,
@@ -34,14 +32,14 @@ export default class PatientModel extends BaseModel<
     ) {
         super(value, parent, history);
 
-        this.headline = IM.Util.getPatientName(this.value);
+        this.headline = Util.IM.getPatientName(this.value);
         this.values = [
             {
-                value: IM.Util.getPatientMaidenName(this.value),
+                value: Util.IM.getPatientMaidenName(this.value),
                 label: "Geburtsname"
             },
             {
-                value: Util.formatDate(this.value.birthDate),
+                value: Util.Misc.formatDate(this.value.birthDate),
                 label: "Geburtsdatum"
             },
             this.getGender(),
@@ -71,7 +69,9 @@ export default class PatientModel extends BaseModel<
     }
 
     public getIdentifier(): ModelValue[] {
-        return Util.getPatientIdentifier(this.value).map((identifier) => identifier);
+        return Util.Misc.getPatientIdentifier(this.value).map(
+            (identifier) => identifier as ModelValue
+        );
     }
 
     public toString(): string {

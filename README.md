@@ -32,7 +32,15 @@ Hierfür wird es zur freien Nutzung unter der LGPLv3 Lizenz zur Verfügung geste
 
 ## Allgemeines 
 
-Diese Anweisungen sollen helfen die Software herunterzuladen, installieren und auszuführen. 
+Folgende MIOs können vom Viewer angezeigt werden:
+
+-   Impfpass
+-   Zahnärztliches Bonusheft
+-   Mutterpass
+
+## Setup
+
+Die folgenden Anweisungenen sollen helfen die Software herunterzuladen, installieren und auszuführen.
 
 ### Voraussetzungen 
 
@@ -46,8 +54,6 @@ Diese Anweisungen sollen helfen die Software herunterzuladen, installieren und a
 Code von GitHub runterladen oder klonen. 
 
 ```shell script
-$ npm install -g typescript
-$ npm install -g ionic/cli
 $ git clone https://github.com/kassenaerztliche-bundesvereinigung/mioviewer.git
 $ cd mioviewer
 $ npm install
@@ -66,5 +72,9 @@ Softwarefehler können über die [GitHub Issues](https://github.com/kassenaerztl
 
 ### Lizenz 
 
-Diese Software ist unter der LGPLv3 Lizenz lizensiert worden - siehe <a href="./LICENSE">LICENSE</a> für Details. 
-(c) 2020 Kassenärztliche Bundesvereinigung KdöR
+Diese Software ist unter der LGPLv3 Lizenz lizensiert worden - siehe <a href="./COPYING.LESSER">LICENSE</a> für Details. 
+(c) 2020 - 2021 Kassenärztliche Bundesvereinigung KdöR
+
+### Bekannte Fehler
+* Durch einen Bug in Safari 14.0.0 ist die Verwendung des MIO Viewers in dieser Version nicht möglich. Daher sollte Chrome
+oder Firefox genutzt werden, bzw. ein neuerer Release von Safari.

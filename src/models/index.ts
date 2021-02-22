@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -16,16 +16,21 @@
  * along with MIO Viewer. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Vaccination, ZAEB } from "@kbv/mioparser";
+import { Vaccination, ZAEB, MR } from "@kbv/mioparser";
 import BaseModel, { ModelValue } from "./BaseModel";
 
-import { AddressModel, TelecomModel } from "./Comprehensive";
+import {
+    AdditionalCommentModel,
+    AddressModel,
+    PatientSimpleModel,
+    TelecomModel
+} from "./Comprehensive";
 
 import * as IM from "./IM";
 import * as ZB from "./ZB";
+import * as MP from "./MP";
 
 type Model =
-    | IM.AdditionalCommentModel
     | IM.ConditionModel
     | IM.ObservationModel
     | IM.PatientModel
@@ -36,20 +41,53 @@ type Model =
     | ZB.ObservationModel
     | ZB.OrganizationModel
     | ZB.PatientModel
+    | MP.Basic.ClinicalImpressionFindingModel
+    | MP.Basic.ClinicalImpressionInvestigationModel
+    | MP.Basic.ClinicalImpressionModel
+    | MP.Basic.EncounterModel<
+          | MR.V1_00_000.Profile.EncounterGeneral
+          | MR.V1_00_000.Profile.EncounterInpatientTreatment
+      >
+    | MP.Basic.ObservationModel<any> // TODO: Zu faul hier alle hinzuschreiben
+    | MP.Basic.OrganizationModel
+    | MP.Basic.PatientChildModel
+    | MP.Basic.PatientMotherModel
+    | MP.Basic.PractitionerModel
+    | MP.Basic.ProcedureBaseModel<
+          | MR.V1_00_000.Profile.ProcedureAntiDProphylaxis
+          | MR.V1_00_000.Profile.ProcedureCounselling
+      >
+    | MP.AppointmentPregnancyModel
+    | MP.EncounterArrivalMaternityHospitalModel
+    | MP.ObservationMenstrualCycleModel
+    | MP.ProcedureCounsellingModel
+    | MP.ParticipantsModel
+    | MP.EncounterGeneralModel
+    | MP.EncounterInpatientTreatmentModel
+    | MP.ObservationBloodGroupSerologyModel
+    | MP.DiagnosticReportResultModel
+    | MP.DiagnosticReportResultRequireControlModel
+    | MP.InformationAboutModel
+    | MP.InformationAboutChildModel
+    | MP.InformationAboutMotherModel
+    | AdditionalCommentModel
     | AddressModel<
           | Vaccination.V1_00_000.Profile.Organization
           | ZAEB.V1_00_000.Profile.Patient
           | ZAEB.V1_00_000.Profile.Organization
+          | MR.V1_00_000.Profile.PatientMother
+          | MR.V1_00_000.Profile.Practitioner
       >
+    | PatientSimpleModel
     | TelecomModel<
           | Vaccination.V1_00_000.Profile.Practitioner
           | Vaccination.V1_00_000.Profile.PractitionerAddendum
           | Vaccination.V1_00_000.Profile.Organization
           | ZAEB.V1_00_000.Profile.Organization
+          | MR.V1_00_000.Profile.Practitioner
       >;
 
 type ModelType =
-    | typeof IM.AdditionalCommentModel
     | typeof IM.ConditionModel
     | typeof IM.ObservationModel
     | typeof IM.PatientModel
@@ -60,9 +98,43 @@ type ModelType =
     | typeof ZB.ObservationModel
     | typeof ZB.OrganizationModel
     | typeof ZB.PatientModel
+    | typeof MP.Basic.ClinicalImpressionFindingModel
+    | typeof MP.Basic.ClinicalImpressionInvestigationModel
+    | typeof MP.Basic.ClinicalImpressionModel
+    | typeof MP.Basic.EncounterModel
+    | typeof MP.Basic.ObservationModel
+    | typeof MP.Basic.OrganizationModel
+    | typeof MP.Basic.PatientChildModel
+    | typeof MP.Basic.PatientMotherModel
+    | typeof MP.Basic.PractitionerModel
+    | typeof MP.Basic.ProcedureBaseModel
+    | typeof MP.AppointmentPregnancyModel
+    | typeof MP.EncounterArrivalMaternityHospitalModel
+    | typeof MP.ObservationMenstrualCycleModel
+    | typeof MP.ProcedureCounsellingModel
+    | typeof MP.ParticipantsModel
+    | typeof MP.EncounterGeneralModel
+    | typeof MP.EncounterInpatientTreatmentModel
+    | typeof MP.ObservationBloodGroupSerologyModel
+    | typeof MP.DiagnosticReportResultModel
+    | typeof MP.DiagnosticReportResultRequireControlModel
+    | typeof MP.InformationAboutModel
+    | typeof MP.InformationAboutChildModel
+    | typeof MP.InformationAboutMotherModel
+    | typeof AdditionalCommentModel
     | typeof AddressModel
+    | typeof PatientSimpleModel
     | typeof TelecomModel;
 
 export type { ModelValue, ModelType, Model };
 
-export { BaseModel, IM, ZB, AddressModel, TelecomModel };
+export {
+    BaseModel,
+    IM,
+    ZB,
+    MP,
+    AdditionalCommentModel,
+    AddressModel,
+    PatientSimpleModel,
+    TelecomModel
+};

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -19,7 +19,7 @@
 import { History } from "history";
 
 import { KBVBundleResource, ParserUtil, Vaccination } from "@kbv/mioparser";
-import { IM } from "../../components";
+import { Util } from "../../components";
 
 import BaseModel, { ModelValue } from "../BaseModel";
 
@@ -35,10 +35,10 @@ export default class PractitionerModel extends BaseModel<
         history?: History
     ) {
         super(value, parent, history);
-        this.headline = IM.Util.getPractitionerName(this.value);
+        this.headline = Util.IM.getPractitionerName(this.value);
         this.values = [
             {
-                value: IM.Util.getPractitionerMaidenName(this.value),
+                value: Util.IM.getPractitionerMaidenName(this.value),
                 label: "Geburtsname"
             },
             {
@@ -72,9 +72,10 @@ export default class PractitionerModel extends BaseModel<
 
     protected getIdentifier(): ModelValue {
         if (this.value.identifier) {
-            const ANR = ParserUtil.getSlice<
-                Vaccination.V1_00_000.Profile.PractitionerANR
-            >(Vaccination.V1_00_000.Profile.PractitionerANR, this.value.identifier);
+            const ANR = ParserUtil.getSlice<Vaccination.V1_00_000.Profile.PractitionerANR>(
+                Vaccination.V1_00_000.Profile.PractitionerANR,
+                this.value.identifier
+            );
 
             if (ANR)
                 return {
@@ -82,9 +83,10 @@ export default class PractitionerModel extends BaseModel<
                     label: "Lebenslange Arztnummer (LANR)"
                 };
 
-            const EFN = ParserUtil.getSlice<
-                Vaccination.V1_00_000.Profile.PractitionerEFN
-            >(Vaccination.V1_00_000.Profile.PractitionerEFN, this.value.identifier);
+            const EFN = ParserUtil.getSlice<Vaccination.V1_00_000.Profile.PractitionerEFN>(
+                Vaccination.V1_00_000.Profile.PractitionerEFN,
+                this.value.identifier
+            );
 
             if (EFN)
                 return {

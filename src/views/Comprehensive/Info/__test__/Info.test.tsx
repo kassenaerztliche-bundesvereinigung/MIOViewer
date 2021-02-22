@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -19,14 +19,14 @@
 import * as ViewerTestUtil from "../../../../../test/TestUtil.test";
 import * as TestUtil from "miotestdata";
 
-import Info from "../";
+import * as Info from "../";
 
 describe("<Info />", () => {
     ViewerTestUtil.mock();
 
     const renderTest = (file: string) => {
         it(file, async (done) => {
-            const { getByText } = ViewerTestUtil.renderRoute(Info, "/info", "/info");
+            const { getByText } = ViewerTestUtil.renderRoute(Info.Info, "/info", "/info");
             expect(getByText("Hilfethemen")).toBeDefined();
             done();
         });

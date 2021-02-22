@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -18,9 +18,10 @@
 
 import React from "react";
 import { RouteComponentProps } from "react-router";
+import { withIonLifeCycle } from "@ionic/react";
 import { UI } from "../../../../components";
 
-export default class Intro extends React.Component<RouteComponentProps> {
+class Intro extends React.Component<RouteComponentProps> {
     render(): JSX.Element {
         const { history } = this.props;
 
@@ -70,3 +71,5 @@ export default class Intro extends React.Component<RouteComponentProps> {
         );
     }
 }
+
+export default withIonLifeCycle(Intro);

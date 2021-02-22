@@ -1,5 +1,5 @@
 /*!
- * Copyright (c) 2020. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -21,29 +21,42 @@
 
 .error-content {
     height: 100%;
-    position: relative;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 
-    p {
-        margin-bottom: 0;
-        padding-bottom: $space;
-        box-sizing: border-box;
+    .texts {
+        width: 100%;
+        max-height: calc(40%) !important;
+
+        p {
+            margin-bottom: 0;
+            padding-bottom: $space;
+        }
     }
 
     .error-details {
-        position: absolute;
-        bottom: $space-big * 2;
+        box-sizing: border-box;
+        padding-top: $space-big;
         width: 100%;
+        max-height: calc(60%) !important;
 
         .copy-content-box {
-            position: relative;
-            max-height: 50% !important;
-            box-sizing: border-box;
+            float: left;
+            width: 100%;
+            height: calc(100% - #{$space-big});
+            min-height: 100px;
         }
 
         .count {
+            float: left;
             width: 100%;
+            height: auto;
             margin-top: $space;
             font-size: 10px;
+            line-height: $space;
             color: white;
         }
     }

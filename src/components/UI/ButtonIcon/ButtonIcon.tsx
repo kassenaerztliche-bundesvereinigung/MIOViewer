@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -23,7 +23,7 @@ import * as Icons from "react-feather";
 import "./ButtonIcon.scss";
 
 type ButtonIconProps = {
-    icon: React.FC<Icons.Props>;
+    icon: React.FC<Icons.IconProps>;
     disabled?: boolean;
     onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
     className?: string;

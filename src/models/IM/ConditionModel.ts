@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -19,15 +19,13 @@
 import { History } from "history";
 
 import { KBVBundleResource, Vaccination } from "@kbv/mioparser";
-import { Util, IM } from "../../components";
+import { Util } from "../../components";
 
 import BaseModel from "../BaseModel";
-import { AdditionalCommentModel, PractitionerModel } from "./";
-import { TelecomModel } from "../";
+import { PractitionerModel } from "./";
+import { AdditionalCommentModel, TelecomModel } from "../";
 
-export default class ConditionModel extends BaseModel<
-    Vaccination.V1_00_000.Profile.Condition
-> {
+export default class ConditionModel extends BaseModel<Vaccination.V1_00_000.Profile.Condition> {
     constructor(
         value: Vaccination.V1_00_000.Profile.Condition,
         parent: KBVBundleResource,
@@ -53,25 +51,27 @@ export default class ConditionModel extends BaseModel<
         }
         const onset = onsetArray.join(", ");
 
-        const practitioner = IM.Util.getPractitioner(
+        const practitioner = Util.IM.getPractitioner(
             this.parent as Vaccination.V1_00_000.Profile.BundleEntry,
             this.value.recorder?.reference
         );
 
         let recorder = "-";
         if (practitioner) {
-            recorder = IM.Util.getPractitionerName(practitioner?.resource);
+            recorder = Util.IM.getPractitionerName(practitioner?.resource);
         }
 
         const notes = this.value.note?.map((n) => n.text);
 
-        let provenance = IM.Util.getProvenance(
+        let provenance = Util.IM.getProvenance(
             this.parent as Vaccination.V1_00_000.Profile.BundleEntry
         );
 
         if (provenance) {
             if (
-                provenance.resource.target.map((t) => t.reference).includes(this.value.id)
+                provenance.resource.target
+                    .map((t: { reference: string }) => t.reference)
+                    .includes(this.value.id)
             ) {
                 provenance = undefined;
             }
@@ -87,7 +87,7 @@ export default class ConditionModel extends BaseModel<
                 label: "Erkrankt als"
             },
             {
-                value: Util.formatDate(this.value.recordedDate),
+                value: Util.Misc.formatDate(this.value.recordedDate),
                 label: "Dokumentiert am"
             },
             {
@@ -98,7 +98,7 @@ export default class ConditionModel extends BaseModel<
                 value: recorder,
                 label: "Dokumentiert von",
                 onClick: this.history
-                    ? Util.toEntry(this.history, this.parent, practitioner)
+                    ? Util.Misc.toEntry(history, parent, practitioner, true)
                     : undefined,
                 subEntry: practitioner,
                 subModels: [PractitionerModel, TelecomModel, AdditionalCommentModel]

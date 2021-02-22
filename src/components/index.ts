@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -18,7 +18,5 @@
 
 import * as Util from "./Util";
 import * as UI from "./UI";
-import * as IM from "./IM";
-import * as ZB from "./ZB";
 
-export { Util, UI, IM, ZB };
+export { Util, UI };

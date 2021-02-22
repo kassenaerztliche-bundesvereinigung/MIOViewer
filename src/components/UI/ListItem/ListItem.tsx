@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -29,7 +29,11 @@ export type ListItemProps = {
     disabled?: boolean;
     className?: string;
     noValue?: boolean;
+    noLabel?: boolean;
+    clampValue?: boolean;
     innerHTML?: boolean;
+    sortValue?: string;
+    sortDirection?: "desc" | "asc";
 };
 
 export default class ListItem<P extends ListItemProps, S> extends React.Component<P, S> {
@@ -37,6 +41,7 @@ export default class ListItem<P extends ListItemProps, S> extends React.Componen
         disabled: false,
         className: "",
         noValue: false,
+        clampValue: false,
         innerHTML: false
     };
 
@@ -48,6 +53,8 @@ export default class ListItem<P extends ListItemProps, S> extends React.Componen
             disabled,
             className,
             noValue,
+            noLabel,
+            clampValue,
             innerHTML
         } = this.props;
 
@@ -55,8 +62,12 @@ export default class ListItem<P extends ListItemProps, S> extends React.Componen
             <IonItem
                 className={
                     "list-item item ios in-list item-label " +
-                    className +
-                    (onClick ? " clickable ion-activatable ion-focusable" : "")
+                    (onClick
+                        ? " clickable ion-activatable ion-focusable"
+                        : "ion-no-padding ion-margin-horizontal") +
+                    (clampValue ? " clamp-value" : "") +
+                    (noLabel ? " no-label " : " ") +
+                    className
                 }
                 onClick={onClick}
                 disabled={disabled}
@@ -81,7 +92,7 @@ export default class ListItem<P extends ListItemProps, S> extends React.Componen
                                 }}
                             />
                         ))}
-                    <label>{label}</label>
+                    {!noLabel && <label>{label}</label>}
                 </IonLabel>
                 {onClick && !className?.includes("small") && (
                     <IonNote

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -33,7 +33,7 @@ export interface MIOViewerRootState {
 }
 
 // Change to persist MIOs in localStorage for development
-const useLocalStore = false;
+const useLocalStore = true;
 
 const miosName = "MIO-Viewer-MIOs";
 let storedMIOs = undefined;

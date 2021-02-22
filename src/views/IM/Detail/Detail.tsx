@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -16,200 +16,98 @@
  * along with MIO Viewer. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import React from "react";
+import { MIOConnector } from "../../../store";
+import { Util, UI } from "../../../components/";
+
+import * as Models from "../../../models";
+import DetailBase, { DetailMapping } from "../../Comprehensive/Detail/DetailBase";
 
 import { Vaccination } from "@kbv/mioparser";
 
-import { RouteComponentProps } from "react-router";
-import { MIOConnector, MIOConnectorType } from "../../../store";
+class Detail extends DetailBase<Vaccination.V1_00_000.Profile.BundleEntry> {
+    protected getHeaderClass(): UI.MIOClassName {
+        return "impfpass";
+    }
 
-import { UI, IM } from "../../../components/";
-import * as Models from "../../../models";
-
-import DetailComponent from "../../../components/Detail";
-import PatientDetailList from "../../../components/PatientDetailList";
-
-type DetailProps = MIOConnectorType & RouteComponentProps;
-
-class Detail extends React.Component<DetailProps> {
-    getDetail = ():
-        | { headline: string; testIdSuffix?: string; component: JSX.Element }
-        | undefined => {
-        const { mio, entry, history, location, match } = this.props;
-
-        if (mio && entry) {
-            const resource = entry.resource;
-            const props = {
-                mio: mio,
-                entry: resource,
-                history: history,
-                location: location,
-                match: match
-            };
-
-            if (Vaccination.V1_00_000.Profile.RecordPrime.is(resource)) {
-                const model = new Models.IM.RecordPrimeModel(resource, mio, history);
-                return {
-                    headline: "Details zur Impfung",
-                    testIdSuffix: "record",
-                    component: <DetailComponent {...props} models={[model]} />
-                };
-            } else if (Vaccination.V1_00_000.Profile.RecordAddendum.is(resource)) {
-                const model = new Models.IM.RecordAddendumModel(resource, mio, history);
-                return {
-                    headline: "Details zur Impfung",
-                    testIdSuffix: "record",
-                    component: <DetailComponent {...props} models={[model]} />
-                };
-            } else if (Vaccination.V1_00_000.Profile.Condition.is(resource)) {
-                const model = new Models.IM.ConditionModel(resource, mio, history);
-                return {
-                    headline: "Details zur Erkrankung",
-                    testIdSuffix: "condition",
-                    component: <DetailComponent {...props} models={[model]} />
-                };
-            } else if (
-                Vaccination.V1_00_000.Profile.ObservationImmunizationStatus.is(resource)
-            ) {
-                const model = new Models.IM.ObservationModel(resource, mio, history);
-                return {
-                    headline: "Details zur Immunreaktion",
-                    testIdSuffix: "observation",
-                    component: <DetailComponent {...props} models={[model]} />
-                };
-            } else if (Vaccination.V1_00_000.Profile.Patient.is(resource)) {
-                let headline = "Patient/-in";
-
-                if (resource.gender === "männlich") {
-                    headline = "Patient";
-                } else if (resource.gender === "weiblich") {
-                    headline = "Patientin";
-                }
-
-                const model = new Models.IM.PatientModel(resource, mio, history);
-                return {
-                    headline: headline,
-                    testIdSuffix: "patient",
-                    component: <DetailComponent {...props} models={[model]} />
-                };
-            } else if (
-                Vaccination.V1_00_000.Profile.Practitioner.is(resource) ||
-                Vaccination.V1_00_000.Profile.PractitionerAddendum.is(resource)
-            ) {
-                const practitioner = new Models.IM.PractitionerModel(
-                    resource,
-                    mio,
-                    history
-                );
-                const telecom = new Models.TelecomModel(resource, mio, history);
-                const comment = new Models.IM.AdditionalCommentModel(
-                    resource,
-                    mio,
-                    history
-                );
-                return {
-                    headline: "Details zur Person",
-                    testIdSuffix: "practitioner",
-                    component: (
-                        <DetailComponent
-                            {...props}
-                            models={[practitioner, telecom, comment]}
-                        />
-                    )
-                };
-            } else if (Vaccination.V1_00_000.Profile.Organization.is(resource)) {
-                const model = new Models.IM.OrganizationModel(resource, mio, history);
-                const address = new Models.AddressModel(resource, mio, history);
-                const telecom = new Models.TelecomModel(resource, mio, history);
-                const comment = new Models.IM.AdditionalCommentModel(
-                    resource,
-                    mio,
-                    history
-                );
-
-                return {
-                    headline: "Details zur Organisation",
-                    testIdSuffix: "organization",
-                    component: (
-                        <DetailComponent
-                            {...props}
-                            models={[model, address, telecom, comment]}
-                        />
-                    )
-                };
-            } else {
-                const profile: string = entry.resource.meta.profile[0];
-                return {
-                    headline: "Sorry",
-                    component: (
-                        <UI.Error
-                            errors={[
-                                `Das Detail zum Profil ${profile
-                                    .split("/")
-                                    .pop()} kann nicht angezeigt werden`
-                            ]}
-                            backClick={() => history.goBack()}
-                        />
-                    )
-                };
-            }
+    static mappings = [
+        {
+            profile: Vaccination.V1_00_000.Profile.RecordPrime,
+            header: "Details zur Impfung",
+            models: [Models.IM.RecordPrimeModel]
+        },
+        {
+            profile: Vaccination.V1_00_000.Profile.RecordAddendum,
+            header: "Details zur Impfung",
+            models: [Models.IM.RecordAddendumModel]
+        },
+        {
+            profile: Vaccination.V1_00_000.Profile.Condition,
+            header: "Details zur Erkrankung",
+            models: [Models.IM.ConditionModel]
+        },
+        {
+            profile: Vaccination.V1_00_000.Profile.ObservationImmunizationStatus,
+            header: "Details zur Immunreaktion",
+            models: [Models.IM.ObservationModel]
+        },
+        {
+            profile: Vaccination.V1_00_000.Profile.Patient,
+            header: "Patient/-in",
+            models: [Models.IM.PatientModel]
+        },
+        {
+            profile: Vaccination.V1_00_000.Profile.Practitioner,
+            header: "Details zur Person",
+            models: [
+                Models.IM.PractitionerModel,
+                Models.TelecomModel,
+                Models.AdditionalCommentModel
+            ]
+        },
+        {
+            profile: Vaccination.V1_00_000.Profile.PractitionerAddendum,
+            header: "Details zur Person",
+            models: [
+                Models.IM.PractitionerModel,
+                Models.TelecomModel,
+                Models.AdditionalCommentModel
+            ]
+        },
+        {
+            profile: Vaccination.V1_00_000.Profile.Organization,
+            header: "Details zur Organisation",
+            models: [
+                Models.IM.OrganizationModel,
+                Models.AddressModel,
+                Models.TelecomModel,
+                Models.AdditionalCommentModel
+            ]
         }
-    };
+    ];
+    protected getMappings(): DetailMapping[] {
+        return Detail.mappings;
+    }
 
-    render(): JSX.Element {
-        const { mio, entry, history, location, match, makePDF } = this.props;
-        const detail = this.getDetail();
-
-        if (mio && entry && detail) {
-            const patient = IM.Util.getPatient(
-                mio as Vaccination.V1_00_000.Profile.BundleEntry
-            );
-            const showPatient =
+    protected showPatient(): boolean {
+        const { entry } = this.props;
+        if (entry) {
+            return (
                 Vaccination.V1_00_000.Profile.RecordPrime.is(entry.resource) ||
                 Vaccination.V1_00_000.Profile.RecordAddendum.is(entry.resource) ||
                 Vaccination.V1_00_000.Profile.ObservationImmunizationStatus.is(
                     entry.resource
                 ) ||
-                Vaccination.V1_00_000.Profile.Condition.is(entry.resource);
-
-            return (
-                <UI.BasicView
-                    headline={detail.headline}
-                    headerClass={"impfpass"}
-                    padding={false}
-                    back={() => history.goBack()}
-                    pdfDownload={() => makePDF(mio)}
-                    testId={"im-detail"}
-                    id={mio.identifier.value + "-" + entry.resource.id}
-                >
-                    <div
-                        className={"im-detail"}
-                        data-testid={
-                            "im-detail" +
-                            (detail.testIdSuffix ? `-${detail.testIdSuffix}` : "")
-                        }
-                    >
-                        {detail.component}
-
-                        {showPatient && patient && (
-                            <PatientDetailList
-                                mio={mio}
-                                entry={patient.resource}
-                                history={history}
-                                location={location}
-                                match={match}
-                            />
-                        )}
-                    </div>
-                </UI.BasicView>
+                Vaccination.V1_00_000.Profile.Condition.is(entry.resource)
             );
         } else {
-            const errors = [
-                !mio ? "MIO nicht gefunden" : "",
-                !entry ? "Eintrag nicht gefunden" : ""
-            ];
-            return <UI.Error errors={errors} backClick={() => history.push("/main")} />;
+            return false;
         }
+    }
+
+    protected getPatient() {
+        const { mio } = this.props;
+        return Util.IM.getPatient(mio as Vaccination.V1_00_000.Profile.BundleEntry)
+            ?.resource;
     }
 }
 

@@ -1,5 +1,5 @@
 /*!
- * Copyright (c) 2020. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -19,16 +19,81 @@
 @import "../../../assets/css/colors";
 @import "../../../assets/css/variables";
 
-.entry-group,
 .detail-list {
-    margin-top: 0;
-    padding-top: $space;
-
     h5 {
+        min-height: $space-big * 2;
         z-index: 9;
         background-color: $white;
-        padding-bottom: 0;
-        margin-bottom: $space-small;
+        padding: 0 $space;
+        margin: 0;
+
+        .inner {
+            padding: $space + $space-small / 2 0;
+
+            span {
+                display: inline-block;
+                color: inherit;
+                font-family: inherit;
+                font-weight: inherit;
+
+                &.text {
+                    width: calc(100% - #{$space} - #{$space-small});
+                }
+
+                &.toggle {
+                    width: $space;
+                    margin-left: $space-small;
+                    display: flex;
+                    align-items: center;
+
+                    svg {
+                        height: $space;
+                        width: $space;
+                        stroke: $green;
+                        stroke-width: 3px; // Original size is 24px, size now 16px so we need to scale the size * 1.5
+                        transition: transform $duration $easing;
+                    }
+                }
+            }
+        }
+    }
+
+    &.expandable {
+        h5 {
+            transition: background-color $duration $easing;
+
+            .inner {
+                display: flex;
+                justify-content: center;
+                border-bottom: 1px solid $anthracite-8;
+                transition: border-bottom-color $duration $easing;
+            }
+        }
+
+        &.expanded {
+            h5 {
+                background-color: $green-6;
+                color: white;
+
+                .inner {
+                    border-bottom: 1px solid transparent;
+
+                    span.toggle {
+                        svg {
+                            transform: rotate(180deg);
+                            stroke: white;
+                        }
+                    }
+                }
+            }
+        }
+
+        /*
+        TODO: remove border of last item if next detail list is expanded?
+        ion-item:last-of-type {
+            --border-color: transparent !important;
+        }
+         */
     }
 
     small {
@@ -39,16 +104,4 @@
         padding-left: $desktop-space;
         padding-right: $desktop-space;
     }
-
-    // TODO: Geht nicht ZAEB Kontaktinformationen - Unter „Kontaktinformationen“ sind derzeit keine Inhalte vorhanden.
 }
-
-/*
-.detail-list {
-  &:not(.expandable) {
-    ion-item:last-of-type {
-      --border-color: transparent !important;
-    }
-  }
-}
- */

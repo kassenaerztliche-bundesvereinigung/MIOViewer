@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -23,7 +23,7 @@ import { render } from "@testing-library/react";
 import * as ViewerTestUtil from "../../../test/TestUtil.test";
 import * as TestUtil from "miotestdata";
 
-import Detail from "../Detail";
+import Detail from "../Detail/Detail";
 
 import MIOParser, {
     ParserUtil,
@@ -34,7 +34,7 @@ import MIOParser, {
 
 import * as ModelsZB from "../../models/ZB";
 import * as ModelsIM from "../../models/IM";
-import { AddressModel, Model, TelecomModel } from "../../models";
+import { AdditionalCommentModel, AddressModel, Model, TelecomModel } from "../../models";
 import { History } from "history";
 
 describe("<Components.Detail />", () => {
@@ -126,7 +126,7 @@ describe("<Components.Detail />", () => {
                         ModelsIM.OrganizationModel,
                         AddressModel,
                         TelecomModel,
-                        ModelsIM.AdditionalCommentModel
+                        AdditionalCommentModel
                     ],
                     component: Detail,
                     required: ["Postleitzahl"],
@@ -152,7 +152,7 @@ describe("<Components.Detail />", () => {
                     models: [
                         ModelsIM.PractitionerModel,
                         TelecomModel,
-                        ModelsIM.AdditionalCommentModel
+                        AdditionalCommentModel
                     ],
                     component: Detail,
                     required: ["Funktionsbezeichnung"],
@@ -168,7 +168,7 @@ describe("<Components.Detail />", () => {
                     models: [
                         ModelsIM.PractitionerModel,
                         TelecomModel,
-                        ModelsIM.AdditionalCommentModel
+                        AdditionalCommentModel
                     ],
                     required: [],
                     contain: [
@@ -220,9 +220,7 @@ describe("<Components.Detail />", () => {
                     contain: [
                         /(GKV)|(PID)/,
                         "Anschrift",
-                        "Straße",
-                        "Hausnummer",
-                        "Adresszusatz",
+                        "Adresszeile",
                         "Postleitzahl",
                         "Stadt",
                         "Land"
@@ -233,7 +231,6 @@ describe("<Components.Detail />", () => {
     ];
 
     const renderTest = (bundles: string[], details: DetailsValue) => {
-        // TODO: Weird error: details not defined
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         type BundleType = details.bundle;

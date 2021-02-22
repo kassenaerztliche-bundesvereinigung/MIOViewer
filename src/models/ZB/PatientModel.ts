@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -19,7 +19,7 @@
 import { History } from "history";
 
 import { KBVBundleResource, ZAEB } from "@kbv/mioparser";
-import { Util, ZB } from "../../components";
+import { Util } from "../../components";
 
 import BaseModel, { ModelValue } from "../BaseModel";
 
@@ -31,10 +31,10 @@ export default class PatientModel extends BaseModel<ZAEB.V1_00_000.Profile.Patie
     ) {
         super(value, parent, history);
 
-        this.headline = ZB.Util.getPatientName(this.value);
+        this.headline = Util.ZB.getPatientName(this.value);
         this.values = [
             {
-                value: Util.formatDate(this.value.birthDate),
+                value: Util.Misc.formatDate(this.value.birthDate),
                 label: "Geburtsdatum"
             },
             ...this.getIdentifier()
@@ -42,7 +42,9 @@ export default class PatientModel extends BaseModel<ZAEB.V1_00_000.Profile.Patie
     }
 
     public getIdentifier(): ModelValue[] {
-        return Util.getPatientIdentifier(this.value).map((identifier) => identifier);
+        return Util.Misc.getPatientIdentifier(this.value).map(
+            (identifier) => identifier as ModelValue
+        );
     }
 
     public toString(): string {

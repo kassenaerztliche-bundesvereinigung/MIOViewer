@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -26,7 +26,7 @@ import * as TestUtil from "miotestdata";
 
 import MIOParser, { Vaccination, ZAEB } from "@kbv/mioparser";
 
-import { IM, ZB } from "../index";
+import { Util } from "../index";
 import PatientCard from "../PatientCard";
 
 describe("<PatientCard />", () => {
@@ -40,12 +40,12 @@ describe("<PatientCard />", () => {
         {
             mioString: "IM",
             bundleType: Vaccination.V1_00_000.Profile.BundleEntry,
-            getFunction: IM.Util.getPatient
+            getFunction: Util.IM.getPatient
         },
         {
             mioString: "ZB",
             bundleType: ZAEB.V1_00_000.Profile.Bundle,
-            getFunction: ZB.Util.getPatient
+            getFunction: Util.ZB.getPatient
         }
     ];
 

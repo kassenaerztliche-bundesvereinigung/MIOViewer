@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -36,6 +36,7 @@ type BasicViewProps = {
 
 type BasicViewState = {
     headerPercent: number;
+    visible: boolean;
 };
 
 class BasicView extends React.Component<BasicViewProps, BasicViewState> {
@@ -56,7 +57,8 @@ class BasicView extends React.Component<BasicViewProps, BasicViewState> {
         this.contentRef = React.createRef();
 
         this.state = {
-            headerPercent: 0
+            headerPercent: 0,
+            visible: false
         };
     }
 
@@ -76,15 +78,6 @@ class BasicView extends React.Component<BasicViewProps, BasicViewState> {
             }
 
             const percentClamped = Math.min(1, Math.max(0, percent));
-            /*
-            console.log("header:    " + this.headerHeight);
-            console.log("content:   " + this.totalContentHeight);
-            console.log("viewport:  " + this.viewportHeight);
-            console.log("maxScroll: " + maxScroll);
-            console.log("scrollPos: " + scrollPosition);
-
-            console.log(percentClamped);
-            */
 
             this.setState({
                 headerPercent: percentClamped
@@ -108,8 +101,16 @@ class BasicView extends React.Component<BasicViewProps, BasicViewState> {
     }
 
     ionViewDidEnter(): void {
-        this.setState({ headerPercent: 0 });
         this.updateScrollValues();
+        this.setState({ visible: true });
+    }
+
+    ionViewWillLeave(): void {
+        this.setState({ visible: false });
+    }
+
+    ionViewDidLeave(): void {
+        this.setState({ visible: false });
     }
 
     render(): JSX.Element {
@@ -125,12 +126,21 @@ class BasicView extends React.Component<BasicViewProps, BasicViewState> {
             id
         } = this.props;
 
+        const { headerPercent, visible } = this.state;
+
         return (
-            <IonPage className={className} id={"view-" + id}>
+            <IonPage
+                className={
+                    (className ? className : " ") +
+                    (visible ? " current-active-page" : "")
+                }
+                key={id}
+                id={id ? "view-" + id : ""}
+            >
                 <Header
                     headline={headline}
                     headerClass={headerClass}
-                    percent={this.state.headerPercent}
+                    percent={headerPercent}
                     back={back}
                     pdfDownload={pdfDownload}
                 />

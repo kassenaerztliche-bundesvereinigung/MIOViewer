@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -19,15 +19,13 @@
 import { History } from "history";
 
 import { KBVBundleResource, Vaccination } from "@kbv/mioparser";
-import { Util, IM } from "../../components";
+import { Util } from "../../components";
 
 import BaseModel from "../BaseModel";
-import { AdditionalCommentModel, PractitionerModel } from "./index";
-import { TelecomModel } from "../Comprehensive";
+import { PractitionerModel } from "./index";
+import { AdditionalCommentModel, TelecomModel } from "../Comprehensive";
 
-export default class ObservationModel extends BaseModel<
-    Vaccination.V1_00_000.Profile.ObservationImmunizationStatus
-> {
+export default class ObservationModel extends BaseModel<Vaccination.V1_00_000.Profile.ObservationImmunizationStatus> {
     constructor(
         value: Vaccination.V1_00_000.Profile.ObservationImmunizationStatus,
         parent: KBVBundleResource,
@@ -38,7 +36,7 @@ export default class ObservationModel extends BaseModel<
         this.headline = this.value.code.text;
 
         this.values.push({
-            value: Util.formatDate(this.value.issued),
+            value: Util.Misc.formatDate(this.value.issued),
             label: "Datum des Tests"
         });
 
@@ -49,7 +47,7 @@ export default class ObservationModel extends BaseModel<
 
         this.values.push({
             value:
-                this.value.note && this.value.note.length > 0
+                this.value.note && this.value.note.length
                     ? this.value.note.map((n) => n.text).join(", ")
                     : "-",
             label: "Anmerkungen zum durchgeführten Test"
@@ -60,17 +58,17 @@ export default class ObservationModel extends BaseModel<
         let performer = undefined;
         if (this.value.performer && this.value.performer.length > 0) {
             performerRef = this.value.performer[0].reference;
-            performer = IM.Util.getPractitioner(
+            performer = Util.IM.getPractitioner(
                 this.parent as Vaccination.V1_00_000.Profile.BundleEntry,
                 performerRef
             );
-            performerName = IM.Util.getPractitionerName(performer?.resource);
+            performerName = Util.IM.getPractitionerName(performer?.resource);
         }
 
         this.values.push({
             value: performerName ? performerName : "-",
             label: "Dokumentiert von",
-            onClick: Util.toEntryByRef(history, this.parent, performerRef),
+            onClick: Util.Misc.toEntryByRef(history, parent, performerRef, true),
             subEntry: performer,
             subModels: [PractitionerModel, TelecomModel, AdditionalCommentModel]
         });

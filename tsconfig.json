@@ -16,7 +16,9 @@
         "isolatedModules": true,
         "noEmit": true,
         "jsx": "react",
-        "sourceMap": true
+        "sourceMap": true,
+        "typeRoots": ["src/customTypings", "node_modules/@types"]
     },
+    "exclude": ["node_modules", "src/customTypings"],
     "include": ["src", "root"]
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -84,6 +84,8 @@ describe("<Main />", () => {
                 text = "Impfpass";
             } else if (value.mioString === "ZB") {
                 text = "Zahnärztliches Bonusheft";
+            } else if (value.mioString === "MR") {
+                text = "Mutterpass";
             }
 
             if (text) {
@@ -91,7 +93,7 @@ describe("<Main />", () => {
             }
 
             done();
-        });
+        }, 30000);
     };
 
     TestUtil.runAllBundles("Rendert", renderTest);

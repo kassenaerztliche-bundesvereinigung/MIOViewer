@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -21,10 +21,12 @@ import React from "react";
 import { RouteComponentProps } from "react-router";
 
 import { MIOConnector, MIOConnectorType } from "../../../store";
-import { Vaccination, ZAEB } from "@kbv/mioparser";
+import { Vaccination, ZAEB, MR } from "@kbv/mioparser";
 
 import DetailIM from "../../IM/Detail";
 import DetailZAEB from "../../ZB/Detail";
+import DetailMP from "../../MP/Detail";
+
 import { UI } from "../../../components";
 
 class Detail extends React.Component<MIOConnectorType & RouteComponentProps> {
@@ -51,6 +53,15 @@ class Detail extends React.Component<MIOConnectorType & RouteComponentProps> {
                         match={match}
                     />
                 );
+            } else if (MR.V1_00_000.Profile.Bundle.is(mio)) {
+                component = (
+                    <DetailMP
+                        mio={mio}
+                        history={history}
+                        location={location}
+                        match={match}
+                    />
+                );
             }
         }
 
@@ -67,7 +78,7 @@ class Detail extends React.Component<MIOConnectorType & RouteComponentProps> {
                           .pop()} kann nicht angezeigt werden`
                     : ""
             ];
-            return <UI.Error errors={errors} backClick={() => history.push("/main")} />;
+            return <UI.Error errors={errors} backClick={() => history.goBack()} />;
         }
     }
 }

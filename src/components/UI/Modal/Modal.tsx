@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -97,7 +97,16 @@ export default class Modal extends React.Component<ModalProps> {
                         </h2>
                     )}
                 </div>
-                <div className={"modal-content"}>{content}</div>
+                <div
+                    className={
+                        "modal-content " +
+                        ((negativeText && onNegative) || (positiveText && onPositive)
+                            ? "has-buttons"
+                            : "")
+                    }
+                >
+                    {content}
+                </div>
                 {((positiveText && onPositive) || (negativeText && onNegative)) && (
                     <div className={"modal-buttons"}>
                         {negativeText && onNegative && (

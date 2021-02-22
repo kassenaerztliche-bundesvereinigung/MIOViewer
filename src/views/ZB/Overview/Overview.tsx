@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -21,7 +21,7 @@ import { History } from "history";
 
 import { ZAEB, ZAEBResource, MIOEntry, ParserUtil } from "@kbv/mioparser";
 
-import { ZB, UI, Util } from "../../../components/";
+import { UI, Util } from "../../../components/";
 import PatientCard from "../../../components/PatientCard";
 
 type OverviewGroup = {
@@ -117,27 +117,30 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
             if (ZAEB.V1_00_000.Profile.Observation.is(values.entry.resource)) {
                 return (
                     <UI.ListItem
-                        value={Util.formatDate(values.entry.resource.effectiveDateTime)}
-                        label={ZB.Util.getObservationDisplay(values.entry.resource)}
-                        onClick={Util.toEntry(history, mio, values.entry)}
+                        value={Util.Misc.formatDate(
+                            values.entry.resource.effectiveDateTime
+                        )}
+                        label={Util.ZB.getObservationDisplay(values.entry.resource)}
+                        onClick={Util.Misc.toEntry(history, mio, values.entry)}
                         key={"item_" + values.index}
                     />
                 );
             } else if (
                 ZAEB.V1_00_000.Profile.GaplessDocumentation.is(values.entry.resource)
             ) {
-                const composition = ParserUtil.getEntry<
-                    ZAEB.V1_00_000.Profile.Composition
-                >(mio, [ZAEB.V1_00_000.Profile.Composition]);
+                const composition = ParserUtil.getEntry<ZAEB.V1_00_000.Profile.Composition>(
+                    mio,
+                    [ZAEB.V1_00_000.Profile.Composition]
+                );
 
-                const from = Util.formatDate(values.entry.resource.valueDateTime);
-                const to = Util.formatDate(composition?.resource.date);
+                const from = Util.Misc.formatDate(values.entry.resource.valueDateTime);
+                const to = Util.Misc.formatDate(composition?.resource.date);
 
                 return (
                     <UI.ListItem
                         value={`${from} - ${to}`}
                         label={"Lückenlose Dokumentation"}
-                        onClick={Util.toEntry(history, mio, values.entry)}
+                        onClick={Util.Misc.toEntry(history, mio, values.entry)}
                         key={"item_" + values.index}
                     />
                 );
@@ -167,14 +170,14 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
     render(): JSX.Element {
         const { mio, history } = this.props;
 
-        const patient = ZB.Util.getPatient(mio);
+        const patient = Util.ZB.getPatient(mio);
 
         return (
             <div className={"zb-overview"} data-testid={"zb-overview"}>
                 {patient && (
                     <div
                         className={"ion-padding"}
-                        onClick={Util.toEntry(history, mio, patient)}
+                        onClick={Util.Misc.toEntry(history, mio, patient)}
                     >
                         <PatientCard patient={patient.resource} />
                     </div>
