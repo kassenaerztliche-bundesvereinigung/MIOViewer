@@ -40,7 +40,7 @@ Folgende MIOs können vom Viewer angezeigt werden:
 
 ## Setup
 
-Die folgenden Anweisungenen sollen helfen die Software herunterzuladen, installieren und auszuführen.
+Die folgenden Anweisungen sollen helfen die Software herunterzuladen, installieren und auszuführen.
 
 ### Voraussetzungen 
 

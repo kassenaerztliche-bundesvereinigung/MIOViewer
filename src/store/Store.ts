@@ -33,7 +33,7 @@ export interface MIOViewerRootState {
 }
 
 // Change to persist MIOs in localStorage for development
-const useLocalStore = true;
+const useLocalStore = false;
 
 const miosName = "MIO-Viewer-MIOs";
 let storedMIOs = undefined;
