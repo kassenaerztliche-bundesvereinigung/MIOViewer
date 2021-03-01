@@ -22,7 +22,6 @@ import * as Icons from "react-feather";
 import { IonHeader } from "@ionic/react";
 import ButtonIcon from "../ButtonIcon";
 
-// import TextFit from "react-textfit";
 import { ReactFitty } from "react-fitty";
 
 import "./Header.scss";
@@ -33,15 +32,24 @@ type HeaderProps = {
     percent: number;
     pdfDownload?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
     back?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+    isExample?: boolean;
 };
 
 export default class Header extends React.Component<HeaderProps> {
     static defaultProps = {
-        percent: 0
+        percent: 0,
+        isExample: false
     };
 
     render(): JSX.Element {
-        const { headline, headerClass, percent, back, pdfDownload } = this.props;
+        const {
+            headline,
+            headerClass,
+            percent,
+            back,
+            pdfDownload,
+            isExample
+        } = this.props;
 
         const p = 64 * percent;
         const divStyle = {
@@ -66,9 +74,18 @@ export default class Header extends React.Component<HeaderProps> {
         };
 
         const classes = ["miov", headerClass];
+        if (isExample) classes.push("example");
+
         return (
             <IonHeader className={classes.join(" ")} style={divStyle}>
                 <nav style={navStyle} data-testid={"header-nav"}>
+                    {isExample && (
+                        <div className={"example-hint"}>
+                            <p>
+                                <b>Hinweis:</b> Das ist ein MIO Beispiel.
+                            </p>
+                        </div>
+                    )}
                     {back && (
                         <ButtonIcon
                             icon={Icons.CornerUpLeft}
@@ -91,21 +108,11 @@ export default class Header extends React.Component<HeaderProps> {
 
                 <div className={"headline-container"} style={textStyle}>
                     <h2 style={hlStyle} data-testid={"header-headline"}>
-                        {/*
-                        <TextFit mode={"multi"} min={12} max={32}>
-                            {headline}
-                        </TextFit>
-                        */}
                         <ReactFitty minSize={20} maxSize={32} wrapText={true}>
                             {headline}
                         </ReactFitty>
                     </h2>
                     <h5 style={hl5Style}>
-                        {/*
-                        <TextFit mode={"multi"} min={8} max={16}>
-                            {headline}
-                        </TextFit>
-                        */}
                         <ReactFitty minSize={8} maxSize={16}>
                             {headline}
                         </ReactFitty>

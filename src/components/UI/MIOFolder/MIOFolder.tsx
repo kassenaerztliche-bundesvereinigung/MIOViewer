@@ -61,6 +61,7 @@ export default class MIOFolder extends React.Component<MIOFolderProps> {
                 >
                     <title>Ein Ordner-Symbol das ein MIO repräsentiert</title>
                     {!outlined ? (
+                        // TODO: update outlined version halfpixel error
                         <path d="M148,128 L12,128 C 5.5,128 0,122.5 0,116 L0,12 C 0,5.5 5.5,0 12,0 L56,0 L56,0 L67,13 L148,13 C 154.5,13 160,18.5 160,25 L160,116 C 160,122.5 154.5,128 148,128 Z" />
                     ) : (
                         <path d="M147,127 L12,127 C 5.5,127 1,122.5 1,116 L1,12 C 1,5.5 5.5,1 12,1 L56,1 L56,1 L67,13 L147,13 C 154.5,13 159,18.5 159,25 L159,116 C 159,122.5 154.5,127 147,127 Z" />

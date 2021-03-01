@@ -88,6 +88,7 @@ export function createStoreWithMios(mios: KBVBundleResource[]): any {
         {
             mioState: {
                 mios: mios,
+                examples: [],
                 loading: false
             },
             settingsState: {

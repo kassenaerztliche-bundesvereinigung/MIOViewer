@@ -24,6 +24,25 @@ ion-header.miov {
     position: relative;
     background-color: $white;
 
+    .example-hint {
+        width: 100%;
+        background-color: $anthracite-dark;
+        height: $space-2;
+
+        p {
+            line-height: $space-2;
+            font-size: 10px;
+            color: $green-6;
+            text-align: center;
+            margin: 0;
+            padding: 0 $space-small;
+
+            b {
+                font-family: "Montserrat-Bold", sans-serif;
+            }
+        }
+    }
+
     &::after {
         display: none;
     }
@@ -84,7 +103,8 @@ ion-header.miov {
     &.impfpass,
     &.zaeb,
     &.mutterpass,
-    &.uheft {
+    &.uheft,
+    &.basic {
         nav {
             button.icon {
                 svg {
@@ -105,18 +125,46 @@ ion-header.miov {
 
     &.impfpass {
         background-color: $impfpass-color;
+
+        .example-hint {
+            p {
+                color: $impfpass-color;
+            }
+        }
     }
 
     &.zaeb {
         background-color: $zaeb-color;
+
+        .example-hint {
+            p {
+                color: $zaeb-color;
+            }
+        }
     }
 
     &.mutterpass {
         background-color: $mutterpass-color;
+
+        .example-hint {
+            p {
+                color: $mutterpass-color;
+            }
+        }
     }
 
     &.uheft {
         background-color: $uheft-color;
+
+        .example-hint {
+            p {
+                color: $uheft-color;
+            }
+        }
+    }
+
+    &.basic {
+        background-color: $green-6;
     }
 
     @include for-tablet-up {
@@ -125,11 +173,23 @@ ion-header.miov {
         nav {
             padding-top: $space-big;
         }
+
+        .example-hint {
+            position: absolute;
+            top: 0;
+        }
+    }
+
+    &.example {
+        height: $space-big * 4 + $space-2;
+
+        .headline-container {
+            margin-top: $space-2;
+        }
     }
 }
 
 .text-fit-container {
-    // background-color: red;
     height: 100%;
     width: 100%;
 }

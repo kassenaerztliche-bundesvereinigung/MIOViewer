@@ -40,9 +40,6 @@ describe("<Home />", () => {
         expect(getByTestId("intro-text")).toBeDefined();
         expect(getByTestId("input-file")).toBeDefined();
         expect(getByTestId("input-type-file")).toBeDefined();
-
-        const lottie = getByTestId("lottie-add-mio");
-        expect(lottie.querySelector("svg")).toBeTruthy();
     });
 
     const storeTest = (file: string) => {

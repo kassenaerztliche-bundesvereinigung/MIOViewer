@@ -49,6 +49,7 @@ import Intro from "./views/Comprehensive/Intro";
 import Home from "./views/Comprehensive/Home";
 import Main from "./views/Comprehensive/Main";
 import Profil from "./views/Comprehensive/Profil";
+import Examples from "./views/Comprehensive/Examples";
 import Overview from "./views/Comprehensive/Overview";
 import OverviewSection from "./views/Comprehensive/OverviewSection";
 import * as Info from "./views/Comprehensive/Info";
@@ -117,6 +118,11 @@ class App extends React.Component<Record<string, unknown>, AppState> {
                                     <Route exact path={"/home"} component={Home} />
                                     <Route exact path={"/main"} component={Main} />
                                     <Route exact path={"/profil"} component={Profil} />
+                                    <Route
+                                        exact
+                                        path={"/examples"}
+                                        component={Examples}
+                                    />
 
                                     <Route
                                         path={"/entry/:id/:entry"}

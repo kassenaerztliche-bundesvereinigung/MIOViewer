@@ -74,6 +74,7 @@
             label {
                 font-size: 0.625rem;
                 font-family: "Montserrat-SemiBold", sans-serif;
+                color: $green-4;
             }
 
             p {
@@ -94,7 +95,7 @@
         &.outlined {
             fill: transparent;
             stroke: rgba($anthracite, 0.3);
-            stroke-width: 2px;
+            stroke-width: 1px;
         }
 
         .label-bg {
@@ -118,33 +119,83 @@
         &.hasLabel {
             padding-bottom: $space;
         }
+
+        svg {
+            stroke: $green-4;
+            stroke-width: 1.5px;
+            height: $space-big + $space-small / 4;
+            width: $space-big + $space-small / 4;
+        }
+    }
+
+    &.impfpass,
+    &.zaeb,
+    &.mutterpass,
+    &.uheft {
+        svg.folder {
+            stroke: transparent;
+        }
+
+        .text-container {
+            label {
+                color: white;
+            }
+        }
     }
 
     &.impfpass {
         svg.folder {
             fill: $impfpass-color;
-            stroke: transparent;
         }
     }
 
     &.zaeb {
         svg.folder {
             fill: $zaeb-color;
-            stroke: transparent;
         }
     }
 
     &.mutterpass {
         svg.folder {
             fill: $mutterpass-color;
-            stroke: transparent;
         }
     }
 
     &.uheft {
         svg.folder {
             fill: $uheft-color;
-            stroke: transparent;
+        }
+    }
+}
+
+.mio-examples,
+.add-mio {
+    .mio-folder {
+        .content {
+            padding-top: $space;
+        }
+
+        .text-container {
+            label {
+                font-size: 15.5px;
+                font-family: "Montserrat-Regular", sans-serif;
+            }
+        }
+    }
+}
+
+.add-mio {
+    .mio-folder {
+        .content {
+            svg {
+                stroke: white;
+            }
+        }
+
+        .text-container {
+            label {
+                color: white;
+            }
         }
     }
 }

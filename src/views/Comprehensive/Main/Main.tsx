@@ -18,246 +18,91 @@
 
 import React from "react";
 import * as Icons from "react-feather";
+import { withIonLifeCycle } from "@ionic/react";
 
-import { RouteComponentProps } from "react-router";
-import { IonSlide, IonSlides, withIonLifeCycle } from "@ionic/react";
-
-import { Vaccination, ZAEB, MR } from "@kbv/mioparser";
-import { MIOConnector, MIOConnectorType } from "../../../store";
-
-import { UI, Util } from "../../../components";
+import { MIOConnector } from "../../../store";
+import { UI } from "../../../components";
 
 import "./Main.scss";
 
-export type MainViewState = {
-    slides: JSX.Element[][];
-    currentIndex: number;
-} & UI.AddMIOState;
+class Main extends UI.MIOSlides<UI.MIOSlidesProps, UI.MIOSlidesState> {
+    protected addMIOHelper: UI.AddMIOHelper;
 
-class MainView extends UI.AddMIO<MIOConnectorType & RouteComponentProps, MainViewState> {
-    protected slidesRef: React.RefObject<HTMLIonSlidesElement>;
-
-    constructor(props: MIOConnectorType & RouteComponentProps) {
+    constructor(props: UI.MIOSlidesProps) {
         super(props);
 
-        this.slidesRef = React.createRef();
-
         this.state = {
-            files: [],
-            hasError: false,
-            errorMessage: "",
-            errorDetailMessage: "",
-            errorDetailMessageToCopy: "",
-            numErrors: 0,
-            bigFile: false,
+            headline: "Meine MIOs",
+            id: "main",
+            testId: "main-view",
             slides: [],
             currentIndex: 0
         };
+
+        this.addMIOHelper = new UI.AddMIOHelper(
+            this.props,
+            this.onAddMIOHelperParseFiles,
+            this.onAddMIOHelperStateChange
+        );
     }
 
-    protected changed = (): void => {
-        this.slidesRef.current?.getActiveIndex().then((index: number) => {
-            this.setState({ currentIndex: index });
-        });
+    onAddMIOHelperStateChange = (): void => {
+        this.setState({});
     };
 
-    componentDidMount() {
+    onAddMIOHelperParseFiles = (): void => {
         this.setState({
             slides: this.createSlides(),
             currentIndex: 0
         });
-    }
-
-    ionViewWillEnter(): void {
-        this.setState({
-            slides: this.createSlides(),
-            currentIndex: 0
-        });
-        const handleResize = this.throttle(() => {
-            this.onResize();
-        }, 250);
-        window.addEventListener("resize", handleResize);
-    }
-
-    ionViewDidLeave() {
-        this.setState({
-            slides: []
-        });
-
-        window.removeEventListener("resize", this.onResize);
-    }
-
-    onResize = (): void => {
-        this.setState({
-            slides: this.createSlides(),
-            currentIndex: 0
-        });
-    };
-
-    throttle = (func: () => void, delay: number) => {
-        let inProgress = false;
-        return () => {
-            if (inProgress) return;
-
-            inProgress = true;
-            setTimeout(() => {
-                func();
-                inProgress = false;
-            }, delay);
-        };
     };
 
     createSlides = (): JSX.Element[][] => {
         const { mios, history } = this.props;
-
-        const w = window.innerWidth;
-        let miosPerPage = 4;
-        if (w > 767) miosPerPage = 9;
-
         const components: JSX.Element[] = [];
 
         components.push(
             <UI.InputFile
                 label={""}
-                onSelect={this.onSelect}
+                onSelect={this.addMIOHelper.onSelect}
                 accept={"application/JSON, text/xml"}
                 green={true}
                 multiple={true}
                 key={"add"}
-                className={"add-mio-main"}
+                className={"add-mio"}
             >
-                <UI.MIOFolder outlined={true}>
+                <UI.MIOFolder label={"MIO Datei öffnen"}>
                     <Icons.PlusCircle />
                 </UI.MIOFolder>
             </UI.InputFile>
         );
 
-        const mioComponents = mios.map((mio, index) => {
-            if (Vaccination.V1_00_000.Profile.BundleEntry.is(mio)) {
-                const patient = Util.IM.getPatient(mio);
-                return (
-                    <UI.MIOFolder
-                        key={mio.identifier.value + index.toString()}
-                        onClick={() => history.push("/mio/" + mio.identifier.value)}
-                        className={"impfpass"}
-                        label={"Impfpass"}
-                        subline={patient ? Util.IM.getPatientName(patient.resource) : ""}
-                        labelBG={true}
-                    />
-                );
-            } else if (ZAEB.V1_00_000.Profile.Bundle.is(mio)) {
-                const patient = Util.ZB.getPatient(mio);
-                return (
-                    <UI.MIOFolder
-                        key={mio.identifier.value + index.toString()}
-                        onClick={() => history.push("/mio/" + mio.identifier.value)}
-                        className={"zaeb"}
-                        label={"Zahnärztliches Bonusheft"}
-                        labelBG={true}
-                        subline={patient ? Util.ZB.getPatientName(patient.resource) : ""}
-                    />
-                );
-            } else if (MR.V1_00_000.Profile.Bundle.is(mio)) {
-                const patient = Util.MP.getPatientMother(mio);
-                return (
-                    <UI.MIOFolder
-                        key={mio.identifier.value + index.toString()}
-                        onClick={() => history.push("/mio/" + mio.identifier.value)}
-                        className={"mutterpass"}
-                        label={"Mutterpass"}
-                        labelBG={true}
-                        subline={
-                            patient ? Util.MP.getPatientMotherName(patient.resource) : ""
-                        }
-                    />
-                );
-            } else {
-                return (
-                    <UI.MIOFolder
-                        key={"undefined-" + index}
-                        onClick={() => console.log(mio)}
-                        className={"undefined"}
-                        label={"Undefined"}
-                        labelBG={true}
-                    />
-                );
-            }
-        });
+        components.push(
+            <div className={"mio-examples"} key={"examples"}>
+                <UI.MIOFolder
+                    outlined={true}
+                    labelBG={false}
+                    label={"MIO Beispiele"}
+                    onClick={() => history.push("/examples")}
+                >
+                    <Icons.ArrowRight />
+                </UI.MIOFolder>
+            </div>
+        );
 
-        components.push(...mioComponents);
-        return this.chunk(components, miosPerPage);
-    };
-
-    chunk = (array: JSX.Element[], size: number) => {
-        const chunked = [];
-        let index = 0;
-        while (index < array.length) {
-            chunked.push(array.slice(index, size + index));
-            index += size;
-        }
-        return chunked;
-    };
-
-    parseFiles = (): void => {
-        const callback = () =>
-            this.setState({
-                slides: this.createSlides(),
-                currentIndex: 0
-            });
-        this.handleFiles(this.state.files, callback);
+        components.push(...this.mapMioFolders(mios));
+        return this.chunk(components, this.miosPerPage());
     };
 
     render(): JSX.Element {
-        const { hasError, slides, bigFile, currentIndex, files } = this.state;
         const { loading } = this.props;
-        const shouldLoad = loading && bigFile;
+
         return (
             <UI.BasicView headline={"Meine MIOs"} padding={false} id={"main"}>
-                {shouldLoad && (
-                    <UI.LoadingAnimation
-                        lottieContainerId={"lottie-loading-main"}
-                        loadingText={
-                            files.length > 1 ? "MIOs werden geladen" : "MIO wird geladen"
-                        }
-                    />
-                )}
-                <div className={"main-view"} data-testid={"main-view"}>
-                    {slides && slides.length && (
-                        <IonSlides
-                            pager={true}
-                            key={slides.length}
-                            onIonSlideDidChange={this.changed}
-                            ref={this.slidesRef}
-                        >
-                            {slides.map((components, index) => (
-                                <IonSlide key={index}>
-                                    <div
-                                        className={"mio-container"}
-                                        data-testid={`slide-${index}`}
-                                    >
-                                        {components}
-                                    </div>
-                                </IonSlide>
-                            ))}
-                        </IonSlides>
-                    )}
-                    <UI.Pagination
-                        currentIndex={currentIndex}
-                        ionSlides={this.slidesRef}
-                        numSlides={slides.length}
-                        showFirstAndLastButton={true}
-                    />
-
-                    <UI.Modal
-                        headline={"Fehler"}
-                        content={this.renderErrorBox()}
-                        show={hasError}
-                        onClose={() => this.setState({ hasError: false })}
-                    />
-                </div>
+                {this.renderSlides(this.addMIOHelper.render(loading, "main"))}
             </UI.BasicView>
         );
     }
 }
 
-export default MIOConnector(withIonLifeCycle(MainView));
+export default MIOConnector(withIonLifeCycle(Main));

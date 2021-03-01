@@ -30,9 +30,9 @@ import * as Comlink from "comlink";
 /* eslint import/no-webpack-loader-syntax: off */
 import ParseWorker from "worker-loader!./Worker.ts";
 
-import "./AddMIO.scss";
+import "./AddMIOHelper.scss";
 
-export type AddMIOState = {
+export type AddMIOHelperState = {
     files: File[];
     hasError: boolean;
     errorMessage: string;
@@ -43,13 +43,48 @@ export type AddMIOState = {
     tooBig?: boolean;
 };
 
-export default abstract class AddMIO<P, S extends AddMIOState> extends React.Component<
-    P & MIOConnectorType,
-    S
-> {
-    protected constructor(props: P & MIOConnectorType) {
-        super(props);
+export default class AddMIOHelper {
+    private readonly _state: AddMIOHelperState;
+
+    constructor(
+        readonly props: MIOConnectorType,
+        readonly onParseFiles: () => void,
+        readonly onStateChange: () => void
+    ) {
+        this._state = {
+            files: [],
+            hasError: false,
+            errorMessage: "",
+            errorDetailMessage: "",
+            errorDetailMessageToCopy: "",
+            numErrors: 0,
+            bigFile: false,
+            tooBig: false
+        };
     }
+
+    public get state(): AddMIOHelperState {
+        return this._state;
+    }
+
+    private setState = (
+        newState: Partial<AddMIOHelperState>,
+        callback?: () => void
+    ): void => {
+        for (const key of Object.keys(newState)) {
+            if (
+                Object.prototype.hasOwnProperty.call(newState, key) &&
+                Object.prototype.hasOwnProperty.call(this._state, key)
+            ) {
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
+                this._state[key] = newState[key as keyof AddMIOHelperState];
+            }
+        }
+
+        if (callback) callback();
+        this.onStateChange();
+    };
 
     bigFile = (files: File[]): boolean => {
         const thresholdSize = 1000000.0;
@@ -73,6 +108,8 @@ export default abstract class AddMIO<P, S extends AddMIOState> extends React.Com
         const bigFile = this.bigFile(files);
         const tooBig = this.tooBig(files);
 
+        console.log(files);
+
         this.setState(
             {
                 files: files,
@@ -82,42 +119,6 @@ export default abstract class AddMIO<P, S extends AddMIOState> extends React.Com
             this.parseFiles
         );
     };
-
-    protected abstract parseFiles(): void;
-
-    protected renderErrorBox(): JSX.Element {
-        const {
-            errorMessage,
-            errorDetailMessage,
-            errorDetailMessageToCopy,
-            numErrors
-        } = this.state;
-
-        return (
-            <div className={"error-content"}>
-                <div className={"texts"}>
-                    <p>Beim Import des MIOs ist ein Fehler aufgetreten.</p>
-                    <p>{errorMessage}</p>
-                </div>
-                {this.state.errorDetailMessage && (
-                    <div className={"error-details"}>
-                        <UI.ContentCopyBox
-                            headline={"Fehlerdetails"}
-                            content={errorDetailMessage}
-                            contentToCopy={errorDetailMessageToCopy}
-                            innerHTML={true}
-                        />
-                        {numErrors > 1 && (
-                            <div className={"count"}>
-                                und {numErrors === 2 ? "ein" : numErrors - 1} weitere
-                                {numErrors === 2 ? "r" : ""} Fehler.
-                            </div>
-                        )}
-                    </div>
-                )}
-            </div>
-        );
-    }
 
     protected handleResult = (
         result: MIOParserResult | Error | GeneralError | undefined,
@@ -194,9 +195,11 @@ export default abstract class AddMIO<P, S extends AddMIOState> extends React.Com
         }
     };
 
-    // handles the files that were put into the MIOViewer
-    protected handleFiles(files: File[], lastCallback?: () => void): void {
-        if (this.state.tooBig) {
+    // handles the files that were put into the MIO Viewer
+    protected parseFiles = (): void => {
+        const lastCallback = this.onParseFiles;
+        const files = this._state.files;
+        if (this._state.tooBig) {
             const message =
                 files.length > 1
                     ? "Die Gesamtgröße der Dateien ist zu groß. Bitte maximal 10MB hochladen."
@@ -229,7 +232,6 @@ export default abstract class AddMIO<P, S extends AddMIOState> extends React.Com
             };
 
             this.props.setLoading(true).then(() => {
-                // TODO: disable TabBar
                 if (typeof window.Worker !== "undefined") {
                     const worker = new ParseWorker();
                     const AddMIOWorker = Comlink.wrap(worker);
@@ -271,5 +273,78 @@ export default abstract class AddMIO<P, S extends AddMIOState> extends React.Com
                 }
             });
         }
+    };
+
+    protected renderErrorBox(): JSX.Element {
+        const {
+            errorMessage,
+            errorDetailMessage,
+            errorDetailMessageToCopy,
+            numErrors
+        } = this._state;
+
+        return (
+            <div className={"error-content"}>
+                <div className={"texts"}>
+                    <p>Beim Import des MIOs ist ein Fehler aufgetreten.</p>
+                    <p>{errorMessage}</p>
+                </div>
+                {errorDetailMessage && (
+                    <div className={"error-details"}>
+                        <UI.ContentCopyBox
+                            headline={"Fehlerdetails"}
+                            content={errorDetailMessage}
+                            contentToCopy={errorDetailMessageToCopy}
+                            innerHTML={true}
+                        />
+                        {numErrors > 1 && (
+                            <div className={"count"}>
+                                und {numErrors === 2 ? "ein" : numErrors - 1} weitere
+                                {numErrors === 2 ? "r" : ""} Fehler.
+                            </div>
+                        )}
+                    </div>
+                )}
+            </div>
+        );
+    }
+
+    protected renderErrorModal(): JSX.Element {
+        const { hasError } = this.state;
+        return (
+            <UI.Modal
+                headline={"Fehler"}
+                content={this.renderErrorBox()}
+                show={hasError}
+                onClose={() => this.setState({ hasError: false })}
+            />
+        );
+    }
+
+    protected renderLoadingAnimation(
+        loading: boolean,
+        id: string
+    ): JSX.Element | undefined {
+        const { files, bigFile } = this.state;
+
+        if (loading && bigFile) {
+            return (
+                <UI.LoadingAnimation
+                    id={"lottie-loading-" + id}
+                    loadingText={
+                        files.length > 1 ? "MIOs werden geladen" : "MIO wird geladen"
+                    }
+                />
+            );
+        }
+    }
+
+    public render(loading: boolean, id: string): JSX.Element {
+        return (
+            <>
+                {this.renderLoadingAnimation(loading, id)}
+                {this.renderErrorModal()}
+            </>
+        );
     }
 }

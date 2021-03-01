@@ -16,4 +16,5 @@
  * along with MIO Viewer. If not, see <https://www.gnu.org/licenses/>.
  */
 
-export { default } from "./AddMIO";
+export type { MIOSlidesProps, MIOSlidesState } from "./MIOSlides";
+export { default } from "./MIOSlides";

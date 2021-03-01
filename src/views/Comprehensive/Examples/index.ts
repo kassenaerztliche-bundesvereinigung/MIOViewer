@@ -16,11 +16,4 @@
  * along with MIO Viewer. If not, see <https://www.gnu.org/licenses/>.
  */
 
-export type MIOClassName =
-    | "impfpass"
-    | "zaeb"
-    | "mutterpass"
-    | "uheft"
-    | "basic"
-    | "undefined"
-    | undefined;
+export { default } from "./Examples";

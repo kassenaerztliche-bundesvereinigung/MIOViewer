@@ -1,0 +1,713 @@
+{
+  "resourceType": "Bundle",
+  "id": "f3927caa-e371-40b9-9541-c9f620aa268f",
+  "meta": {
+    "profile": [
+      "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_Bundle|1.0.0"
+    ]
+  },
+  "identifier": {
+    "system": "urn:ietf:rfc:3986",
+    "value": "f3927caa-e371-40b9-9541-c9f620aa268f"
+  },
+  "type": "document",
+  "timestamp": "2021-07-03T12:30:02Z",
+  "entry": [
+    {
+      "fullUrl": "urn:uuid:9eaaee52-7a60-481e-a7f4-81f4bf026e96",
+      "resource": {
+        "resourceType": "Composition",
+        "id": "9eaaee52-7a60-481e-a7f4-81f4bf026e96",
+        "meta": {
+          "profile": [
+            "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_Composition|1.0.0"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_MIO_MR_Comments",
+            "extension": [
+              {
+                "url": "hinweiseSchwangere",
+                "valueString": "Schwangerschaft und Geburt sind natürliche Vorgänge und stellen keine Krankheit dar. Manchmal können sie allerdings mit einem erhöhten Risiko für Mutter und Kind belastet sein. Eine sorgfältige Schwangerschaftsbetreuung hilft, einen großen Teil dieser Risiken zu vermeiden oder rechtzeitig zu erkennen, um Gefahren abzuwenden. Voraussetzung dafür ist jedoch Ihre regelmäßige Teilnahme an den Vorsorgeuntersuchungen!Die in Ihrem Mutterpass aufgeführten Untersuchungen dienen der Gesunderhaltung von Mutter und Kind und entsprechen langjähriger geburtshilflicher Erfahrung und modernen medizinischen Erkenntnissen. Dieser Mutterpass enthält die während der Schwangerschaft erhobenen wichtigen Befunde. Er wird Ihnen nach jeder Vorsorgeuntersuchung wieder mitgegeben. Die Angaben im Mutterpass dienen der Information von Arzt und Hebamme sowie Ihrer und Ihres Kindes Sicherheit. Der Mutterpass ist Ihr persönliches Dokument. Sie allein entscheiden darüber, wem er zugänglich gemacht werden soll. Andere (z. B. Arbeitgeber, Behörden) dürfen eine Einsichtnahme nicht verlangen.Bitte: ● Nutzen Sie die Ihnen gebotenen Möglichkeiten, um sich und Ihrem Kind Sicherheit zu verschaffen! ● Vergessen Sie nicht, dieses Heft zu jeder ärztlichen Untersuchung während der Schwangerschaft, zur Entbindung und zur Untersuchung des Kindes mitzubringen! ● Lassen Sie sich helfen, wenn Sie Sorgen haben! ● Beraten Sie sich mit Ihrem Arzt und befolgen Sie seine Ratschläge!"
+              },
+              {
+                "url": "hinweiseMutter",
+                "valueString": "Nach Schwangerschaft und Geburt beginnt für Sie zwar wieder der Alltag mit neuen Aufgaben, beachten Sie aber bitte Folgendes: ● Gehen Sie etwa 6–8 Wochen nach der Entbindung zur Nachuntersuchung ● Nutzen Sie alle Kinder-Früherkennungsuntersuchungen (U2 – U9) beim Kinder- oder Hausarzt"
+              },
+              {
+                "url": "aufbewahrungshinweis",
+                "valueString": "Während der Schwangerschaft sollten Sie Ihren Mutterpass immer bei sich haben und zu jeder ärztlichen Untersuchung mitbringen,insbesondere auch zur Entbindung. Ihr Mutterpass gehört zu den Dokumenten, die Sie immer sorgfältig aufbewahren sollten."
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "type": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "version": "http://snomed.info/sct/900000000000207008/version/20200731",
+              "code": "736377005",
+              "display": "Maternity care plan (record artifact)",
+              "_display": {
+                "extension": [
+                  {
+                    "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German",
+                    "extension": [
+                      {
+                        "url": "content",
+                        "valueString": "Mutterpasseintrag"
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:b77d9c1d-75e9-4413-8261-56b6b8e8e108"
+        },
+        "encounter": {
+          "reference": "urn:uuid:496fe932-4902-44b1-8a3a-616e998853de"
+        },
+        "date": "2021-02-02T12:30:02Z",
+        "author": [
+          {
+            "reference": "urn:uuid:2fa35655-b46e-4baf-8cea-e795eef7e22f"
+          }
+        ],
+        "title": "Mutterpasseintrag",
+        "section": [
+          {
+            "title": "Untersuchungen",
+            "section": [
+              {
+                "title": "Gravidogramm",
+                "entry": [
+                  {
+                    "reference": "urn:uuid:a67909a1-7fa7-4a47-9d57-41c9da56acb1"
+                  },
+                  {
+                    "reference": "urn:uuid:17989fa3-0351-4add-ba79-41b597375cbb"
+                  },
+                  {
+                    "reference": "urn:uuid:fa3d0e89-b84f-4b2d-8cb0-c1d0c7468ee5"
+                  },
+                  {
+                    "reference": "urn:uuid:849e3eb9-3bcc-48d2-97a5-3ecee9750ddf"
+                  },
+                  {
+                    "reference": "urn:uuid:0ee4bfe2-fcfb-436c-82ae-9615368b0498"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:17989fa3-0351-4add-ba79-41b597375cbb",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "17989fa3-0351-4add-ba79-41b597375cbb",
+        "meta": {
+          "profile": [
+            "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_Observation_Blood_Pressure|1.0.0"
+          ]
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "version": "http://snomed.info/sct/900000000000207008/version/20200731",
+              "code": "75367002",
+              "display": "Blood pressure (observable entity)",
+              "_display": {
+                "extension": [
+                  {
+                    "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German",
+                    "extension": [
+                      {
+                        "url": "content",
+                        "valueString": "Blutdruck"
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "system": "http://loinc.org",
+              "version": "2.68",
+              "code": "85354-9",
+              "display": "Blood pressure panel with all children optional",
+              "_display": {
+                "extension": [
+                  {
+                    "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German",
+                    "extension": [
+                      {
+                        "url": "content",
+                        "valueString": "Blutdruck"
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:b77d9c1d-75e9-4413-8261-56b6b8e8e108"
+        },
+        "encounter": {
+          "reference": "urn:uuid:496fe932-4902-44b1-8a3a-616e998853de"
+        },
+        "effectiveDateTime": "2021-02-02",
+        "performer": [
+          {
+            "reference": "urn:uuid:2fa35655-b46e-4baf-8cea-e795eef7e22f"
+          }
+        ],
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "version": "http://snomed.info/sct/900000000000207008/version/20200731",
+                  "code": "271649006",
+                  "display": "Systolic blood pressure (observable entity)",
+                  "_display": {
+                    "extension": [
+                      {
+                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German",
+                        "extension": [
+                          {
+                            "url": "content",
+                            "valueString": "Systolischer Blutdruckwert"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "system": "http://loinc.org",
+                  "version": "2.68",
+                  "code": "8480-6",
+                  "display": "Systolic blood pressure",
+                  "_display": {
+                    "extension": [
+                      {
+                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German",
+                        "extension": [
+                          {
+                            "url": "content",
+                            "valueString": "Systolischer Blutdruckwert"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              ],
+              "text": "Systolischer Blutdruckwert"
+            },
+            "valueQuantity": {
+              "value": 107,
+              "unit": "mmHg",
+              "system": "http://unitsofmeasure.org",
+              "code": "mm[Hg]"
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "version": "http://snomed.info/sct/900000000000207008/version/20200731",
+                  "code": "271650006",
+                  "display": "Diastolic blood pressure (observable entity)",
+                  "_display": {
+                    "extension": [
+                      {
+                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German",
+                        "extension": [
+                          {
+                            "url": "content",
+                            "valueString": "Diastolischer Blutdruckwert"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "system": "http://loinc.org",
+                  "version": "2.68",
+                  "code": "8462-4",
+                  "display": "Diastolic blood pressure",
+                  "_display": {
+                    "extension": [
+                      {
+                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German",
+                        "extension": [
+                          {
+                            "url": "content",
+                            "valueString": "Diastolischer Blutdruckwert"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              ],
+              "text": "Diastolischer Blutdruckwert"
+            },
+            "valueQuantity": {
+              "value": 60,
+              "unit": "mmHg",
+              "system": "http://unitsofmeasure.org",
+              "code": "mm[Hg]"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:0ee4bfe2-fcfb-436c-82ae-9615368b0498",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "0ee4bfe2-fcfb-436c-82ae-9615368b0498",
+        "meta": {
+          "profile": [
+            "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_Observation_Edema|1.0.0"
+          ]
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "version": "http://snomed.info/sct/900000000000207008/version/20200731",
+              "code": "423484008",
+              "display": "Grade of edema (observable entity)",
+              "_display": {
+                "extension": [
+                  {
+                    "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German",
+                    "extension": [
+                      {
+                        "url": "content",
+                        "valueString": "Ödeme"
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:b77d9c1d-75e9-4413-8261-56b6b8e8e108"
+        },
+        "encounter": {
+          "reference": "urn:uuid:496fe932-4902-44b1-8a3a-616e998853de"
+        },
+        "effectiveDateTime": "2021-02-02",
+        "performer": [
+          {
+            "reference": "urn:uuid:2fa35655-b46e-4baf-8cea-e795eef7e22f"
+          }
+        ],
+        "valueString": "Ã–deme"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:496fe932-4902-44b1-8a3a-616e998853de",
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "496fe932-4902-44b1-8a3a-616e998853de",
+        "meta": {
+          "profile": [
+            "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_Encounter_General|1.0.0"
+          ]
+        },
+        "status": "finished",
+        "class": {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "version": "2.0.0",
+          "code": "AMB",
+          "display": "ambulatory"
+        },
+        "subject": {
+          "reference": "urn:uuid:b77d9c1d-75e9-4413-8261-56b6b8e8e108"
+        },
+        "participant": [
+          {
+            "individual": {
+              "reference": "urn:uuid:2fa35655-b46e-4baf-8cea-e795eef7e22f"
+            }
+          }
+        ],
+        "period": {
+          "start": "2021-02-02"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:b77d9c1d-75e9-4413-8261-56b6b8e8e108",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "b77d9c1d-75e9-4413-8261-56b6b8e8e108",
+        "meta": {
+          "profile": [
+            "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_Patient_Mother|1.0.0"
+          ]
+        },
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://fhir.de/CodeSystem/identifier-type-de-basis",
+                  "code": "GKV"
+                }
+              ]
+            },
+            "system": "http://fhir.de/NamingSystem/gkv/kvid-10",
+            "value": "3090297452"
+          }
+        ],
+        "name": [
+          {
+            "use": "official",
+            "family": "Mustermann",
+            "_family": {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/humanname-own-name",
+                  "valueString": "Mustermann"
+                }
+              ]
+            },
+            "given": [
+              "Karin"
+            ]
+          }
+        ],
+        "birthDate": "1994-09-01",
+        "address": [
+          {
+            "type": "both",
+            "city": "Hamburg",
+            "country": "DE"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:2fa35655-b46e-4baf-8cea-e795eef7e22f",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "2fa35655-b46e-4baf-8cea-e795eef7e22f",
+        "meta": {
+          "profile": [
+            "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_Practitioner|1.0.0"
+          ]
+        },
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "XX"
+                }
+              ]
+            },
+            "system": "http://fhir.de/NamingSystem/arge-ik/iknr",
+            "value": "450204765"
+          }
+        ],
+        "name": [
+          {
+            "use": "official",
+            "family": "Mustermeier",
+            "_family": {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/humanname-own-name",
+                  "valueString": "Mustermeier"
+                }
+              ]
+            },
+            "given": [
+              "Clara"
+            ]
+          }
+        ],
+        "qualification": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "urn:oid:1.3.6.1.4.1.19376.3.276.1.5.11",
+                  "code": "41",
+                  "display": "Hebamme / Entbindungspfleger"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:a67909a1-7fa7-4a47-9d57-41c9da56acb1",
+      "resource": {
+        "resourceType": "ClinicalImpression",
+        "id": "a67909a1-7fa7-4a47-9d57-41c9da56acb1",
+        "meta": {
+          "profile": [
+            "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_ClinicalImpression_Pregnancy_Chart_Entry|1.0.0"
+          ]
+        },
+        "identifier": [
+          {
+            "extension": [
+              {
+                "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Additional_Comment",
+                "valueString": "1"
+              }
+            ]
+          }
+        ],
+        "status": "completed",
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "version": "http://snomed.info/sct/900000000000207008/version/20200731",
+              "code": "773433004",
+              "display": "Obstetric antenatal care plan (record artifact)",
+              "_display": {
+                "extension": [
+                  {
+                    "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German",
+                    "extension": [
+                      {
+                        "url": "content",
+                        "valueString": "Gravidogramm"
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:b77d9c1d-75e9-4413-8261-56b6b8e8e108"
+        },
+        "encounter": {
+          "reference": "urn:uuid:496fe932-4902-44b1-8a3a-616e998853de"
+        },
+        "effectiveDateTime": "2021-02-02",
+        "_effectiveDateTime": {
+          "extension": [
+            {
+              "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_MIO_MR_Pregnancy_Week_And_Day",
+              "extension": [
+                {
+                  "url": "schwangerschaftszeitpunkt",
+                  "extension": [
+                    {
+                      "url": "schwangerschaftswoche",
+                      "valueQuantity": {
+                        "value": 28,
+                        "unit": "Wochen",
+                        "system": "http://unitsofmeasure.org",
+                        "code": "wk"
+                      }
+                    },
+                    {
+                      "url": "ergaenzendeTage",
+                      "valueQuantity": {
+                        "value": 4,
+                        "unit": "Tage",
+                        "system": "http://unitsofmeasure.org",
+                        "code": "d"
+                      }
+                    },
+                    {
+                      "url": "korrektur",
+                      "valueBoolean": false
+                    },
+                    {
+                      "url": "kode",
+                      "valueCodeableConcept": {
+                        "coding": [
+                          {
+                            "system": "http://snomed.info/sct",
+                            "version": "http://snomed.info/sct/900000000000207008/version/20200731",
+                            "code": "57036006",
+                            "display": "Fetal gestational age (observable entity)",
+                            "_display": {
+                              "extension": [
+                                {
+                                  "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German",
+                                  "extension": [
+                                    {
+                                      "url": "content",
+                                      "valueString": "Schwangerschaftswoche+Tage"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "assessor": {
+          "reference": "urn:uuid:2fa35655-b46e-4baf-8cea-e795eef7e22f"
+        },
+        "investigation": [
+          {
+            "code": {
+              "text": "Gravidogrameintrag"
+            },
+            "item": [
+              {
+                "reference": "urn:uuid:17989fa3-0351-4add-ba79-41b597375cbb"
+              },
+              {
+                "reference": "urn:uuid:fa3d0e89-b84f-4b2d-8cb0-c1d0c7468ee5"
+              },
+              {
+                "reference": "urn:uuid:0ee4bfe2-fcfb-436c-82ae-9615368b0498"
+              },
+              {
+                "reference": "urn:uuid:849e3eb9-3bcc-48d2-97a5-3ecee9750ddf"
+              }
+            ]
+          }
+        ],
+        "note": [
+          {
+            "text": "Zucker ggfs. erneut testen, Blutdruck weiter beobachten"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:849e3eb9-3bcc-48d2-97a5-3ecee9750ddf",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "849e3eb9-3bcc-48d2-97a5-3ecee9750ddf",
+        "meta": {
+          "profile": [
+            "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_Observation_Urine_Sugar|1.0.0"
+          ]
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "version": "http://snomed.info/sct/900000000000207008/version/20200731",
+              "code": "268556000",
+              "display": "Urine screening for glucose (procedure)",
+              "_display": {
+                "extension": [
+                  {
+                    "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German",
+                    "extension": [
+                      {
+                        "url": "content",
+                        "valueString": "Zucker"
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:b77d9c1d-75e9-4413-8261-56b6b8e8e108"
+        },
+        "encounter": {
+          "reference": "urn:uuid:496fe932-4902-44b1-8a3a-616e998853de"
+        },
+        "effectiveDateTime": "2021-02-02",
+        "performer": [
+          {
+            "reference": "urn:uuid:2fa35655-b46e-4baf-8cea-e795eef7e22f"
+          }
+        ],
+        "valueString": "Zucker"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:fa3d0e89-b84f-4b2d-8cb0-c1d0c7468ee5",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "fa3d0e89-b84f-4b2d-8cb0-c1d0c7468ee5",
+        "meta": {
+          "profile": [
+            "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_Observation_Varicosis|1.0.0"
+          ]
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "version": "http://snomed.info/sct/900000000000207008/version/20200731",
+              "code": "364102005",
+              "display": "Varicose vein feature (observable entity)",
+              "_display": {
+                "extension": [
+                  {
+                    "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German",
+                    "extension": [
+                      {
+                        "url": "content",
+                        "valueString": "Varikosis"
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:b77d9c1d-75e9-4413-8261-56b6b8e8e108"
+        },
+        "encounter": {
+          "reference": "urn:uuid:496fe932-4902-44b1-8a3a-616e998853de"
+        },
+        "effectiveDateTime": "2021-02-02",
+        "performer": [
+          {
+            "reference": "urn:uuid:2fa35655-b46e-4baf-8cea-e795eef7e22f"
+          }
+        ],
+        "valueString": "Varikosis"
+      }
+    }
+  ]
+}

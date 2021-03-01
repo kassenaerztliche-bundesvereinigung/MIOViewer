@@ -20,8 +20,11 @@ import { Constants, MIOActions, MIOState } from "../Types";
 
 import { KBVBundleResource } from "@kbv/mioparser";
 
+import Examples from "../examples";
+
 const initialMIOState: MIOState = {
     mios: [],
+    examples: Examples,
     loading: false
 };
 

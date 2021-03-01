@@ -47,14 +47,9 @@
             height: auto;
 
             svg {
-                stroke: $white;
                 width: $space-big;
                 height: $space-big;
                 margin: $space-small / 2;
-
-                &.green {
-                    // stroke: $green;
-                }
             }
 
             div {

@@ -29,6 +29,8 @@ import {
     MR
 } from "@kbv/mioparser";
 
+import { EXAMPLE_PREFIX } from "../../store/examples";
+
 import { UI } from "../index";
 
 import * as IM from "./IM";
@@ -225,4 +227,8 @@ export function getPatientIdentifier(
     });
 
     return identifier.map((i) => mapIdentifier(i));
+}
+
+export function isExample(mio?: KBVBundleResource): boolean {
+    return mio?.identifier.value?.startsWith(EXAMPLE_PREFIX) ?? false;
 }

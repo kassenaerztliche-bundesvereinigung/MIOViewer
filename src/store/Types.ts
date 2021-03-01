@@ -28,6 +28,7 @@ export type SettingsActions = ActionType<typeof Actions.setShowIntro>;
 export interface MIOState {
     mios: KBVBundleResource[];
     mio?: KBVBundleResource;
+    examples: KBVBundleResource[];
     entry?: MIOEntry<KBVResource>;
     loading: boolean;
 }

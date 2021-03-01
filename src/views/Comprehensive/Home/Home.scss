@@ -19,6 +19,17 @@
 @import "../../../assets/css/colors";
 @import "../../../assets/css/variables";
 
+.folders {
+    width: auto;
+
+    .add-mio,
+    .mio-examples {
+        display: inline-block;
+        float: left;
+        margin: 0.25rem;
+    }
+}
+
 p.intro-text {
     margin-bottom: $space-big;
 

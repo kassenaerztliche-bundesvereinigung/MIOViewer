@@ -17,8 +17,7 @@
  */
 
 import React from "react";
-
-import lottie from "lottie-web";
+import * as Icons from "react-feather";
 
 import { RouteComponentProps } from "react-router";
 import { IonRow, withIonLifeCycle } from "@ionic/react";
@@ -27,56 +26,36 @@ import { MIOConnector, MIOConnectorType } from "../../../store";
 
 import { UI } from "../../../components";
 
-import LottieMioHinzufuegen from "../../../assets/lottie/lottie_mio_hinzufuegen.json";
-
 import "./Home.scss";
 
-class Home extends UI.AddMIO<RouteComponentProps, UI.AddMIOState> {
+class Home extends React.Component<MIOConnectorType & RouteComponentProps> {
+    protected addMIOHelper: UI.AddMIOHelper;
+
     constructor(props: MIOConnectorType & RouteComponentProps) {
         super(props);
 
-        this.state = {
-            files: [],
-            hasError: false,
-            errorMessage: "",
-            errorDetailMessage: "",
-            errorDetailMessageToCopy: "",
-            bigFile: false,
-            numErrors: 0
-        };
+        this.addMIOHelper = new UI.AddMIOHelper(
+            this.props,
+            this.onAddMIOHelperParseFiles,
+            this.onAddMIOHelperStateChange
+        );
     }
 
-    componentDidMount(): void {
-        const container = document.getElementById("lottie-add-mio");
-        if (container) {
-            lottie.loadAnimation({
-                container: container,
-                renderer: "svg",
-                loop: true,
-                autoplay: true,
-                animationData: LottieMioHinzufuegen
-            });
+    onAddMIOHelperStateChange = (): void => {
+        this.setState({});
+    };
+
+    onAddMIOHelperParseFiles = (): void => {
+        if (this.props.location.pathname === "/home") {
+            this.props.history.push("/main");
         }
-    }
-
-    parseFiles = (): void => {
-        this.handleFiles(this.state.files, () => this.props.history.push("/main"));
     };
 
     render(): JSX.Element {
-        const { hasError, bigFile, files } = this.state;
-        const { loading } = this.props;
-        const shouldLoad = loading && bigFile;
+        const { loading, history } = this.props;
+
         return (
             <UI.BasicView headline={"Herzlich Willkommen"} id={"home"}>
-                {shouldLoad && (
-                    <UI.LoadingAnimation
-                        lottieContainerId={"lottie-loading-home"}
-                        loadingText={
-                            files.length > 1 ? "MIOs werden geladen" : "MIO wird geladen"
-                        }
-                    />
-                )}
                 <IonRow>
                     <p
                         className={"intro-text ion-margin-bottom"}
@@ -88,22 +67,33 @@ class Home extends UI.AddMIO<RouteComponentProps, UI.AddMIOState> {
                     </p>
                 </IonRow>
                 <IonRow className={"ion-justify-content-center ion-margin-vertical"}>
-                    <UI.InputFile
-                        label={""}
-                        onSelect={this.onSelect}
-                        accept={"application/JSON, text/xml"}
-                        multiple={true}
-                    >
-                        <div id={"lottie-add-mio"} data-testid={"lottie-add-mio"} />
-                    </UI.InputFile>
-                </IonRow>
+                    <div className={"folders"}>
+                        <div className={"add-mio"}>
+                            <UI.InputFile
+                                label={""}
+                                onSelect={this.addMIOHelper.onSelect}
+                                accept={"application/JSON, text/xml"}
+                                multiple={true}
+                            >
+                                <UI.MIOFolder label={"MIO Datei öffnen"}>
+                                    <Icons.PlusCircle />
+                                </UI.MIOFolder>
+                            </UI.InputFile>
+                        </div>
 
-                <UI.Modal
-                    headline={"Fehler"}
-                    content={this.renderErrorBox()}
-                    show={hasError}
-                    onClose={() => this.setState({ hasError: false })}
-                />
+                        <div className={"mio-examples"}>
+                            <UI.MIOFolder
+                                outlined={true}
+                                labelBG={false}
+                                label={"MIO Beispiele"}
+                                onClick={() => history.push("/examples")}
+                            >
+                                <Icons.ArrowRight />
+                            </UI.MIOFolder>
+                        </div>
+                    </div>
+                </IonRow>
+                {this.addMIOHelper.render(loading, "home")}
             </UI.BasicView>
         );
     }

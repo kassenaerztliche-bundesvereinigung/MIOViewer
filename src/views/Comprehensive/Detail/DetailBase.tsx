@@ -22,7 +22,7 @@ import { RouteComponentProps } from "react-router";
 import { MIOConnectorType } from "../../../store";
 
 import { KBVBundleResource, ParserUtil, Vaccination, ZAEB, MR } from "@kbv/mioparser";
-import { UI } from "../../../components/";
+import { UI, Util } from "../../../components/";
 
 import * as Models from "../../../models/";
 
@@ -140,6 +140,7 @@ export default abstract class DetailBase<
                     padding={false}
                     back={() => history.goBack()}
                     pdfDownload={() => makePDF(mio)}
+                    isExample={Util.Misc.isExample(mio)}
                 >
                     <div
                         className={"detail-container"}

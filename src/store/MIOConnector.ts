@@ -33,7 +33,7 @@ function findMIO(
             (m) =>
                 m.identifier &&
                 m.identifier.value &&
-                m.identifier.value === props.match.params.id
+                ParserUtil.getUuid(m.identifier.value) === props.match.params.id
         );
         if (result.length > 0) return result[0];
     }
@@ -54,11 +54,12 @@ function findEntryByRouteProps(
 
 // eslint-disable-next-line
 const mapStateToProps = ({ mioState }: MIOViewerRootState, ownProps: any): MIOState => {
-    const { mios, loading } = mioState;
-    const mio = findMIO(mios, ownProps);
+    const { mios, examples, loading } = mioState;
+    const mio = findMIO(mios, ownProps) || findMIO(examples, ownProps);
 
     return {
         mios: mios,
+        examples: examples,
         mio: mio,
         entry: findEntryByRouteProps(mio, ownProps),
         loading

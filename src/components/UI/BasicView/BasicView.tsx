@@ -32,6 +32,7 @@ type BasicViewProps = {
     padding?: boolean;
     testId?: string;
     id: string;
+    isExample?: boolean;
 };
 
 type BasicViewState = {
@@ -42,7 +43,8 @@ type BasicViewState = {
 class BasicView extends React.Component<BasicViewProps, BasicViewState> {
     static defaultProps = {
         headerClass: "",
-        padding: true
+        padding: true,
+        isExample: false
     };
 
     protected contentRef: React.RefObject<HTMLIonContentElement>;
@@ -123,7 +125,8 @@ class BasicView extends React.Component<BasicViewProps, BasicViewState> {
             children,
             padding,
             testId,
-            id
+            id,
+            isExample
         } = this.props;
 
         const { headerPercent, visible } = this.state;
@@ -143,6 +146,7 @@ class BasicView extends React.Component<BasicViewProps, BasicViewState> {
                     percent={headerPercent}
                     back={back}
                     pdfDownload={pdfDownload}
+                    isExample={isExample}
                 />
                 <IonContent
                     fullscreen

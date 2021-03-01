@@ -23,7 +23,7 @@ import { RouteComponentProps } from "react-router";
 import { MIOConnector, MIOConnectorType } from "../../../store";
 import { Vaccination, ZAEB, MR } from "@kbv/mioparser";
 
-import { UI } from "../../../components";
+import { UI, Util } from "../../../components";
 
 import OverviewIM from "../../IM/Overview";
 import OverviewZAEB from "../../ZB/Overview";
@@ -62,6 +62,7 @@ class Overview extends React.Component<MIOConnectorType & RouteComponentProps> {
                     back={() => history.goBack()}
                     pdfDownload={() => makePDF(mio)}
                     id={mio?.identifier.value}
+                    isExample={Util.Misc.isExample(mio)}
                 >
                     {component}
                 </UI.BasicView>

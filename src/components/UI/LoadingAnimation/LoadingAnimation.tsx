@@ -24,7 +24,7 @@ import LoadingLottie from "../../../assets/lottie/lottie_mio_laden.json";
 import "./LoadingAnimation.scss";
 
 export type LoadingAnimationProps = {
-    lottieContainerId?: string;
+    id?: string;
     animationData?: any; // eslint-disable-line
     loadingText?: string;
 };
@@ -36,10 +36,10 @@ class LoadingAnimation extends React.Component<LoadingAnimationProps> {
     };
 
     componentDidMount(): void {
-        const { lottieContainerId, animationData } = this.props;
+        const { id, animationData } = this.props;
 
-        if (lottieContainerId) {
-            const container = document.getElementById(lottieContainerId);
+        if (id) {
+            const container = document.getElementById(id);
             if (container) {
                 const animation = lottie.loadAnimation({
                     container: container,
@@ -55,12 +55,12 @@ class LoadingAnimation extends React.Component<LoadingAnimationProps> {
     }
 
     render(): JSX.Element {
-        const { lottieContainerId, loadingText } = this.props;
+        const { id, loadingText } = this.props;
 
         return (
             <div className={"loading-animation"}>
                 <div className={"content"}>
-                    <div id={lottieContainerId} data-testid={"lottie-loading"} />
+                    <div id={id} data-testid={"lottie-loading"} />
                     {loadingText && <p className={"green"}>{loadingText}</p>}
                 </div>
             </div>

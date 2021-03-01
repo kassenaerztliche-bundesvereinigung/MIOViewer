@@ -16,7 +16,7 @@
  * along with MIO Viewer. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import AddMIO, { AddMIOState } from "./AddMIO/AddMIO";
+import AddMIOHelper, { AddMIOHelperState } from "./AddMIOHelper";
 import BasicView from "./BasicView";
 import ButtonIcon from "./ButtonIcon";
 import ContentCopyBox, { ContentCopyBoxProps } from "./ContentCopyBox";
@@ -35,6 +35,7 @@ import ListItemNoLabel from "./ListItemNoLabel";
 import ListItemNoValue from "./ListItemNoValue";
 import LoadingAnimation from "./LoadingAnimation";
 import MIOFolder, { MIOFolderProps } from "./MIOFolder";
+import MIOSlides, { MIOSlidesProps, MIOSlidesState } from "./MIOSlides";
 import Modal, { ModalProps } from "./Modal";
 import Pagination, { PaginationProps } from "./Pagination";
 import TabBar from "./TabBar";
@@ -42,7 +43,7 @@ import Toggle, { ToggleProps } from "./Toggle";
 import { MIOClassName } from "./Statics";
 
 export type {
-    AddMIOState,
+    AddMIOHelperState,
     ContentCopyBoxProps,
     ListItemProps,
     MIOFolderProps,
@@ -51,11 +52,13 @@ export type {
     ToggleProps,
     ModalProps,
     PaginationProps,
-    MIOClassName
+    MIOClassName,
+    MIOSlidesProps,
+    MIOSlidesState
 };
 
 export {
-    AddMIO,
+    AddMIOHelper,
     BasicView,
     ButtonIcon,
     ContentCopyBox,
@@ -74,6 +77,7 @@ export {
     ListItemNoValue,
     LoadingAnimation,
     MIOFolder,
+    MIOSlides,
     Modal,
     Pagination,
     TabBar,
