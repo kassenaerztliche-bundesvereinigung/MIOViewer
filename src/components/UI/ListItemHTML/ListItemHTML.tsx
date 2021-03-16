@@ -16,4 +16,15 @@
  * along with MIO Viewer. If not, see <https://www.gnu.org/licenses/>.
  */
 
-export { default } from "./ListItemLink";
+import { ListItem } from "../index";
+import { ListItemProps } from "../ListItem/ListItem";
+
+export default class ListItemHTML extends ListItem<ListItemProps, unknown> {
+    public static defaultProps = {
+        disabled: false,
+        className: "info ion-no-margin",
+        noValue: false,
+        clampValue: false,
+        innerHTML: true
+    };
+}

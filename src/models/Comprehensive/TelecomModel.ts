@@ -42,16 +42,15 @@ export default class TelecomModel<
             ? telecom.map((t) => {
                   return {
                       value: t.value,
-                      href: t.href,
                       label: t.label,
-                      renderAs: UI.ListItem.Link
+                      renderAs: UI.ListItemHTML
                   } as ModelValue;
               })
             : [
                   {
                       value: `Unter „${this.headline}“ sind derzeit keine Inhalte vorhanden.`,
                       label: "Hinweis",
-                      renderAs: UI.ListItem.Hint
+                      renderAs: UI.ListItemHint
                   }
               ];
     }

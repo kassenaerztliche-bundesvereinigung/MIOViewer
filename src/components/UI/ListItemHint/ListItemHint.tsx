@@ -20,8 +20,8 @@ import React from "react";
 
 import { IonItem, IonLabel, IonNote } from "@ionic/react";
 
-import { ListItemProps } from "../Interfaces";
-import ListItem from "../ListItem";
+import { ListItem } from "../index";
+import { ListItemProps } from "../ListItem/ListItem";
 
 import "./ListItemHint.scss";
 

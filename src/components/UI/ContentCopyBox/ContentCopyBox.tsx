@@ -28,6 +28,7 @@ export type ContentCopyBoxProps = {
     headline: string;
     content: string;
     contentToCopy?: string;
+    innerHTML?: boolean;
 };
 
 type ContentCopyBoxState = {
@@ -57,7 +58,7 @@ export default class ContentCopyBox extends React.Component<
     };
 
     render(): JSX.Element {
-        const { headline, content } = this.props;
+        const { headline, content, innerHTML } = this.props;
         return (
             <div className={"copy-content-box"}>
                 <h5>{headline}</h5>
@@ -68,9 +69,16 @@ export default class ContentCopyBox extends React.Component<
                         this.copyToClipboard();
                     }}
                 />
-
-                <div className={"content"}>{content}</div>
-
+                {innerHTML ? (
+                    <div
+                        className={"content"}
+                        dangerouslySetInnerHTML={{
+                            __html: content
+                        }}
+                    />
+                ) : (
+                    <div className={"content"}>{content}</div>
+                )}
                 <IonToast
                     mode={"ios"}
                     isOpen={this.state.showToast}

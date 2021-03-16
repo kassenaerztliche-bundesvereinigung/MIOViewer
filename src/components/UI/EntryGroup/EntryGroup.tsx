@@ -148,7 +148,7 @@ export default class EntryGroup<T extends KBVResource> extends React.Component<
                         <small className={"ion-padding-horizontal"}>{subline}</small>
                     )}
                     {(!content || content.length <= 0) && (
-                        <UI.ListItem.Hint
+                        <UI.ListItemHint
                             label={"Hinweis"}
                             value={`Unter „${headline}“ sind in diesem ${type} derzeit keine Einträge vorhanden.`}
                         />
@@ -157,7 +157,7 @@ export default class EntryGroup<T extends KBVResource> extends React.Component<
                 </AnimateHeight>
 
                 {toSmallLink && smallLinkText && (
-                    <UI.ListItem.Basic
+                    <UI.ListItem
                         label={smallLinkText}
                         noValue={true}
                         onClick={toSmallLink}

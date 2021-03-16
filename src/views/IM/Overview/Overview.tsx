@@ -110,7 +110,7 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
                 });
 
                 return (
-                    <UI.ListItem.Basic
+                    <UI.ListItem
                         value={codes.join(", ")}
                         label={Util.Misc.formatDate(
                             values.entry.resource.occurrenceDateTime
@@ -136,7 +136,7 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
                 const entry = values.entry;
 
                 return (
-                    <UI.ListItem.Basic
+                    <UI.ListItem
                         value={entry.resource.code.text}
                         label={Util.Misc.formatDate(values.entry.resource.issued)}
                         onClick={Util.Misc.toEntry(history, mio, values.entry)}
@@ -160,7 +160,7 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
                 const entry = values.entry;
 
                 return (
-                    <UI.ListItem.Basic
+                    <UI.ListItem
                         value={entry.resource.code.text}
                         label={Util.Misc.formatDate(entry.resource.recordedDate)}
                         onClick={Util.Misc.toEntry(history, mio, entry)}

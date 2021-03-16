@@ -19,11 +19,22 @@
 import React from "react";
 import { IonItem, IonLabel, IonNote } from "@ionic/react";
 import * as Icons from "react-feather";
-import purify from "dompurify";
-
-import { ListItemProps } from "./Interfaces";
 
 import "./ListItem.scss";
+
+export type ListItemProps = {
+    value?: string;
+    label: string;
+    onClick?: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
+    disabled?: boolean;
+    className?: string;
+    noValue?: boolean;
+    noLabel?: boolean;
+    clampValue?: boolean;
+    innerHTML?: boolean;
+    sortValue?: string;
+    sortDirection?: "desc" | "asc";
+};
 
 export default class ListItem<P extends ListItemProps, S> extends React.Component<P, S> {
     public static defaultProps = {
@@ -75,11 +86,9 @@ export default class ListItem<P extends ListItemProps, S> extends React.Componen
                         ) : (
                             <p
                                 dangerouslySetInnerHTML={{
-                                    __html: value
-                                        ? purify.sanitize(value as string)
-                                        : disabled
-                                        ? "kein Eintrag vorhanden"
-                                        : "-"
+                                    __html:
+                                        value ??
+                                        (disabled ? "kein Eintrag vorhanden" : "-")
                                 }}
                             />
                         ))}

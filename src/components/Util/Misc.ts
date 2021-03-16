@@ -17,7 +17,6 @@
  */
 
 import moment from "moment";
-import purify from "dompurify";
 import { History } from "history";
 
 import {
@@ -127,7 +126,7 @@ export function getTelecom(
         | ZAEB.V1_00_000.Profile.Organization
         | MR.V1_00_000.Profile.Organization
         | MR.V1_00_000.Profile.Practitioner
-): UI.ListItem.Props[] {
+): UI.ListItemProps[] {
     if (entry.telecom && entry.telecom.length) {
         const mapLabel = (v: string): string => {
             // phone   | fax | email  | pager | url     | sms   | other
@@ -150,54 +149,36 @@ export function getTelecom(
             }
         };
 
-        const mapValue = (t: {
-            value: string;
-            system: string;
-        }): { value: string; href?: string } => {
-            const val = purify.sanitize(t.value);
+        const mapValue = (t: { value: string; system: string }): string => {
             switch (t.system) {
                 case "phone":
-                    return {
-                        value: val,
-                        href: "tel:" + val
-                    };
+                    return `<a href='tel:${t.value}' target='_blank' rel='noopener noreferrer'>${t.value}</a>`;
                 case "email":
-                    return {
-                        value: val,
-                        href: "mailto:" + val
-                    };
+                    return `<a href='mailto:${t.value}' target='_blank' rel='noopener noreferrer'>${t.value}</a>`;
                 case "url": {
                     let prefix = "";
                     if (
-                        !val.startsWith("https://") ||
-                        !val.startsWith("http://") ||
-                        !val.startsWith("www.")
+                        !t.value.startsWith("https://") ||
+                        !t.value.startsWith("http://") ||
+                        !t.value.startsWith("www.")
                     ) {
                         prefix = "//";
                     }
-
-                    return {
-                        value: val,
-                        href: prefix + val
-                    };
+                    return `<a href='${
+                        prefix + t.value
+                    }' target='_blank' rel='noopener noreferrer'>${t.value}</a>`;
                 }
                 case "sms":
-                    return {
-                        value: val,
-                        href: "tel:" + val
-                    };
+                    return `<a href='tel:${t.value}' target='_blank' rel='noopener noreferrer'>${t.value}</a>`;
                 default:
-                    return {
-                        value: val
-                    };
+                    return t.value;
             }
         };
 
-        const results: UI.ListItem.Props[] = [];
+        const results: UI.ListItemProps[] = [];
         entry.telecom.forEach((t) => {
             results.push({
-                value: mapValue(t).value,
-                href: mapValue(t).href,
+                value: mapValue(t),
                 label: mapLabel(t.system)
             });
         });
@@ -207,7 +188,7 @@ export function getTelecom(
     }
 }
 
-export function mapIdentifier(identifier: UI.ListItem.Props): UI.ListItem.Props {
+export function mapIdentifier(identifier: UI.ListItemProps): UI.ListItemProps {
     const name = identifier.label;
     let label = "Versichertennummer (" + name + ")";
     if (name === "MR") label = "Patientenidentifikationsnummer (PID)";
@@ -228,8 +209,8 @@ export function getPatientIdentifier(
         | Vaccination.V1_00_000.Profile.Patient
         | ZAEB.V1_00_000.Profile.Patient
         | MR.V1_00_000.Profile.PatientMother
-): UI.ListItem.Props[] {
-    const identifier: UI.ListItem.Props[] = [];
+): UI.ListItemProps[] {
+    const identifier: UI.ListItemProps[] = [];
 
     patient.identifier.forEach((i) => {
         const coding = i.type?.coding;

@@ -59,7 +59,7 @@ class AppDetail extends React.Component<RouteComponentProps> {
                 <UI.DetailList.StickyHeader className={"detail-list"}>
                     <div className={"ion-padding-bottom"}>
                         {parts.map((part, index) => (
-                            <UI.ListItem.Basic
+                            <UI.ListItem
                                 label={part.label}
                                 value={part.value}
                                 key={"item_" + index}

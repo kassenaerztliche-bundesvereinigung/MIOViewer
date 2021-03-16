@@ -21,7 +21,7 @@ import { History } from "history";
 import { ParserUtil, MR } from "@kbv/mioparser";
 
 import { ProcedureBaseModel } from "./Basic";
-import { UI } from "../../components/";
+import { ListItemBullet } from "../../components/UI";
 
 export default class ProcedureCounsellingModel extends ProcedureBaseModel<MR.V1_00_000.Profile.ProcedureCounselling> {
     constructor(
@@ -49,7 +49,7 @@ export default class ProcedureCounsellingModel extends ProcedureBaseModel<MR.V1_
                           .join("\n")
                     : "-",
                 label: "Beratungsgegenstand",
-                renderAs: UI.ListItem.Bullet
+                renderAs: ListItemBullet
             }
         ];
     }

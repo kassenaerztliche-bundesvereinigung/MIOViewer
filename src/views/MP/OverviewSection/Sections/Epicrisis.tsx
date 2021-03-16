@@ -44,7 +44,7 @@ export default class Epicrisis extends Section<MR.V1_00_000.Profile.CompositionU
     protected getListGroups(): UI.DetailList.Props[] {
         const { mio, history } = this.props;
 
-        const pregnancyItems: UI.ListItem.Props[] = [];
+        const pregnancyItems: UI.ListItemProps[] = [];
 
         const slices = ParserUtil.getSlices<MR.V1_00_000.Profile.CompositionUntersuchungenEpikriseSchwangerschaft>(
             [MR.V1_00_000.Profile.CompositionUntersuchungenEpikriseSchwangerschaft],
@@ -73,7 +73,7 @@ export default class Epicrisis extends Section<MR.V1_00_000.Profile.CompositionU
             });
         });
 
-        const birthItems: UI.ListItem.Props[] = [];
+        const birthItems: UI.ListItemProps[] = [];
 
         const slicesBirth = ParserUtil.getSlices<MR.V1_00_000.Profile.CompositionUntersuchungenEpikriseGeburt>(
             [MR.V1_00_000.Profile.CompositionUntersuchungenEpikriseGeburt],
@@ -102,7 +102,7 @@ export default class Epicrisis extends Section<MR.V1_00_000.Profile.CompositionU
             });
         });
 
-        const firstExaminationItems: UI.ListItem.Props[] = [];
+        const firstExaminationItems: UI.ListItemProps[] = [];
 
         const slicesFirstExamination = ParserUtil.getSlices<MR.V1_00_000.Profile.CompositionUntersuchungenEpikriseWochenbett>(
             [MR.V1_00_000.Profile.CompositionUntersuchungenEpikriseWochenbett],
@@ -131,7 +131,7 @@ export default class Epicrisis extends Section<MR.V1_00_000.Profile.CompositionU
             });
         });
 
-        const secondExaminationItems: UI.ListItem.Props[] = [];
+        const secondExaminationItems: UI.ListItemProps[] = [];
 
         const slicesSecondExamination = ParserUtil.getSlices<MR.V1_00_000.Profile.CompositionUntersuchungenEpikriseZweiteUntersuchungNachEntbindung>(
             [

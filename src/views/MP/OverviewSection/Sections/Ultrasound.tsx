@@ -44,7 +44,7 @@ export default class Ultrasound extends Section<MR.V1_00_000.Profile.Composition
     protected getListGroups(): UI.DetailList.Props[] {
         const { mio, history } = this.props;
 
-        const items: UI.ListItem.Props[] = [];
+        const items: UI.ListItemProps[] = [];
 
         this.section?.entry?.forEach((entry) => {
             const ref = entry.reference;
@@ -110,7 +110,7 @@ export default class Ultrasound extends Section<MR.V1_00_000.Profile.Composition
 
         items.sort((a, b) => (a.value && b.value ? (a.value > b.value ? 1 : -1) : 0));
 
-        const others: UI.ListItem.Props[] = [];
+        const others: UI.ListItemProps[] = [];
 
         const otherSlices = ParserUtil.getSlices<MR.V1_00_000.Profile.CompositionUntersuchungenUltraschallWeitereUltraschallUntersuchungen>(
             [

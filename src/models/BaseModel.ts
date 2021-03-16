@@ -24,13 +24,12 @@ import { Content } from "pdfmake/interfaces";
 
 import * as Models from "./index";
 import { horizontalLine } from "../pdf/PDFMaker";
-import { UI } from "../components/";
+import { ListItemProps } from "../components/UI";
 
-export type RenderComponent = React.ComponentType<UI.ListItem.Props>;
+export type RenderComponent = React.ComponentType<ListItemProps>;
 
 export interface ModelValue {
     value: string;
-    href?: string;
     label: string;
     onClick?: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
     renderAs?: RenderComponent;

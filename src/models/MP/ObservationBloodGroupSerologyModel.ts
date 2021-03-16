@@ -40,7 +40,7 @@ export default class ObservationBloodGroupSerologyModel extends ObservationModel
             {
                 value: this.getDisclaimer(),
                 label: "Hinweis an die behandelnde Person",
-                renderAs: UI.ListItem.Expandable
+                renderAs: UI.ListItemExpandable
             }
         ];
     }

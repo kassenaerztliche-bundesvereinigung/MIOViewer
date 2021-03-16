@@ -43,7 +43,7 @@ export default class SpecialFindings extends Section<MR.V1_00_000.Profile.Compos
     protected getListGroups(): UI.DetailList.Props[] {
         const { mio, history } = this.props;
 
-        const items: UI.ListItem.Props[] = [];
+        const items: UI.ListItemProps[] = [];
         this.section?.entry?.forEach((entry) => {
             const ref = entry.reference;
             const res = ParserUtil.getEntryWithRef<MR.V1_00_000.Profile.ObservationSpecialFindings>(

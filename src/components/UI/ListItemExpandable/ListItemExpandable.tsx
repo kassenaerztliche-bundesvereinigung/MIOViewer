@@ -17,14 +17,15 @@
  */
 
 import React from "react";
-import purify from "dompurify";
 import { IonItem, IonLabel, IonNote } from "@ionic/react";
 import * as Icons from "react-feather";
 import AnimateHeight from "react-animate-height";
 
-import { ListItemProps } from "../Interfaces";
 import ListItem from "../ListItem";
 
+import { ListItemProps } from "../ListItem/ListItem";
+
+import "../ListItem/ListItem.scss";
 import "./ListItemExpandable.scss";
 
 export interface ListItemExpandableState {
@@ -93,11 +94,8 @@ export default class ListItemExpandable extends ListItem<
                         <p
                             className={"ion-no-margin"}
                             dangerouslySetInnerHTML={{
-                                __html: value
-                                    ? purify.sanitize(value)
-                                    : disabled
-                                    ? "kein Eintrag vorhanden"
-                                    : "-"
+                                __html:
+                                    value ?? (disabled ? "kein Eintrag vorhanden" : "-")
                             }}
                         />
                     ) : (

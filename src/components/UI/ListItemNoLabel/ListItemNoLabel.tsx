@@ -1,4 +1,4 @@
-/*!
+/*
  * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
@@ -16,26 +16,16 @@
  * along with MIO Viewer. If not, see <https://www.gnu.org/licenses/>.
  */
 
-@import "../../../../assets/css/colors";
-@import "../../../../assets/css/variables";
+import { ListItem } from "../index";
+import { ListItemProps } from "../ListItem";
 
-.list-item-bullet {
-    ul.bullet {
-        margin: 0;
-        padding-left: $space + $space-small / 2;
-
-        li {
-            list-style-type: none;
-            hyphens: auto;
-
-            &::before {
-                content: "–";
-                font-size: 1rem;
-                color: $green;
-                display: inline-block;
-                width: 1rem;
-                margin-left: -1rem;
-            }
-        }
-    }
+export default class ListItemNoLabel extends ListItem<ListItemProps, unknown> {
+    public static defaultProps = {
+        disabled: false,
+        className: "",
+        noValue: false,
+        noLabel: true,
+        clampValue: false,
+        innerHTML: false
+    };
 }

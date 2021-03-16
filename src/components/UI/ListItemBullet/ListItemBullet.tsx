@@ -19,8 +19,9 @@
 import React from "react";
 import { IonItem, IonLabel } from "@ionic/react";
 
-import { ListItemProps } from "../Interfaces";
 import ListItem from "../ListItem";
+
+import { ListItemProps } from "../ListItem/ListItem";
 
 import "./ListItemBullet.scss";
 

@@ -16,8 +16,8 @@
  * along with MIO Viewer. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { ListItemProps } from "../Interfaces";
-import ListItem from "../ListItem";
+import { ListItem } from "../index";
+import { ListItemProps } from "../ListItem/ListItem";
 
 export default class ListItemNoValue extends ListItem<ListItemProps, unknown> {
     public static defaultProps = {

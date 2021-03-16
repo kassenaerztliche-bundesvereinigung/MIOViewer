@@ -16,10 +16,10 @@
  * along with MIO Viewer. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import * as ListItem from "../ListItem";
+import { ListItemProps } from "../ListItem";
 
 export type DetailListProps = {
     headline?: string;
     subline?: string;
-    items: ListItem.Props[];
+    items: ListItemProps[];
 };
