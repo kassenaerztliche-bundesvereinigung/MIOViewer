@@ -21,7 +21,7 @@ import { RouteComponentProps } from "react-router";
 import { MR, ParserUtil } from "@kbv/mioparser";
 
 import { MIOConnector, MIOConnectorType } from "../../../store";
-import { UI } from "../../../components";
+import { UI, Util } from "../../../components";
 
 import { Sections } from "./Section";
 import * as SectionComponents from "./Sections";
@@ -117,6 +117,7 @@ class OverviewSection extends React.Component<
                     padding={false}
                     back={() => history.goBack()}
                     pdfDownload={() => makePDF(mio)}
+                    isExample={Util.Misc.isExample(mio)}
                 >
                     <Component
                         mio={mio as MR.V1_00_000.Profile.Bundle}

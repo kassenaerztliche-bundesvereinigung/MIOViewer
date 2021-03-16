@@ -64,8 +64,19 @@ export default class LaboratoryExamination extends Section<MR.V1_00_000.Profile.
             )?.resource;
 
             if (res) {
-                const model = new Models.MP.Basic.ObservationModel(res, mio, history);
-                const mainValue = model.getMainValue();
+                let mainValue;
+                if (MR.V1_00_000.Profile.ObservationBloodGroupSerology.is(res)) {
+                    const model = new Models.MP.ObservationBloodGroupSerologyModel(
+                        res,
+                        mio,
+                        history
+                    );
+                    mainValue = model.getMainValue();
+                } else {
+                    const model = new Models.MP.Basic.ObservationModel(res, mio, history);
+                    mainValue = model.getMainValue();
+                }
+
                 bloodGroupItems.push({
                     value: mainValue.value,
                     label: mainValue.label,

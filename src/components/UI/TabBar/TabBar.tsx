@@ -21,38 +21,42 @@ import * as Icons from "react-feather";
 
 import { RouteComponentProps } from "react-router";
 import { IonFooter, IonRouterLink } from "@ionic/react";
+
 import { ButtonIcon } from "../";
+import { MIOConnector, MIOConnectorType } from "../../../store";
+import Routing from "../../../Routing";
 
 import MIOViewerLogo from "../../../assets/img/mio_viewer_logo.svg";
 
 import "./TabBar.scss";
-import { MIOConnector, MIOConnectorType } from "../../../store";
 
 type TabBarState = {
     visible: boolean;
 };
 
-type TabBarProps = RouteComponentProps & MIOConnectorType;
+type TabBarProps = {
+    routing: Routing;
+} & RouteComponentProps &
+    MIOConnectorType;
 
 class TabBar extends React.Component<TabBarProps, TabBarState> {
     constructor(props: TabBarProps) {
         super(props);
         this.state = {
-            visible:
-                props.location.pathname !== "/" && props.location.pathname !== "/intro"
+            visible: !props.routing.isTab("none", props.location.pathname)
         };
     }
 
     componentDidMount(): void {
         this.props.history.listen((location) => {
             this.setState({
-                visible: location.pathname !== "/" && location.pathname !== "/intro"
+                visible: !this.props.routing.isTab("none", location.pathname)
             });
         });
     }
 
     render(): JSX.Element {
-        const { location, mios } = this.props;
+        const { location, mios, routing } = this.props;
         const { visible } = this.state;
 
         return (
@@ -62,7 +66,7 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
                 data-testid={"footer"}
             >
                 <div className={"mio-viewer-logo"}>
-                    <img src={MIOViewerLogo} alt={"MIO Viwer Logo"} />
+                    <img src={MIOViewerLogo} alt={"MIO Viewer Logo"} />
                 </div>
                 <IonRouterLink
                     routerLink={mios.length ? "/main" : "/home"}
@@ -71,14 +75,7 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
                     <ButtonIcon
                         icon={Icons.Home}
                         className={
-                            location.pathname === "/home" ||
-                            location.pathname === "/main" ||
-                            location.pathname.startsWith("/mio") ||
-                            location.pathname.startsWith("/entry") ||
-                            location.pathname.startsWith("/subEntry") ||
-                            location.pathname.startsWith("/section")
-                                ? "black"
-                                : ""
+                            routing.isTab("home", location.pathname) ? "black" : ""
                         }
                         text={"Home"}
                     />
@@ -86,14 +83,18 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
                 <IonRouterLink routerLink={"/info"} routerDirection={"forward"}>
                     <ButtonIcon
                         icon={Icons.BookOpen}
-                        className={location.pathname.startsWith("/info") ? "black" : ""}
+                        className={
+                            routing.isTab("info", location.pathname) ? "black" : ""
+                        }
                         text={"Info"}
                     />
                 </IonRouterLink>
                 <IonRouterLink routerLink={"/profil"} routerDirection={"forward"}>
                     <ButtonIcon
                         icon={Icons.User}
-                        className={location.pathname.startsWith("/profil") ? "black" : ""}
+                        className={
+                            routing.isTab("profil", location.pathname) ? "black" : ""
+                        }
                         text={"Profil"}
                     />
                 </IonRouterLink>

@@ -18,7 +18,7 @@
 
 import React from "react";
 
-import { IonApp, IonContent, IonPage, IonRouterOutlet } from "@ionic/react";
+import { IonApp, IonContent, IonPage } from "@ionic/react";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -40,25 +40,13 @@ import "@ionic/react/css/display.css";
 import "theme/default.scss";
 
 import { IonReactHashRouter } from "@ionic/react-router";
-import { Redirect, Route } from "react-router";
+import { Route } from "react-router";
 import { hot, setConfig } from "react-hot-loader";
 
 import MIOParser from "@kbv/mioparser";
 
-import Intro from "./views/Comprehensive/Intro";
-import Home from "./views/Comprehensive/Home";
-import Main from "./views/Comprehensive/Main";
-import Profil from "./views/Comprehensive/Profil";
-import Examples from "./views/Comprehensive/Examples";
-import Overview from "./views/Comprehensive/Overview";
-import OverviewSection from "./views/Comprehensive/OverviewSection";
-import * as Info from "./views/Comprehensive/Info";
-
-import Detail from "./views/Comprehensive/Detail";
-import StartScreen from "./views/Comprehensive/StartScreen";
-
-import { TabBar } from "./components/UI/";
-
+import * as UI from "./components/UI";
+import Routing from "./Routing";
 import CookiesModal from "./CookiesModal";
 
 import "./App.scss";
@@ -69,11 +57,13 @@ type AppState = {
 
 class App extends React.Component<Record<string, unknown>, AppState> {
     protected router: React.RefObject<IonReactHashRouter>;
+    protected routing: Routing;
 
     constructor(props: Record<string, unknown>) {
         super(props);
         MIOParser.setLang("de");
         this.router = React.createRef();
+        this.routing = new Routing(this.props);
         this.state = {
             hasTabBar: false
         };
@@ -113,67 +103,13 @@ class App extends React.Component<Record<string, unknown>, AppState> {
                                 id={"main-content"}
                                 className={this.state.hasTabBar ? "has-tab-bar" : ""}
                             >
-                                <IonRouterOutlet>
-                                    <Route exact path={"/intro"} component={Intro} />
-                                    <Route exact path={"/home"} component={Home} />
-                                    <Route exact path={"/main"} component={Main} />
-                                    <Route exact path={"/profil"} component={Profil} />
-                                    <Route
-                                        exact
-                                        path={"/examples"}
-                                        component={Examples}
-                                    />
-
-                                    <Route
-                                        path={"/entry/:id/:entry"}
-                                        component={Detail}
-                                    />
-
-                                    <Route
-                                        path={"/subEntry/:id/:entry"}
-                                        component={Detail}
-                                    />
-
-                                    <Route
-                                        path={"/section/:id/:section/:patient?"}
-                                        component={OverviewSection}
-                                    />
-
-                                    <Route path={"/mio/:id"} component={Overview} />
-
-                                    <Redirect exact from="/mio" to="/main" />
-
-                                    <Route exact path={"/info"} component={Info.Info} />
-                                    <Route
-                                        exact
-                                        path={"/info/intro"}
-                                        component={Info.Intro}
-                                    />
-                                    <Route
-                                        exact
-                                        path={"/info/technical"}
-                                        component={Info.Technical}
-                                    />
-                                    <Route
-                                        exact
-                                        path={"/info/commenting"}
-                                        component={Info.Commenting}
-                                    />
-                                    <Route
-                                        exact
-                                        path={"/info/version"}
-                                        component={Info.AppDetail}
-                                    />
-                                    <Route
-                                        exact
-                                        path={"/info/impressum"}
-                                        component={Info.Imprint}
-                                    />
-
-                                    <Route exact path={"/"} component={StartScreen} />
-                                </IonRouterOutlet>
+                                {this.routing.render()}
                             </IonContent>
-                            <Route component={TabBar} />
+                            <Route
+                                render={(props) => (
+                                    <UI.TabBar {...props} routing={this.routing} />
+                                )}
+                            />
                         </IonPage>
                     </IonReactHashRouter>
                 </IonApp>

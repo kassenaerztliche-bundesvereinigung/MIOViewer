@@ -124,7 +124,7 @@ abstract class MIOSlides<
                 const patient = Util.IM.getPatient(mio);
                 return (
                     <UI.MIOFolder
-                        key={mio.identifier.value + index.toString()}
+                        key={mioId + index.toString()}
                         onClick={() => history.push("/mio/" + mioId)}
                         className={"impfpass"}
                         label={"Impfpass"}
@@ -136,7 +136,7 @@ abstract class MIOSlides<
                 const patient = Util.ZB.getPatient(mio);
                 return (
                     <UI.MIOFolder
-                        key={mio.identifier.value + index.toString()}
+                        key={mioId + index.toString()}
                         onClick={() => history.push("/mio/" + mioId)}
                         className={"zaeb"}
                         label={"Zahnärztliches Bonusheft"}
@@ -148,7 +148,7 @@ abstract class MIOSlides<
                 const patient = Util.MP.getPatientMother(mio);
                 return (
                     <UI.MIOFolder
-                        key={mio.identifier.value + index.toString()}
+                        key={mioId + index.toString()}
                         onClick={() => history.push("/mio/" + mioId)}
                         className={"mutterpass"}
                         label={"Mutterpass"}

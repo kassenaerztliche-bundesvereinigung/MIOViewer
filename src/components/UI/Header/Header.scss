@@ -186,6 +186,12 @@ ion-header.miov {
         .headline-container {
             margin-top: $space-2;
         }
+
+        @include for-tablet-up {
+            nav {
+                padding-top: $space-2;
+            }
+        }
     }
 }
 

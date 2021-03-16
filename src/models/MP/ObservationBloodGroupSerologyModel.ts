@@ -19,7 +19,7 @@
 import { History } from "history";
 
 import { ParserUtil, MR } from "@kbv/mioparser";
-import { UI } from "../../components";
+import { UI, Util } from "../../components";
 
 import { ObservationModel } from "./Basic";
 import { ModelValue } from "../BaseModel";
@@ -82,5 +82,20 @@ export default class ObservationBloodGroupSerologyModel extends ObservationModel
                   }
               })
             : [];
+    }
+
+    getMainValue(): ModelValue {
+        return {
+            value: this.getComponents()
+                .map((c) => c.value)
+                .join(", "),
+            label: this.customValueLabel ? this.customValueLabel : this.getCoding(),
+            onClick: Util.Misc.toEntryByRef(
+                this.history,
+                this.parent,
+                this.value.id,
+                true
+            )
+        };
     }
 }

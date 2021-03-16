@@ -276,9 +276,18 @@ export default class ObservationModel<
         } else if (Object.prototype.hasOwnProperty.call(resource, "valueString")) {
             value = resource.valueString;
         } else if (Object.prototype.hasOwnProperty.call(resource, "valueQuantity")) {
-            value =
-                resource.valueQuantity.value +
-                (resource.valueQuantity.unit ? " " + resource.valueQuantity.unit : "");
+            const unit = resource.valueQuantity.unit;
+            const unitTranslated = Array.from(
+                new Set<string>(
+                    translateCode(unit, [MR.V1_00_000.ConceptMap.ExaminationUnitGerman])
+                )
+            );
+
+            const unitStr = unit
+                ? " " + (unitTranslated.length ? unitTranslated.join(" ") : unit)
+                : "";
+
+            value = resource.valueQuantity.value + unitStr;
         } else if (Object.prototype.hasOwnProperty.call(resource, "valueDateTime")) {
             if (MR.V1_00_000.Profile.ObservationPreviousPregnancy.is(this.value)) {
                 value = Util.Misc.dateYear(resource.valueDateTime);

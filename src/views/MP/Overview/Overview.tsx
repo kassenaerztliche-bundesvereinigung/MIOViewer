@@ -208,6 +208,7 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
             >
         ): JSX.Element | undefined => {
             const resource = values.entry.resource;
+            const mioId = ParserUtil.getUuid(mio.identifier.value);
 
             if (MR.V1_00_000.Profile.Composition.is(resource)) {
                 const results: JSX.Element[] = [];
@@ -263,9 +264,7 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
                         <UI.ListItem
                             noValue={true}
                             label={title}
-                            onClick={() =>
-                                history.push(`/section/${mio.identifier.value}/${title}`)
-                            }
+                            onClick={() => history.push(`/section/${mioId}/${title}`)}
                             key={`item_${title}`}
                         />
                     );
@@ -277,9 +276,7 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
                         <UI.ListItem
                             noValue={true}
                             label={title}
-                            onClick={() =>
-                                history.push(`/section/${mio.identifier.value}/${title}`)
-                            }
+                            onClick={() => history.push(`/section/${mioId}/${title}`)}
                             key={`item_${title}`}
                         />
                     );
@@ -392,6 +389,7 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
             values: UI.EntryGroupTemplateValues<MR.V1_00_000.Profile.Composition>
         ): JSX.Element | undefined => {
             const resource = values.entry.resource;
+            const mioId = ParserUtil.getUuid(mio.identifier.value);
 
             let results: JSX.Element[] = [];
             resource.section.forEach((s, index) => {
@@ -412,9 +410,9 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
                                     label={s2.title}
                                     onClick={() =>
                                         history.push(
-                                            `/section/${
-                                                mio.identifier.value
-                                            }/${s2.title.split("/").pop()}`
+                                            `/section/${mioId}/${s2.title
+                                                .split("/")
+                                                .pop()}`
                                         )
                                     }
                                     key={`item_${index}_${indexSub}`}
@@ -434,6 +432,7 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
             values: UI.EntryGroupTemplateValues<MR.V1_00_000.Profile.Composition>
         ): JSX.Element | undefined => {
             const resource = values.entry.resource;
+            const mioId = ParserUtil.getUuid(mio.identifier.value);
 
             const results: JSX.Element[] = [];
 
@@ -496,9 +495,7 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
                     <UI.ListItem
                         noValue={true}
                         label={title}
-                        onClick={() =>
-                            history.push(`/section/${mio.identifier.value}/${title}`)
-                        }
+                        onClick={() => history.push(`/section/${mioId}/${title}`)}
                         key={`item_${title}`}
                     />
                 );
@@ -510,9 +507,7 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
                     <UI.ListItem
                         noValue={true}
                         label={title}
-                        onClick={() =>
-                            history.push(`/section/${mio.identifier.value}/${title}`)
-                        }
+                        onClick={() => history.push(`/section/${mioId}/${title}`)}
                         key={`item_${title}`}
                     />
                 );
