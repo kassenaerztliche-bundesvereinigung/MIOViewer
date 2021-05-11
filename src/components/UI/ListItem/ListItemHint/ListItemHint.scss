@@ -16,20 +16,27 @@
  * along with MIO Viewer. If not, see <https://www.gnu.org/licenses/>.
  */
 
-@import "../../../assets/css/colors";
-@import "../../../assets/css/variables";
+@import "../../../../assets/css/colors";
+@import "../../../../assets/css/variables";
 
 .list-item-hint {
     --border-color: transparent;
-    min-height: auto !important;
+    --min-height: 1.5rem;
     padding-bottom: $space-small !important;
     padding-top: $space-small !important;
+    height: fit-content !important;
 
     ion-note,
     ion-label {
         color: $info !important;
         font-size: 0.625rem !important;
         line-height: 1rem !important;
+
+        p {
+            color: inherit;
+            font-size: inherit;
+            line-height: inherit;
+        }
     }
 
     ion-note {

@@ -361,7 +361,7 @@ export default class ObservationModel<
             return {
                 value: code + (extension ? ` (${extension})` : ""),
                 label: "Körperstelle",
-                renderAs: UI.ListItemNoLabel
+                renderAs: UI.ListItem.NoLabel
             };
         }
 

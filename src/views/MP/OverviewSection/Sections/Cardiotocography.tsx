@@ -43,7 +43,7 @@ export default class Cardiotocography extends Section<MR.V1_00_000.Profile.Compo
     protected getListGroups(): UI.DetailList.Props[] {
         const { mio, history } = this.props;
 
-        const items: UI.ListItemProps[] = [];
+        const items: UI.ListItem.Props[] = [];
         this.section?.entry.forEach((entry) => {
             const ref = entry.reference;
             const res = ParserUtil.getEntryWithRef<MR.V1_00_000.Profile.ObservationCardiotocography>(

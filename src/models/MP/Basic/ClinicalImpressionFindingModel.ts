@@ -97,7 +97,7 @@ export default class ClinicalImpressionFindingModel extends MPBaseModel<
                             values.push({
                                 value,
                                 label: "",
-                                renderAs: UI.ListItemNoLabel
+                                renderAs: UI.ListItem.NoLabel
                             });
                         });
                     });

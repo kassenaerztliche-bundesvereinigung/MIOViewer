@@ -111,7 +111,7 @@ export default class ChildInformation extends Section<
     protected getListGroups(): UI.DetailList.Props[] {
         const { mio, history } = this.props;
 
-        const items: UI.ListItemProps[] = [];
+        const items: UI.ListItem.Props[] = [];
         this.section?.entry?.forEach((entry) => {
             const ref = entry.reference;
             const resource = ParserUtil.getEntryWithRef<
@@ -184,7 +184,7 @@ export default class ChildInformation extends Section<
                 this.section?.section
             );
 
-            const apgarItems: UI.ListItemProps[] = [];
+            const apgarItems: UI.ListItem.Props[] = [];
 
             if (apgarSection) {
                 apgarSection.entry?.forEach((entry) => {

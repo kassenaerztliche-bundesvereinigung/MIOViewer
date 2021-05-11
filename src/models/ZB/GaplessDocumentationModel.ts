@@ -70,7 +70,7 @@ export default class GaplessDocumentationModel extends BaseModel<ZAEB.V1_00_000.
             {
                 label: "Allgemeiner Hinweis",
                 value: disclaimer ? disclaimer : "-",
-                renderAs: UI.ListItemExpandable
+                renderAs: UI.ListItem.Expandable
             }
         ];
     }

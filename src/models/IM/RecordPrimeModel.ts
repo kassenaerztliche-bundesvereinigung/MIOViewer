@@ -63,7 +63,7 @@ export default class RecordPrimeModel extends RecordModel<Vaccination.V1_00_000.
         this.values.push({
             value: disclaimer ? disclaimer.text : "-",
             label: "Allgemeiner Hinweis für den Impfling oder Sorgeberechtigten",
-            renderAs: UI.ListItemExpandable
+            renderAs: UI.ListItem.Expandable
         });
     }
 }

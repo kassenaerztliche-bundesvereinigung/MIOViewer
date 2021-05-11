@@ -48,7 +48,7 @@ export default class LaboratoryExamination extends Section<MR.V1_00_000.Profile.
     protected getListGroups(): UI.DetailList.Props[] {
         const { mio, history } = this.props;
 
-        const bloodGroupItems: UI.ListItemProps[] = [];
+        const bloodGroupItems: UI.ListItem.Props[] = [];
         this.section?.entry?.forEach((entry) => {
             const ref = entry.reference;
             const res = ParserUtil.getEntryWithRef<
@@ -85,7 +85,7 @@ export default class LaboratoryExamination extends Section<MR.V1_00_000.Profile.
             }
         });
 
-        const examinationItems: UI.ListItemProps[] = [];
+        const examinationItems: UI.ListItem.Props[] = [];
         const slices = ParserUtil.getSlices<
             | MR.V1_00_000.Profile.CompositionUntersuchungenLaboruntersuchungenUndRoetelnschutzLaboruntersuchung
             | MR.V1_00_000.Profile.CompositionUntersuchungenLaboruntersuchungenUndRoetelnschutzLaboruntersuchungMaskiert
@@ -129,7 +129,7 @@ export default class LaboratoryExamination extends Section<MR.V1_00_000.Profile.
             });
         });
 
-        const vaccinationItems: UI.ListItemProps[] = [];
+        const vaccinationItems: UI.ListItem.Props[] = [];
         this.section?.entry?.forEach((entry) => {
             const ref = entry.reference;
             const res = ParserUtil.getEntryWithRef<MR.V1_00_000.Profile.ObservationImmunizationStatus>(

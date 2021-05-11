@@ -16,4 +16,17 @@
  * along with MIO Viewer. If not, see <https://www.gnu.org/licenses/>.
  */
 
-export { default } from "./ListItemHTML";
+import React from "react";
+
+export type ListItemProps = {
+    value?: string;
+    href?: string;
+    label: string;
+    onClick?: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
+    disabled?: boolean;
+    className?: string;
+    noValue?: boolean;
+    noLabel?: boolean;
+    clampValue?: boolean;
+    innerHTML?: boolean;
+};

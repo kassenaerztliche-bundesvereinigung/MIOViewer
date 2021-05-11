@@ -17,18 +17,16 @@
  */
 
 import React from "react";
-import { IonItem, IonLabel, IonNote } from "@ionic/react";
-import * as Icons from "react-feather";
-import purify from "dompurify";
 
-import { ListItemProps } from "./Interfaces";
+import { IonItem, IonLabel } from "@ionic/react";
 
-import "./ListItem.scss";
+import { ListItemProps } from "../Interfaces";
+import ListItem from "../ListItem";
 
-export default class ListItem<P extends ListItemProps, S> extends React.Component<P, S> {
+export default class ListItemLink extends ListItem<ListItemProps, unknown> {
     public static defaultProps = {
         disabled: false,
-        className: "",
+        className: "info", // "info" | "success" | "warning" | "danger"
         noValue: false,
         clampValue: false,
         innerHTML: false
@@ -36,15 +34,15 @@ export default class ListItem<P extends ListItemProps, S> extends React.Componen
 
     render(): JSX.Element {
         const {
-            label,
             value,
-            onClick,
-            disabled,
+            href,
+            label,
             className,
-            noValue,
-            noLabel,
+            onClick,
             clampValue,
-            innerHTML
+            noLabel,
+            noValue,
+            disabled
         } = this.props;
 
         return (
@@ -69,33 +67,17 @@ export default class ListItem<P extends ListItemProps, S> extends React.Componen
                         (noValue ? " no-value" : "")
                     }
                 >
-                    {!noValue &&
-                        (!innerHTML ? (
-                            <p>{value ?? (disabled ? "kein Eintrag vorhanden" : "-")}</p>
-                        ) : (
-                            <p
-                                dangerouslySetInnerHTML={{
-                                    __html: value
-                                        ? purify.sanitize(value as string)
-                                        : disabled
-                                        ? "kein Eintrag vorhanden"
-                                        : "-"
-                                }}
-                            />
-                        ))}
+                    {href ? (
+                        <p>
+                            <a href={href} target="_blank" rel="noopener noreferrer">
+                                {value}
+                            </a>
+                        </p>
+                    ) : (
+                        <p>{value}</p>
+                    )}
                     {!noLabel && <label>{label}</label>}
                 </IonLabel>
-                {onClick && !className?.includes("small") && (
-                    <IonNote
-                        slot="end"
-                        color={"green"}
-                        className={
-                            "ion-justify-content-center ion-align-items-center ion-no-padding"
-                        }
-                    >
-                        <Icons.ChevronRight size={16} />
-                    </IonNote>
-                )}
             </IonItem>
         );
     }

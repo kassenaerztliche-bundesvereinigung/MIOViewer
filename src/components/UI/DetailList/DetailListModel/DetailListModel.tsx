@@ -20,8 +20,6 @@ import React from "react";
 import { RouteComponentProps } from "react-router";
 import { KBVBundleResource, KBVResource } from "@kbv/mioparser";
 
-import ListItem from "../../ListItem";
-
 import DetailListStickyHeader, {
     DetailListStickyHeaderState
 } from "../DetailListStickyHeader";
@@ -77,6 +75,7 @@ export default abstract class DetailListModel extends DetailListStickyHeader<
                                 return (
                                     <Component
                                         label={part.label}
+                                        href={part.href}
                                         value={part.value}
                                         onClick={part.onClick}
                                         key={"item_" + index}
@@ -84,7 +83,7 @@ export default abstract class DetailListModel extends DetailListStickyHeader<
                                 );
                             } else {
                                 return (
-                                    <ListItem
+                                    <UI.ListItem.Basic
                                         label={part.label}
                                         value={part.value}
                                         onClick={part.onClick}
@@ -94,7 +93,7 @@ export default abstract class DetailListModel extends DetailListStickyHeader<
                             }
                         })
                     ) : (
-                        <UI.ListItemHint
+                        <UI.ListItem.Hint
                             label={"Hinweis"}
                             value={`Unter „${headline}“ sind derzeit keine Inhalte vorhanden.`}
                         />

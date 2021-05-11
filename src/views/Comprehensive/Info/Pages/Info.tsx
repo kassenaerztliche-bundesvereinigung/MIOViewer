@@ -29,7 +29,7 @@ import "../Info.scss";
 class Info extends React.Component<RouteComponentProps> {
     protected content: {
         headline: string;
-        items: UI.ListItemProps[];
+        items: UI.ListItem.Props[];
     }[];
 
     constructor(props: RouteComponentProps) {
@@ -114,7 +114,7 @@ class Info extends React.Component<RouteComponentProps> {
                             <div className={"ion-padding-bottom"}>
                                 {content.items.length ? (
                                     content.items.map((part, index) => (
-                                        <UI.ListItem
+                                        <UI.ListItem.Basic
                                             label={part.label}
                                             onClick={part.onClick}
                                             key={"item_" + index}
@@ -122,7 +122,7 @@ class Info extends React.Component<RouteComponentProps> {
                                         />
                                     ))
                                 ) : (
-                                    <UI.ListItemHint
+                                    <UI.ListItem.Hint
                                         label={"Hinweis"}
                                         value={`Unter „${content.headline}“ sind derzeit keine Inhalte vorhanden.`}
                                     />
