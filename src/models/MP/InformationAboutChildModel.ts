@@ -167,7 +167,7 @@ export default class InformationAboutChildModel extends InformationAboutModel {
                     value: "-",
                     label: child.name,
                     onClick: this.createOnClick(section, child.id),
-                    renderAs: UI.ListItemNoValue
+                    renderAs: UI.ListItem.NoValue
                 });
             });
 

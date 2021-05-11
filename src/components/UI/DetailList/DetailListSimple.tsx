@@ -46,9 +46,9 @@ export default class DetailListSimple<T extends KBVResource> extends React.Compo
 
         const content = items.map((item, index) => {
             if (item.value) {
-                return <UI.ListItem {...item} key={index} />;
+                return <UI.ListItem.Basic {...item} key={index} />;
             } else {
-                return <UI.ListItemNoValue {...item} key={index} />;
+                return <UI.ListItem.NoValue {...item} key={index} />;
             }
         });
 
@@ -61,7 +61,7 @@ export default class DetailListSimple<T extends KBVResource> extends React.Compo
                 )}
                 {subline && <small className={"ion-padding-horizontal"}>{subline}</small>}
                 {(!content || content.length <= 0) && (
-                    <UI.ListItemHint
+                    <UI.ListItem.Hint
                         label={"Hinweis"}
                         value={`Unter „${headline}“ sind in diesem ${type} derzeit keine Einträge vorhanden.`}
                     />

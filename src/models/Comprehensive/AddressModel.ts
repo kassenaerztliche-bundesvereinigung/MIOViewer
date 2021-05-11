@@ -54,7 +54,7 @@ export default class AddressModel<
                 {
                     value: `Unter „${this.headline}“ sind derzeit keine Inhalte vorhanden.`,
                     label: "Hinweis",
-                    renderAs: UI.ListItemHint
+                    renderAs: UI.ListItem.Hint
                 }
             ];
         }

@@ -41,7 +41,7 @@ export default class Anamnesis extends Section<MR.V1_00_000.Profile.CompositionA
         return [];
     }
 
-    protected sortAnamnesis(a: UI.ListItemProps, b: UI.ListItemProps): number {
+    protected sortAnamnesis(a: UI.ListItem.Props, b: UI.ListItem.Props): number {
         const sortingArr = ["Alter", "Körpergewicht", "Körpergröße", "Gravida", "Para"];
         return sortingArr.indexOf(a.label) - sortingArr.indexOf(b.label);
     }
@@ -49,8 +49,8 @@ export default class Anamnesis extends Section<MR.V1_00_000.Profile.CompositionA
     protected getListGroups(): UI.DetailList.Props[] {
         const { mio, history } = this.props;
 
-        const itemsAnamnesis: UI.ListItemProps[] = [];
-        const itemsPreviousPregnancy: UI.ListItemProps[] = [];
+        const itemsAnamnesis: UI.ListItem.Props[] = [];
+        const itemsPreviousPregnancy: UI.ListItem.Props[] = [];
 
         this.section?.entry.forEach((entry) => {
             const ref = entry.reference;

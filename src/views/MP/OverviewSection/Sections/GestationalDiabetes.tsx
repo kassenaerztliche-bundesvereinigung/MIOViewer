@@ -42,7 +42,7 @@ export default class GestationalDiabetes extends Section<MR.V1_00_000.Profile.Co
         return [];
     }
 
-    protected compare(a: UI.ListItemProps, b: UI.ListItemProps): number {
+    protected compare(a: UI.ListItem.Props, b: UI.ListItem.Props): number {
         if (a.label === "Vortest" && b.label === "Diagnosetest") {
             return -1;
         } else if (a.label === "Diagnosetest" && b.label === "Vortest") {
@@ -55,7 +55,7 @@ export default class GestationalDiabetes extends Section<MR.V1_00_000.Profile.Co
     protected getListGroups(): UI.DetailList.Props[] {
         const { mio, history } = this.props;
 
-        const items: UI.ListItemProps[] = [];
+        const items: UI.ListItem.Props[] = [];
 
         this.section?.entry?.forEach((entry) => {
             const ref = entry.reference;

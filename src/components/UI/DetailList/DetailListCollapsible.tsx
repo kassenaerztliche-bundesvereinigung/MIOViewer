@@ -61,7 +61,9 @@ export default class DetailListCollapsible<T extends KBVResource> extends React.
         const { stuck, expanded } = this.state;
         const { type, headline, subline, items, expandable } = this.props;
 
-        const content = items.map((item, index) => <UI.ListItem {...item} key={index} />);
+        const content = items.map((item, index) => (
+            <UI.ListItem.Basic {...item} key={index} />
+        ));
 
         const height = expanded ? "auto" : 0;
 
@@ -100,7 +102,7 @@ export default class DetailListCollapsible<T extends KBVResource> extends React.
                         <small className={"ion-padding-horizontal"}>{subline}</small>
                     )}
                     {(!content || content.length <= 0) && (
-                        <UI.ListItemHint
+                        <UI.ListItem.Hint
                             label={"Hinweis"}
                             value={`Unter „${headline}“ sind in diesem ${type} derzeit keine Einträge vorhanden.`}
                         />

@@ -68,7 +68,7 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
 
             if (MR.V1_00_000.Profile.Organization.is(resource)) {
                 return (
-                    <UI.ListItem
+                    <UI.ListItem.Basic
                         value={resource.name}
                         label={"Einrichtung"}
                         onClick={onClick}
@@ -77,7 +77,7 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
                 );
             } else if (MR.V1_00_000.Profile.Practitioner.is(resource)) {
                 return (
-                    <UI.ListItem
+                    <UI.ListItem.Basic
                         value={Util.MP.getPractitionerName(resource)}
                         label={"Behandelnde Person"}
                         onClick={onClick}
@@ -105,7 +105,7 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
                 );
 
                 return (
-                    <UI.ListItem
+                    <UI.ListItem.Basic
                         label={model.getMainValue().value}
                         noValue={true}
                         onClick={onClick}
@@ -123,7 +123,7 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
 
                 const mainValue = model.getMainValue();
                 return (
-                    <UI.ListItem
+                    <UI.ListItem.Basic
                         value={mainValue?.value}
                         label={mainValue?.label ?? "-"}
                         onClick={onClick}
@@ -161,7 +161,7 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
                 const mainValue = model.getMainValue();
 
                 return (
-                    <UI.ListItem
+                    <UI.ListItem.Basic
                         value={Util.Misc.formatDate(resource.effectiveDateTime)}
                         label={mainValue ? mainValue.label : "-"}
                         onClick={onClick}
@@ -180,7 +180,7 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
                 const mainValue = model.getMainValue();
 
                 return (
-                    <UI.ListItem
+                    <UI.ListItem.Basic
                         value={model.getNote()?.value}
                         label={"Ergänzende Angaben zur " + (mainValue?.label ?? "-")}
                         onClick={onClick}
@@ -190,7 +190,7 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
                 );
             } else {
                 return (
-                    <UI.ListItem
+                    <UI.ListItem.Basic
                         value={"-"}
                         label={"Terminbestimmung"}
                         onClick={onClick}
@@ -261,7 +261,7 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
                 if (hasSpecialFindings) {
                     const title = "Katalog B";
                     results.push(
-                        <UI.ListItem
+                        <UI.ListItem.Basic
                             noValue={true}
                             label={title}
                             onClick={() => history.push(`/section/${mioId}/${title}`)}
@@ -273,7 +273,7 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
                 if (hasOGTT) {
                     const title = "Gestationsdiabetes";
                     results.push(
-                        <UI.ListItem
+                        <UI.ListItem.Basic
                             noValue={true}
                             label={title}
                             onClick={() => history.push(`/section/${mioId}/${title}`)}
@@ -308,7 +308,7 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
                 );
                 const mainValue = model.getMainValue();
                 return (
-                    <UI.ListItem
+                    <UI.ListItem.Basic
                         value={mainValue?.value}
                         label={mainValue ? mainValue.label : "-"}
                         onClick={onClick}
@@ -324,7 +324,7 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
                 const mainValue = model.getMainValue();
 
                 return (
-                    <UI.ListItem
+                    <UI.ListItem.Basic
                         noValue={true}
                         label={mainValue ? mainValue.label : "-"}
                         onClick={onClick}
@@ -350,7 +350,7 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
 
                 const mainValue = model.getMainValue();
                 return (
-                    <UI.ListItem
+                    <UI.ListItem.Basic
                         label={mainValue?.value ? mainValue.value : "-"}
                         noValue={true}
                         onClick={onClick}
@@ -375,7 +375,7 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
                 );
                 const mainValue = model.getMainValue();
                 return (
-                    <UI.ListItem
+                    <UI.ListItem.Basic
                         label={mainValue ? mainValue.label : "-"}
                         noValue={true}
                         onClick={onClick}
@@ -405,7 +405,7 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
                     s.section.forEach((s2, indexSub) => {
                         if (titles.includes(s2.title)) {
                             results.push(
-                                <UI.ListItem
+                                <UI.ListItem.Basic
                                     noValue={true}
                                     label={s2.title}
                                     onClick={() =>
@@ -492,7 +492,7 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
             if (hasAnamnese) {
                 const title = "Anamnese";
                 results.push(
-                    <UI.ListItem
+                    <UI.ListItem.Basic
                         noValue={true}
                         label={title}
                         onClick={() => history.push(`/section/${mioId}/${title}`)}
@@ -504,7 +504,7 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
             if (hasGeneralFindings) {
                 const title = "Erste Vorsorge-Untersuchung";
                 results.push(
-                    <UI.ListItem
+                    <UI.ListItem.Basic
                         noValue={true}
                         label={title}
                         onClick={() => history.push(`/section/${mioId}/${title}`)}
@@ -549,7 +549,7 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
                                 });
 
                                 return (
-                                    <UI.ListItemExpandable
+                                    <UI.ListItem.Expandable
                                         value={result?.join("")}
                                         label={hintMap[e.url]}
                                         key={`item_${index}`}

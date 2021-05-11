@@ -116,7 +116,7 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
         ): JSX.Element | undefined => {
             if (ZAEB.V1_00_000.Profile.Observation.is(values.entry.resource)) {
                 return (
-                    <UI.ListItem
+                    <UI.ListItem.Basic
                         value={Util.Misc.formatDate(
                             values.entry.resource.effectiveDateTime
                         )}
@@ -137,7 +137,7 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
                 const to = Util.Misc.formatDate(composition?.resource.date);
 
                 return (
-                    <UI.ListItem
+                    <UI.ListItem.Basic
                         value={`${from} - ${to}`}
                         label={"Lückenlose Dokumentation"}
                         onClick={Util.Misc.toEntry(history, mio, values.entry)}

@@ -295,7 +295,6 @@ export default class AddMIOHelper {
                             headline={"Fehlerdetails"}
                             content={errorDetailMessage}
                             contentToCopy={errorDetailMessageToCopy}
-                            innerHTML={true}
                         />
                         {numErrors > 1 && (
                             <div className={"count"}>
