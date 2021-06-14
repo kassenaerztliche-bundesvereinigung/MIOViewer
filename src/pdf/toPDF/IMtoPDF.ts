@@ -21,7 +21,7 @@ import { Content } from "pdfmake/interfaces";
 import { ParserUtil, Vaccination } from "@kbv/mioparser";
 
 import { AdditionalCommentModel, TelecomModel, IM } from "../../models";
-import { horizontalLine } from "../PDFMaker";
+import { horizontalLine } from "../PDFHelper";
 import PDFRepresentation from "../PDFRepresentation";
 
 export default class IMtoPDF extends PDFRepresentation<Vaccination.V1_00_000.Profile.BundleEntry> {
@@ -36,7 +36,7 @@ export default class IMtoPDF extends PDFRepresentation<Vaccination.V1_00_000.Pro
         );
 
         let recordContent = recordsAddendum.map((r) => {
-            const model = new IM.RecordAddendumModel(r.resource, this.value);
+            const model = new IM.RecordAddendumModel(r.resource, r.fullUrl, this.value);
             return model.toPDFContent();
         });
 
@@ -48,7 +48,7 @@ export default class IMtoPDF extends PDFRepresentation<Vaccination.V1_00_000.Pro
         recordContent = [
             ...recordContent,
             recordsPrime.map((r) => {
-                const model = new IM.RecordPrimeModel(r.resource, this.value);
+                const model = new IM.RecordPrimeModel(r.resource, r.fullUrl, this.value);
                 return model.toPDFContent();
             })
         ];
@@ -63,7 +63,7 @@ export default class IMtoPDF extends PDFRepresentation<Vaccination.V1_00_000.Pro
         );
 
         let observationsContent = observations.map((o) => {
-            const model = new IM.ObservationModel(o.resource, this.value);
+            const model = new IM.ObservationModel(o.resource, o.fullUrl, this.value);
             return model.toPDFContent();
         });
 
@@ -79,7 +79,7 @@ export default class IMtoPDF extends PDFRepresentation<Vaccination.V1_00_000.Pro
         );
 
         let conditionsContent = conditions.map((c) => {
-            const model = new IM.ConditionModel(c.resource, this.value);
+            const model = new IM.ConditionModel(c.resource, c.fullUrl, this.value);
             return model.toPDFContent();
         });
 
@@ -150,11 +150,17 @@ export default class IMtoPDF extends PDFRepresentation<Vaccination.V1_00_000.Pro
             if (practitioner && practitioner.resource) {
                 const practitionerModel = new IM.PractitionerModel(
                     practitioner.resource,
+                    practitioner.fullUrl,
                     this.value
                 );
-                const telecom = new TelecomModel(practitioner.resource, this.value);
+                const telecom = new TelecomModel(
+                    practitioner.resource,
+                    practitioner.fullUrl,
+                    this.value
+                );
                 const comment = new AdditionalCommentModel(
                     practitioner.resource,
+                    practitioner.fullUrl,
                     this.value
                 );
                 authorContent = [
@@ -173,7 +179,11 @@ export default class IMtoPDF extends PDFRepresentation<Vaccination.V1_00_000.Pro
 
         let patientContent = undefined;
         if (patientResource) {
-            const model = new IM.PatientModel(patientResource.resource, this.value);
+            const model = new IM.PatientModel(
+                patientResource.resource,
+                patientResource.fullUrl,
+                this.value
+            );
             patientContent = model.toPDFContent();
         }
 

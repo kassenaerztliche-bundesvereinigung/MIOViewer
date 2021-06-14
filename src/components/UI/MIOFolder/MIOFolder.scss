@@ -126,6 +126,20 @@
             height: $space-big + $space-small / 4;
             width: $space-big + $space-small / 4;
         }
+
+        .badge {
+            position: absolute;
+            right: 15px;
+            top: 28px;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background-color: rgba(white, 0.15);
+            font-family: "Montserrat-Bold", sans-serif;
+            color: white;
+            line-height: 38px;
+            font-size: 16px;
+        }
     }
 
     &.impfpass,

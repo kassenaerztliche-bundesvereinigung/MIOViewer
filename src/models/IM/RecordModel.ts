@@ -23,7 +23,7 @@ import { Util } from "../../components";
 
 import BaseModel from "../BaseModel";
 import { OrganizationModel, PractitionerModel } from "./";
-import { AdditionalCommentModel, AddressModel, TelecomModel } from "../";
+import { AdditionalCommentModel, AddressModel, ModelValue, TelecomModel } from "../";
 
 type Bundle = Vaccination.V1_00_000.Profile.BundleEntry;
 
@@ -32,8 +32,8 @@ export default class RecordModel<
         | Vaccination.V1_00_000.Profile.RecordPrime
         | Vaccination.V1_00_000.Profile.RecordAddendum
 > extends BaseModel<T> {
-    constructor(value: T, parent: KBVBundleResource, history?: History) {
-        super(value, parent, history);
+    constructor(value: T, fullUrl: string, parent: KBVBundleResource, history?: History) {
+        super(value, fullUrl, parent, history);
 
         let headline = "";
         this.value.protocolApplied.forEach((protocol) => {
@@ -191,5 +191,12 @@ export default class RecordModel<
             this.values.map((v) => v.label + ": " + v.value).join("\n") +
             "\n\n"
         );
+    }
+
+    public getMainValue(): ModelValue {
+        return {
+            value: this.headline,
+            label: Util.Misc.formatDate(this.value.occurrenceDateTime)
+        };
     }
 }

@@ -18,11 +18,12 @@
 
 import { History } from "history";
 
-import { ParserUtil, KBVBundleResource, Vaccination, MR } from "@kbv/mioparser";
+import { ParserUtil, KBVBundleResource, Vaccination, MR, CMR } from "@kbv/mioparser";
 
 import BaseModel from "../BaseModel";
+import { ModelValue } from "../Types";
 
-export default class AdditionalCommentModel extends BaseModel<
+export type AdditionalCommentType =
     | Vaccination.V1_00_000.Profile.Practitioner
     | Vaccination.V1_00_000.Profile.PractitionerAddendum
     | Vaccination.V1_00_000.Profile.Organization
@@ -30,21 +31,17 @@ export default class AdditionalCommentModel extends BaseModel<
     | MR.V1_00_000.Profile.Practitioner
     | MR.V1_00_000.Profile.PatientChild
     | MR.V1_00_000.Profile.DiagnosticReportUltrasoundI
-> {
+    | CMR.V1_00_000.Profile.CMRPractitioner;
+
+export default class AdditionalCommentModel extends BaseModel<AdditionalCommentType> {
     constructor(
-        value:
-            | Vaccination.V1_00_000.Profile.Practitioner
-            | Vaccination.V1_00_000.Profile.PractitionerAddendum
-            | Vaccination.V1_00_000.Profile.Organization
-            | MR.V1_00_000.Profile.Organization
-            | MR.V1_00_000.Profile.Practitioner
-            | MR.V1_00_000.Profile.PatientChild
-            | MR.V1_00_000.Profile.DiagnosticReportUltrasoundI,
+        value: AdditionalCommentType,
+        fullUrl: string,
         parent: KBVBundleResource,
         history?: History,
         protected customLabel?: string
     ) {
-        super(value, parent, history);
+        super(value, fullUrl, parent, history);
 
         this.headline = "";
 
@@ -85,5 +82,9 @@ export default class AdditionalCommentModel extends BaseModel<
             .filter((v) => v.value !== "-" && !v.label.includes("Geburtsname"))
             .map((v) => v.label + ": " + v.value)
             .join("\n");
+    }
+
+    public getMainValue(): ModelValue {
+        return this.values[0];
     }
 }

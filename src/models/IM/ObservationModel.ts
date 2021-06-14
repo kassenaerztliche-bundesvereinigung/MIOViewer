@@ -24,14 +24,16 @@ import { Util } from "../../components";
 import BaseModel from "../BaseModel";
 import { PractitionerModel } from "./index";
 import { AdditionalCommentModel, TelecomModel } from "../Comprehensive";
+import { ModelValue } from "../Types";
 
 export default class ObservationModel extends BaseModel<Vaccination.V1_00_000.Profile.ObservationImmunizationStatus> {
     constructor(
         value: Vaccination.V1_00_000.Profile.ObservationImmunizationStatus,
+        fullUrl: string,
         parent: KBVBundleResource,
         history?: History
     ) {
-        super(value, parent, history);
+        super(value, fullUrl, parent, history);
 
         this.headline = this.value.code.text;
 
@@ -81,5 +83,12 @@ export default class ObservationModel extends BaseModel<Vaccination.V1_00_000.Pr
             this.values.map((v) => v.label + ": " + v.value).join("\n") +
             "\n\n"
         );
+    }
+
+    public getMainValue(): ModelValue {
+        return {
+            value: this.value.code.text,
+            label: Util.Misc.formatDate(this.value.issued)
+        };
     }
 }

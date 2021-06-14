@@ -19,7 +19,7 @@
 import React from "react";
 
 import { withIonLifeCycle, IonContent, IonPage } from "@ionic/react";
-import { MIOClassName } from "../Statics";
+import { MIOClassName } from "../";
 
 import Header from "../Header";
 

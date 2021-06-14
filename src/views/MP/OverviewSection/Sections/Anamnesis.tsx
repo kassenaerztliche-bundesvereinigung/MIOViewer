@@ -70,11 +70,12 @@ export default class Anamnesis extends Section<MR.V1_00_000.Profile.CompositionA
                     MR.V1_00_000.Profile.ObservationPara
                 ],
                 ref
-            )?.resource;
+            );
 
             if (resAnamnesis) {
                 const model = new Models.MP.Basic.ObservationModel(
-                    resAnamnesis,
+                    resAnamnesis.resource,
+                    resAnamnesis.fullUrl,
                     mio,
                     history
                 );
@@ -90,11 +91,12 @@ export default class Anamnesis extends Section<MR.V1_00_000.Profile.CompositionA
                 mio,
                 [MR.V1_00_000.Profile.ObservationPreviousPregnancy],
                 ref
-            )?.resource;
+            );
 
             if (resPreviousPregnancy) {
                 const model = new Models.MP.Basic.ObservationModel(
-                    resPreviousPregnancy,
+                    resPreviousPregnancy.resource,
+                    resPreviousPregnancy.fullUrl,
                     mio,
                     history
                 );

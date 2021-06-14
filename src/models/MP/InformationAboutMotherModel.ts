@@ -18,7 +18,7 @@
 
 import { History } from "history";
 
-import { MR } from "@kbv/mioparser";
+import { MR, AnyType } from "@kbv/mioparser";
 import { InformationAboutModel } from "./index";
 import * as Models from "../index";
 
@@ -27,6 +27,7 @@ export default class InformationAboutMotherModel extends InformationAboutModel {
         value:
             | MR.V1_00_000.Profile.ClinicalImpressionFirstExaminationAfterChildbirth
             | MR.V1_00_000.Profile.ClinicalImpressionSecondExaminationAfterChildbirth,
+        fullUrl: string,
         parent: MR.V1_00_000.Profile.Bundle,
         history?: History
     ) {
@@ -79,8 +80,7 @@ export default class InformationAboutMotherModel extends InformationAboutModel {
             }
         ];
 
-        // eslint-disable-next-line
-        const sectionStack: any[] = [
+        const sectionStack: AnyType[] = [
             PR.CompositionUntersuchungen,
             PR.CompositionUntersuchungenEpikrise
         ];
@@ -97,7 +97,7 @@ export default class InformationAboutMotherModel extends InformationAboutModel {
             );
         }
 
-        super(value, parent, history, mappings, sectionStack);
+        super(value, fullUrl, parent, history, mappings, sectionStack);
         this.headline = "Angaben zur Mutter";
     }
 }

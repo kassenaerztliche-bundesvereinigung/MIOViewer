@@ -18,8 +18,7 @@
 
 import React from "react";
 import { RouteComponentProps } from "react-router";
-import { KBVBundleResource, KBVResource } from "@kbv/mioparser";
-
+import { KBVBundleResource } from "@kbv/mioparser";
 import DetailListStickyHeader, {
     DetailListStickyHeaderState
 } from "../DetailListStickyHeader";
@@ -27,14 +26,15 @@ import DetailListStickyHeader, {
 import { UI } from "../../../index";
 
 import * as Models from "../../../../models/";
+import { ModelValue } from "../../../../models/";
 
 import "../DetailList.scss";
 
 export type DetailListModelProps = {
     model: Models.Model;
     mio: KBVBundleResource;
-    entry: KBVResource;
     className?: string;
+    appendItems?: ModelValue[];
 };
 
 export default abstract class DetailListModel extends DetailListStickyHeader<
@@ -50,9 +50,10 @@ export default abstract class DetailListModel extends DetailListStickyHeader<
     }
 
     render(): JSX.Element {
-        const { model } = this.props;
+        const { model, appendItems } = this.props;
         const headline = model.getHeadline();
         const values = model.getValues();
+        if (appendItems) values.push(...appendItems);
 
         return (
             <DetailListStickyHeader className={"detail-list"}>
@@ -68,7 +69,7 @@ export default abstract class DetailListModel extends DetailListStickyHeader<
                     }
                 >
                     {values.length ? (
-                        values.map((part: Models.ModelValue, index: number) => {
+                        values.map((part: ModelValue, index: number) => {
                             if (part.renderAs) {
                                 const Component = part.renderAs;
 

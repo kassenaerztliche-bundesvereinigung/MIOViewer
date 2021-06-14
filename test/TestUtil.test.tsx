@@ -30,7 +30,7 @@ import { mockIonicReact } from "@ionic/react-test-utils";
 
 import { KBVBundleResource } from "mioparser";
 import { combineReducers, createStore } from "redux";
-import { mioReducer, settingsReducer, initialSettingsState } from "../src/store/reducers";
+import { mioReducer, settingsReducer } from "../src/store/reducers";
 
 import { MIOViewerRootState } from "../src/store";
 
@@ -93,7 +93,8 @@ export function createStoreWithMios(mios: KBVBundleResource[]): any {
             },
             settingsState: {
                 showIntro: true,
-                cookiesAccepted: true
+                cookiesAccepted: true,
+                devMode: false
             }
         }
     );
@@ -150,6 +151,8 @@ export function setupMutationObserverMock({
 }
 
 export function mock(): void {
+    jest.setTimeout(60 * 1000);
+
     afterEach(() => {
         jest.restoreAllMocks();
         jest.resetAllMocks();

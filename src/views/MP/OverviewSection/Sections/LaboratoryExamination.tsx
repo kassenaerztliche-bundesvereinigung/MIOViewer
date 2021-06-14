@@ -61,19 +61,25 @@ export default class LaboratoryExamination extends Section<MR.V1_00_000.Profile.
                     MR.V1_00_000.Profile.ObservationOtherBloodGroupSystems
                 ],
                 ref
-            )?.resource;
+            );
 
             if (res) {
                 let mainValue;
-                if (MR.V1_00_000.Profile.ObservationBloodGroupSerology.is(res)) {
+                if (MR.V1_00_000.Profile.ObservationBloodGroupSerology.is(res.resource)) {
                     const model = new Models.MP.ObservationBloodGroupSerologyModel(
-                        res,
+                        res.resource,
+                        res.fullUrl,
                         mio,
                         history
                     );
                     mainValue = model.getMainValue();
                 } else {
-                    const model = new Models.MP.Basic.ObservationModel(res, mio, history);
+                    const model = new Models.MP.Basic.ObservationModel(
+                        res.resource,
+                        res.fullUrl,
+                        mio,
+                        history
+                    );
                     mainValue = model.getMainValue();
                 }
 
@@ -104,11 +110,12 @@ export default class LaboratoryExamination extends Section<MR.V1_00_000.Profile.
                     mio,
                     [MR.V1_00_000.Profile.ObservationExamination],
                     ref
-                )?.resource;
+                );
 
                 if (res) {
                     const model = new Models.MP.Basic.ObservationModel(
-                        res,
+                        res.resource,
+                        res.fullUrl,
                         mio,
                         history,
                         [MR.V1_00_000.ConceptMap.ExaminationResultQualitativeGerman],
@@ -136,11 +143,12 @@ export default class LaboratoryExamination extends Section<MR.V1_00_000.Profile.
                 mio,
                 [MR.V1_00_000.Profile.ObservationImmunizationStatus],
                 ref
-            )?.resource;
+            );
 
             if (res) {
                 const model = new Models.MP.Basic.ObservationModel(
-                    res,
+                    res.resource,
+                    res.fullUrl,
                     mio,
                     history,
                     [],

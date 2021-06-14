@@ -1,2495 +1,2489 @@
 {
-	"resourceType": "Bundle",
-	"id": "b5bad3a3-c907-4d90-a9cb-5ef2ee66b169",
-	"meta": {
-		"profile": [
-			"https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_Bundle|1.0.0"
-		]
-	},
-	"identifier": {
-		"system": "urn:ietf:rfc:3986",
-		"value": "urn:uuid:b5bad3a3-c907-4d90-a9cb-5ef2ee66b169"
-	},
-	"type": "document",
-	"timestamp": "2021-01-29T12:30:02Z",
-	"entry": [
-		{
-			"fullUrl": "urn:uuid:b3cb3433-13d8-4d36-95cf-ca17de7312b8",
-			"resource": {
-				"resourceType": "Composition",
-				"id": "b3cb3433-13d8-4d36-95cf-ca17de7312b8",
-				"meta": {
-					"profile": [
-						"https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_Composition|1.0.0"
-					]
-				},
-				"extension": [
-					{
-						"extension": [
-							{
-								"url": "hinweiseSchwangere",
-								"valueString": "Schwangerschaft und Geburt sind natürliche Vorgänge und stellen keine Krankheit dar. Manchmal können sie allerdings mit einem erhöhten Risiko für Mutter und Kind belastet sein. Eine sorgfältige Schwangerschaftsbetreuung hilft, einen großen Teil dieser Risiken zu vermeiden oder rechtzeitig zu erkennen, um Gefahren abzuwenden. Voraussetzung dafür ist jedoch Ihre regelmäßige Teilnahme an den Vorsorgeuntersuchungen!Die in Ihrem Mutterpass aufgeführten Untersuchungen dienen der Gesunderhaltung von Mutter und Kind und entsprechen langjähriger geburtshilflicher Erfahrung und modernen medizinischen Erkenntnissen. Dieser Mutterpass enthält die während der Schwangerschaft erhobenen wichtigen Befunde. Er wird Ihnen nach jeder Vorsorgeuntersuchung wieder mitgegeben. Die Angaben im Mutterpass dienen der Information von Arzt und Hebamme sowie Ihrer und Ihres Kindes Sicherheit. Der Mutterpass ist Ihr persönliches Dokument. Sie allein entscheiden darüber, wem er zugänglich gemacht werden soll. Andere (z. B. Arbeitgeber, Behörden) dürfen eine Einsichtnahme nicht verlangen.Bitte: ● Nutzen Sie die Ihnen gebotenen Möglichkeiten, um sich und Ihrem Kind Sicherheit zu verschaffen! ● Vergessen Sie nicht, dieses Heft zu jeder ärztlichen Untersuchung während der Schwangerschaft, zur Entbindung und zur Untersuchung des Kindes mitzubringen! ● Lassen Sie sich helfen, wenn Sie Sorgen haben! ● Beraten Sie sich mit Ihrem Arzt und befolgen Sie seine Ratschläge!"
-							},
-							{
-								"url": "hinweiseMutter",
-								"valueString": "Nach Schwangerschaft und Geburt beginnt für Sie zwar wieder der Alltag mit neuen Aufgaben, beachten Sie aber bitte Folgendes: ● Gehen Sie etwa 6–8 Wochen nach der Entbindung zur Nachuntersuchung ● Nutzen Sie alle Kinder-Früherkennungsuntersuchungen (U2 – U9) beim Kinder- oder Hausarzt"
-							},
-							{
-								"url": "aufbewahrungshinweis",
-								"valueString": "Während der Schwangerschaft sollten Sie Ihren Mutterpass immer bei sich haben und zu jeder ärztlichen Untersuchung mitbringen,insbesondere auch zur Entbindung. Ihr Mutterpass gehört zu den Dokumenten, die Sie immer sorgfältig aufbewahren sollten."
-							}
-						],
-						"url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_MIO_MR_Comments"
-					}
-				],
-				"status": "final",
-				"type": {
-					"coding": [
-						{
-							"system": "http://snomed.info/sct",
-							"version": "http://snomed.info/sct/900000000000207008/version/20200731",
-							"code": "736377005",
-							"_display": {
-								"extension": [
-									{
-										"extension": [
-											{
-												"url": "content",
-												"valueString": "Mutterpasseintrag"
-											}
-										],
-										"url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
-									}
-								]
-							},
-							"display": "Maternity care plan (record artifact)"
-						}
-					]
-				},
-				"subject": {
-					"reference": "urn:uuid:0dafbded-fb9c-479e-9c18-9f9b835b80f2"
-				},
-				"encounter": {
-					"reference": "urn:uuid:13e37fe2-cf83-4ae2-bc31-cec96160baee"
-				},
-				"date": "2022-05-02",
-				"author": [
-					{
-						"reference": "urn:uuid:0d20fdb0-624d-4899-a8fe-dedeb50ca17d"
-					}
-				],
-				"title": "Mutterpasseintrag",
-				"section": [
-					{
-						"title": "Stempelinformationen des Arztes/der Klinik/der mitbetreuenden Hebamme",
-						"entry": [
-							{
-								"reference": "urn:uuid:0d20fdb0-624d-4899-a8fe-dedeb50ca17d"
-							}
-						]
-					},
-					{
-						"title": "Anamnese und allgemeine Befunde",
-						"entry": [
-							{
-								"reference": "urn:uuid:ad7b047e-1577-45f4-ae26-ac82f5d8864b"
-							},
-							{
-								"reference": "urn:uuid:19055c48-4042-416b-b61e-b9dbd3076091"
-							},
-							{
-								"reference": "urn:uuid:552c8058-15cb-43da-b3af-0f7cdc0022c5"
-							}
-						]
-					},
-					{
-						"title": "Untersuchungen",
-						"section": [
-							{
-								"title": "Gravidogramm",
-								"entry": [
-									{
-										"reference": "urn:uuid:f229bc82-8e0d-4600-a1df-44d24de79fb9"
-									},
-									{
-										"reference": "urn:uuid:a9a1a688-d39d-4dc3-9a8e-605ae03dbd18"
-									},
-									{
-										"reference": "urn:uuid:b21c9e9e-f1ea-4130-b36d-b6bf2c160954"
-									}
-								]
-							},
-							{
-								"title": "Abschluss-Untersuchung/Epikrise",
-								"section": [
-									{
-										"title": "Schwangerschaft",
-										"entry": [
-											{
-												"reference": "urn:uuid:1864daa5-d1dc-408d-8536-48960c698a0c"
-											},
-											{
-												"reference": "urn:uuid:ad7b047e-1577-45f4-ae26-ac82f5d8864b"
-											},
-											{
-												"reference": "urn:uuid:19055c48-4042-416b-b61e-b9dbd3076091"
-											},
-											{
-												"reference": "urn:uuid:552c8058-15cb-43da-b3af-0f7cdc0022c5"
-											},
-											{
-												"reference": "urn:uuid:1a025c9b-be57-45f2-8002-1007a30c230d"
-											}
-										]
-									},
-									{
-										"title": "Geburt",
-										"code": {
-											"coding": [
-												{
-													"system": "http://snomed.info/sct",
-													"version": "http://snomed.info/sct/900000000000207008/version/20200731",
-													"code": "118215003",
-													"_display": {
-														"extension": [
-															{
-																"extension": [
-																	{
-																		"url": "content",
-																		"valueString": "Geburt"
-																	}
-																],
-																"url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
-															}
-														]
-													},
-													"display": "Delivery finding (finding)"
-												}
-											]
-										},
-										"entry": [
-											{
-												"reference": "urn:uuid:6e83f5d1-7031-4d48-a3ff-f4da7dcd2a4d"
-											},
-											{
-												"reference": "urn:uuid:5f2ffb4e-8abc-4053-b460-b4e2844fce37"
-											}
-										],
-										"section": [
-											{
-												"title": "Angaben zum Kind",
-												"entry": [
-													{
-														"reference": "urn:uuid:adeae098-ce35-4dd8-885a-b9ea4ff9299e"
-													},
-													{
-														"reference": "urn:uuid:d6ed8917-0956-4f5c-b131-fdf05781223d"
-													},
-													{
-														"reference": "urn:uuid:4f3a7521-ec4b-4fcf-aa65-a870287b5d55"
-													},
-													{
-														"reference": "urn:uuid:32e196da-6a66-45bf-8580-560239f8db14"
-													},
-													{
-														"reference": "urn:uuid:f229bc82-8e0d-4600-a1df-44d24de79fb9"
-													},
-													{
-														"reference": "urn:uuid:43159ac9-2ced-42b8-b9f0-7f3034b879b6"
-													},
-													{
-														"reference": "urn:uuid:3d692857-9436-403a-9a11-1d0a9cda0768"
-													},
-													{
-														"reference": "urn:uuid:6c0c6016-a87d-4d45-a32a-678c5c908dcf"
-													},
-													{
-														"reference": "urn:uuid:1cd66ac0-e400-4349-8a75-9ba49744c118"
-													},
-													{
-														"reference": "urn:uuid:6fb7bee0-1cda-4e09-b3dc-88a90a710126"
-													},
-													{
-														"reference": "urn:uuid:f1fc4c8c-1c90-4a00-bf38-9d33d2bad1de"
-													},
-													{
-														"reference": "urn:uuid:cc62c1af-17ed-4285-81d4-c432d6959f5c"
-													},
-													{
-														"reference": "urn:uuid:cfda7594-6c71-4910-a7d7-2e4d676a2f2d"
-													},
-													{
-														"reference": "urn:uuid:c21c3944-ba5a-4afc-aecc-268a7c668bf9"
-													},
-													{
-														"reference": "urn:uuid:a9a1a688-d39d-4dc3-9a8e-605ae03dbd18"
-													},
-													{
-														"reference": "urn:uuid:315a2186-225a-41e6-89ce-eaa15371068b"
-													},
-													{
-														"reference": "urn:uuid:67cb2d3c-bb08-46b9-a5b3-7f40f1529461"
-													},
-													{
-														"reference": "urn:uuid:f19df241-1439-4570-a56c-d8a31b121470"
-													},
-													{
-														"reference": "urn:uuid:c3576f4f-595d-42e5-a445-eebb2cb271fb"
-													},
-													{
-														"reference": "urn:uuid:c9a728d7-e0a7-4461-87e6-7ad1f2c153a3"
-													}
-												],
-												"section": [
-													{
-														"title": "Apgar-Score",
-														"code": {
-															"coding": [
-																{
-																	"system": "http://snomed.info/sct",
-																	"version": "http://snomed.info/sct/900000000000207008/version/20200731",
-																	"code": "249228009",
-																	"_display": {
-																		"extension": [
-																			{
-																				"extension": [
-																					{
-																						"url": "content",
-																						"valueString": "Apgar-Score"
-																					}
-																				],
-																				"url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
-																			}
-																		]
-																	},
-																	"display": "Total apgar score"
-																}
-															]
-														},
-														"entry": [
-															{
-																"reference": "urn:uuid:893ba5f9-28b9-4c13-b833-bbcf87678e81"
-															},
-															{
-																"reference": "urn:uuid:beff21cd-5b4c-41ad-8fd7-971b9b088e62"
-															}
-														]
-													}
-												]
-											}
-										]
-									}
-								]
-							}
-						]
-					}
-				]
-			}
-		},
-		{
-			"fullUrl": "urn:uuid:b21c9e9e-f1ea-4130-b36d-b6bf2c160954",
-			"resource": {
-				"resourceType": "ClinicalImpression",
-				"id": "b21c9e9e-f1ea-4130-b36d-b6bf2c160954",
-				"meta": {
-					"profile": [
-						"https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_ClinicalImpression_Pregnancy_Chart_Entry|1.0.0"
-					]
-				},
-				"identifier": [
-					{
-						"extension": [
-							{
-								"url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Additional_Comment",
-								"valueString": "1"
-							}
-						]
-					}
-				],
-				"status": "completed",
-				"code": {
-					"coding": [
-						{
-							"system": "http://snomed.info/sct",
-							"version": "http://snomed.info/sct/900000000000207008/version/20200731",
-							"code": "773433004",
-							"_display": {
-								"extension": [
-									{
-										"extension": [
-											{
-												"url": "content",
-												"valueString": "Gravidogramm"
-											}
-										],
-										"url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
-									}
-								]
-							},
-							"display": "Obstetric antenatal care plan (record artifact)"
-						}
-					]
-				},
-				"subject": {
-					"reference": "urn:uuid:0dafbded-fb9c-479e-9c18-9f9b835b80f2"
-				},
-				"encounter": {
-					"reference": "urn:uuid:13e37fe2-cf83-4ae2-bc31-cec96160baee"
-				},
-				"_effectiveDateTime": {
-					"extension": [
-						{
-							"extension": [
-								{
-									"extension": [
-										{
-											"url": "schwangerschaftswoche",
-											"valueQuantity": {
-												"value": 36,
-												"unit": "Wochen",
-												"system": "http://unitsofmeasure.org",
-												"code": "wk"
-											}
-										},
-										{
-											"url": "ergaenzendeTage",
-											"valueQuantity": {
-												"value": 2,
-												"unit": "Tage",
-												"system": "http://unitsofmeasure.org",
-												"code": "d"
-											}
-										},
-										{
-											"url": "korrektur",
-											"valueBoolean": false
-										},
-										{
-											"url": "kode",
-											"valueCodeableConcept": {
-												"coding": [
-													{
-														"system": "http://snomed.info/sct",
-														"version": "http://snomed.info/sct/900000000000207008/version/20200731",
-														"code": "57036006",
-														"_display": {
-															"extension": [
-																{
-																	"extension": [
-																		{
-																			"url": "content",
-																			"valueString": "Schwangerschaftswoche+Tage"
-																		}
-																	],
-																	"url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
-																}
-															]
-														},
-														"display": "Fetal gestational age (observable entity)"
-													}
-												]
-											}
-										}
-									],
-									"url": "schwangerschaftszeitpunkt"
-								}
-							],
-							"url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_MIO_MR_Pregnancy_Week_And_Day"
-						}
-					]
-				},
-				"effectiveDateTime": "2022-02-01",
-				"assessor": {
-					"reference": "urn:uuid:0d20fdb0-624d-4899-a8fe-dedeb50ca17d"
-				},
-				"investigation": [
-					{
-						"code": {
-							"text": "Gravidogrameintrag"
-						},
-						"item": [
-							{
-								"reference": "urn:uuid:f229bc82-8e0d-4600-a1df-44d24de79fb9"
-							},
-							{
-								"reference": "urn:uuid:a9a1a688-d39d-4dc3-9a8e-605ae03dbd18"
-							}
-						]
-					}
-				]
-			}
-		},
-		{
-			"fullUrl": "urn:uuid:0d20fdb0-624d-4899-a8fe-dedeb50ca17d",
-			"resource": {
-				"resourceType": "Organization",
-				"id": "0d20fdb0-624d-4899-a8fe-dedeb50ca17d",
-				"meta": {
-					"profile": [
-						"https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_Organization|1.0.0"
-					]
-				},
-				"identifier": [
-					{
-						"type": {
-							"coding": [
-								{
-									"system": "http://terminology.hl7.org/CodeSystem/v2-0203",
-									"code": "XX"
-								}
-							]
-						},
-						"system": "http://fhir.de/NamingSystem/arge-ik/iknr",
-						"value": "986337194"
-					}
-				],
-				"name": "Waldkrankenhaus Beispielhaft"
-			}
-		},
-		{
-			"fullUrl": "urn:uuid:c3576f4f-595d-42e5-a445-eebb2cb271fb",
-			"resource": {
-				"resourceType": "Observation",
-				"id": "c3576f4f-595d-42e5-a445-eebb2cb271fb",
-				"meta": {
-					"profile": [
-						"https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_Observation_pH_Value_Umbilical_Artery|1.0.0"
-					]
-				},
-				"status": "final",
-				"code": {
-					"coding": [
-						{
-							"system": "http://snomed.info/sct",
-							"version": "http://snomed.info/sct/900000000000207008/version/20200731",
-							"code": "363787002:370134009=123029007,704319004=12499000,246093002=89177007,704318007=702700007,370132008=30766002,704327008=703430008",
-							"_display": {
-								"extension": [
-									{
-										"extension": [
-											{
-												"url": "content",
-												"valueString": "pH-Wert (Nabelarterie)"
-											}
-										],
-										"url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
-									}
-								]
-							},
-							"display": "Observable entity (observable entity):Time aspect (attribute)=Single point in time (qualifier value), Inheres in (attribute)=Cord blood (substance), Component (attribute)=Proton (substance), Property type (attribute)=Logarithmic substance concentration (property) (qualifier value), Scale type (attribute)=Quantitative (qualifier value), Direct site (attribute)=Arterial cord blood specimen (specimen)"
-						},
-						{
-							"system": "http://loinc.org",
-							"version": "2.68",
-							"code": "28646-8",
-							"_display": {
-								"extension": [
-									{
-										"extension": [
-											{
-												"url": "content",
-												"valueString": "pH-Wert (Nabelarterie)"
-											}
-										],
-										"url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
-									}
-								]
-							},
-							"display": "pH of Arterial cord blood"
-						}
-					]
-				},
-				"subject": {
-					"reference": "urn:uuid:cc62c1af-17ed-4285-81d4-c432d6959f5c"
-				},
-				"encounter": {
-					"reference": "urn:uuid:13e37fe2-cf83-4ae2-bc31-cec96160baee"
-				},
-				"effectiveDateTime": "2022-05-01",
-				"performer": [
-					{
-						"reference": "urn:uuid:0d20fdb0-624d-4899-a8fe-dedeb50ca17d"
-					}
-				],
-				"valueQuantity": {
-					"value": 7.40,
-					"unit": "(pH)",
-					"system": "http://unitsofmeasure.org",
-					"code": "[pH]"
-				}
-			}
-		},
-		{
-			"fullUrl": "urn:uuid:1cd66ac0-e400-4349-8a75-9ba49744c118",
-			"resource": {
-				"resourceType": "Observation",
-				"id": "1cd66ac0-e400-4349-8a75-9ba49744c118",
-				"meta": {
-					"profile": [
-						"https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_Observation_pH_Value_Umbilical_Artery|1.0.0"
-					]
-				},
-				"status": "final",
-				"code": {
-					"coding": [
-						{
-							"system": "http://snomed.info/sct",
-							"version": "http://snomed.info/sct/900000000000207008/version/20200731",
-							"code": "363787002:370134009=123029007,704319004=12499000,246093002=89177007,704318007=702700007,370132008=30766002,704327008=703430008",
-							"_display": {
-								"extension": [
-									{
-										"extension": [
-											{
-												"url": "content",
-												"valueString": "pH-Wert (Nabelarterie)"
-											}
-										],
-										"url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
-									}
-								]
-							},
-							"display": "Observable entity (observable entity):Time aspect (attribute)=Single point in time (qualifier value), Inheres in (attribute)=Cord blood (substance), Component (attribute)=Proton (substance), Property type (attribute)=Logarithmic substance concentration (property) (qualifier value), Scale type (attribute)=Quantitative (qualifier value), Direct site (attribute)=Arterial cord blood specimen (specimen)"
-						},
-						{
-							"system": "http://loinc.org",
-							"version": "2.68",
-							"code": "28646-8",
-							"_display": {
-								"extension": [
-									{
-										"extension": [
-											{
-												"url": "content",
-												"valueString": "pH-Wert (Nabelarterie)"
-											}
-										],
-										"url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
-									}
-								]
-							},
-							"display": "pH of Arterial cord blood"
-						}
-					]
-				},
-				"subject": {
-					"reference": "urn:uuid:d6ed8917-0956-4f5c-b131-fdf05781223d"
-				},
-				"encounter": {
-					"reference": "urn:uuid:13e37fe2-cf83-4ae2-bc31-cec96160baee"
-				},
-				"effectiveDateTime": "2022-05-01",
-				"performer": [
-					{
-						"reference": "urn:uuid:0d20fdb0-624d-4899-a8fe-dedeb50ca17d"
-					}
-				],
-				"valueQuantity": {
-					"value": 7.38,
-					"unit": "(pH)",
-					"system": "http://unitsofmeasure.org",
-					"code": "[pH]"
-				}
-			}
-		},
-		{
-			"fullUrl": "urn:uuid:cc62c1af-17ed-4285-81d4-c432d6959f5c",
-			"resource": {
-				"resourceType": "Patient",
-				"id": "cc62c1af-17ed-4285-81d4-c432d6959f5c",
-				"meta": {
-					"profile": [
-						"https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_Patient_Child|1.0.0"
-					]
-				},
-				"extension": [
-					{
-						"url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Additional_Comment",
-						"valueString": "Kind 2 von 2"
-					}
-				],
-				"identifier": [
-					{
-						"extension": [
-							{
-								"url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_MIO_MR_Child_Number",
-								"valueInteger": 2
-							}
-						]
-					}
-				],
-				"gender": "male",
-				"birthDate": "2022-05-01",
-				"deceasedBoolean": false
-			}
-		},
-		{
-			"fullUrl": "urn:uuid:d6ed8917-0956-4f5c-b131-fdf05781223d",
-			"resource": {
-				"resourceType": "Patient",
-				"id": "d6ed8917-0956-4f5c-b131-fdf05781223d",
-				"meta": {
-					"profile": [
-						"https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_Patient_Child|1.0.0"
-					]
-				},
-				"extension": [
-					{
-						"url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Additional_Comment",
-						"valueString": "Kind 1 von 2"
-					}
-				],
-				"identifier": [
-					{
-						"extension": [
-							{
-								"url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_MIO_MR_Child_Number",
-								"valueInteger": 1
-							}
-						]
-					}
-				],
-				"gender": "female",
-				"birthDate": "2022-05-01",
-				"deceasedBoolean": false
-			}
-		},
-		{
-			"fullUrl": "urn:uuid:0dafbded-fb9c-479e-9c18-9f9b835b80f2",
-			"resource": {
-				"resourceType": "Patient",
-				"id": "0dafbded-fb9c-479e-9c18-9f9b835b80f2",
-				"meta": {
-					"profile": [
-						"https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_Patient_Mother|1.0.0"
-					]
-				},
-				"identifier": [
-					{
-						"type": {
-							"coding": [
-								{
-									"system": "http://fhir.de/CodeSystem/identifier-type-de-basis",
-									"code": "GKV"
-								}
-							]
-						},
-						"system": "http://fhir.de/NamingSystem/gkv/kvid-10",
-						"value": "M981183877"
-					}
-				],
-				"name": [
-					{
-						"use": "official",
-						"_family": {
-							"extension": [
-								{
-									"url": "http://hl7.org/fhir/StructureDefinition/humanname-own-name",
-									"valueString": "Mustermann"
-								}
-							]
-						},
-						"family": "Mustermann",
-						"given": [
-							"Marie"
-						]
-					}
-				],
-				"birthDate": "1985-01-07",
-				"address": [
-					{
-						"type": "both",
-						"line": [
-							"Musterstaße 9"
-						],
-						"_line": [
-							{
-								"extension": [
-									{
-										"url": "http://hl7.org/fhir/StructureDefinition/iso21090-ADXP-streetName",
-										"valueString": "Musterstraße"
-									},
-									{
-										"url": "http://hl7.org/fhir/StructureDefinition/iso21090-ADXP-houseNumber",
-										"valueString": "9"
-									}
-								]
-							}
-						],
-						"city": "Dresden",
-						"postalCode": "02139",
-						"country": "DE"
-					}
-				]
-			}
-		},
-		{
-			"fullUrl": "urn:uuid:cfda7594-6c71-4910-a7d7-2e4d676a2f2d",
-			"resource": {
-				"resourceType": "Observation",
-				"id": "cfda7594-6c71-4910-a7d7-2e4d676a2f2d",
-				"meta": {
-					"profile": [
-						"https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_Observation_Live_Birth|1.0.0"
-					]
-				},
-				"status": "final",
-				"code": {
-					"coding": [
-						{
-							"system": "http://snomed.info/sct",
-							"version": "http://snomed.info/sct/900000000000207008/version/20200731",
-							"code": "281050002",
-							"_display": {
-								"extension": [
-									{
-										"extension": [
-											{
-												"url": "content",
-												"valueString": "Lebendgeburt"
-											}
-										],
-										"url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
-									}
-								]
-							},
-							"display": "Livebirth (finding)"
-						}
-					]
-				},
-				"subject": {
-					"reference": "urn:uuid:cc62c1af-17ed-4285-81d4-c432d6959f5c"
-				},
-				"encounter": {
-					"reference": "urn:uuid:13e37fe2-cf83-4ae2-bc31-cec96160baee"
-				},
-				"effectiveDateTime": "2022-05-01",
-				"performer": [
-					{
-						"reference": "urn:uuid:0d20fdb0-624d-4899-a8fe-dedeb50ca17d"
-					}
-				],
-				"valueBoolean": true
-			}
-		},
-		{
-			"fullUrl": "urn:uuid:4f3a7521-ec4b-4fcf-aa65-a870287b5d55",
-			"resource": {
-				"resourceType": "Observation",
-				"id": "4f3a7521-ec4b-4fcf-aa65-a870287b5d55",
-				"meta": {
-					"profile": [
-						"https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_Observation_Live_Birth|1.0.0"
-					]
-				},
-				"status": "final",
-				"code": {
-					"coding": [
-						{
-							"system": "http://snomed.info/sct",
-							"version": "http://snomed.info/sct/900000000000207008/version/20200731",
-							"code": "281050002",
-							"_display": {
-								"extension": [
-									{
-										"extension": [
-											{
-												"url": "content",
-												"valueString": "Lebendgeburt"
-											}
-										],
-										"url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
-									}
-								]
-							},
-							"display": "Livebirth (finding)"
-						}
-					]
-				},
-				"subject": {
-					"reference": "urn:uuid:d6ed8917-0956-4f5c-b131-fdf05781223d"
-				},
-				"encounter": {
-					"reference": "urn:uuid:13e37fe2-cf83-4ae2-bc31-cec96160baee"
-				},
-				"effectiveDateTime": "2022-05-01",
-				"performer": [
-					{
-						"reference": "urn:uuid:0d20fdb0-624d-4899-a8fe-dedeb50ca17d"
-					}
-				],
-				"valueBoolean": true
-			}
-		},
-		{
-			"fullUrl": "urn:uuid:f19df241-1439-4570-a56c-d8a31b121470",
-			"resource": {
-				"resourceType": "Observation",
-				"id": "f19df241-1439-4570-a56c-d8a31b121470",
-				"meta": {
-					"profile": [
-						"https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_Observation_Birth_Height|1.0.0"
-					]
-				},
-				"status": "final",
-				"code": {
-					"coding": [
-						{
-							"system": "http://snomed.info/sct",
-							"version": "http://snomed.info/sct/900000000000207008/version/20200731",
-							"code": "169886007",
-							"_display": {
-								"extension": [
-									{
-										"extension": [
-											{
-												"url": "content",
-												"valueString": "Körperlänge"
-											}
-										],
-										"url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
-									}
-								]
-							},
-							"display": "Birth length (observable entity)"
-						},
-						{
-							"system": "http://loinc.org",
-							"version": "2.68",
-							"code": "89269-5",
-							"_display": {
-								"extension": [
-									{
-										"extension": [
-											{
-												"url": "content",
-												"valueString": "Körperlänge"
-											}
-										],
-										"url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
-									}
-								]
-							},
-							"display": "Body height Measured --at birth"
-						}
-					]
-				},
-				"subject": {
-					"reference": "urn:uuid:cc62c1af-17ed-4285-81d4-c432d6959f5c"
-				},
-				"encounter": {
-					"reference": "urn:uuid:13e37fe2-cf83-4ae2-bc31-cec96160baee"
-				},
-				"effectiveDateTime": "2022-05-01",
-				"performer": [
-					{
-						"reference": "urn:uuid:0d20fdb0-624d-4899-a8fe-dedeb50ca17d"
-					}
-				],
-				"valueQuantity": {
-					"value": 52,
-					"unit": "cm",
-					"system": "http://unitsofmeasure.org",
-					"code": "cm"
-				}
-			}
-		},
-		{
-			"fullUrl": "urn:uuid:6c0c6016-a87d-4d45-a32a-678c5c908dcf",
-			"resource": {
-				"resourceType": "Observation",
-				"id": "6c0c6016-a87d-4d45-a32a-678c5c908dcf",
-				"meta": {
-					"profile": [
-						"https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_Observation_Birth_Height|1.0.0"
-					]
-				},
-				"status": "final",
-				"code": {
-					"coding": [
-						{
-							"system": "http://snomed.info/sct",
-							"version": "http://snomed.info/sct/900000000000207008/version/20200731",
-							"code": "169886007",
-							"_display": {
-								"extension": [
-									{
-										"extension": [
-											{
-												"url": "content",
-												"valueString": "Körperlänge"
-											}
-										],
-										"url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
-									}
-								]
-							},
-							"display": "Birth length (observable entity)"
-						},
-						{
-							"system": "http://loinc.org",
-							"version": "2.68",
-							"code": "89269-5",
-							"_display": {
-								"extension": [
-									{
-										"extension": [
-											{
-												"url": "content",
-												"valueString": "Körperlänge"
-											}
-										],
-										"url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
-									}
-								]
-							},
-							"display": "Body height Measured --at birth"
-						}
-					]
-				},
-				"subject": {
-					"reference": "urn:uuid:d6ed8917-0956-4f5c-b131-fdf05781223d"
-				},
-				"encounter": {
-					"reference": "urn:uuid:13e37fe2-cf83-4ae2-bc31-cec96160baee"
-				},
-				"effectiveDateTime": "2022-05-01",
-				"performer": [
-					{
-						"reference": "urn:uuid:0d20fdb0-624d-4899-a8fe-dedeb50ca17d"
-					}
-				],
-				"valueQuantity": {
-					"value": 54,
-					"unit": "cm",
-					"system": "http://unitsofmeasure.org",
-					"code": "cm"
-				}
-			}
-		},
-		{
-			"fullUrl": "urn:uuid:315a2186-225a-41e6-89ce-eaa15371068b",
-			"resource": {
-				"resourceType": "Observation",
-				"id": "315a2186-225a-41e6-89ce-eaa15371068b",
-				"meta": {
-					"profile": [
-						"https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_Observation_Weight_Child"
-					]
-				},
-				"status": "final",
-				"code": {
-					"coding": [
-						{
-							"system": "http://snomed.info/sct",
-							"version": "http://snomed.info/sct/900000000000207008/version/20200731",
-							"code": "364589006",
-							"_display": {
-								"extension": [
-									{
-										"extension": [
-											{
-												"url": "content",
-												"valueString": "Geburtsgewicht des Kindes"
-											}
-										],
-										"url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
-									}
-								]
-							},
-							"display": "Birth weight (observable entity)"
-						},
-						{
-							"system": "http://loinc.org",
-							"version": "2.68",
-							"code": "8339-4",
-							"_display": {
-								"extension": [
-									{
-										"extension": [
-											{
-												"url": "content",
-												"valueString": "Geburtsgewicht des Kindes"
-											}
-										],
-										"url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
-									}
-								]
-							},
-							"display": "Birth weight Measured"
-						}
-					]
-				},
-				"subject": {
-					"reference": "urn:uuid:cc62c1af-17ed-4285-81d4-c432d6959f5c"
-				},
-				"encounter": {
-					"reference": "urn:uuid:13e37fe2-cf83-4ae2-bc31-cec96160baee"
-				},
-				"effectiveDateTime": "2022-05-01",
-				"performer": [
-					{
-						"reference": "urn:uuid:0d20fdb0-624d-4899-a8fe-dedeb50ca17d"
-					}
-				],
-				"valueQuantity": {
-					"value": 3180,
-					"unit": "g",
-					"system": "http://unitsofmeasure.org",
-					"code": "g"
-				}
-			}
-		},
-		{
-			"fullUrl": "urn:uuid:43159ac9-2ced-42b8-b9f0-7f3034b879b6",
-			"resource": {
-				"resourceType": "Observation",
-				"id": "43159ac9-2ced-42b8-b9f0-7f3034b879b6",
-				"meta": {
-					"profile": [
-						"https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_Observation_Weight_Child"
-					]
-				},
-				"status": "final",
-				"code": {
-					"coding": [
-						{
-							"system": "http://snomed.info/sct",
-							"version": "http://snomed.info/sct/900000000000207008/version/20200731",
-							"code": "364589006",
-							"_display": {
-								"extension": [
-									{
-										"extension": [
-											{
-												"url": "content",
-												"valueString": "Geburtsgewicht des Kindes"
-											}
-										],
-										"url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
-									}
-								]
-							},
-							"display": "Birth weight (observable entity)"
-						},
-						{
-							"system": "http://loinc.org",
-							"version": "2.67",
-							"code": "8339-4",
-							"_display": {
-								"extension": [
-									{
-										"extension": [
-											{
-												"url": "content",
-												"valueString": "Geburtsgewicht des Kindes"
-											}
-										],
-										"url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
-									}
-								]
-							},
-							"display": "Birth weight Measured"
-						}
-					]
-				},
-				"subject": {
-					"reference": "urn:uuid:d6ed8917-0956-4f5c-b131-fdf05781223d"
-				},
-				"encounter": {
-					"reference": "urn:uuid:13e37fe2-cf83-4ae2-bc31-cec96160baee"
-				},
-				"effectiveDateTime": "2022-05-01",
-				"performer": [
-					{
-						"reference": "urn:uuid:0d20fdb0-624d-4899-a8fe-dedeb50ca17d"
-					}
-				],
-				"valueQuantity": {
-					"value": 3255,
-					"unit": "g",
-					"system": "http://unitsofmeasure.org",
-					"code": "g"
-				}
-			}
-		},
-		{
-			"fullUrl": "urn:uuid:67cb2d3c-bb08-46b9-a5b3-7f40f1529461",
-			"resource": {
-				"resourceType": "Observation",
-				"id": "67cb2d3c-bb08-46b9-a5b3-7f40f1529461",
-				"meta": {
-					"profile": [
-						"https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_Observation_Head_Circumference|1.0.0"
-					]
-				},
-				"status": "final",
-				"code": {
-					"coding": [
-						{
-							"system": "http://snomed.info/sct",
-							"version": "http://snomed.info/sct/900000000000207008/version/20200731",
-							"code": "169876006",
-							"_display": {
-								"extension": [
-									{
-										"extension": [
-											{
-												"url": "content",
-												"valueString": "Kopfumfang"
-											}
-										],
-										"url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
-									}
-								]
-							},
-							"display": "Birth head circumference (observable entity)"
-						},
-						{
-							"system": "http://loinc.org",
-							"version": "2.68",
-							"code": "9843-4",
-							"_display": {
-								"extension": [
-									{
-										"extension": [
-											{
-												"url": "content",
-												"valueString": "Kopfumfang"
-											}
-										],
-										"url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
-									}
-								]
-							},
-							"display": "Head Occipital-frontal circumference"
-						}
-					]
-				},
-				"subject": {
-					"reference": "urn:uuid:cc62c1af-17ed-4285-81d4-c432d6959f5c"
-				},
-				"encounter": {
-					"reference": "urn:uuid:13e37fe2-cf83-4ae2-bc31-cec96160baee"
-				},
-				"effectiveDateTime": "2022-05-01",
-				"performer": [
-					{
-						"reference": "urn:uuid:0d20fdb0-624d-4899-a8fe-dedeb50ca17d"
-					}
-				],
-				"valueQuantity": {
-					"value": 34,
-					"unit": "cm",
-					"system": "http://unitsofmeasure.org",
-					"code": "cm"
-				}
-			}
-		},
-		{
-			"fullUrl": "urn:uuid:3d692857-9436-403a-9a11-1d0a9cda0768",
-			"resource": {
-				"resourceType": "Observation",
-				"id": "3d692857-9436-403a-9a11-1d0a9cda0768",
-				"meta": {
-					"profile": [
-						"https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_Observation_Head_Circumference|1.0.0"
-					]
-				},
-				"status": "final",
-				"code": {
-					"coding": [
-						{
-							"system": "http://snomed.info/sct",
-							"version": "http://snomed.info/sct/900000000000207008/version/20200731",
-							"code": "169876006",
-							"_display": {
-								"extension": [
-									{
-										"extension": [
-											{
-												"url": "content",
-												"valueString": "Kopfumfang"
-											}
-										],
-										"url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
-									}
-								]
-							},
-							"display": "Birth head circumference (observable entity)"
-						},
-						{
-							"system": "http://loinc.org",
-							"version": "2.68",
-							"code": "9843-4",
-							"_display": {
-								"extension": [
-									{
-										"extension": [
-											{
-												"url": "content",
-												"valueString": "Kopfumfang"
-											}
-										],
-										"url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
-									}
-								]
-							},
-							"display": "Head Occipital-frontal circumference"
-						}
-					]
-				},
-				"subject": {
-					"reference": "urn:uuid:d6ed8917-0956-4f5c-b131-fdf05781223d"
-				},
-				"encounter": {
-					"reference": "urn:uuid:13e37fe2-cf83-4ae2-bc31-cec96160baee"
-				},
-				"effectiveDateTime": "2022-05-01",
-				"performer": [
-					{
-						"reference": "urn:uuid:0d20fdb0-624d-4899-a8fe-dedeb50ca17d"
-					}
-				],
-				"valueQuantity": {
-					"value": 35,
-					"unit": "cm",
-					"system": "http://unitsofmeasure.org",
-					"code": "cm"
-				}
-			}
-		},
-		{
-			"fullUrl": "urn:uuid:a9a1a688-d39d-4dc3-9a8e-605ae03dbd18",
-			"resource": {
-				"resourceType": "Observation",
-				"id": "a9a1a688-d39d-4dc3-9a8e-605ae03dbd18",
-				"meta": {
-					"profile": [
-						"https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_Observation_Child_Position|1.0.0"
-					]
-				},
-				"status": "final",
-				"code": {
-					"coding": [
-						{
-							"system": "http://snomed.info/sct",
-							"version": "http://snomed.info/sct/900000000000207008/version/20200731",
-							"code": "364607000",
-							"_display": {
-								"extension": [
-									{
-										"extension": [
-											{
-												"url": "content",
-												"valueString": "Kindslage"
-											}
-										],
-										"url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
-									}
-								]
-							},
-							"display": "Position of fetus (observable entity)"
-						}
-					]
-				},
-				"subject": {
-					"reference": "urn:uuid:cc62c1af-17ed-4285-81d4-c432d6959f5c"
-				},
-				"encounter": {
-					"reference": "urn:uuid:13e37fe2-cf83-4ae2-bc31-cec96160baee"
-				},
-				"effectiveDateTime": "2022-05-01",
-				"performer": [
-					{
-						"reference": "urn:uuid:0d20fdb0-624d-4899-a8fe-dedeb50ca17d"
-					}
-				],
-				"valueString": "Schädellage"
-			}
-		},
-		{
-			"fullUrl": "urn:uuid:f229bc82-8e0d-4600-a1df-44d24de79fb9",
-			"resource": {
-				"resourceType": "Observation",
-				"id": "f229bc82-8e0d-4600-a1df-44d24de79fb9",
-				"meta": {
-					"profile": [
-						"https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_Observation_Child_Position|1.0.0"
-					]
-				},
-				"status": "final",
-				"code": {
-					"coding": [
-						{
-							"system": "http://snomed.info/sct",
-							"version": "http://snomed.info/sct/900000000000207008/version/20200731",
-							"code": "364607000",
-							"_display": {
-								"extension": [
-									{
-										"extension": [
-											{
-												"url": "content",
-												"valueString": "Kindslage"
-											}
-										],
-										"url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
-									}
-								]
-							},
-							"display": "Position of fetus (observable entity)"
-						}
-					]
-				},
-				"subject": {
-					"reference": "urn:uuid:d6ed8917-0956-4f5c-b131-fdf05781223d"
-				},
-				"encounter": {
-					"reference": "urn:uuid:13e37fe2-cf83-4ae2-bc31-cec96160baee"
-				},
-				"effectiveDateTime": "2022-05-01",
-				"performer": [
-					{
-						"reference": "urn:uuid:0d20fdb0-624d-4899-a8fe-dedeb50ca17d"
-					}
-				],
-				"valueString": "Schädellage"
-			}
-		},
-		{
-			"fullUrl": "urn:uuid:c21c3944-ba5a-4afc-aecc-268a7c668bf9",
-			"resource": {
-				"resourceType": "Observation",
-				"id": "c21c3944-ba5a-4afc-aecc-268a7c668bf9",
-				"meta": {
-					"profile": [
-						"https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_Observation_Birth_Mode|1.0.0"
-					]
-				},
-				"status": "final",
-				"code": {
-					"coding": [
-						{
-							"system": "http://snomed.info/sct",
-							"version": "http://snomed.info/sct/900000000000207008/version/20200731",
-							"code": "118215003",
-							"_display": {
-								"extension": [
-									{
-										"extension": [
-											{
-												"url": "content",
-												"valueString": "Geburtsmodus"
-											}
-										],
-										"url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
-									}
-								]
-							},
-							"display": "Delivery finding (finding)"
-						}
-					]
-				},
-				"subject": {
-					"reference": "urn:uuid:cc62c1af-17ed-4285-81d4-c432d6959f5c"
-				},
-				"encounter": {
-					"reference": "urn:uuid:13e37fe2-cf83-4ae2-bc31-cec96160baee"
-				},
-				"effectiveDateTime": "2022-05-01",
-				"performer": [
-					{
-						"reference": "urn:uuid:0d20fdb0-624d-4899-a8fe-dedeb50ca17d"
-					}
-				],
-				"valueCodeableConcept": {
-					"coding": [
-						{
-							"system": "http://snomed.info/sct",
-							"version": "http://snomed.info/sct/900000000000207008/version/20200731",
-							"code": "169961004",
-							"_display": {
-								"extension": [
-									{
-										"extension": [
-											{
-												"url": "content",
-												"valueString": "Spontangeburt"
-											}
-										],
-										"url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
-									}
-								]
-							},
-							"display": "Normal birth (finding)"
-						}
-					]
-				}
-			}
-		},
-		{
-			"fullUrl": "urn:uuid:32e196da-6a66-45bf-8580-560239f8db14",
-			"resource": {
-				"resourceType": "Observation",
-				"id": "32e196da-6a66-45bf-8580-560239f8db14",
-				"meta": {
-					"profile": [
-						"https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_Observation_Birth_Mode|1.0.0"
-					]
-				},
-				"status": "final",
-				"code": {
-					"coding": [
-						{
-							"system": "http://snomed.info/sct",
-							"version": "http://snomed.info/sct/900000000000207008/version/20200731",
-							"code": "118215003",
-							"_display": {
-								"extension": [
-									{
-										"extension": [
-											{
-												"url": "content",
-												"valueString": "Geburtsmodus"
-											}
-										],
-										"url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
-									}
-								]
-							},
-							"display": "Delivery finding (finding)"
-						}
-					]
-				},
-				"subject": {
-					"reference": "urn:uuid:d6ed8917-0956-4f5c-b131-fdf05781223d"
-				},
-				"encounter": {
-					"reference": "urn:uuid:13e37fe2-cf83-4ae2-bc31-cec96160baee"
-				},
-				"effectiveDateTime": "2022-05-01",
-				"performer": [
-					{
-						"reference": "urn:uuid:0d20fdb0-624d-4899-a8fe-dedeb50ca17d"
-					}
-				],
-				"valueCodeableConcept": {
-					"coding": [
-						{
-							"system": "http://snomed.info/sct",
-							"version": "http://snomed.info/sct/900000000000207008/version/20200731",
-							"code": "169961004",
-							"_display": {
-								"extension": [
-									{
-										"extension": [
-											{
-												"url": "content",
-												"valueString": "Spontangeburt"
-											}
-										],
-										"url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
-									}
-								]
-							},
-							"display": "Normal birth (finding)"
-						}
-					]
-				}
-			}
-		},
-		{
-			"fullUrl": "urn:uuid:c9a728d7-e0a7-4461-87e6-7ad1f2c153a3",
-			"resource": {
-				"resourceType": "Observation",
-				"id": "c9a728d7-e0a7-4461-87e6-7ad1f2c153a3",
-				"meta": {
-					"profile": [
-						"https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_Observation_Malformation|1.0.0"
-					]
-				},
-				"status": "final",
-				"code": {
-					"coding": [
-						{
-							"system": "http://snomed.info/sct",
-							"version": "http://snomed.info/sct/900000000000207008/version/20200731",
-							"code": "276654001",
-							"_display": {
-								"extension": [
-									{
-										"extension": [
-											{
-												"url": "content",
-												"valueString": "Auffällige Fehlbildung"
-											}
-										],
-										"url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
-									}
-								]
-							},
-							"display": "Congenital malformation (disorder)"
-						}
-					]
-				},
-				"subject": {
-					"reference": "urn:uuid:cc62c1af-17ed-4285-81d4-c432d6959f5c"
-				},
-				"encounter": {
-					"reference": "urn:uuid:13e37fe2-cf83-4ae2-bc31-cec96160baee"
-				},
-				"effectiveDateTime": "2022-05-01",
-				"valueBoolean": false
-			}
-		},
-		{
-			"fullUrl": "urn:uuid:6fb7bee0-1cda-4e09-b3dc-88a90a710126",
-			"resource": {
-				"resourceType": "Observation",
-				"id": "6fb7bee0-1cda-4e09-b3dc-88a90a710126",
-				"meta": {
-					"profile": [
-						"https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_Observation_Malformation|1.0.0"
-					]
-				},
-				"status": "final",
-				"code": {
-					"coding": [
-						{
-							"system": "http://snomed.info/sct",
-							"version": "http://snomed.info/sct/900000000000207008/version/20200731",
-							"code": "276654001",
-							"_display": {
-								"extension": [
-									{
-										"extension": [
-											{
-												"url": "content",
-												"valueString": "Auffällige Fehlbildung"
-											}
-										],
-										"url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
-									}
-								]
-							},
-							"display": "Congenital malformation (disorder)"
-						}
-					]
-				},
-				"subject": {
-					"reference": "urn:uuid:d6ed8917-0956-4f5c-b131-fdf05781223d"
-				},
-				"encounter": {
-					"reference": "urn:uuid:13e37fe2-cf83-4ae2-bc31-cec96160baee"
-				},
-				"effectiveDateTime": "2022-05-01",
-				"valueBoolean": false
-			}
-		},
-		{
-			"fullUrl": "urn:uuid:5f2ffb4e-8abc-4053-b460-b4e2844fce37",
-			"resource": {
-				"resourceType": "Observation",
-				"id": "5f2ffb4e-8abc-4053-b460-b4e2844fce37",
-				"meta": {
-					"profile": [
-						"https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_Observation_External_Birth|1.0.0"
-					]
-				},
-				"status": "final",
-				"code": {
-					"coding": [
-						{
-							"system": "http://snomed.info/sct",
-							"version": "http://snomed.info/sct/900000000000207008/version/20200731",
-							"code": "60059000",
-							"_display": {
-								"extension": [
-									{
-										"extension": [
-											{
-												"url": "content",
-												"valueString": "Extern entbunden"
-											}
-										],
-										"url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
-									}
-								]
-							},
-							"display": "Hospital admission, infant, for observation, delivered outside of hospital (procedure)"
-						}
-					]
-				},
-				"subject": {
-					"reference": "urn:uuid:0dafbded-fb9c-479e-9c18-9f9b835b80f2"
-				},
-				"encounter": {
-					"reference": "urn:uuid:13e37fe2-cf83-4ae2-bc31-cec96160baee"
-				},
-				"effectiveDateTime": "2022-05-01",
-				"valueBoolean": false
-			}
-		},
-		{
-			"fullUrl": "urn:uuid:1864daa5-d1dc-408d-8536-48960c698a0c",
-			"resource": {
-				"resourceType": "ClinicalImpression",
-				"id": "1864daa5-d1dc-408d-8536-48960c698a0c",
-				"meta": {
-					"profile": [
-						"https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_ClinicalImpression_Pregnancy_Examination_Discharge_Summary|1.0.0"
-					]
-				},
-				"status": "completed",
-				"code": {
-					"coding": [
-						{
-							"system": "http://snomed.info/sct",
-							"version": "http://snomed.info/sct/900000000000207008/version/20200731",
-							"code": "721923008",
-							"_display": {
-								"extension": [
-									{
-										"extension": [
-											{
-												"url": "content",
-												"valueString": "Schwangerschaft"
-											}
-										],
-										"url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
-									}
-								]
-							},
-							"display": "Obstetrics and gynecology discharge summary (record artifact)"
-						}
-					]
-				},
-				"subject": {
-					"reference": "urn:uuid:0dafbded-fb9c-479e-9c18-9f9b835b80f2"
-				},
-				"encounter": {
-					"reference": "urn:uuid:13e37fe2-cf83-4ae2-bc31-cec96160baee"
-				},
-				"_effectiveDateTime": {
-					"extension": [
-						{
-							"extension": [
-								{
-									"extension": [
-										{
-											"url": "schwangerschaftswoche",
-											"valueQuantity": {
-												"value": 11,
-												"unit": "Wochen",
-												"system": "http://unitsofmeasure.org",
-												"code": "wk"
-											}
-										},
-										{
-											"url": "korrektur",
-											"valueBoolean": false
-										},
-										{
-											"url": "kode",
-											"valueCodeableConcept": {
-												"coding": [
-													{
-														"system": "http://snomed.info/sct",
-														"version": "http://snomed.info/sct/900000000000207008/version/20200731",
-														"code": "424441002",
-														"_display": {
-															"extension": [
-																{
-																	"extension": [
-																		{
-																			"url": "content",
-																			"valueString": "Erst-Untersuchung in SSW"
-																		}
-																	],
-																	"url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
-																}
-															]
-														},
-														"display": "Prenatal initial visit (regime/therapy)"
-													}
-												]
-											}
-										}
-									],
-									"url": "schwangerschaftszeitpunkt"
-								}
-							],
-							"url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_MIO_MR_Pregnancy_Week_And_Day"
-						}
-					]
-				},
-				"effectiveDateTime": "2022-05-02",
-				"investigation": [
-					{
-						"code": {
-							"text": "Abschlussuntersuchungen zur Schwangerschaft"
-						},
-						"item": [
-							{
-								"reference": "urn:uuid:ad7b047e-1577-45f4-ae26-ac82f5d8864b"
-							},
-							{
-								"reference": "urn:uuid:19055c48-4042-416b-b61e-b9dbd3076091"
-							},
-							{
-								"reference": "urn:uuid:552c8058-15cb-43da-b3af-0f7cdc0022c5"
-							},
-							{
-								"reference": "urn:uuid:1a025c9b-be57-45f2-8002-1007a30c230d"
-							}
-						]
-					}
-				],
-				"finding": [
-					{
-						"itemCodeableConcept": {
-							"coding": [
-								{
-									"system": "http://snomed.info/sct",
-									"version": "http://snomed.info/sct/900000000000207008/version/20200731",
-									"code": "416413003",
-									"_display": {
-										"extension": [
-											{
-												"extension": [
-													{
-														"url": "content",
-														"valueString": "Schwangere über 35 Jahren"
-													}
-												],
-												"url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
-											}
-										]
-									},
-									"display": "Advanced maternal age gravida (finding)"
-								}
-							]
-						}
-					},
-					{
-						"itemCodeableConcept": {
-							"coding": [
-								{
-									"system": "http://snomed.info/sct",
-									"version": "http://snomed.info/sct/900000000000207008/version/20200731",
-									"code": "16356006",
-									"_display": {
-										"extension": [
-											{
-												"extension": [
-													{
-														"url": "content",
-														"valueString": "Mehrlingsschwangerschaft"
-													}
-												],
-												"url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
-											}
-										]
-									},
-									"display": "Multiple pregnancy (disorder)"
-								}
-							]
-						}
-					}
-				]
-			}
-		},
-		{
-			"fullUrl": "urn:uuid:13e37fe2-cf83-4ae2-bc31-cec96160baee",
-			"resource": {
-				"resourceType": "Encounter",
-				"id": "13e37fe2-cf83-4ae2-bc31-cec96160baee",
-				"meta": {
-					"profile": [
-						"https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_Encounter_General|1.0.0"
-					]
-				},
-				"status": "finished",
-				"class": {
-					"system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
-					"version": "2.0.0",
-					"code": "AMB",
-					"display": "ambulatory"
-				},
-				"subject": {
-					"reference": "urn:uuid:0dafbded-fb9c-479e-9c18-9f9b835b80f2"
-				},
-				"period": {
-					"start": "2021-02-02"
-				},
-				"serviceProvider": {
-					"reference": "urn:uuid:0d20fdb0-624d-4899-a8fe-dedeb50ca17d"
-				}
-			}
-		},
-		{
-			"fullUrl": "urn:uuid:beff21cd-5b4c-41ad-8fd7-971b9b088e62",
-			"resource": {
-				"resourceType": "Observation",
-				"id": "beff21cd-5b4c-41ad-8fd7-971b9b088e62",
-				"meta": {
-					"profile": [
-						"https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_Observation_Apgar_Score|1.0.0"
-					]
-				},
-				"status": "final",
-				"code": {
-					"coding": [
-						{
-							"system": "http://snomed.info/sct",
-							"version": "http://snomed.info/sct/900000000000207008/version/20200731",
-							"code": "169922007",
-							"_display": {
-								"extension": [
-									{
-										"extension": [
-											{
-												"url": "content",
-												"valueString": "Apgar zum Zeitpunkt 10 Min. nach Geburt"
-											}
-										],
-										"url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
-									}
-								]
-							},
-							"display": "Apgar score at 10 minutes (observable entity)"
-						},
-						{
-							"system": "http://loinc.org",
-							"version": "2.68",
-							"code": "9271-8",
-							"_display": {
-								"extension": [
-									{
-										"extension": [
-											{
-												"url": "content",
-												"valueString": "Apgar zum Zeitpunkt 10 Min. nach Geburt"
-											}
-										],
-										"url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
-									}
-								]
-							},
-							"display": "10 minute Apgar Score"
-						}
-					]
-				},
-				"subject": {
-					"reference": "urn:uuid:cc62c1af-17ed-4285-81d4-c432d6959f5c"
-				},
-				"encounter": {
-					"reference": "urn:uuid:13e37fe2-cf83-4ae2-bc31-cec96160baee"
-				},
-				"effectiveDateTime": "2022-05-01",
-				"performer": [
-					{
-						"reference": "urn:uuid:0d20fdb0-624d-4899-a8fe-dedeb50ca17d"
-					}
-				],
-				"valueCodeableConcept": {
-					"coding": [
-						{
-							"system": "http://snomed.info/sct",
-							"version": "http://snomed.info/sct/900000000000207008/version/20200731",
-							"code": "49544001",
-							"_display": {
-								"extension": [
-									{
-										"extension": [
-											{
-												"url": "content",
-												"valueString": "Apgar 10"
-											}
-										],
-										"url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
-									}
-								]
-							},
-							"display": "Apgar score 10 (finding)"
-						}
-					]
-				}
-			}
-		},
-		{
-			"fullUrl": "urn:uuid:893ba5f9-28b9-4c13-b833-bbcf87678e81",
-			"resource": {
-				"resourceType": "Observation",
-				"id": "893ba5f9-28b9-4c13-b833-bbcf87678e81",
-				"meta": {
-					"profile": [
-						"https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_Observation_Apgar_Score|1.0.0"
-					]
-				},
-				"status": "final",
-				"code": {
-					"coding": [
-						{
-							"system": "http://snomed.info/sct",
-							"version": "http://snomed.info/sct/900000000000207008/version/20200731",
-							"code": "169922007",
-							"_display": {
-								"extension": [
-									{
-										"extension": [
-											{
-												"url": "content",
-												"valueString": "Apgar zum Zeitpunkt 10 Min. nach Geburt"
-											}
-										],
-										"url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
-									}
-								]
-							},
-							"display": "Apgar score at 10 minutes (observable entity)"
-						},
-						{
-							"system": "http://loinc.org",
-							"version": "2.68",
-							"code": "9271-8",
-							"_display": {
-								"extension": [
-									{
-										"extension": [
-											{
-												"url": "content",
-												"valueString": "Apgar zum Zeitpunkt 10 Min. nach Geburt"
-											}
-										],
-										"url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
-									}
-								]
-							},
-							"display": "10 minute Apgar Score"
-						}
-					]
-				},
-				"subject": {
-					"reference": "urn:uuid:d6ed8917-0956-4f5c-b131-fdf05781223d"
-				},
-				"encounter": {
-					"reference": "urn:uuid:13e37fe2-cf83-4ae2-bc31-cec96160baee"
-				},
-				"effectiveDateTime": "2022-05-01",
-				"performer": [
-					{
-						"reference": "urn:uuid:0d20fdb0-624d-4899-a8fe-dedeb50ca17d"
-					}
-				],
-				"valueCodeableConcept": {
-					"coding": [
-						{
-							"system": "http://snomed.info/sct",
-							"version": "http://snomed.info/sct/900000000000207008/version/20200731",
-							"code": "49544001",
-							"_display": {
-								"extension": [
-									{
-										"extension": [
-											{
-												"url": "content",
-												"valueString": "Apgar 10"
-											}
-										],
-										"url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
-									}
-								]
-							},
-							"display": "Apgar score 10 (finding)"
-						}
-					]
-				}
-			}
-		},
-		{
-			"fullUrl": "urn:uuid:1a025c9b-be57-45f2-8002-1007a30c230d",
-			"resource": {
-				"resourceType": "Observation",
-				"id": "1a025c9b-be57-45f2-8002-1007a30c230d",
-				"meta": {
-					"profile": [
-						"https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_Observation_Number_Of_Checkups|1.0.0"
-					]
-				},
-				"status": "final",
-				"code": {
-					"coding": [
-						{
-							"system": "http://snomed.info/sct",
-							"version": "http://snomed.info/sct/900000000000207008/version/20200731",
-							"code": "3401000175105",
-							"_display": {
-								"extension": [
-									{
-										"extension": [
-											{
-												"url": "content",
-												"valueString": "Anzahl der Vorsorgeuntersuchungen"
-											}
-										],
-										"url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
-									}
-								]
-							},
-							"display": "Total number of prenatal care visits (observable entity)"
-						}
-					]
-				},
-				"subject": {
-					"reference": "urn:uuid:0dafbded-fb9c-479e-9c18-9f9b835b80f2"
-				},
-				"encounter": {
-					"reference": "urn:uuid:13e37fe2-cf83-4ae2-bc31-cec96160baee"
-				},
-				"effectiveDateTime": "2022-05-02",
-				"valueQuantity": {
-					"value": 12,
-					"system": "http://unitsofmeasure.org",
-					"code": "1"
-				}
-			}
-		},
-		{
-			"fullUrl": "urn:uuid:19055c48-4042-416b-b61e-b9dbd3076091",
-			"resource": {
-				"resourceType": "Observation",
-				"id": "19055c48-4042-416b-b61e-b9dbd3076091",
-				"meta": {
-					"profile": [
-						"https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_Observation_Gravida|1.0.0"
-					]
-				},
-				"status": "final",
-				"code": {
-					"coding": [
-						{
-							"system": "http://snomed.info/sct",
-							"version": "http://snomed.info/sct/900000000000207008/version/20200731",
-							"code": "161732006",
-							"_display": {
-								"extension": [
-									{
-										"extension": [
-											{
-												"url": "content",
-												"valueString": "Gravida"
-											}
-										],
-										"url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
-									}
-								]
-							},
-							"display": "Gravida (observable entity)"
-						}
-					]
-				},
-				"subject": {
-					"reference": "urn:uuid:0dafbded-fb9c-479e-9c18-9f9b835b80f2"
-				},
-				"encounter": {
-					"reference": "urn:uuid:13e37fe2-cf83-4ae2-bc31-cec96160baee"
-				},
-				"effectiveDateTime": "2022-05-02",
-				"performer": [
-					{
-						"reference": "urn:uuid:0d20fdb0-624d-4899-a8fe-dedeb50ca17d"
-					}
-				],
-				"valueQuantity": {
-					"value": 2,
-					"system": "http://unitsofmeasure.org",
-					"code": "1"
-				}
-			}
-		},
-		{
-			"fullUrl": "urn:uuid:552c8058-15cb-43da-b3af-0f7cdc0022c5",
-			"resource": {
-				"resourceType": "Observation",
-				"id": "552c8058-15cb-43da-b3af-0f7cdc0022c5",
-				"meta": {
-					"profile": [
-						"https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_Observation_Para|1.0.0"
-					]
-				},
-				"status": "final",
-				"code": {
-					"coding": [
-						{
-							"system": "http://snomed.info/sct",
-							"version": "http://snomed.info/sct/900000000000207008/version/20200731",
-							"code": "364325004",
-							"_display": {
-								"extension": [
-									{
-										"extension": [
-											{
-												"url": "content",
-												"valueString": "Para"
-											}
-										],
-										"url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
-									}
-								]
-							},
-							"display": "Parity (observable entity)"
-						}
-					]
-				},
-				"subject": {
-					"reference": "urn:uuid:0dafbded-fb9c-479e-9c18-9f9b835b80f2"
-				},
-				"encounter": {
-					"reference": "urn:uuid:13e37fe2-cf83-4ae2-bc31-cec96160baee"
-				},
-				"effectiveDateTime": "2022-05-02",
-				"performer": [
-					{
-						"reference": "urn:uuid:0d20fdb0-624d-4899-a8fe-dedeb50ca17d"
-					}
-				],
-				"valueQuantity": {
-					"value": 2,
-					"system": "http://unitsofmeasure.org",
-					"code": "1"
-				}
-			}
-		},
-		{
-			"fullUrl": "urn:uuid:6e83f5d1-7031-4d48-a3ff-f4da7dcd2a4d",
-			"resource": {
-				"resourceType": "ClinicalImpression",
-				"id": "6e83f5d1-7031-4d48-a3ff-f4da7dcd2a4d",
-				"meta": {
-					"profile": [
-						"https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_ClinicalImpression_Birth_Examination_Delivery_Information|1.0.0"
-					]
-				},
-				"status": "completed",
-				"code": {
-					"coding": [
-						{
-							"system": "http://snomed.info/sct",
-							"version": "http://snomed.info/sct/900000000000207008/version/20200731",
-							"code": "118215003",
-							"_display": {
-								"extension": [
-									{
-										"extension": [
-											{
-												"url": "content",
-												"valueString": "Abschluss-Untersuchung/Epikrise-Geburt"
-											}
-										],
-										"url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
-									}
-								]
-							},
-							"display": "Delivery finding (finding)"
-						}
-					]
-				},
-				"subject": {
-					"reference": "urn:uuid:0dafbded-fb9c-479e-9c18-9f9b835b80f2"
-				},
-				"encounter": {
-					"reference": "urn:uuid:13e37fe2-cf83-4ae2-bc31-cec96160baee"
-				},
-				"_effectiveDateTime": {
-					"extension": [
-						{
-							"extension": [
-								{
-									"extension": [
-										{
-											"url": "schwangerschaftswoche",
-											"valueQuantity": {
-												"value": 39,
-												"unit": "Wochen",
-												"system": "http://unitsofmeasure.org",
-												"code": "wk"
-											}
-										},
-										{
-											"url": "ergaenzendeTage",
-											"valueQuantity": {
-												"value": 2,
-												"unit": "Tage",
-												"system": "http://unitsofmeasure.org",
-												"code": "d"
-											}
-										},
-										{
-											"url": "korrektur",
-											"valueBoolean": false
-										},
-										{
-											"url": "kode",
-											"valueCodeableConcept": {
-												"coding": [
-													{
-														"system": "http://snomed.info/sct",
-														"version": "http://snomed.info/sct/900000000000207008/version/20200731",
-														"code": "412726003",
-														"_display": {
-															"extension": [
-																{
-																	"extension": [
-																		{
-																			"url": "content",
-																			"valueString": "Schwangerschaftswoche+Tage"
-																		}
-																	],
-																	"url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
-																}
-															]
-														},
-														"display": "Length of gestation at birth (observable entity)"
-													}
-												]
-											}
-										}
-									],
-									"url": "schwangerschaftszeitpunkt"
-								}
-							],
-							"url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_MIO_MR_Pregnancy_Week_And_Day"
-						}
-					]
-				},
-				"effectiveDateTime": "2022-05-01",
-				"investigation": [
-					{
-						"code": {
-							"text": "Angaben zur Entbindung"
-						},
-						"item": [
-							{
-								"reference": "urn:uuid:5f2ffb4e-8abc-4053-b460-b4e2844fce37"
-							}
-						]
-					}
-				]
-			}
-		},
-		{
-			"fullUrl": "urn:uuid:f1fc4c8c-1c90-4a00-bf38-9d33d2bad1de",
-			"resource": {
-				"resourceType": "ClinicalImpression",
-				"id": "f1fc4c8c-1c90-4a00-bf38-9d33d2bad1de",
-				"meta": {
-					"profile": [
-						"https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_ClinicalImpression_Birth_Examination_Child_Information|1.0.0"
-					]
-				},
-				"status": "completed",
-				"code": {
-					"coding": [
-						{
-							"system": "http://snomed.info/sct",
-							"version": "http://snomed.info/sct/900000000000207008/version/20200731",
-							"code": "118188004",
-							"_display": {
-								"extension": [
-									{
-										"extension": [
-											{
-												"url": "content",
-												"valueString": "Angaben zum Kind"
-											}
-										],
-										"url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
-									}
-								]
-							},
-							"display": "Finding of neonate (finding)"
-						}
-					]
-				},
-				"subject": {
-					"reference": "urn:uuid:0dafbded-fb9c-479e-9c18-9f9b835b80f2"
-				},
-				"encounter": {
-					"reference": "urn:uuid:13e37fe2-cf83-4ae2-bc31-cec96160baee"
-				},
-				"effectiveDateTime": "2022-05-01",
-				"investigation": [
-					{
-						"code": {
-							"text": "Angaben zum Kind"
-						},
-						"item": [
-							{
-								"reference": "urn:uuid:a9a1a688-d39d-4dc3-9a8e-605ae03dbd18"
-							},
-							{
-								"reference": "urn:uuid:315a2186-225a-41e6-89ce-eaa15371068b"
-							},
-							{
-								"reference": "urn:uuid:67cb2d3c-bb08-46b9-a5b3-7f40f1529461"
-							},
-							{
-								"reference": "urn:uuid:f19df241-1439-4570-a56c-d8a31b121470"
-							},
-							{
-								"reference": "urn:uuid:beff21cd-5b4c-41ad-8fd7-971b9b088e62"
-							},
-							{
-								"reference": "urn:uuid:cfda7594-6c71-4910-a7d7-2e4d676a2f2d"
-							},
-							{
-								"reference": "urn:uuid:c21c3944-ba5a-4afc-aecc-268a7c668bf9"
-							},
-							{
-								"reference": "urn:uuid:c9a728d7-e0a7-4461-87e6-7ad1f2c153a3"
-							},
-							{
-								"reference": "urn:uuid:c3576f4f-595d-42e5-a445-eebb2cb271fb"
-							}
-						]
-					}
-				]
-			}
-		},
-		{
-			"fullUrl": "urn:uuid:adeae098-ce35-4dd8-885a-b9ea4ff9299e",
-			"resource": {
-				"resourceType": "ClinicalImpression",
-				"id": "adeae098-ce35-4dd8-885a-b9ea4ff9299e",
-				"meta": {
-					"profile": [
-						"https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_ClinicalImpression_Birth_Examination_Child_Information|1.0.0"
-					]
-				},
-				"status": "completed",
-				"code": {
-					"coding": [
-						{
-							"system": "http://snomed.info/sct",
-							"version": "http://snomed.info/sct/900000000000207008/version/20200731",
-							"code": "118188004",
-							"_display": {
-								"extension": [
-									{
-										"extension": [
-											{
-												"url": "content",
-												"valueString": "Angaben zum Kind"
-											}
-										],
-										"url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
-									}
-								]
-							},
-							"display": "Finding of neonate (finding)"
-						}
-					]
-				},
-				"subject": {
-					"reference": "urn:uuid:0dafbded-fb9c-479e-9c18-9f9b835b80f2"
-				},
-				"encounter": {
-					"reference": "urn:uuid:13e37fe2-cf83-4ae2-bc31-cec96160baee"
-				},
-				"effectiveDateTime": "2022-05-01",
-				"investigation": [
-					{
-						"code": {
-							"text": "Angaben zum Kind"
-						},
-						"item": [
-							{
-								"reference": "urn:uuid:f229bc82-8e0d-4600-a1df-44d24de79fb9"
-							},
-							{
-								"reference": "urn:uuid:43159ac9-2ced-42b8-b9f0-7f3034b879b6"
-							},
-							{
-								"reference": "urn:uuid:3d692857-9436-403a-9a11-1d0a9cda0768"
-							},
-							{
-								"reference": "urn:uuid:6c0c6016-a87d-4d45-a32a-678c5c908dcf"
-							},
-							{
-								"reference": "urn:uuid:893ba5f9-28b9-4c13-b833-bbcf87678e81"
-							},
-							{
-								"reference": "urn:uuid:4f3a7521-ec4b-4fcf-aa65-a870287b5d55"
-							},
-							{
-								"reference": "urn:uuid:32e196da-6a66-45bf-8580-560239f8db14"
-							},
-							{
-								"reference": "urn:uuid:6fb7bee0-1cda-4e09-b3dc-88a90a710126"
-							},
-							{
-								"reference": "urn:uuid:1cd66ac0-e400-4349-8a75-9ba49744c118"
-							}
-						]
-					}
-				]
-			}
-		},
-		{
-			"fullUrl": "urn:uuid:ad7b047e-1577-45f4-ae26-ac82f5d8864b",
-			"resource": {
-				"resourceType": "Observation",
-				"id": "ad7b047e-1577-45f4-ae26-ac82f5d8864b",
-				"meta": {
-					"profile": [
-						"https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_Observation_Age|1.0.0"
-					]
-				},
-				"status": "final",
-				"code": {
-					"coding": [
-						{
-							"system": "http://snomed.info/sct",
-							"version": "http://snomed.info/sct/900000000000207008/version/20200731",
-							"code": "424144002",
-							"_display": {
-								"extension": [
-									{
-										"extension": [
-											{
-												"url": "content",
-												"valueString": "Alter"
-											}
-										],
-										"url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
-									}
-								]
-							},
-							"display": "Current chronological age (observable entity)"
-						}
-					]
-				},
-				"subject": {
-					"reference": "urn:uuid:0dafbded-fb9c-479e-9c18-9f9b835b80f2"
-				},
-				"encounter": {
-					"reference": "urn:uuid:13e37fe2-cf83-4ae2-bc31-cec96160baee"
-				},
-				"effectiveDateTime": "2022-05-02",
-				"performer": [
-					{
-						"reference": "urn:uuid:0d20fdb0-624d-4899-a8fe-dedeb50ca17d"
-					}
-				],
-				"valueQuantity": {
-					"value": 37,
-					"unit": "Jahre",
-					"system": "http://unitsofmeasure.org",
-					"code": "a"
-				}
-			}
-		}
-	]
+    "resourceType": "Bundle",
+    "id": "b5bad3a3-c907-4d90-a9cb-5ef2ee66b169",
+    "meta": {
+        "profile": ["https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_Bundle|1.0.0"]
+    },
+    "identifier": {
+        "system": "urn:ietf:rfc:3986",
+        "value": "urn:uuid:b5bad3a3-c907-4d90-a9cb-5ef2ee66b169"
+    },
+    "type": "document",
+    "timestamp": "2021-01-29T12:30:02Z",
+    "entry": [
+        {
+            "fullUrl": "urn:uuid:b3cb3433-13d8-4d36-95cf-ca17de7312b8",
+            "resource": {
+                "resourceType": "Composition",
+                "id": "b3cb3433-13d8-4d36-95cf-ca17de7312b8",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_Composition|1.0.0"
+                    ]
+                },
+                "extension": [
+                    {
+                        "extension": [
+                            {
+                                "url": "hinweiseSchwangere",
+                                "valueString": "Schwangerschaft und Geburt sind natürliche Vorgänge und stellen keine Krankheit dar. Manchmal können sie allerdings mit einem erhöhten Risiko für Mutter und Kind belastet sein. Eine sorgfältige Schwangerschaftsbetreuung hilft, einen großen Teil dieser Risiken zu vermeiden oder rechtzeitig zu erkennen, um Gefahren abzuwenden. Voraussetzung dafür ist jedoch Ihre regelmäßige Teilnahme an den Vorsorgeuntersuchungen!Die in Ihrem Mutterpass aufgeführten Untersuchungen dienen der Gesunderhaltung von Mutter und Kind und entsprechen langjähriger geburtshilflicher Erfahrung und modernen medizinischen Erkenntnissen. Dieser Mutterpass enthält die während der Schwangerschaft erhobenen wichtigen Befunde. Er wird Ihnen nach jeder Vorsorgeuntersuchung wieder mitgegeben. Die Angaben im Mutterpass dienen der Information von Arzt und Hebamme sowie Ihrer und Ihres Kindes Sicherheit. Der Mutterpass ist Ihr persönliches Dokument. Sie allein entscheiden darüber, wem er zugänglich gemacht werden soll. Andere (z. B. Arbeitgeber, Behörden) dürfen eine Einsichtnahme nicht verlangen.Bitte: ● Nutzen Sie die Ihnen gebotenen Möglichkeiten, um sich und Ihrem Kind Sicherheit zu verschaffen! ● Vergessen Sie nicht, dieses Heft zu jeder ärztlichen Untersuchung während der Schwangerschaft, zur Entbindung und zur Untersuchung des Kindes mitzubringen! ● Lassen Sie sich helfen, wenn Sie Sorgen haben! ● Beraten Sie sich mit Ihrem Arzt und befolgen Sie seine Ratschläge!"
+                            },
+                            {
+                                "url": "hinweiseMutter",
+                                "valueString": "Nach Schwangerschaft und Geburt beginnt für Sie zwar wieder der Alltag mit neuen Aufgaben, beachten Sie aber bitte Folgendes: ● Gehen Sie etwa 6–8 Wochen nach der Entbindung zur Nachuntersuchung ● Nutzen Sie alle Kinder-Früherkennungsuntersuchungen (U2 – U9) beim Kinder- oder Hausarzt"
+                            },
+                            {
+                                "url": "aufbewahrungshinweis",
+                                "valueString": "Während der Schwangerschaft sollten Sie Ihren Mutterpass immer bei sich haben und zu jeder ärztlichen Untersuchung mitbringen,insbesondere auch zur Entbindung. Ihr Mutterpass gehört zu den Dokumenten, die Sie immer sorgfältig aufbewahren sollten."
+                            }
+                        ],
+                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_MIO_MR_Comments"
+                    }
+                ],
+                "status": "final",
+                "type": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "version": "http://snomed.info/sct/900000000000207008/version/20200731",
+                            "code": "736377005",
+                            "_display": {
+                                "extension": [
+                                    {
+                                        "extension": [
+                                            {
+                                                "url": "content",
+                                                "valueString": "Mutterpasseintrag"
+                                            }
+                                        ],
+                                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+                                    }
+                                ]
+                            },
+                            "display": "Maternity care plan (record artifact)"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "urn:uuid:0dafbded-fb9c-479e-9c18-9f9b835b80f2"
+                },
+                "encounter": {
+                    "reference": "urn:uuid:13e37fe2-cf83-4ae2-bc31-cec96160baee"
+                },
+                "date": "2022-05-02",
+                "author": [
+                    {
+                        "reference": "urn:uuid:0d20fdb0-624d-4899-a8fe-dedeb50ca17d"
+                    }
+                ],
+                "title": "Mutterpasseintrag",
+                "section": [
+                    {
+                        "title": "Stempelinformationen des Arztes/der Klinik/der mitbetreuenden Hebamme",
+                        "entry": [
+                            {
+                                "reference": "urn:uuid:0d20fdb0-624d-4899-a8fe-dedeb50ca17d"
+                            }
+                        ]
+                    },
+                    {
+                        "title": "Anamnese und allgemeine Befunde",
+                        "entry": [
+                            {
+                                "reference": "urn:uuid:ad7b047e-1577-45f4-ae26-ac82f5d8864b"
+                            },
+                            {
+                                "reference": "urn:uuid:19055c48-4042-416b-b61e-b9dbd3076091"
+                            },
+                            {
+                                "reference": "urn:uuid:552c8058-15cb-43da-b3af-0f7cdc0022c5"
+                            }
+                        ]
+                    },
+                    {
+                        "title": "Untersuchungen",
+                        "section": [
+                            {
+                                "title": "Gravidogramm",
+                                "entry": [
+                                    {
+                                        "reference": "urn:uuid:f229bc82-8e0d-4600-a1df-44d24de79fb9"
+                                    },
+                                    {
+                                        "reference": "urn:uuid:a9a1a688-d39d-4dc3-9a8e-605ae03dbd18"
+                                    },
+                                    {
+                                        "reference": "urn:uuid:b21c9e9e-f1ea-4130-b36d-b6bf2c160954"
+                                    }
+                                ]
+                            },
+                            {
+                                "title": "Abschluss-Untersuchung/Epikrise",
+                                "section": [
+                                    {
+                                        "title": "Schwangerschaft",
+                                        "entry": [
+                                            {
+                                                "reference": "urn:uuid:1864daa5-d1dc-408d-8536-48960c698a0c"
+                                            },
+                                            {
+                                                "reference": "urn:uuid:ad7b047e-1577-45f4-ae26-ac82f5d8864b"
+                                            },
+                                            {
+                                                "reference": "urn:uuid:19055c48-4042-416b-b61e-b9dbd3076091"
+                                            },
+                                            {
+                                                "reference": "urn:uuid:552c8058-15cb-43da-b3af-0f7cdc0022c5"
+                                            },
+                                            {
+                                                "reference": "urn:uuid:1a025c9b-be57-45f2-8002-1007a30c230d"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "title": "Geburt",
+                                        "code": {
+                                            "coding": [
+                                                {
+                                                    "system": "http://snomed.info/sct",
+                                                    "version": "http://snomed.info/sct/900000000000207008/version/20200731",
+                                                    "code": "118215003",
+                                                    "_display": {
+                                                        "extension": [
+                                                            {
+                                                                "extension": [
+                                                                    {
+                                                                        "url": "content",
+                                                                        "valueString": "Geburt"
+                                                                    }
+                                                                ],
+                                                                "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+                                                            }
+                                                        ]
+                                                    },
+                                                    "display": "Delivery finding (finding)"
+                                                }
+                                            ]
+                                        },
+                                        "entry": [
+                                            {
+                                                "reference": "urn:uuid:6e83f5d1-7031-4d48-a3ff-f4da7dcd2a4d"
+                                            },
+                                            {
+                                                "reference": "urn:uuid:5f2ffb4e-8abc-4053-b460-b4e2844fce37"
+                                            }
+                                        ],
+                                        "section": [
+                                            {
+                                                "title": "Angaben zum Kind",
+                                                "entry": [
+                                                    {
+                                                        "reference": "urn:uuid:adeae098-ce35-4dd8-885a-b9ea4ff9299e"
+                                                    },
+                                                    {
+                                                        "reference": "urn:uuid:d6ed8917-0956-4f5c-b131-fdf05781223d"
+                                                    },
+                                                    {
+                                                        "reference": "urn:uuid:4f3a7521-ec4b-4fcf-aa65-a870287b5d55"
+                                                    },
+                                                    {
+                                                        "reference": "urn:uuid:32e196da-6a66-45bf-8580-560239f8db14"
+                                                    },
+                                                    {
+                                                        "reference": "urn:uuid:f229bc82-8e0d-4600-a1df-44d24de79fb9"
+                                                    },
+                                                    {
+                                                        "reference": "urn:uuid:43159ac9-2ced-42b8-b9f0-7f3034b879b6"
+                                                    },
+                                                    {
+                                                        "reference": "urn:uuid:3d692857-9436-403a-9a11-1d0a9cda0768"
+                                                    },
+                                                    {
+                                                        "reference": "urn:uuid:6c0c6016-a87d-4d45-a32a-678c5c908dcf"
+                                                    },
+                                                    {
+                                                        "reference": "urn:uuid:1cd66ac0-e400-4349-8a75-9ba49744c118"
+                                                    },
+                                                    {
+                                                        "reference": "urn:uuid:6fb7bee0-1cda-4e09-b3dc-88a90a710126"
+                                                    },
+                                                    {
+                                                        "reference": "urn:uuid:f1fc4c8c-1c90-4a00-bf38-9d33d2bad1de"
+                                                    },
+                                                    {
+                                                        "reference": "urn:uuid:cc62c1af-17ed-4285-81d4-c432d6959f5c"
+                                                    },
+                                                    {
+                                                        "reference": "urn:uuid:cfda7594-6c71-4910-a7d7-2e4d676a2f2d"
+                                                    },
+                                                    {
+                                                        "reference": "urn:uuid:c21c3944-ba5a-4afc-aecc-268a7c668bf9"
+                                                    },
+                                                    {
+                                                        "reference": "urn:uuid:a9a1a688-d39d-4dc3-9a8e-605ae03dbd18"
+                                                    },
+                                                    {
+                                                        "reference": "urn:uuid:315a2186-225a-41e6-89ce-eaa15371068b"
+                                                    },
+                                                    {
+                                                        "reference": "urn:uuid:67cb2d3c-bb08-46b9-a5b3-7f40f1529461"
+                                                    },
+                                                    {
+                                                        "reference": "urn:uuid:f19df241-1439-4570-a56c-d8a31b121470"
+                                                    },
+                                                    {
+                                                        "reference": "urn:uuid:c3576f4f-595d-42e5-a445-eebb2cb271fb"
+                                                    },
+                                                    {
+                                                        "reference": "urn:uuid:c9a728d7-e0a7-4461-87e6-7ad1f2c153a3"
+                                                    }
+                                                ],
+                                                "section": [
+                                                    {
+                                                        "title": "Apgar-Score",
+                                                        "code": {
+                                                            "coding": [
+                                                                {
+                                                                    "system": "http://snomed.info/sct",
+                                                                    "version": "http://snomed.info/sct/900000000000207008/version/20200731",
+                                                                    "code": "249228009",
+                                                                    "_display": {
+                                                                        "extension": [
+                                                                            {
+                                                                                "extension": [
+                                                                                    {
+                                                                                        "url": "content",
+                                                                                        "valueString": "Apgar-Score"
+                                                                                    }
+                                                                                ],
+                                                                                "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+                                                                            }
+                                                                        ]
+                                                                    },
+                                                                    "display": "Total apgar score"
+                                                                }
+                                                            ]
+                                                        },
+                                                        "entry": [
+                                                            {
+                                                                "reference": "urn:uuid:893ba5f9-28b9-4c13-b833-bbcf87678e81"
+                                                            },
+                                                            {
+                                                                "reference": "urn:uuid:beff21cd-5b4c-41ad-8fd7-971b9b088e62"
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:b21c9e9e-f1ea-4130-b36d-b6bf2c160954",
+            "resource": {
+                "resourceType": "ClinicalImpression",
+                "id": "b21c9e9e-f1ea-4130-b36d-b6bf2c160954",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_ClinicalImpression_Pregnancy_Chart_Entry|1.0.0"
+                    ]
+                },
+                "identifier": [
+                    {
+                        "extension": [
+                            {
+                                "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Additional_Comment",
+                                "valueString": "1"
+                            }
+                        ]
+                    }
+                ],
+                "status": "completed",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "version": "http://snomed.info/sct/900000000000207008/version/20200731",
+                            "code": "773433004",
+                            "_display": {
+                                "extension": [
+                                    {
+                                        "extension": [
+                                            {
+                                                "url": "content",
+                                                "valueString": "Gravidogramm"
+                                            }
+                                        ],
+                                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+                                    }
+                                ]
+                            },
+                            "display": "Obstetric antenatal care plan (record artifact)"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "urn:uuid:0dafbded-fb9c-479e-9c18-9f9b835b80f2"
+                },
+                "encounter": {
+                    "reference": "urn:uuid:13e37fe2-cf83-4ae2-bc31-cec96160baee"
+                },
+                "_effectiveDateTime": {
+                    "extension": [
+                        {
+                            "extension": [
+                                {
+                                    "extension": [
+                                        {
+                                            "url": "schwangerschaftswoche",
+                                            "valueQuantity": {
+                                                "value": 36,
+                                                "unit": "Wochen",
+                                                "system": "http://unitsofmeasure.org",
+                                                "code": "wk"
+                                            }
+                                        },
+                                        {
+                                            "url": "ergaenzendeTage",
+                                            "valueQuantity": {
+                                                "value": 2,
+                                                "unit": "Tage",
+                                                "system": "http://unitsofmeasure.org",
+                                                "code": "d"
+                                            }
+                                        },
+                                        {
+                                            "url": "korrektur",
+                                            "valueBoolean": false
+                                        },
+                                        {
+                                            "url": "kode",
+                                            "valueCodeableConcept": {
+                                                "coding": [
+                                                    {
+                                                        "system": "http://snomed.info/sct",
+                                                        "version": "http://snomed.info/sct/900000000000207008/version/20200731",
+                                                        "code": "57036006",
+                                                        "_display": {
+                                                            "extension": [
+                                                                {
+                                                                    "extension": [
+                                                                        {
+                                                                            "url": "content",
+                                                                            "valueString": "Schwangerschaftswoche+Tage"
+                                                                        }
+                                                                    ],
+                                                                    "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+                                                                }
+                                                            ]
+                                                        },
+                                                        "display": "Fetal gestational age (observable entity)"
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    ],
+                                    "url": "schwangerschaftszeitpunkt"
+                                }
+                            ],
+                            "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_MIO_MR_Pregnancy_Week_And_Day"
+                        }
+                    ]
+                },
+                "effectiveDateTime": "2022-02-01",
+                "assessor": {
+                    "reference": "urn:uuid:0d20fdb0-624d-4899-a8fe-dedeb50ca17d"
+                },
+                "investigation": [
+                    {
+                        "code": {
+                            "text": "Gravidogrameintrag"
+                        },
+                        "item": [
+                            {
+                                "reference": "urn:uuid:f229bc82-8e0d-4600-a1df-44d24de79fb9"
+                            },
+                            {
+                                "reference": "urn:uuid:a9a1a688-d39d-4dc3-9a8e-605ae03dbd18"
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:0d20fdb0-624d-4899-a8fe-dedeb50ca17d",
+            "resource": {
+                "resourceType": "Organization",
+                "id": "0d20fdb0-624d-4899-a8fe-dedeb50ca17d",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_Organization|1.0.0"
+                    ]
+                },
+                "identifier": [
+                    {
+                        "type": {
+                            "coding": [
+                                {
+                                    "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                                    "code": "XX"
+                                }
+                            ]
+                        },
+                        "system": "http://fhir.de/NamingSystem/arge-ik/iknr",
+                        "value": "986337194"
+                    }
+                ],
+                "name": "Waldkrankenhaus Beispielhaft"
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:c3576f4f-595d-42e5-a445-eebb2cb271fb",
+            "resource": {
+                "resourceType": "Observation",
+                "id": "c3576f4f-595d-42e5-a445-eebb2cb271fb",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_Observation_pH_Value_Umbilical_Artery|1.0.0"
+                    ]
+                },
+                "status": "final",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "version": "http://snomed.info/sct/900000000000207008/version/20200731",
+                            "code": "363787002:370134009=123029007,704319004=12499000,246093002=89177007,704318007=702700007,370132008=30766002,704327008=703430008",
+                            "_display": {
+                                "extension": [
+                                    {
+                                        "extension": [
+                                            {
+                                                "url": "content",
+                                                "valueString": "pH-Wert (Nabelarterie)"
+                                            }
+                                        ],
+                                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+                                    }
+                                ]
+                            },
+                            "display": "Observable entity (observable entity):Time aspect (attribute)=Single point in time (qualifier value), Inheres in (attribute)=Cord blood (substance), Component (attribute)=Proton (substance), Property type (attribute)=Logarithmic substance concentration (property) (qualifier value), Scale type (attribute)=Quantitative (qualifier value), Direct site (attribute)=Arterial cord blood specimen (specimen)"
+                        },
+                        {
+                            "system": "http://loinc.org",
+                            "version": "2.68",
+                            "code": "28646-8",
+                            "_display": {
+                                "extension": [
+                                    {
+                                        "extension": [
+                                            {
+                                                "url": "content",
+                                                "valueString": "pH-Wert (Nabelarterie)"
+                                            }
+                                        ],
+                                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+                                    }
+                                ]
+                            },
+                            "display": "pH of Arterial cord blood"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "urn:uuid:cc62c1af-17ed-4285-81d4-c432d6959f5c"
+                },
+                "encounter": {
+                    "reference": "urn:uuid:13e37fe2-cf83-4ae2-bc31-cec96160baee"
+                },
+                "effectiveDateTime": "2022-05-01",
+                "performer": [
+                    {
+                        "reference": "urn:uuid:0d20fdb0-624d-4899-a8fe-dedeb50ca17d"
+                    }
+                ],
+                "valueQuantity": {
+                    "value": 7.4,
+                    "unit": "(pH)",
+                    "system": "http://unitsofmeasure.org",
+                    "code": "[pH]"
+                }
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:1cd66ac0-e400-4349-8a75-9ba49744c118",
+            "resource": {
+                "resourceType": "Observation",
+                "id": "1cd66ac0-e400-4349-8a75-9ba49744c118",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_Observation_pH_Value_Umbilical_Artery|1.0.0"
+                    ]
+                },
+                "status": "final",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "version": "http://snomed.info/sct/900000000000207008/version/20200731",
+                            "code": "363787002:370134009=123029007,704319004=12499000,246093002=89177007,704318007=702700007,370132008=30766002,704327008=703430008",
+                            "_display": {
+                                "extension": [
+                                    {
+                                        "extension": [
+                                            {
+                                                "url": "content",
+                                                "valueString": "pH-Wert (Nabelarterie)"
+                                            }
+                                        ],
+                                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+                                    }
+                                ]
+                            },
+                            "display": "Observable entity (observable entity):Time aspect (attribute)=Single point in time (qualifier value), Inheres in (attribute)=Cord blood (substance), Component (attribute)=Proton (substance), Property type (attribute)=Logarithmic substance concentration (property) (qualifier value), Scale type (attribute)=Quantitative (qualifier value), Direct site (attribute)=Arterial cord blood specimen (specimen)"
+                        },
+                        {
+                            "system": "http://loinc.org",
+                            "version": "2.68",
+                            "code": "28646-8",
+                            "_display": {
+                                "extension": [
+                                    {
+                                        "extension": [
+                                            {
+                                                "url": "content",
+                                                "valueString": "pH-Wert (Nabelarterie)"
+                                            }
+                                        ],
+                                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+                                    }
+                                ]
+                            },
+                            "display": "pH of Arterial cord blood"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "urn:uuid:d6ed8917-0956-4f5c-b131-fdf05781223d"
+                },
+                "encounter": {
+                    "reference": "urn:uuid:13e37fe2-cf83-4ae2-bc31-cec96160baee"
+                },
+                "effectiveDateTime": "2022-05-01",
+                "performer": [
+                    {
+                        "reference": "urn:uuid:0d20fdb0-624d-4899-a8fe-dedeb50ca17d"
+                    }
+                ],
+                "valueQuantity": {
+                    "value": 7.38,
+                    "unit": "(pH)",
+                    "system": "http://unitsofmeasure.org",
+                    "code": "[pH]"
+                }
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:cc62c1af-17ed-4285-81d4-c432d6959f5c",
+            "resource": {
+                "resourceType": "Patient",
+                "id": "cc62c1af-17ed-4285-81d4-c432d6959f5c",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_Patient_Child|1.0.0"
+                    ]
+                },
+                "extension": [
+                    {
+                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Additional_Comment",
+                        "valueString": "Kind 2 von 2"
+                    }
+                ],
+                "identifier": [
+                    {
+                        "extension": [
+                            {
+                                "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_MIO_MR_Child_Number",
+                                "valueInteger": 2
+                            }
+                        ]
+                    }
+                ],
+                "gender": "male",
+                "birthDate": "2022-05-01",
+                "deceasedBoolean": false
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:d6ed8917-0956-4f5c-b131-fdf05781223d",
+            "resource": {
+                "resourceType": "Patient",
+                "id": "d6ed8917-0956-4f5c-b131-fdf05781223d",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_Patient_Child|1.0.0"
+                    ]
+                },
+                "extension": [
+                    {
+                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Additional_Comment",
+                        "valueString": "Kind 1 von 2"
+                    }
+                ],
+                "identifier": [
+                    {
+                        "extension": [
+                            {
+                                "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_MIO_MR_Child_Number",
+                                "valueInteger": 1
+                            }
+                        ]
+                    }
+                ],
+                "gender": "female",
+                "birthDate": "2022-05-01",
+                "deceasedBoolean": false
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:0dafbded-fb9c-479e-9c18-9f9b835b80f2",
+            "resource": {
+                "resourceType": "Patient",
+                "id": "0dafbded-fb9c-479e-9c18-9f9b835b80f2",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_Patient_Mother|1.0.0"
+                    ]
+                },
+                "identifier": [
+                    {
+                        "type": {
+                            "coding": [
+                                {
+                                    "system": "http://fhir.de/CodeSystem/identifier-type-de-basis",
+                                    "code": "GKV"
+                                }
+                            ]
+                        },
+                        "system": "http://fhir.de/NamingSystem/gkv/kvid-10",
+                        "value": "M981183877"
+                    }
+                ],
+                "name": [
+                    {
+                        "use": "official",
+                        "_family": {
+                            "extension": [
+                                {
+                                    "url": "http://hl7.org/fhir/StructureDefinition/humanname-own-name",
+                                    "valueString": "Mustermann"
+                                }
+                            ]
+                        },
+                        "family": "Mustermann",
+                        "given": ["Marie"]
+                    }
+                ],
+                "birthDate": "1985-01-07",
+                "address": [
+                    {
+                        "type": "both",
+                        "line": ["Musterstaße 9"],
+                        "_line": [
+                            {
+                                "extension": [
+                                    {
+                                        "url": "http://hl7.org/fhir/StructureDefinition/iso21090-ADXP-streetName",
+                                        "valueString": "Musterstraße"
+                                    },
+                                    {
+                                        "url": "http://hl7.org/fhir/StructureDefinition/iso21090-ADXP-houseNumber",
+                                        "valueString": "9"
+                                    }
+                                ]
+                            }
+                        ],
+                        "city": "Dresden",
+                        "postalCode": "02139",
+                        "country": "DE"
+                    }
+                ]
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:cfda7594-6c71-4910-a7d7-2e4d676a2f2d",
+            "resource": {
+                "resourceType": "Observation",
+                "id": "cfda7594-6c71-4910-a7d7-2e4d676a2f2d",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_Observation_Live_Birth|1.0.0"
+                    ]
+                },
+                "status": "final",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "version": "http://snomed.info/sct/900000000000207008/version/20200731",
+                            "code": "281050002",
+                            "_display": {
+                                "extension": [
+                                    {
+                                        "extension": [
+                                            {
+                                                "url": "content",
+                                                "valueString": "Lebendgeburt"
+                                            }
+                                        ],
+                                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+                                    }
+                                ]
+                            },
+                            "display": "Livebirth (finding)"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "urn:uuid:cc62c1af-17ed-4285-81d4-c432d6959f5c"
+                },
+                "encounter": {
+                    "reference": "urn:uuid:13e37fe2-cf83-4ae2-bc31-cec96160baee"
+                },
+                "effectiveDateTime": "2022-05-01",
+                "performer": [
+                    {
+                        "reference": "urn:uuid:0d20fdb0-624d-4899-a8fe-dedeb50ca17d"
+                    }
+                ],
+                "valueBoolean": true
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:4f3a7521-ec4b-4fcf-aa65-a870287b5d55",
+            "resource": {
+                "resourceType": "Observation",
+                "id": "4f3a7521-ec4b-4fcf-aa65-a870287b5d55",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_Observation_Live_Birth|1.0.0"
+                    ]
+                },
+                "status": "final",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "version": "http://snomed.info/sct/900000000000207008/version/20200731",
+                            "code": "281050002",
+                            "_display": {
+                                "extension": [
+                                    {
+                                        "extension": [
+                                            {
+                                                "url": "content",
+                                                "valueString": "Lebendgeburt"
+                                            }
+                                        ],
+                                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+                                    }
+                                ]
+                            },
+                            "display": "Livebirth (finding)"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "urn:uuid:d6ed8917-0956-4f5c-b131-fdf05781223d"
+                },
+                "encounter": {
+                    "reference": "urn:uuid:13e37fe2-cf83-4ae2-bc31-cec96160baee"
+                },
+                "effectiveDateTime": "2022-05-01",
+                "performer": [
+                    {
+                        "reference": "urn:uuid:0d20fdb0-624d-4899-a8fe-dedeb50ca17d"
+                    }
+                ],
+                "valueBoolean": true
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:f19df241-1439-4570-a56c-d8a31b121470",
+            "resource": {
+                "resourceType": "Observation",
+                "id": "f19df241-1439-4570-a56c-d8a31b121470",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_Observation_Birth_Height|1.0.0"
+                    ]
+                },
+                "status": "final",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "version": "http://snomed.info/sct/900000000000207008/version/20200731",
+                            "code": "169886007",
+                            "_display": {
+                                "extension": [
+                                    {
+                                        "extension": [
+                                            {
+                                                "url": "content",
+                                                "valueString": "Körperlänge"
+                                            }
+                                        ],
+                                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+                                    }
+                                ]
+                            },
+                            "display": "Birth length (observable entity)"
+                        },
+                        {
+                            "system": "http://loinc.org",
+                            "version": "2.68",
+                            "code": "89269-5",
+                            "_display": {
+                                "extension": [
+                                    {
+                                        "extension": [
+                                            {
+                                                "url": "content",
+                                                "valueString": "Körperlänge"
+                                            }
+                                        ],
+                                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+                                    }
+                                ]
+                            },
+                            "display": "Body height Measured --at birth"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "urn:uuid:cc62c1af-17ed-4285-81d4-c432d6959f5c"
+                },
+                "encounter": {
+                    "reference": "urn:uuid:13e37fe2-cf83-4ae2-bc31-cec96160baee"
+                },
+                "effectiveDateTime": "2022-05-01",
+                "performer": [
+                    {
+                        "reference": "urn:uuid:0d20fdb0-624d-4899-a8fe-dedeb50ca17d"
+                    }
+                ],
+                "valueQuantity": {
+                    "value": 52,
+                    "unit": "cm",
+                    "system": "http://unitsofmeasure.org",
+                    "code": "cm"
+                }
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:6c0c6016-a87d-4d45-a32a-678c5c908dcf",
+            "resource": {
+                "resourceType": "Observation",
+                "id": "6c0c6016-a87d-4d45-a32a-678c5c908dcf",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_Observation_Birth_Height|1.0.0"
+                    ]
+                },
+                "status": "final",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "version": "http://snomed.info/sct/900000000000207008/version/20200731",
+                            "code": "169886007",
+                            "_display": {
+                                "extension": [
+                                    {
+                                        "extension": [
+                                            {
+                                                "url": "content",
+                                                "valueString": "Körperlänge"
+                                            }
+                                        ],
+                                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+                                    }
+                                ]
+                            },
+                            "display": "Birth length (observable entity)"
+                        },
+                        {
+                            "system": "http://loinc.org",
+                            "version": "2.68",
+                            "code": "89269-5",
+                            "_display": {
+                                "extension": [
+                                    {
+                                        "extension": [
+                                            {
+                                                "url": "content",
+                                                "valueString": "Körperlänge"
+                                            }
+                                        ],
+                                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+                                    }
+                                ]
+                            },
+                            "display": "Body height Measured --at birth"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "urn:uuid:d6ed8917-0956-4f5c-b131-fdf05781223d"
+                },
+                "encounter": {
+                    "reference": "urn:uuid:13e37fe2-cf83-4ae2-bc31-cec96160baee"
+                },
+                "effectiveDateTime": "2022-05-01",
+                "performer": [
+                    {
+                        "reference": "urn:uuid:0d20fdb0-624d-4899-a8fe-dedeb50ca17d"
+                    }
+                ],
+                "valueQuantity": {
+                    "value": 54,
+                    "unit": "cm",
+                    "system": "http://unitsofmeasure.org",
+                    "code": "cm"
+                }
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:315a2186-225a-41e6-89ce-eaa15371068b",
+            "resource": {
+                "resourceType": "Observation",
+                "id": "315a2186-225a-41e6-89ce-eaa15371068b",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_Observation_Weight_Child"
+                    ]
+                },
+                "status": "final",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "version": "http://snomed.info/sct/900000000000207008/version/20200731",
+                            "code": "364589006",
+                            "_display": {
+                                "extension": [
+                                    {
+                                        "extension": [
+                                            {
+                                                "url": "content",
+                                                "valueString": "Geburtsgewicht des Kindes"
+                                            }
+                                        ],
+                                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+                                    }
+                                ]
+                            },
+                            "display": "Birth weight (observable entity)"
+                        },
+                        {
+                            "system": "http://loinc.org",
+                            "version": "2.68",
+                            "code": "8339-4",
+                            "_display": {
+                                "extension": [
+                                    {
+                                        "extension": [
+                                            {
+                                                "url": "content",
+                                                "valueString": "Geburtsgewicht des Kindes"
+                                            }
+                                        ],
+                                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+                                    }
+                                ]
+                            },
+                            "display": "Birth weight Measured"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "urn:uuid:cc62c1af-17ed-4285-81d4-c432d6959f5c"
+                },
+                "encounter": {
+                    "reference": "urn:uuid:13e37fe2-cf83-4ae2-bc31-cec96160baee"
+                },
+                "effectiveDateTime": "2022-05-01",
+                "performer": [
+                    {
+                        "reference": "urn:uuid:0d20fdb0-624d-4899-a8fe-dedeb50ca17d"
+                    }
+                ],
+                "valueQuantity": {
+                    "value": 3180,
+                    "unit": "g",
+                    "system": "http://unitsofmeasure.org",
+                    "code": "g"
+                }
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:43159ac9-2ced-42b8-b9f0-7f3034b879b6",
+            "resource": {
+                "resourceType": "Observation",
+                "id": "43159ac9-2ced-42b8-b9f0-7f3034b879b6",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_Observation_Weight_Child"
+                    ]
+                },
+                "status": "final",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "version": "http://snomed.info/sct/900000000000207008/version/20200731",
+                            "code": "364589006",
+                            "_display": {
+                                "extension": [
+                                    {
+                                        "extension": [
+                                            {
+                                                "url": "content",
+                                                "valueString": "Geburtsgewicht des Kindes"
+                                            }
+                                        ],
+                                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+                                    }
+                                ]
+                            },
+                            "display": "Birth weight (observable entity)"
+                        },
+                        {
+                            "system": "http://loinc.org",
+                            "version": "2.67",
+                            "code": "8339-4",
+                            "_display": {
+                                "extension": [
+                                    {
+                                        "extension": [
+                                            {
+                                                "url": "content",
+                                                "valueString": "Geburtsgewicht des Kindes"
+                                            }
+                                        ],
+                                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+                                    }
+                                ]
+                            },
+                            "display": "Birth weight Measured"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "urn:uuid:d6ed8917-0956-4f5c-b131-fdf05781223d"
+                },
+                "encounter": {
+                    "reference": "urn:uuid:13e37fe2-cf83-4ae2-bc31-cec96160baee"
+                },
+                "effectiveDateTime": "2022-05-01",
+                "performer": [
+                    {
+                        "reference": "urn:uuid:0d20fdb0-624d-4899-a8fe-dedeb50ca17d"
+                    }
+                ],
+                "valueQuantity": {
+                    "value": 3255,
+                    "unit": "g",
+                    "system": "http://unitsofmeasure.org",
+                    "code": "g"
+                }
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:67cb2d3c-bb08-46b9-a5b3-7f40f1529461",
+            "resource": {
+                "resourceType": "Observation",
+                "id": "67cb2d3c-bb08-46b9-a5b3-7f40f1529461",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_Observation_Head_Circumference|1.0.0"
+                    ]
+                },
+                "status": "final",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "version": "http://snomed.info/sct/900000000000207008/version/20200731",
+                            "code": "169876006",
+                            "_display": {
+                                "extension": [
+                                    {
+                                        "extension": [
+                                            {
+                                                "url": "content",
+                                                "valueString": "Kopfumfang"
+                                            }
+                                        ],
+                                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+                                    }
+                                ]
+                            },
+                            "display": "Birth head circumference (observable entity)"
+                        },
+                        {
+                            "system": "http://loinc.org",
+                            "version": "2.68",
+                            "code": "9843-4",
+                            "_display": {
+                                "extension": [
+                                    {
+                                        "extension": [
+                                            {
+                                                "url": "content",
+                                                "valueString": "Kopfumfang"
+                                            }
+                                        ],
+                                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+                                    }
+                                ]
+                            },
+                            "display": "Head Occipital-frontal circumference"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "urn:uuid:cc62c1af-17ed-4285-81d4-c432d6959f5c"
+                },
+                "encounter": {
+                    "reference": "urn:uuid:13e37fe2-cf83-4ae2-bc31-cec96160baee"
+                },
+                "effectiveDateTime": "2022-05-01",
+                "performer": [
+                    {
+                        "reference": "urn:uuid:0d20fdb0-624d-4899-a8fe-dedeb50ca17d"
+                    }
+                ],
+                "valueQuantity": {
+                    "value": 34,
+                    "unit": "cm",
+                    "system": "http://unitsofmeasure.org",
+                    "code": "cm"
+                }
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:3d692857-9436-403a-9a11-1d0a9cda0768",
+            "resource": {
+                "resourceType": "Observation",
+                "id": "3d692857-9436-403a-9a11-1d0a9cda0768",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_Observation_Head_Circumference|1.0.0"
+                    ]
+                },
+                "status": "final",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "version": "http://snomed.info/sct/900000000000207008/version/20200731",
+                            "code": "169876006",
+                            "_display": {
+                                "extension": [
+                                    {
+                                        "extension": [
+                                            {
+                                                "url": "content",
+                                                "valueString": "Kopfumfang"
+                                            }
+                                        ],
+                                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+                                    }
+                                ]
+                            },
+                            "display": "Birth head circumference (observable entity)"
+                        },
+                        {
+                            "system": "http://loinc.org",
+                            "version": "2.68",
+                            "code": "9843-4",
+                            "_display": {
+                                "extension": [
+                                    {
+                                        "extension": [
+                                            {
+                                                "url": "content",
+                                                "valueString": "Kopfumfang"
+                                            }
+                                        ],
+                                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+                                    }
+                                ]
+                            },
+                            "display": "Head Occipital-frontal circumference"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "urn:uuid:d6ed8917-0956-4f5c-b131-fdf05781223d"
+                },
+                "encounter": {
+                    "reference": "urn:uuid:13e37fe2-cf83-4ae2-bc31-cec96160baee"
+                },
+                "effectiveDateTime": "2022-05-01",
+                "performer": [
+                    {
+                        "reference": "urn:uuid:0d20fdb0-624d-4899-a8fe-dedeb50ca17d"
+                    }
+                ],
+                "valueQuantity": {
+                    "value": 35,
+                    "unit": "cm",
+                    "system": "http://unitsofmeasure.org",
+                    "code": "cm"
+                }
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:a9a1a688-d39d-4dc3-9a8e-605ae03dbd18",
+            "resource": {
+                "resourceType": "Observation",
+                "id": "a9a1a688-d39d-4dc3-9a8e-605ae03dbd18",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_Observation_Child_Position|1.0.0"
+                    ]
+                },
+                "status": "final",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "version": "http://snomed.info/sct/900000000000207008/version/20200731",
+                            "code": "364607000",
+                            "_display": {
+                                "extension": [
+                                    {
+                                        "extension": [
+                                            {
+                                                "url": "content",
+                                                "valueString": "Kindslage"
+                                            }
+                                        ],
+                                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+                                    }
+                                ]
+                            },
+                            "display": "Position of fetus (observable entity)"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "urn:uuid:cc62c1af-17ed-4285-81d4-c432d6959f5c"
+                },
+                "encounter": {
+                    "reference": "urn:uuid:13e37fe2-cf83-4ae2-bc31-cec96160baee"
+                },
+                "effectiveDateTime": "2022-05-01",
+                "performer": [
+                    {
+                        "reference": "urn:uuid:0d20fdb0-624d-4899-a8fe-dedeb50ca17d"
+                    }
+                ],
+                "valueString": "Schädellage"
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:f229bc82-8e0d-4600-a1df-44d24de79fb9",
+            "resource": {
+                "resourceType": "Observation",
+                "id": "f229bc82-8e0d-4600-a1df-44d24de79fb9",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_Observation_Child_Position|1.0.0"
+                    ]
+                },
+                "status": "final",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "version": "http://snomed.info/sct/900000000000207008/version/20200731",
+                            "code": "364607000",
+                            "_display": {
+                                "extension": [
+                                    {
+                                        "extension": [
+                                            {
+                                                "url": "content",
+                                                "valueString": "Kindslage"
+                                            }
+                                        ],
+                                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+                                    }
+                                ]
+                            },
+                            "display": "Position of fetus (observable entity)"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "urn:uuid:d6ed8917-0956-4f5c-b131-fdf05781223d"
+                },
+                "encounter": {
+                    "reference": "urn:uuid:13e37fe2-cf83-4ae2-bc31-cec96160baee"
+                },
+                "effectiveDateTime": "2022-05-01",
+                "performer": [
+                    {
+                        "reference": "urn:uuid:0d20fdb0-624d-4899-a8fe-dedeb50ca17d"
+                    }
+                ],
+                "valueString": "Schädellage"
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:c21c3944-ba5a-4afc-aecc-268a7c668bf9",
+            "resource": {
+                "resourceType": "Observation",
+                "id": "c21c3944-ba5a-4afc-aecc-268a7c668bf9",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_Observation_Birth_Mode|1.0.0"
+                    ]
+                },
+                "status": "final",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "version": "http://snomed.info/sct/900000000000207008/version/20200731",
+                            "code": "118215003",
+                            "_display": {
+                                "extension": [
+                                    {
+                                        "extension": [
+                                            {
+                                                "url": "content",
+                                                "valueString": "Geburtsmodus"
+                                            }
+                                        ],
+                                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+                                    }
+                                ]
+                            },
+                            "display": "Delivery finding (finding)"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "urn:uuid:cc62c1af-17ed-4285-81d4-c432d6959f5c"
+                },
+                "encounter": {
+                    "reference": "urn:uuid:13e37fe2-cf83-4ae2-bc31-cec96160baee"
+                },
+                "effectiveDateTime": "2022-05-01",
+                "performer": [
+                    {
+                        "reference": "urn:uuid:0d20fdb0-624d-4899-a8fe-dedeb50ca17d"
+                    }
+                ],
+                "valueCodeableConcept": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "version": "http://snomed.info/sct/900000000000207008/version/20200731",
+                            "code": "169961004",
+                            "_display": {
+                                "extension": [
+                                    {
+                                        "extension": [
+                                            {
+                                                "url": "content",
+                                                "valueString": "Spontangeburt"
+                                            }
+                                        ],
+                                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+                                    }
+                                ]
+                            },
+                            "display": "Normal birth (finding)"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:32e196da-6a66-45bf-8580-560239f8db14",
+            "resource": {
+                "resourceType": "Observation",
+                "id": "32e196da-6a66-45bf-8580-560239f8db14",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_Observation_Birth_Mode|1.0.0"
+                    ]
+                },
+                "status": "final",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "version": "http://snomed.info/sct/900000000000207008/version/20200731",
+                            "code": "118215003",
+                            "_display": {
+                                "extension": [
+                                    {
+                                        "extension": [
+                                            {
+                                                "url": "content",
+                                                "valueString": "Geburtsmodus"
+                                            }
+                                        ],
+                                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+                                    }
+                                ]
+                            },
+                            "display": "Delivery finding (finding)"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "urn:uuid:d6ed8917-0956-4f5c-b131-fdf05781223d"
+                },
+                "encounter": {
+                    "reference": "urn:uuid:13e37fe2-cf83-4ae2-bc31-cec96160baee"
+                },
+                "effectiveDateTime": "2022-05-01",
+                "performer": [
+                    {
+                        "reference": "urn:uuid:0d20fdb0-624d-4899-a8fe-dedeb50ca17d"
+                    }
+                ],
+                "valueCodeableConcept": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "version": "http://snomed.info/sct/900000000000207008/version/20200731",
+                            "code": "169961004",
+                            "_display": {
+                                "extension": [
+                                    {
+                                        "extension": [
+                                            {
+                                                "url": "content",
+                                                "valueString": "Spontangeburt"
+                                            }
+                                        ],
+                                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+                                    }
+                                ]
+                            },
+                            "display": "Normal birth (finding)"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:c9a728d7-e0a7-4461-87e6-7ad1f2c153a3",
+            "resource": {
+                "resourceType": "Observation",
+                "id": "c9a728d7-e0a7-4461-87e6-7ad1f2c153a3",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_Observation_Malformation|1.0.0"
+                    ]
+                },
+                "status": "final",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "version": "http://snomed.info/sct/900000000000207008/version/20200731",
+                            "code": "276654001",
+                            "_display": {
+                                "extension": [
+                                    {
+                                        "extension": [
+                                            {
+                                                "url": "content",
+                                                "valueString": "Auffällige Fehlbildung"
+                                            }
+                                        ],
+                                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+                                    }
+                                ]
+                            },
+                            "display": "Congenital malformation (disorder)"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "urn:uuid:cc62c1af-17ed-4285-81d4-c432d6959f5c"
+                },
+                "encounter": {
+                    "reference": "urn:uuid:13e37fe2-cf83-4ae2-bc31-cec96160baee"
+                },
+                "effectiveDateTime": "2022-05-01",
+                "valueBoolean": false
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:6fb7bee0-1cda-4e09-b3dc-88a90a710126",
+            "resource": {
+                "resourceType": "Observation",
+                "id": "6fb7bee0-1cda-4e09-b3dc-88a90a710126",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_Observation_Malformation|1.0.0"
+                    ]
+                },
+                "status": "final",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "version": "http://snomed.info/sct/900000000000207008/version/20200731",
+                            "code": "276654001",
+                            "_display": {
+                                "extension": [
+                                    {
+                                        "extension": [
+                                            {
+                                                "url": "content",
+                                                "valueString": "Auffällige Fehlbildung"
+                                            }
+                                        ],
+                                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+                                    }
+                                ]
+                            },
+                            "display": "Congenital malformation (disorder)"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "urn:uuid:d6ed8917-0956-4f5c-b131-fdf05781223d"
+                },
+                "encounter": {
+                    "reference": "urn:uuid:13e37fe2-cf83-4ae2-bc31-cec96160baee"
+                },
+                "effectiveDateTime": "2022-05-01",
+                "valueBoolean": false
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:5f2ffb4e-8abc-4053-b460-b4e2844fce37",
+            "resource": {
+                "resourceType": "Observation",
+                "id": "5f2ffb4e-8abc-4053-b460-b4e2844fce37",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_Observation_External_Birth|1.0.0"
+                    ]
+                },
+                "status": "final",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "version": "http://snomed.info/sct/900000000000207008/version/20200731",
+                            "code": "60059000",
+                            "_display": {
+                                "extension": [
+                                    {
+                                        "extension": [
+                                            {
+                                                "url": "content",
+                                                "valueString": "Extern entbunden"
+                                            }
+                                        ],
+                                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+                                    }
+                                ]
+                            },
+                            "display": "Hospital admission, infant, for observation, delivered outside of hospital (procedure)"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "urn:uuid:0dafbded-fb9c-479e-9c18-9f9b835b80f2"
+                },
+                "encounter": {
+                    "reference": "urn:uuid:13e37fe2-cf83-4ae2-bc31-cec96160baee"
+                },
+                "effectiveDateTime": "2022-05-01",
+                "valueBoolean": false
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:1864daa5-d1dc-408d-8536-48960c698a0c",
+            "resource": {
+                "resourceType": "ClinicalImpression",
+                "id": "1864daa5-d1dc-408d-8536-48960c698a0c",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_ClinicalImpression_Pregnancy_Examination_Discharge_Summary|1.0.0"
+                    ]
+                },
+                "status": "completed",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "version": "http://snomed.info/sct/900000000000207008/version/20200731",
+                            "code": "721923008",
+                            "_display": {
+                                "extension": [
+                                    {
+                                        "extension": [
+                                            {
+                                                "url": "content",
+                                                "valueString": "Schwangerschaft"
+                                            }
+                                        ],
+                                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+                                    }
+                                ]
+                            },
+                            "display": "Obstetrics and gynecology discharge summary (record artifact)"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "urn:uuid:0dafbded-fb9c-479e-9c18-9f9b835b80f2"
+                },
+                "encounter": {
+                    "reference": "urn:uuid:13e37fe2-cf83-4ae2-bc31-cec96160baee"
+                },
+                "_effectiveDateTime": {
+                    "extension": [
+                        {
+                            "extension": [
+                                {
+                                    "extension": [
+                                        {
+                                            "url": "schwangerschaftswoche",
+                                            "valueQuantity": {
+                                                "value": 11,
+                                                "unit": "Wochen",
+                                                "system": "http://unitsofmeasure.org",
+                                                "code": "wk"
+                                            }
+                                        },
+                                        {
+                                            "url": "korrektur",
+                                            "valueBoolean": false
+                                        },
+                                        {
+                                            "url": "kode",
+                                            "valueCodeableConcept": {
+                                                "coding": [
+                                                    {
+                                                        "system": "http://snomed.info/sct",
+                                                        "version": "http://snomed.info/sct/900000000000207008/version/20200731",
+                                                        "code": "424441002",
+                                                        "_display": {
+                                                            "extension": [
+                                                                {
+                                                                    "extension": [
+                                                                        {
+                                                                            "url": "content",
+                                                                            "valueString": "Erst-Untersuchung in SSW"
+                                                                        }
+                                                                    ],
+                                                                    "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+                                                                }
+                                                            ]
+                                                        },
+                                                        "display": "Prenatal initial visit (regime/therapy)"
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    ],
+                                    "url": "schwangerschaftszeitpunkt"
+                                }
+                            ],
+                            "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_MIO_MR_Pregnancy_Week_And_Day"
+                        }
+                    ]
+                },
+                "effectiveDateTime": "2022-05-02",
+                "investigation": [
+                    {
+                        "code": {
+                            "text": "Abschlussuntersuchungen zur Schwangerschaft"
+                        },
+                        "item": [
+                            {
+                                "reference": "urn:uuid:ad7b047e-1577-45f4-ae26-ac82f5d8864b"
+                            },
+                            {
+                                "reference": "urn:uuid:19055c48-4042-416b-b61e-b9dbd3076091"
+                            },
+                            {
+                                "reference": "urn:uuid:552c8058-15cb-43da-b3af-0f7cdc0022c5"
+                            },
+                            {
+                                "reference": "urn:uuid:1a025c9b-be57-45f2-8002-1007a30c230d"
+                            }
+                        ]
+                    }
+                ],
+                "finding": [
+                    {
+                        "itemCodeableConcept": {
+                            "coding": [
+                                {
+                                    "system": "http://snomed.info/sct",
+                                    "version": "http://snomed.info/sct/900000000000207008/version/20200731",
+                                    "code": "416413003",
+                                    "_display": {
+                                        "extension": [
+                                            {
+                                                "extension": [
+                                                    {
+                                                        "url": "content",
+                                                        "valueString": "Schwangere über 35 Jahren"
+                                                    }
+                                                ],
+                                                "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+                                            }
+                                        ]
+                                    },
+                                    "display": "Advanced maternal age gravida (finding)"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "itemCodeableConcept": {
+                            "coding": [
+                                {
+                                    "system": "http://snomed.info/sct",
+                                    "version": "http://snomed.info/sct/900000000000207008/version/20200731",
+                                    "code": "16356006",
+                                    "_display": {
+                                        "extension": [
+                                            {
+                                                "extension": [
+                                                    {
+                                                        "url": "content",
+                                                        "valueString": "Mehrlingsschwangerschaft"
+                                                    }
+                                                ],
+                                                "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+                                            }
+                                        ]
+                                    },
+                                    "display": "Multiple pregnancy (disorder)"
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:13e37fe2-cf83-4ae2-bc31-cec96160baee",
+            "resource": {
+                "resourceType": "Encounter",
+                "id": "13e37fe2-cf83-4ae2-bc31-cec96160baee",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_Encounter_General|1.0.0"
+                    ]
+                },
+                "status": "finished",
+                "class": {
+                    "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+                    "version": "2.0.0",
+                    "code": "AMB",
+                    "display": "ambulatory"
+                },
+                "subject": {
+                    "reference": "urn:uuid:0dafbded-fb9c-479e-9c18-9f9b835b80f2"
+                },
+                "period": {
+                    "start": "2021-02-02"
+                },
+                "serviceProvider": {
+                    "reference": "urn:uuid:0d20fdb0-624d-4899-a8fe-dedeb50ca17d"
+                }
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:beff21cd-5b4c-41ad-8fd7-971b9b088e62",
+            "resource": {
+                "resourceType": "Observation",
+                "id": "beff21cd-5b4c-41ad-8fd7-971b9b088e62",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_Observation_Apgar_Score|1.0.0"
+                    ]
+                },
+                "status": "final",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "version": "http://snomed.info/sct/900000000000207008/version/20200731",
+                            "code": "169922007",
+                            "_display": {
+                                "extension": [
+                                    {
+                                        "extension": [
+                                            {
+                                                "url": "content",
+                                                "valueString": "Apgar zum Zeitpunkt 10 Min. nach Geburt"
+                                            }
+                                        ],
+                                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+                                    }
+                                ]
+                            },
+                            "display": "Apgar score at 10 minutes (observable entity)"
+                        },
+                        {
+                            "system": "http://loinc.org",
+                            "version": "2.68",
+                            "code": "9271-8",
+                            "_display": {
+                                "extension": [
+                                    {
+                                        "extension": [
+                                            {
+                                                "url": "content",
+                                                "valueString": "Apgar zum Zeitpunkt 10 Min. nach Geburt"
+                                            }
+                                        ],
+                                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+                                    }
+                                ]
+                            },
+                            "display": "10 minute Apgar Score"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "urn:uuid:cc62c1af-17ed-4285-81d4-c432d6959f5c"
+                },
+                "encounter": {
+                    "reference": "urn:uuid:13e37fe2-cf83-4ae2-bc31-cec96160baee"
+                },
+                "effectiveDateTime": "2022-05-01",
+                "performer": [
+                    {
+                        "reference": "urn:uuid:0d20fdb0-624d-4899-a8fe-dedeb50ca17d"
+                    }
+                ],
+                "valueCodeableConcept": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "version": "http://snomed.info/sct/900000000000207008/version/20200731",
+                            "code": "49544001",
+                            "_display": {
+                                "extension": [
+                                    {
+                                        "extension": [
+                                            {
+                                                "url": "content",
+                                                "valueString": "Apgar 10"
+                                            }
+                                        ],
+                                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+                                    }
+                                ]
+                            },
+                            "display": "Apgar score 10 (finding)"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:893ba5f9-28b9-4c13-b833-bbcf87678e81",
+            "resource": {
+                "resourceType": "Observation",
+                "id": "893ba5f9-28b9-4c13-b833-bbcf87678e81",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_Observation_Apgar_Score|1.0.0"
+                    ]
+                },
+                "status": "final",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "version": "http://snomed.info/sct/900000000000207008/version/20200731",
+                            "code": "169922007",
+                            "_display": {
+                                "extension": [
+                                    {
+                                        "extension": [
+                                            {
+                                                "url": "content",
+                                                "valueString": "Apgar zum Zeitpunkt 10 Min. nach Geburt"
+                                            }
+                                        ],
+                                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+                                    }
+                                ]
+                            },
+                            "display": "Apgar score at 10 minutes (observable entity)"
+                        },
+                        {
+                            "system": "http://loinc.org",
+                            "version": "2.68",
+                            "code": "9271-8",
+                            "_display": {
+                                "extension": [
+                                    {
+                                        "extension": [
+                                            {
+                                                "url": "content",
+                                                "valueString": "Apgar zum Zeitpunkt 10 Min. nach Geburt"
+                                            }
+                                        ],
+                                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+                                    }
+                                ]
+                            },
+                            "display": "10 minute Apgar Score"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "urn:uuid:d6ed8917-0956-4f5c-b131-fdf05781223d"
+                },
+                "encounter": {
+                    "reference": "urn:uuid:13e37fe2-cf83-4ae2-bc31-cec96160baee"
+                },
+                "effectiveDateTime": "2022-05-01",
+                "performer": [
+                    {
+                        "reference": "urn:uuid:0d20fdb0-624d-4899-a8fe-dedeb50ca17d"
+                    }
+                ],
+                "valueCodeableConcept": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "version": "http://snomed.info/sct/900000000000207008/version/20200731",
+                            "code": "49544001",
+                            "_display": {
+                                "extension": [
+                                    {
+                                        "extension": [
+                                            {
+                                                "url": "content",
+                                                "valueString": "Apgar 10"
+                                            }
+                                        ],
+                                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+                                    }
+                                ]
+                            },
+                            "display": "Apgar score 10 (finding)"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:1a025c9b-be57-45f2-8002-1007a30c230d",
+            "resource": {
+                "resourceType": "Observation",
+                "id": "1a025c9b-be57-45f2-8002-1007a30c230d",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_Observation_Number_Of_Checkups|1.0.0"
+                    ]
+                },
+                "status": "final",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "version": "http://snomed.info/sct/900000000000207008/version/20200731",
+                            "code": "3401000175105",
+                            "_display": {
+                                "extension": [
+                                    {
+                                        "extension": [
+                                            {
+                                                "url": "content",
+                                                "valueString": "Anzahl der Vorsorgeuntersuchungen"
+                                            }
+                                        ],
+                                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+                                    }
+                                ]
+                            },
+                            "display": "Total number of prenatal care visits (observable entity)"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "urn:uuid:0dafbded-fb9c-479e-9c18-9f9b835b80f2"
+                },
+                "encounter": {
+                    "reference": "urn:uuid:13e37fe2-cf83-4ae2-bc31-cec96160baee"
+                },
+                "effectiveDateTime": "2022-05-02",
+                "valueQuantity": {
+                    "value": 12,
+                    "system": "http://unitsofmeasure.org",
+                    "code": "1"
+                }
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:19055c48-4042-416b-b61e-b9dbd3076091",
+            "resource": {
+                "resourceType": "Observation",
+                "id": "19055c48-4042-416b-b61e-b9dbd3076091",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_Observation_Gravida|1.0.0"
+                    ]
+                },
+                "status": "final",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "version": "http://snomed.info/sct/900000000000207008/version/20200731",
+                            "code": "161732006",
+                            "_display": {
+                                "extension": [
+                                    {
+                                        "extension": [
+                                            {
+                                                "url": "content",
+                                                "valueString": "Gravida"
+                                            }
+                                        ],
+                                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+                                    }
+                                ]
+                            },
+                            "display": "Gravida (observable entity)"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "urn:uuid:0dafbded-fb9c-479e-9c18-9f9b835b80f2"
+                },
+                "encounter": {
+                    "reference": "urn:uuid:13e37fe2-cf83-4ae2-bc31-cec96160baee"
+                },
+                "effectiveDateTime": "2022-05-02",
+                "performer": [
+                    {
+                        "reference": "urn:uuid:0d20fdb0-624d-4899-a8fe-dedeb50ca17d"
+                    }
+                ],
+                "valueQuantity": {
+                    "value": 2,
+                    "system": "http://unitsofmeasure.org",
+                    "code": "1"
+                }
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:552c8058-15cb-43da-b3af-0f7cdc0022c5",
+            "resource": {
+                "resourceType": "Observation",
+                "id": "552c8058-15cb-43da-b3af-0f7cdc0022c5",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_Observation_Para|1.0.0"
+                    ]
+                },
+                "status": "final",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "version": "http://snomed.info/sct/900000000000207008/version/20200731",
+                            "code": "364325004",
+                            "_display": {
+                                "extension": [
+                                    {
+                                        "extension": [
+                                            {
+                                                "url": "content",
+                                                "valueString": "Para"
+                                            }
+                                        ],
+                                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+                                    }
+                                ]
+                            },
+                            "display": "Parity (observable entity)"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "urn:uuid:0dafbded-fb9c-479e-9c18-9f9b835b80f2"
+                },
+                "encounter": {
+                    "reference": "urn:uuid:13e37fe2-cf83-4ae2-bc31-cec96160baee"
+                },
+                "effectiveDateTime": "2022-05-02",
+                "performer": [
+                    {
+                        "reference": "urn:uuid:0d20fdb0-624d-4899-a8fe-dedeb50ca17d"
+                    }
+                ],
+                "valueQuantity": {
+                    "value": 2,
+                    "system": "http://unitsofmeasure.org",
+                    "code": "1"
+                }
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:6e83f5d1-7031-4d48-a3ff-f4da7dcd2a4d",
+            "resource": {
+                "resourceType": "ClinicalImpression",
+                "id": "6e83f5d1-7031-4d48-a3ff-f4da7dcd2a4d",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_ClinicalImpression_Birth_Examination_Delivery_Information|1.0.0"
+                    ]
+                },
+                "status": "completed",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "version": "http://snomed.info/sct/900000000000207008/version/20200731",
+                            "code": "118215003",
+                            "_display": {
+                                "extension": [
+                                    {
+                                        "extension": [
+                                            {
+                                                "url": "content",
+                                                "valueString": "Abschluss-Untersuchung/Epikrise-Geburt"
+                                            }
+                                        ],
+                                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+                                    }
+                                ]
+                            },
+                            "display": "Delivery finding (finding)"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "urn:uuid:0dafbded-fb9c-479e-9c18-9f9b835b80f2"
+                },
+                "encounter": {
+                    "reference": "urn:uuid:13e37fe2-cf83-4ae2-bc31-cec96160baee"
+                },
+                "_effectiveDateTime": {
+                    "extension": [
+                        {
+                            "extension": [
+                                {
+                                    "extension": [
+                                        {
+                                            "url": "schwangerschaftswoche",
+                                            "valueQuantity": {
+                                                "value": 39,
+                                                "unit": "Wochen",
+                                                "system": "http://unitsofmeasure.org",
+                                                "code": "wk"
+                                            }
+                                        },
+                                        {
+                                            "url": "ergaenzendeTage",
+                                            "valueQuantity": {
+                                                "value": 2,
+                                                "unit": "Tage",
+                                                "system": "http://unitsofmeasure.org",
+                                                "code": "d"
+                                            }
+                                        },
+                                        {
+                                            "url": "korrektur",
+                                            "valueBoolean": false
+                                        },
+                                        {
+                                            "url": "kode",
+                                            "valueCodeableConcept": {
+                                                "coding": [
+                                                    {
+                                                        "system": "http://snomed.info/sct",
+                                                        "version": "http://snomed.info/sct/900000000000207008/version/20200731",
+                                                        "code": "412726003",
+                                                        "_display": {
+                                                            "extension": [
+                                                                {
+                                                                    "extension": [
+                                                                        {
+                                                                            "url": "content",
+                                                                            "valueString": "Schwangerschaftswoche+Tage"
+                                                                        }
+                                                                    ],
+                                                                    "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+                                                                }
+                                                            ]
+                                                        },
+                                                        "display": "Length of gestation at birth (observable entity)"
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    ],
+                                    "url": "schwangerschaftszeitpunkt"
+                                }
+                            ],
+                            "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_MIO_MR_Pregnancy_Week_And_Day"
+                        }
+                    ]
+                },
+                "effectiveDateTime": "2022-05-01",
+                "investigation": [
+                    {
+                        "code": {
+                            "text": "Angaben zur Entbindung"
+                        },
+                        "item": [
+                            {
+                                "reference": "urn:uuid:5f2ffb4e-8abc-4053-b460-b4e2844fce37"
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:f1fc4c8c-1c90-4a00-bf38-9d33d2bad1de",
+            "resource": {
+                "resourceType": "ClinicalImpression",
+                "id": "f1fc4c8c-1c90-4a00-bf38-9d33d2bad1de",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_ClinicalImpression_Birth_Examination_Child_Information|1.0.0"
+                    ]
+                },
+                "status": "completed",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "version": "http://snomed.info/sct/900000000000207008/version/20200731",
+                            "code": "118188004",
+                            "_display": {
+                                "extension": [
+                                    {
+                                        "extension": [
+                                            {
+                                                "url": "content",
+                                                "valueString": "Angaben zum Kind"
+                                            }
+                                        ],
+                                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+                                    }
+                                ]
+                            },
+                            "display": "Finding of neonate (finding)"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "urn:uuid:0dafbded-fb9c-479e-9c18-9f9b835b80f2"
+                },
+                "encounter": {
+                    "reference": "urn:uuid:13e37fe2-cf83-4ae2-bc31-cec96160baee"
+                },
+                "effectiveDateTime": "2022-05-01",
+                "investigation": [
+                    {
+                        "code": {
+                            "text": "Angaben zum Kind"
+                        },
+                        "item": [
+                            {
+                                "reference": "urn:uuid:a9a1a688-d39d-4dc3-9a8e-605ae03dbd18"
+                            },
+                            {
+                                "reference": "urn:uuid:315a2186-225a-41e6-89ce-eaa15371068b"
+                            },
+                            {
+                                "reference": "urn:uuid:67cb2d3c-bb08-46b9-a5b3-7f40f1529461"
+                            },
+                            {
+                                "reference": "urn:uuid:f19df241-1439-4570-a56c-d8a31b121470"
+                            },
+                            {
+                                "reference": "urn:uuid:beff21cd-5b4c-41ad-8fd7-971b9b088e62"
+                            },
+                            {
+                                "reference": "urn:uuid:cfda7594-6c71-4910-a7d7-2e4d676a2f2d"
+                            },
+                            {
+                                "reference": "urn:uuid:c21c3944-ba5a-4afc-aecc-268a7c668bf9"
+                            },
+                            {
+                                "reference": "urn:uuid:c9a728d7-e0a7-4461-87e6-7ad1f2c153a3"
+                            },
+                            {
+                                "reference": "urn:uuid:c3576f4f-595d-42e5-a445-eebb2cb271fb"
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:adeae098-ce35-4dd8-885a-b9ea4ff9299e",
+            "resource": {
+                "resourceType": "ClinicalImpression",
+                "id": "adeae098-ce35-4dd8-885a-b9ea4ff9299e",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_ClinicalImpression_Birth_Examination_Child_Information|1.0.0"
+                    ]
+                },
+                "status": "completed",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "version": "http://snomed.info/sct/900000000000207008/version/20200731",
+                            "code": "118188004",
+                            "_display": {
+                                "extension": [
+                                    {
+                                        "extension": [
+                                            {
+                                                "url": "content",
+                                                "valueString": "Angaben zum Kind"
+                                            }
+                                        ],
+                                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+                                    }
+                                ]
+                            },
+                            "display": "Finding of neonate (finding)"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "urn:uuid:0dafbded-fb9c-479e-9c18-9f9b835b80f2"
+                },
+                "encounter": {
+                    "reference": "urn:uuid:13e37fe2-cf83-4ae2-bc31-cec96160baee"
+                },
+                "effectiveDateTime": "2022-05-01",
+                "investigation": [
+                    {
+                        "code": {
+                            "text": "Angaben zum Kind"
+                        },
+                        "item": [
+                            {
+                                "reference": "urn:uuid:f229bc82-8e0d-4600-a1df-44d24de79fb9"
+                            },
+                            {
+                                "reference": "urn:uuid:43159ac9-2ced-42b8-b9f0-7f3034b879b6"
+                            },
+                            {
+                                "reference": "urn:uuid:3d692857-9436-403a-9a11-1d0a9cda0768"
+                            },
+                            {
+                                "reference": "urn:uuid:6c0c6016-a87d-4d45-a32a-678c5c908dcf"
+                            },
+                            {
+                                "reference": "urn:uuid:893ba5f9-28b9-4c13-b833-bbcf87678e81"
+                            },
+                            {
+                                "reference": "urn:uuid:4f3a7521-ec4b-4fcf-aa65-a870287b5d55"
+                            },
+                            {
+                                "reference": "urn:uuid:32e196da-6a66-45bf-8580-560239f8db14"
+                            },
+                            {
+                                "reference": "urn:uuid:6fb7bee0-1cda-4e09-b3dc-88a90a710126"
+                            },
+                            {
+                                "reference": "urn:uuid:1cd66ac0-e400-4349-8a75-9ba49744c118"
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:ad7b047e-1577-45f4-ae26-ac82f5d8864b",
+            "resource": {
+                "resourceType": "Observation",
+                "id": "ad7b047e-1577-45f4-ae26-ac82f5d8864b",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_Observation_Age|1.0.0"
+                    ]
+                },
+                "status": "final",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "version": "http://snomed.info/sct/900000000000207008/version/20200731",
+                            "code": "424144002",
+                            "_display": {
+                                "extension": [
+                                    {
+                                        "extension": [
+                                            {
+                                                "url": "content",
+                                                "valueString": "Alter"
+                                            }
+                                        ],
+                                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+                                    }
+                                ]
+                            },
+                            "display": "Current chronological age (observable entity)"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "urn:uuid:0dafbded-fb9c-479e-9c18-9f9b835b80f2"
+                },
+                "encounter": {
+                    "reference": "urn:uuid:13e37fe2-cf83-4ae2-bc31-cec96160baee"
+                },
+                "effectiveDateTime": "2022-05-02",
+                "performer": [
+                    {
+                        "reference": "urn:uuid:0d20fdb0-624d-4899-a8fe-dedeb50ca17d"
+                    }
+                ],
+                "valueQuantity": {
+                    "value": 37,
+                    "unit": "Jahre",
+                    "system": "http://unitsofmeasure.org",
+                    "code": "a"
+                }
+            }
+        }
+    ]
 }

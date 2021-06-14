@@ -18,7 +18,7 @@
 
 import { MR } from "@kbv/mioparser";
 import * as Models from "../../models";
-import { DetailMapping } from "../Comprehensive/Detail/DetailBase";
+import { DetailMapping } from "../Comprehensive/Detail/Types";
 
 export default class Mappings {
     static Basic: DetailMapping[] = [

@@ -21,8 +21,9 @@ import * as Icons from "react-feather";
 
 import { ButtonIcon } from "../index";
 
-import "./ContentCopyBox.scss";
 import { IonToast } from "@ionic/react";
+
+import "./ContentCopyBox.scss";
 
 export type ContentCopyBoxProps = {
     headline: string;

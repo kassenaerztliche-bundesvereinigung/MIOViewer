@@ -27,9 +27,11 @@ import { KBVResource } from "@kbv/mioparser";
 import { UI } from "../../index";
 
 import { ListListSimpleProps } from "./DetailListSimple";
+import { isModelValue } from "../../../models/Types";
 
 export type ListGroupProps<T extends KBVResource> = {
     expandable: boolean;
+    expanded?: boolean;
 } & ListListSimpleProps<T>;
 
 export type DetailListCollapsibleState = {
@@ -45,7 +47,7 @@ export default class DetailListCollapsible<T extends KBVResource> extends React.
 
         this.state = {
             stuck: false,
-            expanded: true
+            expanded: props.expanded ?? false
         };
     }
 
@@ -59,13 +61,19 @@ export default class DetailListCollapsible<T extends KBVResource> extends React.
 
     render(): JSX.Element {
         const { stuck, expanded } = this.state;
-        const { type, headline, subline, items, expandable } = this.props;
+        const { type, headline, subline, minorHints, items, expandable } = this.props;
 
-        const content = items.map((item, index) => (
-            <UI.ListItem.Basic {...item} key={index} />
-        ));
+        const content = items.map((item, index) => {
+            if (isModelValue(item)) {
+                const Component = item.renderAs ?? UI.ListItem.Basic;
+                return <Component {...item} key={index} />;
+            } else {
+                return <UI.ListItem.Basic {...item} key={index} />;
+            }
+        });
 
         const height = expanded ? "auto" : 0;
+        const hasNoContent = !content || content.length <= 0;
 
         return (
             <UI.DetailList.StickyHeader
@@ -98,10 +106,29 @@ export default class DetailListCollapsible<T extends KBVResource> extends React.
                     height={height}
                     className={"animate-height-container"}
                 >
-                    {subline && (
-                        <small className={"ion-padding-horizontal"}>{subline}</small>
-                    )}
-                    {(!content || content.length <= 0) && (
+                    {subline && <UI.ListItem.HintBox label={"Hinweis"} value={subline} />}
+                    {minorHints &&
+                        minorHints.map((hint, i) => {
+                            if (hint.renderAs) {
+                                const Component = hint.renderAs;
+                                return (
+                                    <Component
+                                        key={`${hint.value}-${i}`}
+                                        label={hint.label}
+                                        value={hint.value}
+                                    />
+                                );
+                            } else {
+                                return (
+                                    <UI.ListItem.Hint
+                                        key={`${hint.value}-${i}`}
+                                        label={hint.label}
+                                        value={hint.value}
+                                    />
+                                );
+                            }
+                        })}
+                    {hasNoContent && (
                         <UI.ListItem.Hint
                             label={"Hinweis"}
                             value={`Unter „${headline}“ sind in diesem ${type} derzeit keine Einträge vorhanden.`}

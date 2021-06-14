@@ -25,7 +25,14 @@ import { MIOConnectorType } from "../../../store";
 
 import { UI, Util } from "../../../components";
 
-import { KBVBundleResource, MR, Vaccination, ZAEB, ParserUtil } from "@kbv/mioparser";
+import {
+    KBVBundleResource,
+    MR,
+    Vaccination,
+    ZAEB,
+    CMR,
+    ParserUtil
+} from "@kbv/mioparser";
 
 import "./MIOSlides.scss";
 
@@ -40,6 +47,7 @@ export type MIOSlidesState = {
     back?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
     slides: JSX.Element[][];
     currentIndex: number;
+    isExample?: boolean;
 };
 
 abstract class MIOSlides<
@@ -114,18 +122,24 @@ abstract class MIOSlides<
 
     protected abstract createSlides(): JSX.Element[][];
 
-    protected mapMioFolders = (mios: KBVBundleResource[]): JSX.Element[] => {
-        const { history } = this.props;
+    protected mapMioFolders = (
+        mios: KBVBundleResource[],
+        ungroup?: boolean
+    ): JSX.Element[] => {
+        const { history, location } = this.props;
+        const isExample = Util.Misc.isExamplePath(location.pathname);
+        const mioFolders = [];
 
-        return mios.map((mio, index) => {
+        mios.forEach((mio, index) => {
             const mioId = ParserUtil.getUuid(mio.identifier.value);
+            const path = (isExample ? "/example/" : "/mio/") + mioId;
 
             if (Vaccination.V1_00_000.Profile.BundleEntry.is(mio)) {
                 const patient = Util.IM.getPatient(mio);
-                return (
+                mioFolders.push(
                     <UI.MIOFolder
                         key={mioId + index.toString()}
-                        onClick={() => history.push("/mio/" + mioId)}
+                        onClick={() => history.push(path)}
                         className={"impfpass"}
                         label={"Impfpass"}
                         subline={patient ? Util.IM.getPatientName(patient.resource) : ""}
@@ -134,10 +148,10 @@ abstract class MIOSlides<
                 );
             } else if (ZAEB.V1_00_000.Profile.Bundle.is(mio)) {
                 const patient = Util.ZB.getPatient(mio);
-                return (
+                mioFolders.push(
                     <UI.MIOFolder
                         key={mioId + index.toString()}
-                        onClick={() => history.push("/mio/" + mioId)}
+                        onClick={() => history.push(path)}
                         className={"zaeb"}
                         label={"Zahnärztliches Bonusheft"}
                         labelBG={true}
@@ -146,10 +160,10 @@ abstract class MIOSlides<
                 );
             } else if (MR.V1_00_000.Profile.Bundle.is(mio)) {
                 const patient = Util.MP.getPatientMother(mio);
-                return (
+                mioFolders.push(
                     <UI.MIOFolder
                         key={mioId + index.toString()}
-                        onClick={() => history.push("/mio/" + mioId)}
+                        onClick={() => history.push(path)}
                         className={"mutterpass"}
                         label={"Mutterpass"}
                         labelBG={true}
@@ -158,18 +172,91 @@ abstract class MIOSlides<
                         }
                     />
                 );
-            } else {
-                return (
+            } else if (CMR.V1_00_000.Profile.CMRBundle.is(mio) && ungroup) {
+                const type = Util.UH.getTypeFromBundle(mio);
+                const patient = Util.UH.getPatient(mio);
+
+                mioFolders.push(
                     <UI.MIOFolder
-                        key={"undefined-" + index}
-                        onClick={() => console.log(mio)}
-                        className={"undefined"}
-                        label={"Undefined"}
+                        key={"uheft-" + index}
+                        onClick={() => history.push(path)}
+                        className={"uheft"}
+                        label={type ? type : "Undefined"}
+                        subline={patient ? Util.UH.getPatientName(patient.resource) : ""}
                         labelBG={true}
                     />
                 );
+            } else if (CMR.V1_00_000.Profile.PCBundle.is(mio) && ungroup) {
+                const type = Util.UH.getEncounterTypeFromBundle(mio);
+                const patient = Util.UH.getPatient(mio);
+
+                mioFolders.push(
+                    <UI.MIOFolder
+                        key={"uheft-" + index}
+                        onClick={() => history.push(path)}
+                        className={"uheft"}
+                        label={"Teilnahmekarte " + type}
+                        subline={patient ? Util.UH.getPatientName(patient.resource) : ""}
+                        labelBG={true}
+                    />
+                );
+            } else if (CMR.V1_00_000.Profile.PNBundle.is(mio) && ungroup) {
+                const type = Util.UH.getEncounterTypeFromBundle(mio);
+                const patient = Util.UH.getPatient(mio);
+
+                mioFolders.push(
+                    <UI.MIOFolder
+                        key={"uheft-" + index}
+                        onClick={() => history.push(path)}
+                        className={"uheft"}
+                        label={"Elternnotiz " + type}
+                        subline={patient ? Util.UH.getPatientName(patient.resource) : ""}
+                        labelBG={true}
+                    />
+                );
+            } else {
+                if (!Util.UH.isBundle(mio)) {
+                    mioFolders.push(
+                        <UI.MIOFolder
+                            key={"undefined-" + index}
+                            onClick={() => console.log(mio)}
+                            className={"undefined"}
+                            label={"Undefined"}
+                            labelBG={true}
+                        />
+                    );
+                } else if (ungroup) {
+                    mioFolders.push(
+                        <UI.MIOFolder
+                            key={"uheft-" + index}
+                            onClick={() => console.log(mio)}
+                            className={"uheft"}
+                            label={"U-Heft"}
+                            labelBG={true}
+                        />
+                    );
+                }
             }
         });
+
+        const countUH = Util.UH.countBundles(mios);
+
+        if (countUH && !ungroup) {
+            const path = isExample ? "/examples/" : "/mios/";
+
+            mioFolders.push(
+                <UI.MIOFolder
+                    key={"uheft"}
+                    onClick={() => history.push(path + "uheft")}
+                    className={"uheft"}
+                    label={"Kinderuntersuchungsheft"}
+                    labelBG={true}
+                    badge={countUH.toString()}
+                />
+            );
+        }
+
+        return mioFolders;
     };
 
     chunk = (array: JSX.Element[], size: number): JSX.Element[][] => {
@@ -189,7 +276,7 @@ abstract class MIOSlides<
 
         return (
             <div className={classes} data-testid={testId}>
-                {slides && slides.length && (
+                {slides && (
                     <IonSlides
                         pager={true}
                         key={slides.length}
@@ -220,7 +307,7 @@ abstract class MIOSlides<
     };
 
     render(): JSX.Element {
-        const { headline, id, headerClass, back } = this.state;
+        const { headline, id, headerClass, back, isExample } = this.state;
 
         return (
             <UI.BasicView
@@ -229,6 +316,7 @@ abstract class MIOSlides<
                 id={id}
                 headerClass={headerClass}
                 back={back}
+                isExample={isExample}
             >
                 {this.renderSlides(this.props.children)}
             </UI.BasicView>

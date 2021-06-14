@@ -21,16 +21,17 @@ import { History } from "history";
 import { ParserUtil, KBVBundleResource, ZAEB } from "@kbv/mioparser";
 import { Util } from "../../components";
 
-import { AddressModel, BaseModel, TelecomModel } from "../";
+import { AddressModel, BaseModel, ModelValue, TelecomModel } from "../";
 import { OrganizationModel } from "./";
 
 export default class ObservationModel extends BaseModel<ZAEB.V1_00_000.Profile.Observation> {
     constructor(
         value: ZAEB.V1_00_000.Profile.Observation,
+        fullUrl: string,
         parent: KBVBundleResource,
         history?: History
     ) {
-        super(value, parent, history);
+        super(value, fullUrl, parent, history);
 
         const composition = ParserUtil.getEntry<ZAEB.V1_00_000.Profile.Composition>(
             this.parent,
@@ -71,5 +72,12 @@ export default class ObservationModel extends BaseModel<ZAEB.V1_00_000.Profile.O
             this.values.map((v) => v.label + ": " + v.value).join("\n") +
             "\n\n"
         );
+    }
+
+    public getMainValue(): ModelValue {
+        return {
+            value: Util.ZB.getObservationDisplay(this.value),
+            label: Util.Misc.formatDate(this.value.effectiveDateTime)
+        };
     }
 }

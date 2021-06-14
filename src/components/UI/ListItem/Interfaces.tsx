@@ -16,17 +16,18 @@
  * along with MIO Viewer. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import React from "react";
+import { Clickable } from "../";
 
-export type ListItemProps = {
+export type ListItemContent = {
     value?: string;
     href?: string;
     label: string;
-    onClick?: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
-    disabled?: boolean;
+};
+
+export type ListItemProps = ListItemContent & {
     className?: string;
     noValue?: boolean;
     noLabel?: boolean;
     clampValue?: boolean;
     innerHTML?: boolean;
-};
+} & Clickable;

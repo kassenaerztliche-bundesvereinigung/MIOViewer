@@ -21,11 +21,12 @@ import React from "react";
 import { RouteComponentProps } from "react-router";
 
 import { MIOConnector, MIOConnectorType } from "../../../store";
-import { Vaccination, ZAEB, MR } from "@kbv/mioparser";
+import { Vaccination, ZAEB, MR, CMR } from "@kbv/mioparser";
 
 import DetailIM from "../../IM/Detail";
 import DetailZAEB from "../../ZB/Detail";
 import DetailMP from "../../MP/Detail";
+import DetailUH from "../../UH/Detail";
 
 import { UI } from "../../../components";
 
@@ -56,6 +57,19 @@ class Detail extends React.Component<MIOConnectorType & RouteComponentProps> {
             } else if (MR.V1_00_000.Profile.Bundle.is(mio)) {
                 component = (
                     <DetailMP
+                        mio={mio}
+                        history={history}
+                        location={location}
+                        match={match}
+                    />
+                );
+            } else if (
+                CMR.V1_00_000.Profile.CMRBundle.is(mio) ||
+                CMR.V1_00_000.Profile.PCBundle.is(mio) ||
+                CMR.V1_00_000.Profile.PNBundle.is(mio)
+            ) {
+                component = (
+                    <DetailUH
                         mio={mio}
                         history={history}
                         location={location}

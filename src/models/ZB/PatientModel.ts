@@ -21,15 +21,17 @@ import { History } from "history";
 import { KBVBundleResource, ZAEB } from "@kbv/mioparser";
 import { Util } from "../../components";
 
-import BaseModel, { ModelValue } from "../BaseModel";
+import BaseModel from "../BaseModel";
+import { ModelValue } from "../Types";
 
 export default class PatientModel extends BaseModel<ZAEB.V1_00_000.Profile.Patient> {
     constructor(
         value: ZAEB.V1_00_000.Profile.Patient,
+        fullUrl: string,
         parent: KBVBundleResource,
         history?: History
     ) {
-        super(value, parent, history);
+        super(value, fullUrl, parent, history);
 
         this.headline = Util.ZB.getPatientName(this.value);
         this.values = [
@@ -49,5 +51,12 @@ export default class PatientModel extends BaseModel<ZAEB.V1_00_000.Profile.Patie
 
     public toString(): string {
         return this.values.map((v) => v.label + ": " + v.value).join("\n");
+    }
+
+    public getMainValue(): ModelValue {
+        return {
+            value: this.headline,
+            label: "Patient/-in"
+        };
     }
 }

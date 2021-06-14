@@ -20,7 +20,13 @@ import React from "react";
 import { RouteComponentProps } from "react-router";
 import { MR, ParserUtil } from "@kbv/mioparser";
 
-import { MIOConnector, MIOConnectorType } from "../../../store";
+import {
+    MIOConnector,
+    MIOConnectorType,
+    SettingsConnector,
+    SettingsConnectorType
+} from "../../../store";
+
 import { UI, Util } from "../../../components";
 
 import { Sections } from "./Section";
@@ -31,10 +37,10 @@ type OverviewSectionProps = {
 };
 
 class OverviewSection extends React.Component<
-    MIOConnectorType & OverviewSectionProps & RouteComponentProps
+    MIOConnectorType & OverviewSectionProps & RouteComponentProps & SettingsConnectorType
 > {
     render(): JSX.Element {
-        const { section, mio, history, location, match, makePDF } = this.props;
+        const { section, mio, history, location, match, makePDF, devMode } = this.props;
 
         const composition = ParserUtil.getEntry<MR.V1_00_000.Profile.Composition>(
             mio as MR.V1_00_000.Profile.Bundle,
@@ -126,6 +132,7 @@ class OverviewSection extends React.Component<
                         location={location}
                         match={match}
                         id={id}
+                        devMode={devMode}
                     />
                 </UI.BasicView>
             );
@@ -135,5 +142,4 @@ class OverviewSection extends React.Component<
         }
     }
 }
-
-export default MIOConnector(OverviewSection);
+export default SettingsConnector(MIOConnector(OverviewSection));

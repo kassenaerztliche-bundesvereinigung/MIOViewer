@@ -34,7 +34,7 @@ import Modal, { ModalProps } from "./Modal";
 import Pagination, { PaginationProps } from "./Pagination";
 import TabBar from "./TabBar";
 import Toggle, { ToggleProps } from "./Toggle";
-import { MIOClassName } from "./Statics";
+import { MIOClassName, Clickable } from "./Types";
 
 export type {
     AddMIOHelperState,
@@ -46,6 +46,7 @@ export type {
     ModalProps,
     PaginationProps,
     MIOClassName,
+    Clickable,
     MIOSlidesProps,
     MIOSlidesState
 };

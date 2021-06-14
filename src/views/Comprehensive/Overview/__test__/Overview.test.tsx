@@ -29,8 +29,9 @@ describe("<Overview />", () => {
     const mioParser = new MIOParser();
 
     type MIOValue = {
-        testId: string;
+        testId: string | RegExp;
     } & TestUtil.HasMioString;
+
     const mioList: MIOValue[] = [
         {
             mioString: "IM",
@@ -39,6 +40,14 @@ describe("<Overview />", () => {
         {
             mioString: "ZB",
             testId: "zb-overview"
+        },
+        {
+            mioString: "MR",
+            testId: "mp-overview"
+        },
+        {
+            mioString: "UH",
+            testId: /(cmr-overview)|(cmr-pc-overview)|(cmr-pn-overview)/
         }
     ];
 

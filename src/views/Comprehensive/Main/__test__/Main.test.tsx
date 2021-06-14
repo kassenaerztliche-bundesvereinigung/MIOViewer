@@ -67,17 +67,22 @@ describe("<Main />", () => {
 
             const store = ViewerTestUtil.createStoreWithMios([...mios]);
 
-            const { getByTestId, getAllByText } = ViewerTestUtil.renderReduxRoute(
+            const container = ViewerTestUtil.renderReduxRoute(
                 Main,
                 store,
                 "/main",
                 "/main"
             );
 
-            expect(getByTestId("slide-0")).toBeDefined();
+            expect(container.getByTestId("slide-0")).toBeDefined();
+            expect(container.getByTestId("input-type-file")).toBeDefined();
+
             const max = Math.floor(bundles.length / 9);
-            expect(getByTestId(`slide-${max}`)).toBeDefined();
-            expect(getByTestId("input-type-file")).toBeDefined();
+
+            // U-Heft is grouped folder
+            if (value.mioString !== "UH") {
+                expect(container.getByTestId(`slide-${max}`)).toBeDefined();
+            }
 
             let text;
             if (value.mioString === "IM") {
@@ -86,14 +91,16 @@ describe("<Main />", () => {
                 text = "Zahnärztliches Bonusheft";
             } else if (value.mioString === "MR") {
                 text = "Mutterpass";
+            } else if (value.mioString === "UH") {
+                text = "Kinderuntersuchungsheft";
             }
 
             if (text) {
-                expect(getAllByText(text).length).toBeGreaterThan(0);
+                expect(container.getAllByText(text).length).toBeGreaterThan(0);
             }
 
             done();
-        }, 30000);
+        }, 50000);
     };
 
     TestUtil.runAllBundles("Rendert", renderTest);

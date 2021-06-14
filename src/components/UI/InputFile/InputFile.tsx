@@ -17,10 +17,10 @@
  */
 
 import React from "react";
+import { withIonLifeCycle } from "@ionic/react";
 import * as Icon from "react-feather";
 
 import { InputProps } from "../Input/Input";
-
 import "./InputFile.scss";
 
 type InputFileProps = {
@@ -36,7 +36,7 @@ type InputFileState = {
     dragOver: boolean;
 };
 
-export default class InputFile extends React.Component<InputFileProps, InputFileState> {
+class InputFile extends React.Component<InputFileProps, InputFileState> {
     public static defaultProps = {
         accept: "*",
         multiple: false,
@@ -49,12 +49,55 @@ export default class InputFile extends React.Component<InputFileProps, InputFile
         green: false
     };
 
+    protected dragAndDropZone: HTMLDivElement | undefined;
+
     constructor(props: InputFileProps) {
         super(props);
         this.state = {
             files: [],
             dragOver: false
         };
+    }
+
+    ionViewDidEnter(): void {
+        this.dragAndDropZone = document.createElement("div");
+        this.dragAndDropZone.textContent = "Loslassen um MIO zu öffnen";
+        this.dragAndDropZone.classList.add("drag-drop-zone");
+        document.body.appendChild(this.dragAndDropZone);
+        document
+            .getElementById("root")
+            ?.addEventListener("dragenter", () => this.showDropZone());
+
+        this.dragAndDropZone.addEventListener("dragleave", this.onDragLeave);
+        this.dragAndDropZone.addEventListener("dragenter", this.onDragOver);
+        this.dragAndDropZone.addEventListener("dragover", this.onDragOver);
+        this.dragAndDropZone.addEventListener("drop", this.onDrop);
+    }
+
+    ionViewWillLeave(): void {
+        document
+            .getElementById("root")
+            ?.removeEventListener("dragenter", () => this.showDropZone());
+
+        if (this.dragAndDropZone) {
+            this.dragAndDropZone.removeEventListener("dragleave", this.onDragLeave);
+            this.dragAndDropZone.removeEventListener("dragenter", this.onDragOver);
+            this.dragAndDropZone.removeEventListener("dragover", this.onDragOver);
+            this.dragAndDropZone.removeEventListener("drop", this.onDrop);
+            this.dragAndDropZone.remove();
+        }
+    }
+
+    showDropZone(): void {
+        if (this.dragAndDropZone) {
+            this.dragAndDropZone.style.display = "flex";
+        }
+    }
+
+    hideDropZone(): void {
+        if (this.dragAndDropZone) {
+            this.dragAndDropZone.style.display = "none";
+        }
     }
 
     // Arrow func important cause of scope
@@ -65,26 +108,28 @@ export default class InputFile extends React.Component<InputFileProps, InputFile
         event.target.value = "";
     };
 
-    onDragOver = (event: React.DragEvent): void => {
+    onDragOver = (event: DragEvent): void => {
         event.stopPropagation();
         event.preventDefault();
         // Style the drag-and-drop as a "copy file" operation.
-        event.dataTransfer.dropEffect = "copy";
+        if (event.dataTransfer) event.dataTransfer.dropEffect = "copy";
         this.setState({ dragOver: true });
     };
 
-    onDragLeave = (event: React.DragEvent): void => {
+    onDragLeave = (event: DragEvent): void => {
         event.stopPropagation();
         event.preventDefault();
         this.setState({ dragOver: false });
+        this.hideDropZone();
     };
 
-    onDrop = (event: React.DragEvent): void => {
+    onDrop = (event: DragEvent): void => {
         event.stopPropagation();
         event.preventDefault();
-        if (!this.state.dragOver) return;
+        if (!this.state.dragOver || !event.dataTransfer) return;
         const files = event.dataTransfer.files;
         this.setFiles(files);
+        this.hideDropZone();
     };
 
     setFiles = (files: FileList | null): void => {
@@ -104,12 +149,7 @@ export default class InputFile extends React.Component<InputFileProps, InputFile
                 className={"input-file" + (className ? " " + className : "")}
                 data-testid={"input-file"}
             >
-                <label
-                    onDragOver={this.onDragOver}
-                    onDragLeave={this.onDragLeave}
-                    onDrop={this.onDrop}
-                    className={this.state.dragOver ? " drag-over" : ""}
-                >
+                <label className={this.state.dragOver ? " drag-over" : ""}>
                     <div className={"container"}>
                         <input
                             type={"file"}
@@ -125,10 +165,11 @@ export default class InputFile extends React.Component<InputFileProps, InputFile
                                 <Icon.PlusCircle className={green ? "green" : ""} />
                             </div>
                         )}
-                        {/*<div className={"text"}>{label}</div>*/}
                     </div>
                 </label>
             </div>
         );
     }
 }
+
+export default withIonLifeCycle(InputFile);

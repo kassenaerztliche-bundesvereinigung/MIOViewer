@@ -215,32 +215,26 @@ export function getPractitionerName(
 }
 
 // TODO: define Types
-export function getPregnancyWeekValue(
-    entry: any
-    // | MR.V1_00_000.Profile.ClinicalImpressionInitialExamination
-    // | MR.V1_00_000.Profile.ClinicalImpressionPregnancyChartEntry
-    // | MR.V1_00_000.Profile.ClinicalImpressionPregnancyExaminationDischargeSummary
-    // | MR.V1_00_000.Profile.ClinicalImpressionBirthExaminationDeliveryInformation
-    // | MR.V1_00_000.Profile.ClinicalImpressionFirstExaminationAfterChildbirth
-    // | MR.V1_00_000.Profile.ClinicalImpressionBirthExaminationChildInformation
-): ModelValue {
+// eslint-disable-next-line
+export function getPregnancyWeekValue(entry: any): ModelValue {
     let value = "-";
     const resource = entry;
     if (Object.prototype.hasOwnProperty.call(resource, "_effectiveDateTime")) {
-        const pregnancyAndWeekdayExtension = resource._effectiveDateTime.extension.find(
+        const pregnancyAndWeekdayExtension = resource._effectiveDateTime?.extension?.find(
             (e: { url: string }) =>
                 e.url ===
                 "https://fhir.kbv.de/StructureDefinition/KBV_EX_MIO_MR_Pregnancy_Week_And_Day"
         );
         if (pregnancyAndWeekdayExtension) {
-            const schwangerschaftswocheExtension = pregnancyAndWeekdayExtension.extension.find(
+            const schwangerschaftswocheExtension = pregnancyAndWeekdayExtension.extension?.find(
                 (e: { url: string }) => e.url === "schwangerschaftszeitpunkt"
             );
+
             if (schwangerschaftswocheExtension) {
-                const schwangerschaftswoche = schwangerschaftswocheExtension.extension.find(
+                const schwangerschaftswoche = schwangerschaftswocheExtension.extension?.find(
                     (e: { url: string }) => e.url === "schwangerschaftswoche"
                 );
-                const ergaenzendeTage = schwangerschaftswocheExtension.extension.find(
+                const ergaenzendeTage = schwangerschaftswocheExtension.extension?.find(
                     (e: { url: string }) => e.url === "ergaenzendeTage"
                 );
 

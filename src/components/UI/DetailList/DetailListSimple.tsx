@@ -23,6 +23,7 @@ import { IonList } from "@ionic/react";
 import { KBVResource } from "@kbv/mioparser";
 
 import { UI } from "../../index";
+import { isModelValue } from "../../../models/Types";
 
 export type ListListSimpleProps<T extends KBVResource> = {
     type: string;
@@ -45,13 +46,17 @@ export default class DetailListSimple<T extends KBVResource> extends React.Compo
         const { type, headline, subline, items } = this.props;
 
         const content = items.map((item, index) => {
-            if (item.value) {
+            if (isModelValue(item)) {
+                const Component = item.renderAs ?? UI.ListItem.Basic;
+                return <Component {...item} key={index} />;
+            } else if (!item.label) {
+                return <UI.ListItem.NoLabel {...item} key={index} />;
+            } else if (item.value) {
                 return <UI.ListItem.Basic {...item} key={index} />;
             } else {
                 return <UI.ListItem.NoValue {...item} key={index} />;
             }
         });
-
         return (
             <UI.DetailList.StickyHeader className={"detail-list"}>
                 {headline && (

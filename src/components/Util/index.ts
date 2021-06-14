@@ -17,8 +17,10 @@
  */
 
 import * as Misc from "./Misc";
+import * as FHIR from "./FHIR";
 import * as IM from "./IM";
 import * as ZB from "./ZB";
 import * as MP from "./MP";
+import * as UH from "./UH";
 
-export { Misc, IM, ZB, MP };
+export { Misc, FHIR, IM, ZB, MP, UH };

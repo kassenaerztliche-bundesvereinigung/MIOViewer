@@ -23,25 +23,24 @@ import { Util } from "../../components";
 
 import { ObservationModel } from "./Basic";
 import MPBaseModel from "./MPBaseModel";
-import { ModelValue } from "../BaseModel";
 import { Content } from "pdfmake/interfaces";
+import { ModelValue } from "../Types";
 
 const PR = MR.V1_00_000.Profile;
 
-export default class DiagnosticReportResultRequireControlModel extends MPBaseModel<
+export type DiagnosticReportResultRequireControlType =
     | MR.V1_00_000.Profile.DiagnosticReportUltrasoundI
     | MR.V1_00_000.Profile.DiagnosticReportUltrasoundII
-    | MR.V1_00_000.Profile.DiagnosticReportUltrasoundIII
-> {
+    | MR.V1_00_000.Profile.DiagnosticReportUltrasoundIII;
+
+export default class DiagnosticReportResultRequireControlModel extends MPBaseModel<DiagnosticReportResultRequireControlType> {
     constructor(
-        value:
-            | MR.V1_00_000.Profile.DiagnosticReportUltrasoundI
-            | MR.V1_00_000.Profile.DiagnosticReportUltrasoundII
-            | MR.V1_00_000.Profile.DiagnosticReportUltrasoundIII,
+        value: DiagnosticReportResultRequireControlType,
+        fullUrl: string,
         parent: MR.V1_00_000.Profile.Bundle,
         history?: History
     ) {
-        super(value, parent, history);
+        super(value, fullUrl, parent, history);
 
         this.headline = "Kontrollbedürftige Befunde";
 
@@ -60,6 +59,7 @@ export default class DiagnosticReportResultRequireControlModel extends MPBaseMod
                     const CM = MR.V1_00_000.ConceptMap;
                     const model = new ObservationModel(
                         result.resource,
+                        result.fullUrl,
                         parent,
                         history,
                         undefined,
@@ -76,12 +76,15 @@ export default class DiagnosticReportResultRequireControlModel extends MPBaseMod
         }
     }
 
-    public getCoding(resource?: unknown): string {
-        return "";
+    public getCoding(): string {
+        return "This profile has no coding";
     }
 
-    getMainValue(): ModelValue | undefined {
-        return undefined;
+    public getMainValue(): ModelValue {
+        return {
+            value: this.values.map((v) => v.value).join(", "),
+            label: this.headline
+        };
     }
 
     // eslint-disable-next-line

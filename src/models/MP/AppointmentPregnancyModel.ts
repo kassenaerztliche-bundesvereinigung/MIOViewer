@@ -22,15 +22,16 @@ import { MR } from "@kbv/mioparser";
 import { Util } from "../../components";
 
 import MPBaseModel from "./MPBaseModel";
-import { ModelValue } from "../BaseModel";
+import { ModelValue } from "../Types";
 
 export default class AppointmentPregnancyModel extends MPBaseModel<MR.V1_00_000.Profile.AppointmentPregnancy> {
     constructor(
         value: MR.V1_00_000.Profile.AppointmentPregnancy,
+        fullUrl: string,
         parent: MR.V1_00_000.Profile.Bundle,
         history?: History
     ) {
-        super(value, parent, history);
+        super(value, fullUrl, parent, history);
 
         this.headline = "Untersuchungstermin";
 
@@ -47,10 +48,10 @@ export default class AppointmentPregnancyModel extends MPBaseModel<MR.V1_00_000.
     }
 
     getCoding(): string {
-        return ""; // Profile has no coding
+        return "This profile has no coding";
     }
 
-    getMainValue(): ModelValue {
+    public getMainValue(): ModelValue {
         return {
             value: Util.Misc.formatDate(this.value.start),
             label: "Untersuchungstermin"

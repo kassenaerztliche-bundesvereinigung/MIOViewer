@@ -16,19 +16,24 @@
  * along with MIO Viewer. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Vaccination, ZAEB, MR } from "@kbv/mioparser";
-import BaseModel, { ModelValue } from "./BaseModel";
+import { Vaccination, ZAEB, MR, CMR } from "@kbv/mioparser";
+import BaseModel from "./BaseModel";
 
 import {
     AdditionalCommentModel,
     AddressModel,
+    ContactDetailsModel,
+    ContactModel,
     PatientSimpleModel,
+    QualificationModel,
     TelecomModel
 } from "./Comprehensive";
 
 import * as IM from "./IM";
 import * as ZB from "./ZB";
 import * as MP from "./MP";
+import * as UH from "./UH";
+import { ModelValue } from "./Types";
 
 type Model =
     | IM.ConditionModel
@@ -48,7 +53,7 @@ type Model =
           | MR.V1_00_000.Profile.EncounterGeneral
           | MR.V1_00_000.Profile.EncounterInpatientTreatment
       >
-    | MP.Basic.ObservationModel<any> // TODO: Zu faul hier alle hinzuschreiben
+    | MP.Basic.ObservationModel<MP.Basic.ObservationType>
     | MP.Basic.OrganizationModel
     | MP.Basic.PatientChildModel
     | MP.Basic.PatientMotherModel
@@ -70,6 +75,22 @@ type Model =
     | MP.InformationAboutModel
     | MP.InformationAboutChildModel
     | MP.InformationAboutMotherModel
+    | UH.Basic.AppointmentModel
+    | UH.Basic.CarePlanModel
+    | UH.Basic.CompositionHintsModel
+    | UH.Basic.DiagnosticReportModel
+    | UH.Basic.EncounterModel
+    | UH.Basic.MedicationPlanModel
+    | UH.Basic.ObservationModel
+    | UH.Basic.OrganizationModel
+    | UH.Basic.PatientModel
+    | UH.Basic.PractitionerModel
+    | UH.Basic.ProcedureModel
+    | UH.Basic.ServiceRequestModel
+    | UH.Basic.SpecialCompositionModel
+    | UH.PC.ParticipationCardModel
+    | UH.PN.CompositionModel
+    | UH.PN.ParentalNotesModel
     | AdditionalCommentModel
     | AddressModel<
           | Vaccination.V1_00_000.Profile.Organization
@@ -78,6 +99,7 @@ type Model =
           | MR.V1_00_000.Profile.PatientMother
           | MR.V1_00_000.Profile.Practitioner
       >
+    | ContactModel<CMR.V1_00_000.Profile.CMROrganizationScreeningLaboratory>
     | PatientSimpleModel
     | TelecomModel<
           | Vaccination.V1_00_000.Profile.Practitioner
@@ -85,7 +107,9 @@ type Model =
           | Vaccination.V1_00_000.Profile.Organization
           | ZAEB.V1_00_000.Profile.Organization
           | MR.V1_00_000.Profile.Practitioner
-      >;
+      >
+    | QualificationModel<CMR.V1_00_000.Profile.CMRPractitioner>
+    | ContactDetailsModel<CMR.V1_00_000.Profile.CMROrganizationScreeningLaboratory>;
 
 type ModelType =
     | typeof IM.ConditionModel
@@ -121,10 +145,29 @@ type ModelType =
     | typeof MP.InformationAboutModel
     | typeof MP.InformationAboutChildModel
     | typeof MP.InformationAboutMotherModel
+    | typeof UH.Basic.AppointmentModel
+    | typeof UH.Basic.CarePlanModel
+    | typeof UH.Basic.CompositionHintsModel
+    | typeof UH.Basic.DiagnosticReportModel
+    | typeof UH.Basic.EncounterModel
+    | typeof UH.Basic.MedicationPlanModel
+    | typeof UH.Basic.ObservationModel
+    | typeof UH.Basic.OrganizationModel
+    | typeof UH.Basic.PatientModel
+    | typeof UH.Basic.PractitionerModel
+    | typeof UH.Basic.ServiceRequestModel
+    | typeof UH.Basic.ProcedureModel
+    | typeof UH.Basic.SpecialCompositionModel
+    | typeof UH.PC.ParticipationCardModel
+    | typeof UH.PN.CompositionModel
+    | typeof UH.PN.ParentalNotesModel
     | typeof AdditionalCommentModel
     | typeof AddressModel
+    | typeof ContactModel
     | typeof PatientSimpleModel
-    | typeof TelecomModel;
+    | typeof TelecomModel
+    | typeof QualificationModel
+    | typeof ContactDetailsModel;
 
 export type { ModelValue, ModelType, Model };
 
@@ -133,8 +176,12 @@ export {
     IM,
     ZB,
     MP,
+    UH,
     AdditionalCommentModel,
     AddressModel,
+    ContactModel,
     PatientSimpleModel,
-    TelecomModel
+    TelecomModel,
+    QualificationModel,
+    ContactDetailsModel
 };

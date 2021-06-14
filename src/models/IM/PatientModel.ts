@@ -22,15 +22,17 @@ import { Content } from "pdfmake/interfaces";
 import { KBVBundleResource, Vaccination } from "@kbv/mioparser";
 import { Util } from "../../components";
 
-import BaseModel, { ModelValue } from "../BaseModel";
+import BaseModel from "../BaseModel";
+import { ModelValue } from "../Types";
 
 export default class PatientModel extends BaseModel<Vaccination.V1_00_000.Profile.Patient> {
     constructor(
         value: Vaccination.V1_00_000.Profile.Patient,
+        fullUrl: string,
         parent: KBVBundleResource,
         history?: History
     ) {
-        super(value, parent, history);
+        super(value, fullUrl, parent, history);
 
         this.headline = Util.IM.getPatientName(this.value);
         this.values = [
@@ -111,5 +113,12 @@ export default class PatientModel extends BaseModel<Vaccination.V1_00_000.Profil
                 }
             }
         ];
+    }
+
+    public getMainValue(): ModelValue {
+        return {
+            value: this.headline,
+            label: "Patient/-in"
+        };
     }
 }

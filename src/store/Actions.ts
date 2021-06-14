@@ -76,3 +76,9 @@ export function acceptCookies(value: boolean): ActionSettingsResult {
         value
     });
 }
+
+export function setDevMode(value: boolean): ActionSettingsResult {
+    return action(Constants.DEV_MODE, {
+        value
+    });
+}

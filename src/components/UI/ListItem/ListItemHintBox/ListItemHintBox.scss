@@ -1,0 +1,88 @@
+/*!
+ * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ *
+ * This file is part of MIO Viewer.
+ *
+ * MIO Viewer is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation version 3 of the License only.
+ *
+ * MIO Viewer is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with MIO Viewer. If not, see <https://www.gnu.org/licenses/>.
+ */
+
+@import "../../../../assets/css/colors";
+@import "../../../../assets/css/variables";
+
+.list-item-hint-box {
+    --border-color: transparent;
+    --min-height: 1.5rem;
+    padding-bottom: $space-small !important;
+    padding-top: $space-small !important;
+    height: fit-content !important;
+    background-color: rgba($analog-1, 0.1);
+
+    ion-label {
+        color: $info !important;
+        font-size: 0.625rem !important;
+        line-height: 1rem !important;
+
+        h4,
+        p {
+            color: inherit;
+            font-size: inherit;
+            line-height: inherit;
+            margin: 4px 0;
+        }
+
+        h4 {
+            font-family: "Montserrat-Bold", sans-serif;
+            width: 100%;
+        }
+    }
+
+    &.success {
+        ion-label {
+            color: $success !important;
+        }
+    }
+
+    &.warning {
+        ion-label {
+            color: $warning !important;
+        }
+    }
+
+    &.danger {
+        ion-label {
+            color: $danger !important;
+        }
+    }
+
+    ion-item {
+        --padding-start: 0;
+        --padding-end: 0;
+        --inner-padding-end: 0;
+        --border-color: transparent;
+
+        ion-label {
+            padding-bottom: 0 !important;
+            min-height: 2rem !important;
+        }
+    }
+
+    .list-item-bullet {
+        ul.bullet {
+            li {
+                &::before {
+                    color: $analog-1;
+                }
+            }
+        }
+    }
+}

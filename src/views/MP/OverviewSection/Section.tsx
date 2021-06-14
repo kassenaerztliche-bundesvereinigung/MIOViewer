@@ -18,7 +18,7 @@
 
 import React from "react";
 import { RouteComponentProps } from "react-router";
-import { MR, ParserUtil } from "@kbv/mioparser";
+import { MR, ParserUtil, AnyType } from "@kbv/mioparser";
 
 import { UI } from "../../../components";
 
@@ -41,6 +41,7 @@ export type SectionProps = {
     mio: MR.V1_00_000.Profile.Bundle;
     composition: MR.V1_00_000.Profile.Composition;
     id: string;
+    devMode: boolean;
 } & RouteComponentProps;
 
 export type SectionState = {
@@ -65,8 +66,7 @@ export default abstract class Section<T> extends React.Component<
     protected abstract getDetails(): JSX.Element[];
     protected abstract getListGroups(): UI.DetailList.Props[];
 
-    // eslint-disable-next-line
-    getSection(sectionStack: any[]): T | undefined {
+    getSection(sectionStack: AnyType[]): T | undefined {
         let result = undefined;
         let section = this.props.composition;
         sectionStack.forEach(

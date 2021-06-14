@@ -20,12 +20,14 @@ import ClinicalImpressionFindingModel from "./ClinicalImpressionFindingModel";
 import ClinicalImpressionInvestigationModel from "./ClinicalImpressionInvestigationModel";
 import ClinicalImpressionModel from "./ClinicalImpressionModel";
 import EncounterModel from "./EncounterModel";
-import ObservationModel from "./ObservationModel";
+import ObservationModel, { ObservationType } from "./ObservationModel";
 import OrganizationModel from "./OrganizationModel";
 import PatientChildModel from "./PatientChildModel";
 import PatientMotherModel from "./PatientMotherModel";
 import PractitionerModel from "./PractitionerModel";
 import ProcedureBaseModel from "./ProcedureBaseModel";
+
+export type { ObservationType };
 
 export {
     ClinicalImpressionFindingModel,

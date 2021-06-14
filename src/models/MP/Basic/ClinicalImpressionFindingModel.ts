@@ -20,29 +20,28 @@ import { History } from "history";
 
 import { ParserUtil, MR } from "@kbv/mioparser";
 
-import { ModelValue } from "../../BaseModel";
 import MPBaseModel from "../MPBaseModel";
 import * as Models from "../../../models";
-import { translateCode } from "../Util";
-import { UI } from "../../../components";
-import { Content } from "pdfmake/interfaces";
-import { horizontalLine } from "../../../pdf/PDFMaker";
 
-export default class ClinicalImpressionFindingModel extends MPBaseModel<
+import { UI, Util } from "../../../components";
+import { Content } from "pdfmake/interfaces";
+import { horizontalLine } from "../../../pdf/PDFHelper";
+import { ModelValue } from "../../Types";
+
+export type ClinicalImpressionFindingType =
     | MR.V1_00_000.Profile.ClinicalImpressionInitialExamination
     | MR.V1_00_000.Profile.ClinicalImpressionPregnancyChartEntry
-    | MR.V1_00_000.Profile.ClinicalImpressionPregnancyExaminationDischargeSummary
-> {
+    | MR.V1_00_000.Profile.ClinicalImpressionPregnancyExaminationDischargeSummary;
+
+export default class ClinicalImpressionFindingModel extends MPBaseModel<ClinicalImpressionFindingType> {
     constructor(
-        value:
-            | MR.V1_00_000.Profile.ClinicalImpressionInitialExamination
-            | MR.V1_00_000.Profile.ClinicalImpressionPregnancyChartEntry
-            | MR.V1_00_000.Profile.ClinicalImpressionPregnancyExaminationDischargeSummary,
+        value: ClinicalImpressionFindingType,
+        fullUrl: string,
         parent: MR.V1_00_000.Profile.Bundle,
         history?: History,
         protected findingConceptMap: ParserUtil.ConceptMap[] | undefined = undefined
     ) {
-        super(value, parent, history);
+        super(value, fullUrl, parent, history);
 
         if (!findingConceptMap) {
             if (MR.V1_00_000.Profile.ClinicalImpressionPregnancyChartEntry.is(value)) {
@@ -79,67 +78,77 @@ export default class ClinicalImpressionFindingModel extends MPBaseModel<
     public getFindings(): ModelValue[] {
         if (this.value.finding && this.value.finding.length) {
             let values: ModelValue[] = [];
-            this.value.finding.forEach((f: any) => {
-                if (Object.prototype.hasOwnProperty.call(f, "itemCodeableConcept")) {
-                    f.itemCodeableConcept.coding.forEach((c: any) => {
-                        let translated = this.findingConceptMap
-                            ? translateCode(c.code, this.findingConceptMap)
-                            : [c.code];
+            this.value.finding.forEach(
+                (f: {
+                    itemCodeableConcept?: Util.FHIR.Code;
+                    itemReference?: { reference: string };
+                }) => {
+                    if (Object.prototype.hasOwnProperty.call(f, "itemCodeableConcept")) {
+                        f.itemCodeableConcept?.coding.forEach((c) => {
+                            let translated = this.findingConceptMap
+                                ? Util.FHIR.translateCode(c.code, this.findingConceptMap)
+                                : [c.code];
 
-                        if (c._display?.extension?.length) {
-                            const e = c._display.extension[0].extension;
-                            if (e.length) {
-                                translated = [e[0].valueString];
+                            if (c._display?.extension?.length) {
+                                const e = c._display.extension[0].extension;
+                                if (e && e.length) {
+                                    translated = e[0].valueString
+                                        ? [e[0].valueString]
+                                        : ["-"];
+                                }
                             }
-                        }
 
-                        translated.forEach((value) => {
-                            values.push({
-                                value,
-                                label: "",
-                                renderAs: UI.ListItem.NoLabel
+                            translated.forEach((value) => {
+                                values.push({
+                                    value,
+                                    label: "",
+                                    renderAs: UI.ListItem.NoLabel
+                                });
                             });
                         });
-                    });
 
-                    values = values.filter((value, index, self) => {
-                        return index === self.findIndex((t) => t.value === value.value);
-                    });
+                        values = values.filter((value, index, self) => {
+                            return (
+                                index === self.findIndex((t) => t.value === value.value)
+                            );
+                        });
 
-                    values.sort((a, b) => {
-                        const regex = /\(([^)]+)\)/;
-                        const ar = regex.exec(a.value);
-                        const br = regex.exec(b.value);
-                        let aInt = 0;
-                        let bInt = 0;
+                        values.sort((a, b) => {
+                            const regex = /\(([^)]+)\)/;
+                            const ar = regex.exec(a.value);
+                            const br = regex.exec(b.value);
+                            let aInt = 0;
+                            let bInt = 0;
 
-                        if (ar && ar.length > 1 && ar[1]) {
-                            aInt = parseInt(ar[1]);
-                        }
-                        if (br && br.length > 1 && br[1]) {
-                            bInt = parseInt(br[1]);
-                        }
+                            if (ar && ar.length > 1 && ar[1]) {
+                                aInt = parseInt(ar[1]);
+                            }
+                            if (br && br.length > 1 && br[1]) {
+                                bInt = parseInt(br[1]);
+                            }
 
-                        return aInt - bInt;
-                    });
-                } else if (Object.prototype.hasOwnProperty.call(f, "itemReference")) {
-                    const res = ParserUtil.getEntryWithRef<MR.V1_00_000.Profile.ObservationPregnancyRisk>(
-                        this.parent,
-                        [MR.V1_00_000.Profile.ObservationPregnancyRisk],
-                        f.itemReference.reference
-                    )?.resource;
-
-                    if (res) {
-                        const model = new Models.MP.Basic.ObservationModel(
-                            res,
-                            this.parent as MR.V1_00_000.Profile.Bundle,
-                            this.history
+                            return aInt - bInt;
+                        });
+                    } else if (Object.prototype.hasOwnProperty.call(f, "itemReference")) {
+                        const res = ParserUtil.getEntryWithRef<MR.V1_00_000.Profile.ObservationPregnancyRisk>(
+                            this.parent,
+                            [MR.V1_00_000.Profile.ObservationPregnancyRisk],
+                            f.itemReference?.reference ?? ""
                         );
 
-                        values.push(model.getMainValue());
+                        if (res) {
+                            const model = new Models.MP.Basic.ObservationModel(
+                                res.resource,
+                                res.fullUrl,
+                                this.parent as MR.V1_00_000.Profile.Bundle,
+                                this.history
+                            );
+
+                            values.push(model.getMainValue());
+                        }
                     }
                 }
-            });
+            );
             return values;
         } else {
             return [];
@@ -147,11 +156,14 @@ export default class ClinicalImpressionFindingModel extends MPBaseModel<
     }
 
     getCoding(): string {
-        return "";
+        return "This profile has no coding";
     }
 
-    getMainValue(): ModelValue | undefined {
-        return undefined;
+    public getMainValue(): ModelValue {
+        return {
+            value: this.values.map((v) => v.value).join(", "),
+            label: this.headline
+        };
     }
 
     public toPDFContent(
@@ -206,6 +218,7 @@ export default class ClinicalImpressionFindingModel extends MPBaseModel<
                             value.subModels.forEach((model) => {
                                 const sub = new model(
                                     value.subEntry?.resource,
+                                    value.subEntry?.fullUrl ?? "",
                                     this.parent
                                 );
                                 const pdfContent = sub.toPDFContent(

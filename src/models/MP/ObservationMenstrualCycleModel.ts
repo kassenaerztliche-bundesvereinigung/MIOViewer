@@ -22,15 +22,26 @@ import { MR } from "@kbv/mioparser";
 import { Util } from "../../components";
 
 import { ObservationModel } from "./Basic";
-import { ModelValue } from "../BaseModel";
+import { ModelValue } from "../Types";
 
 export default class ObservationMenstrualCycleModel extends ObservationModel<MR.V1_00_000.Profile.ObservationMenstrualCycle> {
     constructor(
         value: MR.V1_00_000.Profile.ObservationMenstrualCycle,
+        fullUrl: string,
         parent: MR.V1_00_000.Profile.Bundle,
         history?: History
     ) {
-        super(value, parent, history, undefined, undefined, undefined, true, false);
+        super(
+            value,
+            fullUrl,
+            parent,
+            history,
+            undefined,
+            undefined,
+            undefined,
+            true,
+            false
+        );
         this.headline = this.getCoding();
 
         const components: ModelValue[] = this.value.component

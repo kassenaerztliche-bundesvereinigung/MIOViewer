@@ -18,10 +18,10 @@
 
 import { History } from "history";
 
-import { ParserUtil, MIOEntry, MR } from "@kbv/mioparser";
+import { MIOEntry, MR, ParserUtil, AnyType } from "@kbv/mioparser";
 
 import MPBaseModel from "./MPBaseModel";
-import { DetailMapping } from "../../views/Comprehensive/Detail/DetailBase";
+import { DetailMapping } from "../../views/Comprehensive/Detail/Types";
 import * as Models from "../index";
 import { ModelValue } from "../index";
 
@@ -42,12 +42,13 @@ export default class InformationAboutModel extends MPBaseModel<
             | MR.V1_00_000.Profile.ClinicalImpressionBirthExaminationDeliveryInformation
             | MR.V1_00_000.Profile.ClinicalImpressionFirstExaminationAfterChildbirth
             | MR.V1_00_000.Profile.ClinicalImpressionSecondExaminationAfterChildbirth,
+        fullUrl: string,
         parent: MR.V1_00_000.Profile.Bundle,
         history?: History,
         protected mappings: DetailMapping[] = [],
-        protected sectionStack: any[] = []
+        protected sectionStack: AnyType[] = []
     ) {
-        super(value, parent, history);
+        super(value, fullUrl, parent, history);
 
         this.composition = ParserUtil.getEntry(this.parent, [
             MR.V1_00_000.Profile.Composition
@@ -62,11 +63,11 @@ export default class InformationAboutModel extends MPBaseModel<
             | MR.V1_00_000.Profile.CompositionUntersuchungenEpikriseGeburtSection
             | MR.V1_00_000.Profile.CompositionUntersuchungenEpikriseWochenbettAngabenZumKind
             | MR.V1_00_000.Profile.CompositionUntersuchungenEpikriseWochenbettAngabenZurMutter
-    >(sectionStack: any[]): T | undefined {
+    >(sectionStack: AnyType[]): T | undefined {
         let result = undefined;
         let section = this.composition?.resource;
         sectionStack.forEach(
-            (s) => (section = ParserUtil.getSlice<any>(s, section?.section))
+            (s) => (section = ParserUtil.getSlice<any>(s, section?.section)) // eslint-disable-line
         );
         if (section) result = (section as unknown) as T;
 
@@ -78,39 +79,39 @@ export default class InformationAboutModel extends MPBaseModel<
             const informationAbout = this.section.entry?.map((entry) => entry.reference);
 
             informationAbout?.forEach((ref) => {
-                const mappings = this.mappings;
-
                 const result = ParserUtil.getEntryWithRef(
                     this.parent,
-                    mappings.map((m) => m.profile),
+                    this.mappings.map((m) => m.profile),
                     ref
                 );
 
-                const resource = result?.resource;
-                if (resource) this.resolveMapping(resource);
+                if (result) this.resolveMapping(result.resource, result.fullUrl);
             });
 
             this.headline = this.section.title;
         }
     }
 
-    protected resolveMapping(resource: unknown): void {
+    protected resolveMapping(resource: unknown, fullUrl: string): void {
         const mappings = this.mappings;
         const bundle = this.parent as MR.V1_00_000.Profile.Bundle;
 
-        let model: any = undefined;
         if (resource) {
+            let model!: Models.Model;
+
             mappings.forEach((mapping) => {
                 if (!model && mapping.profile.is(resource)) {
                     if (mapping.models && mapping.models.length) {
                         model = new mapping.models[0](
-                            resource as any,
+                            resource,
+                            fullUrl,
                             bundle,
                             this.history
                         );
                     } else {
                         model = new Models.MP.Basic.ObservationModel(
-                            resource as any,
+                            resource as Models.MP.Basic.ObservationType,
+                            fullUrl,
                             bundle,
                             this.history,
                             mapping.valueConceptMaps,
@@ -120,16 +121,19 @@ export default class InformationAboutModel extends MPBaseModel<
                     }
                 }
             });
+
+            if (model) this.values.push(model.getMainValue());
         }
-
-        if (model) this.values.push(model.getMainValue());
     }
 
-    getCoding(): string {
-        return "";
+    public getCoding(): string {
+        return "This profile has no coding";
     }
 
-    getMainValue(): ModelValue | undefined {
-        return undefined;
+    public getMainValue(): ModelValue {
+        return {
+            value: this.values.map((v) => v.value).join(", "),
+            label: this.headline
+        };
     }
 }

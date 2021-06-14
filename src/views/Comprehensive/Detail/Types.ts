@@ -16,11 +16,16 @@
  * along with MIO Viewer. If not, see <https://www.gnu.org/licenses/>.
  */
 
-export type MIOClassName =
-    | "impfpass"
-    | "zaeb"
-    | "mutterpass"
-    | "uheft"
-    | "basic"
-    | "undefined"
-    | undefined;
+import { ParserUtil, AnyType } from "@kbv/mioparser";
+
+export type DetailMapping = {
+    profile: AnyType;
+    header?: string;
+    models: any[]; // eslint-disable-line
+    customLabel?: string;
+    codeConceptMaps?: ParserUtil.ConceptMap[];
+    valueConceptMaps?: ParserUtil.ConceptMap[];
+    noValue?: boolean;
+    noHeadline?: boolean;
+    customHeadline?: string;
+};

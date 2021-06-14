@@ -50,16 +50,20 @@ export default class SpecialFindings extends Section<MR.V1_00_000.Profile.Compos
                 mio,
                 [MR.V1_00_000.Profile.ObservationSpecialFindings],
                 ref
-            )?.resource;
+            );
 
             if (res) {
-                const model = new Models.MP.Basic.ObservationModel(res, mio, history, [
-                    MR.V1_00_000.ConceptMap.SpecialFindingsGerman
-                ]);
+                const model = new Models.MP.Basic.ObservationModel(
+                    res.resource,
+                    res.fullUrl,
+                    mio,
+                    history,
+                    [MR.V1_00_000.ConceptMap.SpecialFindingsGerman]
+                );
                 const mainValue = model.getMainValue();
                 items.push({
                     value: mainValue.value,
-                    label: Util.Misc.formatDate(res.effectiveDateTime),
+                    label: Util.Misc.formatDate(res.resource.effectiveDateTime),
                     onClick: Util.Misc.toEntryByRef(history, mio, ref, true)
                 });
             }

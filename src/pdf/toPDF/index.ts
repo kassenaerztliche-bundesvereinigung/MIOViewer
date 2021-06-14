@@ -16,8 +16,11 @@
  * along with MIO Viewer. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import IMtoPDF from "./IM";
-import ZBtoPDF from "./ZB";
-import MRtoPDF from "./MR";
+import IMtoPDF from "./IMtoPDF";
+import ZBtoPDF from "./ZBtoPDF";
+import MRtoPDF from "./MRtoPDF";
+import CMRtoPDF from "./CMR/CMRtoPDF";
+import PCtoPDF from "./CMR/PCtoPDF";
+import PNtoPDF from "./CMR/PNtoPDF";
 
-export { IMtoPDF, ZBtoPDF, MRtoPDF };
+export { IMtoPDF, ZBtoPDF, MRtoPDF, CMRtoPDF, PCtoPDF, PNtoPDF };

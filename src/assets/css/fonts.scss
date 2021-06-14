@@ -16,14 +16,6 @@
  * along with MIO Viewer. If not, see <https://www.gnu.org/licenses/>.
  */
 
-// Montserrat
-$font-faces: "Montserrat-Black", "Montserrat-BlackItalic", "Montserrat-ExtraBold",
-    "Montserrat-ExtraBoldItalic", "Montserrat-Bold", "Montserrat-BoldItalic",
-    "Montserrat-SemiBold", "Montserrat-SemiBoldItalic", "Montserrat-Medium",
-    "Montserrat-MediumItalic", "Montserrat-Regular", "Montserrat-RegularItalic",
-    "Montserrat-Light", "Montserrat-LightItalic", "Montserrat-ExtraLight",
-    "Montserrat-ExtraLightItalic", "Montserrat-Thin", "Montserrat-ThinItalic";
-
 @mixin font-face($name, $path) {
     @font-face {
         font-family: $name;
@@ -31,6 +23,26 @@ $font-faces: "Montserrat-Black", "Montserrat-BlackItalic", "Montserrat-ExtraBold
     }
 }
 
-@each $font in $font-faces {
+// Montserrat
+$font-faces-montserrat: "Montserrat-Black", "Montserrat-BlackItalic",
+    "Montserrat-ExtraBold", "Montserrat-ExtraBoldItalic", "Montserrat-Bold",
+    "Montserrat-BoldItalic", "Montserrat-SemiBold", "Montserrat-SemiBoldItalic",
+    "Montserrat-Medium", "Montserrat-MediumItalic", "Montserrat-Regular",
+    "Montserrat-RegularItalic", "Montserrat-Light", "Montserrat-LightItalic",
+    "Montserrat-ExtraLight", "Montserrat-ExtraLightItalic", "Montserrat-Thin",
+    "Montserrat-ThinItalic";
+
+// Source Code Pro
+$font-faces-sourcecodepro: "SourceCodePro-Black", "SourceCodePro-BlackItalic",
+    "SourceCodePro-Bold", "SourceCodePro-BoldItalic", "SourceCodePro-ExtraLight",
+    "SourceCodePro-ExtraLightItalic", "SourceCodePro-Italic", "SourceCodePro-Light",
+    "SourceCodePro-LightItalic", "SourceCodePro-Medium", "SourceCodePro-MediumItalic",
+    "SourceCodePro-Regular", "SourceCodePro-SemiBold", "SourceCodePro-SemiBoldItalic";
+
+@each $font in $font-faces-montserrat {
     @include font-face($font, "./../../assets/fonts/Montserrat/");
+}
+
+@each $font in $font-faces-sourcecodepro {
+    @include font-face($font, "./../../assets/fonts/SourceCodePro/");
 }

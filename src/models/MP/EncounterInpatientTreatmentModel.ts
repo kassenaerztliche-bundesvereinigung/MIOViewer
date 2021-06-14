@@ -21,16 +21,17 @@ import { History } from "history";
 import { ParserUtil, MR } from "@kbv/mioparser";
 import { Util } from "../../components";
 
-import { ModelValue } from "../BaseModel";
 import { EncounterModel } from "./Basic";
+import { ModelValue } from "../Types";
 
 export default class EncounterInpatientTreatmentModel extends EncounterModel<MR.V1_00_000.Profile.EncounterInpatientTreatment> {
     constructor(
         value: MR.V1_00_000.Profile.EncounterInpatientTreatment,
+        fullUrl: string,
         parent: MR.V1_00_000.Profile.Bundle,
         history?: History
     ) {
-        super(value, parent, history, "Zeitraum");
+        super(value, fullUrl, parent, history, "Zeitraum");
 
         this.headline = this.getCoding();
 
@@ -52,11 +53,13 @@ export default class EncounterInpatientTreatmentModel extends EncounterModel<MR.
     }
 
     protected getPeriod(): string {
-        const period = this.value.period as any;
+        const period = this.value.period as { extension?: { valueString: string }[] };
         if (Object.prototype.hasOwnProperty.call(period, "extension")) {
-            return period.extension
-                .map((e: { valueString: string }) => Util.Misc.formatDate(e.valueString))
-                .join(" - ");
+            return (
+                period.extension
+                    ?.map((e) => Util.Misc.formatDate(e.valueString))
+                    .join(" - ") ?? "-"
+            );
         }
         return "-";
     }
@@ -79,7 +82,7 @@ export default class EncounterInpatientTreatmentModel extends EncounterModel<MR.
         ).join(", ");
     }
 
-    getMainValue(): ModelValue | undefined {
+    public getMainValue(): ModelValue {
         return {
             value: this.value.diagnosis
                 ? this.value.diagnosis.map((d) => d.condition.display).join(", ")

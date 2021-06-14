@@ -70,11 +70,12 @@ export default class GestationalDiabetes extends Section<MR.V1_00_000.Profile.Co
                     MR.V1_00_000.Profile.ObservationoGTTDiagnosistest
                 ],
                 ref
-            )?.resource;
+            );
 
             if (resTests) {
                 const model = new Models.MP.Basic.ObservationModel(
-                    resTests,
+                    resTests.resource,
+                    resTests.fullUrl,
                     mio,
                     history
                 );

@@ -18,7 +18,18 @@
 
 import AdditionalCommentModel from "./AdditionalCommentModel";
 import AddressModel from "./AddressModel";
+import ContactModel from "./ContactModel";
 import PatientSimpleModel from "./PatientSimpleModel";
 import TelecomModel from "./TelecomModel";
+import QualificationModel from "./QualificationModel";
+import ContactDetailsModel from "./ContactDetailsModel";
 
-export { AdditionalCommentModel, AddressModel, PatientSimpleModel, TelecomModel };
+export {
+    AdditionalCommentModel,
+    AddressModel,
+    ContactModel,
+    PatientSimpleModel,
+    TelecomModel,
+    QualificationModel,
+    ContactDetailsModel
+};

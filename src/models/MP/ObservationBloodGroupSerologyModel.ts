@@ -22,15 +22,26 @@ import { ParserUtil, MR } from "@kbv/mioparser";
 import { UI, Util } from "../../components";
 
 import { ObservationModel } from "./Basic";
-import { ModelValue } from "../BaseModel";
+import { ModelValue } from "../Types";
 
 export default class ObservationBloodGroupSerologyModel extends ObservationModel<MR.V1_00_000.Profile.ObservationBloodGroupSerology> {
     constructor(
         value: MR.V1_00_000.Profile.ObservationBloodGroupSerology,
+        fullUrl: string,
         parent: MR.V1_00_000.Profile.Bundle,
         history?: History
     ) {
-        super(value, parent, history, undefined, undefined, undefined, true, false);
+        super(
+            value,
+            fullUrl,
+            parent,
+            history,
+            undefined,
+            undefined,
+            undefined,
+            true,
+            false
+        );
 
         this.headline = this.getCoding();
 
@@ -40,7 +51,7 @@ export default class ObservationBloodGroupSerologyModel extends ObservationModel
             {
                 value: this.getDisclaimer(),
                 label: "Hinweis an die behandelnde Person",
-                renderAs: UI.ListItem.Expandable
+                renderAs: UI.ListItem.Collapsible
             }
         ];
     }

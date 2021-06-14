@@ -21,15 +21,16 @@ import { History } from "history";
 import { ParserUtil, MR } from "@kbv/mioparser";
 
 import { ProcedureBaseModel } from "./Basic";
-import { UI } from "../../components/";
+import * as UI from "../../components/UI";
 
 export default class ProcedureCounsellingModel extends ProcedureBaseModel<MR.V1_00_000.Profile.ProcedureCounselling> {
     constructor(
         value: MR.V1_00_000.Profile.ProcedureCounselling,
+        fullUrl: string,
         parent: MR.V1_00_000.Profile.Bundle,
         history?: History
     ) {
-        super(value, parent, history);
+        super(value, fullUrl, parent, history);
 
         this.headline = this.getCoding();
 

@@ -21,25 +21,31 @@ import { History } from "history";
 import { MR } from "@kbv/mioparser";
 import { Util } from "../../components";
 
-import { ModelValue } from "../BaseModel";
 import { EncounterModel } from "./Basic";
 import * as Models from "../index";
+import { ModelValue } from "../index";
 
 export default class EncounterGeneralModel extends EncounterModel<MR.V1_00_000.Profile.EncounterGeneral> {
     constructor(
         value: MR.V1_00_000.Profile.EncounterGeneral,
+        fullUrl: string,
         parent: MR.V1_00_000.Profile.Bundle,
         history?: History,
         customLabel = "Untersucht am"
     ) {
-        super(value, parent, history, customLabel);
+        super(value, fullUrl, parent, history, customLabel);
 
         this.noHeadline = false;
         this.headline = "Untersuchungsdatum";
 
         this.values = [...this.values];
 
-        const participants = new Models.MP.ParticipantsModel(this.value, parent, history);
+        const participants = new Models.MP.ParticipantsModel(
+            this.value,
+            fullUrl,
+            parent,
+            history
+        );
         this.values.push(...participants.getValues());
     }
 
@@ -51,11 +57,11 @@ export default class EncounterGeneralModel extends EncounterModel<MR.V1_00_000.P
         );
     }
 
-    getCoding(): string {
-        return "";
+    public getCoding(): string {
+        return "This profile has no coding";
     }
 
-    getMainValue(): ModelValue | undefined {
+    public getMainValue(): ModelValue {
         return {
             value: this.getPeriod(),
             label: "Untersuchungsdatum"

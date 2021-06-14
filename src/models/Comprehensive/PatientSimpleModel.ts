@@ -18,25 +18,28 @@
 
 import { History } from "history";
 
-import { KBVBundleResource, Vaccination, ZAEB, MR } from "@kbv/mioparser";
+import { KBVBundleResource, Vaccination, ZAEB, MR, CMR } from "@kbv/mioparser";
 import { Util } from "../../components";
 
-import BaseModel, { ModelValue } from "../BaseModel";
+import BaseModel from "../BaseModel";
+import { ModelValue } from "../Types";
 
-export default class PatientSimpleModel extends BaseModel<
+export type PatientType =
     | Vaccination.V1_00_000.Profile.Patient
     | ZAEB.V1_00_000.Profile.Patient
     | MR.V1_00_000.Profile.PatientMother
-> {
+    | CMR.V1_00_000.Profile.CMRPatient
+    | CMR.V1_00_000.Profile.PCPatient
+    | CMR.V1_00_000.Profile.PNPatient;
+
+export default class PatientSimpleModel extends BaseModel<PatientType> {
     constructor(
-        value:
-            | Vaccination.V1_00_000.Profile.Patient
-            | ZAEB.V1_00_000.Profile.Patient
-            | MR.V1_00_000.Profile.PatientMother,
+        value: PatientType,
+        fullUrl: string,
         parent: KBVBundleResource,
         history?: History
     ) {
-        super(value, parent, history);
+        super(value, fullUrl, parent, history);
 
         this.headline = "Patientendaten";
         this.values = [
@@ -60,5 +63,12 @@ export default class PatientSimpleModel extends BaseModel<
 
     public toString(): string {
         return this.values.map((v) => v.label + ": " + v.value).join("\n");
+    }
+
+    public getMainValue(): ModelValue {
+        return {
+            value: Util.Misc.getPatientName(this.value),
+            label: "Patient/-in"
+        };
     }
 }

@@ -16,39 +16,27 @@
  * along with MIO Viewer. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import React from "react";
 import { History } from "history";
-import { KBVBundleResource, KBVResource, MIOEntry } from "@kbv/mioparser";
+import { CMR, KBVBundleResource, KBVResource } from "@kbv/mioparser";
 
 import { Content } from "pdfmake/interfaces";
+import { horizontalLine } from "../pdf/PDFHelper";
 
-import * as Models from "./index";
-import { horizontalLine } from "../pdf/PDFMaker";
-import { UI } from "../components/";
+import { ModelValue } from "./Types";
+import { UI } from "../components";
 
-export type RenderComponent = React.ComponentType<UI.ListItem.Props>;
-
-export interface ModelValue {
-    value: string;
-    href?: string;
-    label: string;
-    onClick?: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
-    renderAs?: RenderComponent;
-    subEntry?: MIOEntry<KBVResource>;
-    subModels?: (new (
-        value: any, // eslint-disable-line
-        parent: KBVBundleResource,
-        history?: History
-    ) => Models.Model)[];
-}
-
-export default abstract class BaseModel<T extends KBVResource> {
+export default abstract class BaseModel<
+    T extends
+        | KBVResource
+        | CMR.V1_00_000.Profile.CMROrganizationScreeningLaboratoryContact
+> {
     protected headline = "";
     protected noHeadline = false;
     protected values: ModelValue[] = [];
 
     protected constructor(
         readonly value: T,
+        readonly fullUrl: string,
         readonly parent: KBVBundleResource,
         readonly history?: History
     ) {}
@@ -65,12 +53,19 @@ export default abstract class BaseModel<T extends KBVResource> {
         return !this.noHeadline;
     }
 
+    /**
+     * Main value of model. Should be used/displayed in parent list (ie. as ListItem to reference Detail).
+     * Which value/label pair (ModelValue) best describes the model.
+     */
+    public abstract getMainValue(): ModelValue;
+
     public abstract toString(): string;
 
     public toPDFContent(
         styles: string[] = [],
         subTable?: boolean,
-        removeHTML?: boolean
+        removeHTML?: boolean,
+        headingTitle?: string
     ): Content {
         const heading = {
             layout: "noBorders",
@@ -79,7 +74,7 @@ export default abstract class BaseModel<T extends KBVResource> {
                 body: [
                     [
                         {
-                            text: this.getHeadline(),
+                            text: headingTitle ? headingTitle : this.getHeadline(),
                             style: ["filledHeader", ...styles],
                             margin: [0, 0, 0, 0]
                         }
@@ -98,7 +93,7 @@ export default abstract class BaseModel<T extends KBVResource> {
                 layout: "noBorders",
                 table: {
                     headerRows: 0,
-                    widths: [subTable ? "50%" : "40%", "*"],
+                    widths: [subTable ? "50%" : "40%", subTable ? "50%" : "60%"],
                     body: this.values.map((value) => {
                         let textValue = value.value;
 
@@ -107,9 +102,26 @@ export default abstract class BaseModel<T extends KBVResource> {
                         }
 
                         const content: Content[] = [
-                            { text: value.label + ":", bold: true, style: styles },
-                            { text: textValue, style: styles }
+                            {
+                                text: value.label
+                                    ? value.label + (value.label.endsWith(":") ? "" : ":")
+                                    : "",
+                                bold: true,
+                                style: styles
+                            }
                         ];
+
+                        if (value.renderAs === UI.ListItem.Bullet) {
+                            content.push({
+                                text: textValue
+                                    .split("\n")
+                                    .map((v) => "– " + v)
+                                    .join("\n"),
+                                style: styles
+                            });
+                        } else {
+                            content.push({ text: textValue, style: styles });
+                        }
 
                         if (
                             value.subEntry &&
@@ -120,6 +132,7 @@ export default abstract class BaseModel<T extends KBVResource> {
                             value.subModels.forEach((model) => {
                                 const sub = new model(
                                     value.subEntry?.resource,
+                                    value.subEntry?.fullUrl ?? "",
                                     this.parent
                                 );
                                 const pdfContent = sub.toPDFContent(
@@ -146,5 +159,10 @@ export default abstract class BaseModel<T extends KBVResource> {
         return {
             text: `Unter „${topic}“ sind in diesem ${parent} derzeit keine Einträge vorhanden.`
         };
+    }
+
+    // eslint-disable-next-line
+    public getJSON(): any {
+        return this.value;
     }
 }

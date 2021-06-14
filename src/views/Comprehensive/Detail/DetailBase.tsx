@@ -21,28 +21,19 @@ import React from "react";
 import { RouteComponentProps } from "react-router";
 import { MIOConnectorType } from "../../../store";
 
-import { KBVBundleResource, ParserUtil, Vaccination, ZAEB, MR } from "@kbv/mioparser";
+import { KBVBundleResource, MIOEntry, Vaccination, ZAEB, MR, CMR } from "@kbv/mioparser";
+
 import { UI, Util } from "../../../components/";
 
 import * as Models from "../../../models/";
 
 import DetailComponent from "../../../components/Detail/Detail";
+import { SettingsConnectorType } from "../../../store";
+import { DetailMapping } from "./Types";
 
-type DetailProps = MIOConnectorType & RouteComponentProps;
+type DetailProps = MIOConnectorType & SettingsConnectorType & RouteComponentProps;
 
 type ListItemType = { header: string; testIdSuffix?: string; component: JSX.Element };
-
-export type DetailMapping = {
-    profile: any;
-    header?: string;
-    models: any[];
-    customLabel?: string;
-    codeConceptMaps?: ParserUtil.ConceptMap[];
-    valueConceptMaps?: ParserUtil.ConceptMap[];
-    noValue?: boolean;
-    noHeadline?: boolean;
-    customHeadline?: string;
-};
 
 export default abstract class DetailBase<
     T extends KBVBundleResource
@@ -50,20 +41,24 @@ export default abstract class DetailBase<
     protected abstract getMappings(): DetailMapping[];
     protected abstract showPatient(): boolean;
     protected abstract getPatient():
-        | Vaccination.V1_00_000.Profile.Patient
-        | ZAEB.V1_00_000.Profile.Patient
-        | MR.V1_00_000.Profile.PatientMother
+        | MIOEntry<
+              | Vaccination.V1_00_000.Profile.Patient
+              | ZAEB.V1_00_000.Profile.Patient
+              | MR.V1_00_000.Profile.PatientMother
+              | CMR.V1_00_000.Profile.CMRPatient
+              | CMR.V1_00_000.Profile.PCPatient
+              | CMR.V1_00_000.Profile.PNPatient
+          >
         | undefined;
     protected abstract getHeaderClass(): UI.MIOClassName;
 
     protected mapResource = (): ListItemType | undefined => {
-        const { mio, entry, history, location, match } = this.props;
+        const { mio, entry, history, location, match, devMode } = this.props;
 
         if (mio && entry) {
-            const resource = entry.resource;
             const props = {
                 mio: mio,
-                entry: resource,
+                entry: entry.resource,
                 history: history,
                 location: location,
                 match: match
@@ -75,19 +70,27 @@ export default abstract class DetailBase<
 
             let mappedResult: ListItemType | undefined = undefined;
             mappings.forEach((mapping) => {
-                if (!mappedResult && mapping.profile.is(resource)) {
-                    const models: any[] = [];
+                if (!mappedResult && mapping.profile.is(entry.resource)) {
+                    const models: Models.Model[] = [];
 
                     if (mapping.models && mapping.models.length) {
                         mapping.models.forEach((model) =>
-                            models.push(new model(resource, bundle, history))
+                            models.push(
+                                new model(entry.resource, entry.fullUrl, bundle, history)
+                            )
                         );
                     }
 
                     mappedResult = {
                         header: mapping.header ? mapping.header : "-",
                         testIdSuffix: mapping.profile.name,
-                        component: <DetailComponent {...props} models={[...models]} />
+                        component: (
+                            <DetailComponent
+                                {...props}
+                                models={[...models]}
+                                devMode={devMode}
+                            />
+                        )
                     };
                 }
             });
@@ -131,7 +134,14 @@ export default abstract class DetailBase<
             const patient = this.getPatient();
             const showPatient = this.showPatient();
             let model = undefined;
-            if (patient) model = new Models.PatientSimpleModel(patient, mio, history);
+            if (patient) {
+                model = new Models.PatientSimpleModel(
+                    patient.resource,
+                    patient.fullUrl,
+                    mio,
+                    history
+                );
+            }
 
             return (
                 <UI.BasicView
@@ -154,7 +164,6 @@ export default abstract class DetailBase<
                         {showPatient && patient && model && (
                             <UI.DetailList.Model
                                 mio={mio}
-                                entry={patient}
                                 history={history}
                                 location={location}
                                 match={match}

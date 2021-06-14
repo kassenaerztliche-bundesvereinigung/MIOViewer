@@ -23,15 +23,16 @@ import { Util } from "../../components";
 
 import BaseModel from "../BaseModel";
 import { PractitionerModel } from "./";
-import { AdditionalCommentModel, TelecomModel } from "../";
+import { AdditionalCommentModel, ModelValue, TelecomModel } from "../";
 
 export default class ConditionModel extends BaseModel<Vaccination.V1_00_000.Profile.Condition> {
     constructor(
         value: Vaccination.V1_00_000.Profile.Condition,
+        fullUrl: string,
         parent: KBVBundleResource,
         history?: History
     ) {
-        super(value, parent, history);
+        super(value, fullUrl, parent, history);
 
         this.headline = this.value.code.text;
 
@@ -117,5 +118,12 @@ export default class ConditionModel extends BaseModel<Vaccination.V1_00_000.Prof
             this.values.map((v) => v.label + ": " + v.value).join("\n") +
             "\n\n"
         );
+    }
+
+    public getMainValue(): ModelValue {
+        return {
+            value: this.value.code.text,
+            label: Util.Misc.formatDate(this.value.recordedDate)
+        };
     }
 }

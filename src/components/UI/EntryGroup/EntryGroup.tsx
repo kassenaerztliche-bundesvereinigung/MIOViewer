@@ -59,7 +59,7 @@ export default class EntryGroup<T extends KBVResource> extends React.Component<
 
         this.state = {
             stuck: false,
-            expanded: !props.expandable ? true : false
+            expanded: !props.expandable
         };
     }
 

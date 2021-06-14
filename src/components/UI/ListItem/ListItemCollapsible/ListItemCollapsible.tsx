@@ -17,7 +17,6 @@
  */
 
 import React from "react";
-import purify from "dompurify";
 import { IonItem, IonLabel, IonNote } from "@ionic/react";
 import * as Icons from "react-feather";
 import AnimateHeight from "react-animate-height";
@@ -25,16 +24,16 @@ import AnimateHeight from "react-animate-height";
 import { ListItemProps } from "../Interfaces";
 import ListItem from "../ListItem";
 
-import "./ListItemExpandable.scss";
+import "./ListItemCollapsible.scss";
 
-export interface ListItemExpandableState {
+export interface ListItemCollapsibleState {
     expanded: boolean;
     onClick?: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
 }
 
-export default class ListItemExpandable extends ListItem<
+export default class ListItemCollapsible extends ListItem<
     ListItemProps,
-    ListItemExpandableState
+    ListItemCollapsibleState
 > {
     constructor(props: ListItemProps) {
         super(props);
@@ -58,11 +57,11 @@ export default class ListItemExpandable extends ListItem<
         const height = expanded ? "auto" : 0;
 
         return (
-            <div className={"list-item-expandable"}>
-                <div className={"expandable-wrapper" + (expanded ? " expanded" : "")}>
+            <div className={"list-item-collapsible"}>
+                <div className={"collapsible-wrapper" + (expanded ? " expanded" : "")}>
                     <IonItem
                         className={
-                            "list-item expandable item ios in-list item-label ion-no-padding" +
+                            "list-item collapsible item ios in-list item-label ion-no-padding" +
                             className +
                             (onClick ? " ion-activatable ion-focusable" : "")
                         }
@@ -93,11 +92,8 @@ export default class ListItemExpandable extends ListItem<
                         <p
                             className={"ion-no-margin"}
                             dangerouslySetInnerHTML={{
-                                __html: value
-                                    ? purify.sanitize(value)
-                                    : disabled
-                                    ? "kein Eintrag vorhanden"
-                                    : "-"
+                                __html:
+                                    value ?? (disabled ? "kein Eintrag vorhanden" : "-")
                             }}
                         />
                     ) : (

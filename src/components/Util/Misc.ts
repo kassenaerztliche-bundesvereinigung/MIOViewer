@@ -18,16 +18,19 @@
 
 import moment from "moment";
 import purify from "dompurify";
+import { DateTime } from "luxon";
 import { History } from "history";
 
 import {
-    ParserUtil,
+    CMR,
     KBVBundleResource,
     KBVResource,
     MIOEntry,
+    MR,
+    ParserUtil,
     Vaccination,
     ZAEB,
-    MR
+    FHIR
 } from "@kbv/mioparser";
 
 import { EXAMPLE_PREFIX } from "../../store/examples";
@@ -41,7 +44,10 @@ import * as MP from "./MP";
 type patientType =
     | Vaccination.V1_00_000.Profile.Patient
     | ZAEB.V1_00_000.Profile.Patient
-    | MR.V1_00_000.Profile.PatientMother;
+    | MR.V1_00_000.Profile.PatientMother
+    | CMR.V1_00_000.Profile.CMRPatient
+    | CMR.V1_00_000.Profile.PCPatient
+    | CMR.V1_00_000.Profile.PNPatient;
 
 export function checkIfVaccinationPatient(
     patient: patientType
@@ -69,10 +75,23 @@ export function getPatientName(patient: patientType): string {
 }
 
 export function formatDate(date: string | undefined, time = false): string {
+    if (date?.includes("SSW")) return date;
+    date = date?.replace(":60", ":59");
+    const precisionRegex = /(\.[0-9]+)/;
+    const precision = precisionRegex.exec(date ?? "");
+
+    if (precision && precision.length && precision[0].length > 3) {
+        const precisionNumber = precision[0].replace(".", "").slice(0, 3);
+        date = date?.replace(precision[0], "." + precisionNumber);
+    }
     try {
         return date
-            ? moment(new Date(date).toISOString()).format("DD.MM.YYYY") +
-                  (time ? moment(new Date(date).toISOString()).format(" - HH:mm") : "")
+            ? DateTime.fromJSDate(new Date(date)).toFormat("dd.MM.yyyy") +
+                  (time
+                      ? DateTime.fromJSDate(
+                            new Date(date?.replace("Z", "+00:00"))
+                        ).toFormat(" - HH:mm")
+                      : "")
             : "-";
     } catch (err) {
         // console.log(new Error("Fehler beim Formatieren des Datum: '" + date + "'"));
@@ -108,15 +127,49 @@ export function toEntryByRef(
     history: History | undefined,
     mio: KBVBundleResource,
     resourceRef: string | undefined,
-    sub = false
+    sub = false,
+    filter?: string,
+    filterValue?: string
 ): (() => void) | undefined {
     if (history && resourceRef) {
         const mioRef = ParserUtil.getUuidFromBundle(mio);
         const ref = ParserUtil.getUuid(resourceRef);
-        return () => history.push(`${sub ? "/subEntry/" : "/entry/"}${mioRef}/${ref}`);
+        const path = `${sub ? "/subEntry/" : "/entry/"}${mioRef}/${
+            ref ? ref : "undefined"
+        }`;
+        const filterPath = filter && filterValue ? `/${filter}/${filterValue}` : "";
+        return () => history.push(path + filterPath);
     }
 
     return undefined;
+}
+
+export function humanNameToString(
+    name: FHIR.V4_0_1.Profile.HumanName | undefined
+): string {
+    if (!name) return "-";
+
+    const prefix = name.prefix?.join(" ");
+    const given = name.given?.join(" ");
+    const family = name.family;
+    const suffix = name.suffix?.join(" ");
+
+    const nameStr = [prefix, given, family, suffix].join(" ");
+    // TODO: period
+
+    return nameStr ? nameStr : name.text ? name.text : "-";
+}
+
+export function getNameFromContact(
+    contact?: CMR.V1_00_000.Profile.CMROrganizationScreeningLaboratoryContact
+): string {
+    if (contact) {
+        if (contact.id) return contact.id;
+        if (contact.name && contact.name.family && contact.name.given)
+            return contact.name.family + contact.name.given;
+        if (contact.name && contact.name.family) return contact.name.family;
+        else return "laboratory";
+    } else return "laboratory";
 }
 
 export function getTelecom(
@@ -127,6 +180,9 @@ export function getTelecom(
         | ZAEB.V1_00_000.Profile.Organization
         | MR.V1_00_000.Profile.Organization
         | MR.V1_00_000.Profile.Practitioner
+        | CMR.V1_00_000.Profile.CMRPractitioner
+        | CMR.V1_00_000.Profile.CMROrganization
+        | CMR.V1_00_000.Profile.CMROrganizationScreeningLaboratoryContact
 ): UI.ListItem.Props[] {
     if (entry.telecom && entry.telecom.length) {
         const mapLabel = (v: string): string => {
@@ -157,6 +213,7 @@ export function getTelecom(
             const val = purify.sanitize(t.value);
             switch (t.system) {
                 case "phone":
+                case "sms":
                     return {
                         value: val,
                         href: "tel:" + val
@@ -181,11 +238,6 @@ export function getTelecom(
                         href: prefix + val
                     };
                 }
-                case "sms":
-                    return {
-                        value: val,
-                        href: "tel:" + val
-                    };
                 default:
                     return {
                         value: val
@@ -228,26 +280,39 @@ export function getPatientIdentifier(
         | Vaccination.V1_00_000.Profile.Patient
         | ZAEB.V1_00_000.Profile.Patient
         | MR.V1_00_000.Profile.PatientMother
+        | CMR.V1_00_000.Profile.CMRPatient
+        | CMR.V1_00_000.Profile.PCPatient
+        | CMR.V1_00_000.Profile.PNPatient
 ): UI.ListItem.Props[] {
     const identifier: UI.ListItem.Props[] = [];
 
-    patient.identifier.forEach((i) => {
-        const coding = i.type?.coding;
-        if (coding) {
-            const codingString = (coding as { code: string }[])
-                .map((c) => c.code)
-                .join(", ");
-            identifier.push({ value: i.value, label: codingString });
-        } else {
-            if (i.system === "http://fhir.de/NamingSystem/gkv/kvid-10") {
-                identifier.push({ value: i.value, label: "GKV" });
+    patient.identifier?.forEach(
+        (i: {
+            type?: { coding?: { code: string }[] };
+            value?: string;
+            system?: string;
+        }) => {
+            const coding = i.type?.coding;
+            if (coding) {
+                const codingString = coding
+                    .map((c: { code: string }) => c.code)
+                    .join(", ");
+                identifier.push({ value: i.value, label: codingString });
+            } else {
+                if (i.system === "http://fhir.de/NamingSystem/gkv/kvid-10") {
+                    identifier.push({ value: i.value, label: "GKV" });
+                }
             }
         }
-    });
+    );
 
     return identifier.map((i) => mapIdentifier(i));
 }
 
 export function isExample(mio?: KBVBundleResource): boolean {
     return mio?.identifier.value?.startsWith(EXAMPLE_PREFIX) ?? false;
+}
+
+export function isExamplePath(path: string): boolean {
+    return path.startsWith("/example");
 }

@@ -20,16 +20,17 @@ import { History } from "history";
 
 import { ParserUtil, MR } from "@kbv/mioparser";
 
-import { ModelValue } from "../../BaseModel";
 import MPBaseModel from "../MPBaseModel";
+import { ModelValue } from "../../Types";
 
 export default class OrganizationModel extends MPBaseModel<MR.V1_00_000.Profile.Organization> {
     constructor(
         value: MR.V1_00_000.Profile.Organization,
+        fullUrl: string,
         parent: MR.V1_00_000.Profile.Bundle,
         history?: History
     ) {
-        super(value, parent, history);
+        super(value, fullUrl, parent, history);
 
         this.headline = this.value.name ? this.value.name : "-";
         this.values = [this.getIdentifier()];
@@ -68,10 +69,13 @@ export default class OrganizationModel extends MPBaseModel<MR.V1_00_000.Profile.
     }
 
     public getCoding(): string {
-        return "-";
+        return "This profile has no coding";
     }
 
-    getMainValue(): ModelValue | undefined {
-        return undefined;
+    public getMainValue(): ModelValue {
+        return {
+            value: this.headline,
+            label: "Organisation"
+        };
     }
 }

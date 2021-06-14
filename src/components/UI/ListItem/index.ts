@@ -18,21 +18,25 @@
 
 import ListItem from "./ListItem";
 import ListItemBullet from "./ListItemBullet";
-import ListItemExpandable from "./ListItemExpandable";
+import ListItemCollapsible from "./ListItemCollapsible";
 import ListItemHint from "./ListItemHint";
+import ListItemHintBox from "./ListItemHintBox";
 import ListItemLink from "./ListItemLink";
-import ListItemNoValue from "./ListItemNoValue";
 import ListItemNoLabel from "./ListItemNoLabel";
+import ListItemNoValue from "./ListItemNoValue";
+import ListItemText from "./ListItemText";
 
-import { ListItemProps } from "./Interfaces";
+import { ListItemContent, ListItemProps } from "./Interfaces";
 
-export type { ListItemProps as Props };
+export type { ListItemContent as Content, ListItemProps as Props };
 export {
     ListItem as Basic,
     ListItemBullet as Bullet,
-    ListItemExpandable as Expandable,
+    ListItemCollapsible as Collapsible,
     ListItemHint as Hint,
+    ListItemHintBox as HintBox,
     ListItemLink as Link,
+    ListItemNoLabel as NoLabel,
     ListItemNoValue as NoValue,
-    ListItemNoLabel as NoLabel
+    ListItemText as Text
 };

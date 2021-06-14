@@ -18,7 +18,7 @@
 
 import { History } from "history";
 
-import { MR, ParserUtil } from "@kbv/mioparser";
+import { MR, ParserUtil, AnyType } from "@kbv/mioparser";
 import { UI, Util } from "../../components";
 import { InformationAboutModel } from "./";
 
@@ -30,10 +30,12 @@ export default class InformationAboutChildModel extends InformationAboutModel {
             | MR.V1_00_000.Profile.ClinicalImpressionBirthExaminationDeliveryInformation
             | MR.V1_00_000.Profile.ClinicalImpressionFirstExaminationAfterChildbirth
             | MR.V1_00_000.Profile.ClinicalImpressionSecondExaminationAfterChildbirth,
+        fullUrl: string,
         parent: MR.V1_00_000.Profile.Bundle,
         history?: History
     ) {
-        const sectionStack: any[] = [
+        // eslint-disable-next-line
+        const sectionStack: AnyType[] = [
             MR.V1_00_000.Profile.CompositionUntersuchungen,
             MR.V1_00_000.Profile.CompositionUntersuchungenEpikrise
         ];
@@ -55,13 +57,13 @@ export default class InformationAboutChildModel extends InformationAboutModel {
             );
         }
 
-        super(value, parent, history, [], sectionStack);
+        super(value, fullUrl, parent, history, [], sectionStack);
         this.headline = "Angaben zum Kind";
     }
 
     public getChildren(): string[] {
         const informationAbout = this.section?.entry?.map((entry) => entry.reference);
-        const resources: any[] = [];
+        const resources: any[] = []; // eslint-disable-line
         informationAbout?.forEach((ref) => {
             const result = ParserUtil.getEntryWithRef<
                 // Geburt

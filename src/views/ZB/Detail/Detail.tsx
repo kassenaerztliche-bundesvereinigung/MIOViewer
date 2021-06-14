@@ -16,18 +16,21 @@
  * along with MIO Viewer. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { MIOConnector } from "../../../store";
+import { MIOConnector, SettingsConnector } from "../../../store";
 import { UI, Util } from "../../../components";
 
 import * as Models from "../../../models";
-import DetailBase, { DetailMapping } from "../../Comprehensive/Detail/DetailBase";
 
-import { ZAEB } from "@kbv/mioparser";
+import DetailBase from "../../Comprehensive/Detail/DetailBase";
+import { DetailMapping } from "../../Comprehensive/Detail/Types";
+
+import { MIOEntry, ZAEB } from "@kbv/mioparser";
 
 class Detail extends DetailBase<ZAEB.V1_00_000.Profile.Bundle> {
     protected getHeaderClass(): UI.MIOClassName {
         return "zaeb";
     }
+
     static mappings = [
         {
             profile: ZAEB.V1_00_000.Profile.Observation,
@@ -54,6 +57,7 @@ class Detail extends DetailBase<ZAEB.V1_00_000.Profile.Bundle> {
             ]
         }
     ];
+
     protected getMappings(): DetailMapping[] {
         return Detail.mappings;
     }
@@ -70,10 +74,21 @@ class Detail extends DetailBase<ZAEB.V1_00_000.Profile.Bundle> {
         }
     }
 
-    protected getPatient(): ZAEB.V1_00_000.Profile.Patient | undefined {
-        const { mio } = this.props;
-        return Util.ZB.getPatient(mio as ZAEB.V1_00_000.Profile.Bundle)?.resource;
+    protected getPatient(): MIOEntry<ZAEB.V1_00_000.Profile.Patient> | undefined {
+        const { mio, entry } = this.props;
+        const resource = entry?.resource;
+
+        if (
+            resource &&
+            (ZAEB.V1_00_000.Profile.Observation.is(resource) ||
+                ZAEB.V1_00_000.Profile.GaplessDocumentation.is(resource))
+        ) {
+            return Util.ZB.getPatientByRef(
+                mio as ZAEB.V1_00_000.Profile.Bundle,
+                resource.subject.reference
+            );
+        }
     }
 }
 
-export default MIOConnector(Detail);
+export default SettingsConnector(MIOConnector(Detail));

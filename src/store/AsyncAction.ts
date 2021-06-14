@@ -108,3 +108,10 @@ export async function acceptCookies(
 ): Promise<void> {
     dispatch(Actions.acceptCookies(value));
 }
+
+export async function setDevMode(
+    dispatch: Dispatch<MIOActions>,
+    value: boolean
+): Promise<void> {
+    dispatch(Actions.setDevMode(value));
+}

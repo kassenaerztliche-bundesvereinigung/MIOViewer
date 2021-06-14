@@ -19,7 +19,7 @@
 import React from "react";
 import { History } from "history";
 
-import { ParserUtil, MRResource, MIOEntry, MR } from "@kbv/mioparser";
+import { ParserUtil, MRResource, MIOEntry, MR, AnyType } from "@kbv/mioparser";
 
 import { UI, Util } from "../../../components/";
 import PatientCard from "../../../components/PatientCard";
@@ -29,9 +29,9 @@ import * as Models from "../../../models";
 type OverviewGroup = {
     headline: string;
     subline?: string;
-    baseValues: any[];
-    template: (values: UI.EntryGroupTemplateValues<any>) => JSX.Element | undefined;
-    compare?: (a: MIOEntry<any>, b: MIOEntry<any>) => number;
+    baseValues: AnyType[];
+    template: (values: UI.EntryGroupTemplateValues<any>) => JSX.Element | undefined; // eslint-disable-line
+    compare?: (a: MIOEntry<any>, b: MIOEntry<any>) => number; // eslint-disable-line
     expandable?: boolean;
 };
 
@@ -93,13 +93,14 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
                 | MR.V1_00_000.Profile.EncounterArrivalMaternityHospital
             >
         ): JSX.Element | undefined => {
-            const resource = values.entry.resource;
+            const entry = values.entry;
             const onClick = Util.Misc.toEntry(history, mio, values.entry);
             const key = `item_${values.index}`;
 
-            if (MR.V1_00_000.Profile.AppointmentPregnancy.is(resource)) {
+            if (MR.V1_00_000.Profile.AppointmentPregnancy.is(entry.resource)) {
                 const model = new Models.MP.AppointmentPregnancyModel(
-                    resource,
+                    entry.resource,
+                    entry.fullUrl,
                     mio,
                     history
                 );
@@ -113,10 +114,11 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
                     />
                 );
             } else if (
-                MR.V1_00_000.Profile.EncounterArrivalMaternityHospital.is(resource)
+                MR.V1_00_000.Profile.EncounterArrivalMaternityHospital.is(entry.resource)
             ) {
                 const model = new Models.MP.EncounterArrivalMaternityHospitalModel(
-                    resource,
+                    entry.resource,
+                    entry.fullUrl,
                     mio,
                     history
                 );
@@ -142,18 +144,23 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
                 | MR.V1_00_000.Profile.ObservationMenstrualCycle
             >
         ): JSX.Element | undefined => {
-            const resource = values.entry.resource;
-            const onClick = Util.Misc.toEntry(history, mio, values.entry);
+            const entry = values.entry;
+            const onClick = Util.Misc.toEntry(history, mio, entry);
             const key = `item_${values.index}`;
 
             if (
-                MR.V1_00_000.Profile.ObservationCalculatedDeliveryDate.is(resource) ||
-                MR.V1_00_000.Profile.ObservationDeterminationOfPregnancy.is(resource) ||
-                MR.V1_00_000.Profile.ObservationDateOfConception.is(resource) ||
-                MR.V1_00_000.Profile.ObservationMenstrualCycle.is(resource)
+                MR.V1_00_000.Profile.ObservationCalculatedDeliveryDate.is(
+                    entry.resource
+                ) ||
+                MR.V1_00_000.Profile.ObservationDeterminationOfPregnancy.is(
+                    entry.resource
+                ) ||
+                MR.V1_00_000.Profile.ObservationDateOfConception.is(entry.resource) ||
+                MR.V1_00_000.Profile.ObservationMenstrualCycle.is(entry.resource)
             ) {
                 const model = new Models.MP.Basic.ObservationModel(
-                    resource,
+                    entry.resource,
+                    entry.fullUrl,
                     mio,
                     history
                 );
@@ -162,17 +169,20 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
 
                 return (
                     <UI.ListItem.Basic
-                        value={Util.Misc.formatDate(resource.effectiveDateTime)}
+                        value={Util.Misc.formatDate(entry.resource.effectiveDateTime)}
                         label={mainValue ? mainValue.label : "-"}
                         onClick={onClick}
                         key={key}
                     />
                 );
             } else if (
-                MR.V1_00_000.Profile.ObservationDateDeterminationChildbirth.is(resource)
+                MR.V1_00_000.Profile.ObservationDateDeterminationChildbirth.is(
+                    entry.resource
+                )
             ) {
                 const model = new Models.MP.Basic.ObservationModel(
-                    resource,
+                    entry.resource,
+                    entry.fullUrl,
                     mio,
                     history
                 );
@@ -296,13 +306,14 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
                 | MR.V1_00_000.Profile.ObservationHIVTestPerformed
             >
         ): JSX.Element | undefined => {
-            const resource = values.entry.resource;
-            const onClick = Util.Misc.toEntry(history, mio, values.entry);
+            const entry = values.entry;
+            const onClick = Util.Misc.toEntry(history, mio, entry);
             const key = `item_${values.index}`;
 
-            if (MR.V1_00_000.Profile.ProcedureCounselling.is(resource)) {
+            if (MR.V1_00_000.Profile.ProcedureCounselling.is(entry.resource)) {
                 const model = new Models.MP.ProcedureCounsellingModel(
-                    resource,
+                    entry.resource,
+                    entry.fullUrl,
                     mio,
                     history
                 );
@@ -315,9 +326,12 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
                         key={key}
                     />
                 );
-            } else if (MR.V1_00_000.Profile.ObservationHIVTestPerformed.is(resource)) {
+            } else if (
+                MR.V1_00_000.Profile.ObservationHIVTestPerformed.is(entry.resource)
+            ) {
                 const model = new Models.MP.Basic.ObservationModel(
-                    resource,
+                    entry.resource,
+                    entry.fullUrl,
                     mio,
                     history
                 );
@@ -337,13 +351,14 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
         const templateAntiDProphylaxis = (
             values: UI.EntryGroupTemplateValues<MR.V1_00_000.Profile.ProcedureAntiDProphylaxis>
         ): JSX.Element | undefined => {
-            const resource = values.entry.resource;
-            const onClick = Util.Misc.toEntry(history, mio, values.entry);
+            const entry = values.entry;
+            const onClick = Util.Misc.toEntry(history, mio, entry);
             const key = `item_${values.index}`;
 
-            if (MR.V1_00_000.Profile.ProcedureAntiDProphylaxis.is(resource)) {
+            if (MR.V1_00_000.Profile.ProcedureAntiDProphylaxis.is(entry.resource)) {
                 const model = new Models.MP.Basic.ProcedureBaseModel(
-                    resource,
+                    entry.resource,
+                    entry.fullUrl,
                     mio,
                     history
                 );
@@ -363,13 +378,14 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
         const templateTreatment = (
             values: UI.EntryGroupTemplateValues<MR.V1_00_000.Profile.EncounterInpatientTreatment>
         ): JSX.Element | undefined => {
-            const resource = values.entry.resource;
-            const onClick = Util.Misc.toEntry(history, mio, values.entry);
+            const entry = values.entry;
+            const onClick = Util.Misc.toEntry(history, mio, entry);
             const key = `item_${values.index}`;
 
-            if (MR.V1_00_000.Profile.EncounterInpatientTreatment.is(resource)) {
+            if (MR.V1_00_000.Profile.EncounterInpatientTreatment.is(entry.resource)) {
                 const model = new Models.MP.EncounterInpatientTreatmentModel(
-                    resource,
+                    entry.resource,
+                    entry.fullUrl,
                     mio,
                     history
                 );
@@ -549,7 +565,7 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
                                 });
 
                                 return (
-                                    <UI.ListItem.Expandable
+                                    <UI.ListItem.Collapsible
                                         value={result?.join("")}
                                         label={hintMap[e.url]}
                                         key={`item_${index}`}

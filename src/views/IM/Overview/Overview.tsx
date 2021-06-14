@@ -198,7 +198,7 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
             ];
 
             this.setState({
-                entries: mio.entry.map((entry) => entry as MIOEntry<VaccinationResource>),
+                entries: Util.IM.getEntries(mio),
                 groups: groups
             });
         }

@@ -19,6 +19,7 @@
 import React from "react";
 import fs from "fs";
 import { render } from "@testing-library/react";
+import { History } from "history";
 
 import * as ViewerTestUtil from "../../../test/TestUtil.test";
 import * as TestUtil from "miotestdata";
@@ -27,15 +28,14 @@ import Detail from "../Detail/Detail";
 
 import MIOParser, {
     ParserUtil,
-    KBVBundleResource,
+    AnyType,
     Vaccination,
-    ZAEB
+    ZAEB,
+    MR,
+    CMR
 } from "@kbv/mioparser";
 
-import * as ModelsZB from "../../models/ZB";
-import * as ModelsIM from "../../models/IM";
-import { AdditionalCommentModel, AddressModel, Model, TelecomModel } from "../../models";
-import { History } from "history";
+import * as Models from "../../models/";
 
 describe("<Components.Detail />", () => {
     const mioParser = new MIOParser();
@@ -44,14 +44,17 @@ describe("<Components.Detail />", () => {
     type DetailsValue = {
         bundle:
             | typeof Vaccination.V1_00_000.Profile.BundleEntry
-            | typeof ZAEB.V1_00_000.Profile.Bundle;
+            | typeof ZAEB.V1_00_000.Profile.Bundle
+            | typeof MR.V1_00_000.Profile.Bundle
+            | typeof CMR.V1_00_000.Profile.CMRBundle;
         definitions: {
-            profile: any; // eslint-disable-line
+            profile: AnyType;
             models?: (new (
                 value: any, // eslint-disable-line
-                parent: KBVBundleResource,
-                history?: History
-            ) => Model)[];
+                fullUrl: string,
+                parent: any, // eslint-disable-line
+                history: History
+            ) => Models.Model)[];
             component: React.ComponentType<any>; // eslint-disable-line
             testId?: string;
             required: string[];
@@ -66,7 +69,7 @@ describe("<Components.Detail />", () => {
             definitions: [
                 {
                     profile: Vaccination.V1_00_000.Profile.RecordAddendum,
-                    models: [ModelsIM.RecordAddendumModel],
+                    models: [Models.IM.RecordAddendumModel],
                     component: Detail,
                     required: [
                         "Datum der Impfung",
@@ -85,7 +88,7 @@ describe("<Components.Detail />", () => {
                 },
                 {
                     profile: Vaccination.V1_00_000.Profile.RecordPrime,
-                    models: [ModelsIM.RecordPrimeModel],
+                    models: [Models.IM.RecordPrimeModel],
                     component: Detail,
                     required: [
                         "Datum der Impfung",
@@ -104,7 +107,7 @@ describe("<Components.Detail />", () => {
                 },
                 {
                     profile: Vaccination.V1_00_000.Profile.Condition,
-                    models: [ModelsIM.ConditionModel],
+                    models: [Models.IM.ConditionModel],
                     component: Detail,
                     required: ["Dokumentiert am"],
                     contain: [
@@ -115,7 +118,7 @@ describe("<Components.Detail />", () => {
                 },
                 {
                     profile: Vaccination.V1_00_000.Profile.ObservationImmunizationStatus,
-                    models: [ModelsIM.ObservationModel],
+                    models: [Models.IM.ObservationModel],
                     component: Detail,
                     required: ["Datum des Tests", "Ergebnis"],
                     contain: ["Anmerkungen zum durchgeführten Test", "Dokumentiert von"]
@@ -123,10 +126,10 @@ describe("<Components.Detail />", () => {
                 {
                     profile: Vaccination.V1_00_000.Profile.Organization,
                     models: [
-                        ModelsIM.OrganizationModel,
-                        AddressModel,
-                        TelecomModel,
-                        AdditionalCommentModel
+                        Models.IM.OrganizationModel,
+                        Models.AddressModel,
+                        Models.TelecomModel,
+                        Models.AdditionalCommentModel
                     ],
                     component: Detail,
                     required: ["Postleitzahl"],
@@ -138,7 +141,7 @@ describe("<Components.Detail />", () => {
                 },
                 {
                     profile: Vaccination.V1_00_000.Profile.Patient,
-                    models: [ModelsIM.PatientModel],
+                    models: [Models.IM.PatientModel],
                     component: Detail,
                     required: ["Geburtsdatum"],
                     contain: [
@@ -150,9 +153,9 @@ describe("<Components.Detail />", () => {
                 {
                     profile: Vaccination.V1_00_000.Profile.Practitioner,
                     models: [
-                        ModelsIM.PractitionerModel,
-                        TelecomModel,
-                        AdditionalCommentModel
+                        Models.IM.PractitionerModel,
+                        Models.TelecomModel,
+                        Models.AdditionalCommentModel
                     ],
                     component: Detail,
                     required: ["Funktionsbezeichnung"],
@@ -166,9 +169,9 @@ describe("<Components.Detail />", () => {
                     profile: Vaccination.V1_00_000.Profile.PractitionerAddendum,
                     component: Detail,
                     models: [
-                        ModelsIM.PractitionerModel,
-                        TelecomModel,
-                        AdditionalCommentModel
+                        Models.IM.PractitionerModel,
+                        Models.TelecomModel,
+                        Models.AdditionalCommentModel
                     ],
                     required: [],
                     contain: [
@@ -186,7 +189,7 @@ describe("<Components.Detail />", () => {
             definitions: [
                 {
                     profile: ZAEB.V1_00_000.Profile.GaplessDocumentation,
-                    models: [ModelsZB.GaplessDocumentationModel],
+                    models: [Models.ZB.GaplessDocumentationModel],
                     component: Detail,
                     required: ["Datum", "Eintrag durch", "Datum des Eintrags"],
                     contain: [
@@ -196,7 +199,7 @@ describe("<Components.Detail />", () => {
                 },
                 {
                     profile: ZAEB.V1_00_000.Profile.Observation,
-                    models: [ModelsZB.ObservationModel],
+                    models: [Models.ZB.ObservationModel],
                     component: Detail,
                     required: [
                         "Art der Untersuchung",
@@ -207,14 +210,18 @@ describe("<Components.Detail />", () => {
                 },
                 {
                     profile: ZAEB.V1_00_000.Profile.Organization,
-                    models: [ModelsZB.OrganizationModel, AddressModel, TelecomModel],
+                    models: [
+                        Models.ZB.OrganizationModel,
+                        Models.AddressModel,
+                        Models.TelecomModel
+                    ],
                     component: Detail,
                     required: ["Postleitzahl"],
                     contain: [/(IKNR)|(BSNR)|(ZANR)/, "Anschrift", "Kontaktinformationen"]
                 },
                 {
                     profile: ZAEB.V1_00_000.Profile.Patient,
-                    models: [ModelsZB.PatientModel, AddressModel],
+                    models: [Models.ZB.PatientModel, Models.AddressModel],
                     component: Detail,
                     required: ["Geburtsdatum"],
                     contain: [
@@ -225,6 +232,39 @@ describe("<Components.Detail />", () => {
                         "Stadt",
                         "Land"
                     ]
+                }
+            ]
+        },
+        {
+            mioString: "MR",
+            bundle: MR.V1_00_000.Profile.Bundle,
+            definitions: [
+                {
+                    profile: MR.V1_00_000.Profile.PatientMother,
+                    models: [Models.MP.Basic.PatientMotherModel, Models.AddressModel],
+                    component: Detail,
+                    required: ["Geburtsdatum"],
+                    contain: [
+                        /(GKV)|(PID)/,
+                        "Anschrift",
+                        "Adresszeile",
+                        "Postleitzahl",
+                        "Stadt",
+                        "Land"
+                    ]
+                }
+            ]
+        },
+        {
+            mioString: "UH",
+            bundle: CMR.V1_00_000.Profile.CMRBundle,
+            definitions: [
+                {
+                    profile: CMR.V1_00_000.Profile.CMRPatient,
+                    models: [Models.UH.Basic.PatientModel],
+                    component: Detail,
+                    required: ["Geburtsdatum"],
+                    contain: [/(kvk)|(GKV)|(PKV)|(PID)/]
                 }
             ]
         }
@@ -264,6 +304,7 @@ describe("<Components.Detail />", () => {
                                                       (model) =>
                                                           new model(
                                                               entry.resource,
+                                                              entry.fullUrl,
                                                               bundle,
                                                               routerProps.history
                                                           )

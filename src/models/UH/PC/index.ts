@@ -16,7 +16,6 @@
  * along with MIO Viewer. If not, see <https://www.gnu.org/licenses/>.
  */
 
-export default class Worker {
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    constructor() {}
-}
+import ParticipationCardModel from "./ParticipationCardModel";
+
+export { ParticipationCardModel };

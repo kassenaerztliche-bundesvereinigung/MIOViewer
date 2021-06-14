@@ -147,13 +147,15 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
             }
         };
 
+        const profiles = [
+            ZAEB.V1_00_000.Profile.Observation,
+            ZAEB.V1_00_000.Profile.GaplessDocumentation
+        ];
+
         const groups: OverviewGroup[] = [
             {
                 headline: "Bonusheft Einträge",
-                baseValues: [
-                    ZAEB.V1_00_000.Profile.Observation,
-                    ZAEB.V1_00_000.Profile.GaplessDocumentation
-                ],
+                baseValues: profiles,
                 template: templateObservation,
                 compare: this.compareObservation
             }
@@ -161,7 +163,7 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
 
         if (mio) {
             this.setState({
-                entries: mio.entry.map((entry) => entry as MIOEntry<ZAEBResource>),
+                entries: Util.ZB.getEntries(mio),
                 groups: groups
             });
         }

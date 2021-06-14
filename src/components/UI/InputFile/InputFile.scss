@@ -19,6 +19,27 @@
 @import "../../../assets/css/colors";
 @import "../../../assets/css/variables";
 
+.drag-drop-zone {
+    box-sizing: border-box;
+    display: none;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    z-index: 9999999999;
+    border: 5px dashed $analog-1;
+    background-color: rgba($analog-1, 0.7);
+
+    font-size: 4rem;
+    font-family: "Montserrat-ExtraLight", sans-serif;
+    color: white;
+    text-align: center;
+
+    align-items: center;
+    justify-content: center;
+}
+
 .input-file {
     width: 100%;
     height: 100%;

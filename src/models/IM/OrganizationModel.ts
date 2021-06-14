@@ -20,15 +20,17 @@ import { History } from "history";
 
 import { ParserUtil, KBVBundleResource, Vaccination } from "@kbv/mioparser";
 
-import BaseModel, { ModelValue } from "../BaseModel";
+import BaseModel from "../BaseModel";
+import { ModelValue } from "../Types";
 
 export default class OrganizationModel extends BaseModel<Vaccination.V1_00_000.Profile.Organization> {
     constructor(
         value: Vaccination.V1_00_000.Profile.Organization,
+        fullUrl: string,
         parent: KBVBundleResource,
         history?: History
     ) {
-        super(value, parent, history);
+        super(value, fullUrl, parent, history);
 
         this.headline = this.value.name;
         this.values = [this.getIdentifier()];
@@ -72,5 +74,12 @@ export default class OrganizationModel extends BaseModel<Vaccination.V1_00_000.P
             this.values.map((v) => v.label + ": " + v.value).join("\n") +
             "\n\n"
         );
+    }
+
+    public getMainValue(): ModelValue {
+        return {
+            value: this.headline,
+            label: "Organisation"
+        };
     }
 }

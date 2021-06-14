@@ -65,7 +65,7 @@ describe("<Home />", () => {
                     const state = store.getState().mioState;
                     expect(state.mios.length).toBe(1);
                 },
-                { timeout: 5000, interval: 500 }
+                { timeout: 10000, interval: 500 }
             );
         });
     };

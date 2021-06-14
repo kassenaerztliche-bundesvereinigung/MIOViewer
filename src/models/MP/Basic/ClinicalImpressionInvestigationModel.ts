@@ -20,37 +20,42 @@ import { History } from "history";
 
 import { ParserUtil, MIOEntry, MR } from "@kbv/mioparser";
 
-import { ModelValue } from "../../BaseModel";
+import { Util } from "../../../components";
+
 import MPBaseModel from "../MPBaseModel";
 import * as Models from "../../index";
-import { DetailMapping } from "../../../views/Comprehensive/Detail/DetailBase";
+import { DetailMapping } from "../../../views/Comprehensive/Detail/Types";
 import { Content } from "pdfmake/interfaces";
-import { horizontalLine } from "../../../pdf/PDFMaker";
+import { horizontalLine } from "../../../pdf/PDFHelper";
+import { ModelValue } from "../../index";
 
 const PR = MR.V1_00_000.Profile;
 const CM = MR.V1_00_000.ConceptMap;
 
-export default class ClinicalImpressionInvestigationModel extends MPBaseModel<
+export type ClinicalImpressionInvestigationType =
     | MR.V1_00_000.Profile.ClinicalImpressionInitialExamination
     | MR.V1_00_000.Profile.ClinicalImpressionPregnancyChartEntry
     | MR.V1_00_000.Profile.ClinicalImpressionPregnancyExaminationDischargeSummary
     | MR.V1_00_000.Profile.ClinicalImpressionBirthExaminationDeliveryInformation
-    | MR.V1_00_000.Profile.ClinicalImpressionBirthExaminationChildInformation
-> {
+    | MR.V1_00_000.Profile.ClinicalImpressionBirthExaminationChildInformation;
+
+export type InvestigationItemType =
+    | MR.V1_00_000.Profile.ClinicalImpressionInitialExaminationInvestigationItem
+    | MR.V1_00_000.Profile.ClinicalImpressionPregnancyChartEntryInvestigationItem
+    | MR.V1_00_000.Profile.ClinicalImpressionPregnancyExaminationDischargeSummaryInvestigationItem
+    | MR.V1_00_000.Profile.ClinicalImpressionBirthExaminationDeliveryInformationInvestigationItem;
+
+export default class ClinicalImpressionInvestigationModel extends MPBaseModel<ClinicalImpressionInvestigationType> {
     protected patientId: string | undefined;
 
     constructor(
-        value:
-            | MR.V1_00_000.Profile.ClinicalImpressionInitialExamination
-            | MR.V1_00_000.Profile.ClinicalImpressionPregnancyChartEntry
-            | MR.V1_00_000.Profile.ClinicalImpressionPregnancyExaminationDischargeSummary
-            | MR.V1_00_000.Profile.ClinicalImpressionBirthExaminationDeliveryInformation
-            | MR.V1_00_000.Profile.ClinicalImpressionBirthExaminationChildInformation,
+        value: ClinicalImpressionInvestigationType,
+        fullUrl: string,
         parent: MR.V1_00_000.Profile.Bundle,
         history?: History,
         customHeadline?: string
     ) {
-        super(value, parent, history);
+        super(value, fullUrl, parent, history);
 
         if (PR.ClinicalImpressionBirthExaminationChildInformation.is(this.value)) {
             this.patientId = history?.location.pathname.split("/").pop();
@@ -74,21 +79,15 @@ export default class ClinicalImpressionInvestigationModel extends MPBaseModel<
     public getInvestigations(): ModelValue[] {
         const investigations: ModelValue[] = [];
 
-        this.value.investigation?.forEach((i: any) => {
-            this.headline = this.headline ?? i.code.text;
-            i.item.forEach(
-                (
-                    item:
-                        | MR.V1_00_000.Profile.ClinicalImpressionInitialExaminationInvestigationItem
-                        | MR.V1_00_000.Profile.ClinicalImpressionPregnancyChartEntryInvestigationItem
-                        | MR.V1_00_000.Profile.ClinicalImpressionPregnancyExaminationDischargeSummaryInvestigationItem
-                        | MR.V1_00_000.Profile.ClinicalImpressionBirthExaminationDeliveryInformationInvestigationItem
-                ) => {
+        this.value.investigation?.forEach(
+            (i: { code: { text: string }; item?: InvestigationItemType[] }) => {
+                this.headline = this.headline ?? i.code.text;
+                i.item?.forEach((item: InvestigationItemType) => {
                     const checkedItem = this.checkItem(item);
                     if (checkedItem) investigations.push(checkedItem);
-                }
-            );
-        });
+                });
+            }
+        );
 
         if (MR.V1_00_000.Profile.ClinicalImpressionPregnancyChartEntry.is(this.value)) {
             const encounterRef = this.value.encounter.reference;
@@ -98,19 +97,19 @@ export default class ClinicalImpressionInvestigationModel extends MPBaseModel<
                 [MR.V1_00_000.Profile.ObservationExamination]
             );
             if (examinations) {
-                examinations.forEach((e) => {
-                    const res = e.resource;
-                    const ref = res.encounter.reference;
+                examinations.forEach((res) => {
+                    const ref = res.resource.encounter.reference;
                     if (ref === encounterRef) {
                         const model = new Models.MP.Basic.ObservationModel(
-                            res,
+                            res.resource,
+                            res.fullUrl,
                             this.parent as MR.V1_00_000.Profile.Bundle,
                             this.history
                         );
 
                         const loincHb1 = "718-7";
                         const loincHb2 = "59260-0";
-                        const codes = res.code.coding.map((c) => c.code);
+                        const codes = res.resource.code.coding.map((c) => c.code);
                         const isHb = codes.includes(loincHb1) || codes.includes(loincHb2);
                         if (isHb) {
                             investigations.push(model.getMainValue());
@@ -321,18 +320,18 @@ export default class ClinicalImpressionInvestigationModel extends MPBaseModel<
             ref
         );
 
-        const resource = result?.resource;
-
         const bundle = this.parent as MR.V1_00_000.Profile.Bundle;
 
         let mainValueResult: ModelValue | undefined = undefined;
-        let model: any = undefined;
-        if (resource) {
+        let model!: Models.Model;
+
+        if (result) {
             mappings.forEach((mapping) => {
-                if (!model && mapping.profile.is(resource)) {
+                if (!model && mapping.profile.is(result.resource)) {
                     if (mapping.models.length) {
                         model = new mapping.models[0](
-                            resource as any,
+                            result.resource,
+                            result.fullUrl,
                             bundle,
                             this.history,
                             mapping.valueConceptMaps,
@@ -345,15 +344,16 @@ export default class ClinicalImpressionInvestigationModel extends MPBaseModel<
 
             if (model) {
                 if (this.patientId) {
-                    if (MR.V1_00_000.Profile.PatientChild.is(resource)) {
-                        if (this.patientId === resource.id) {
+                    if (MR.V1_00_000.Profile.PatientChild.is(result.resource)) {
+                        if (this.patientId === result.resource.id) {
                             return model.getMainValue();
                         }
                     } else {
+                        const res = result.resource as { subject: { reference: string } };
                         const modelResult = ParserUtil.getEntryWithRef<MR.V1_00_000.Profile.PatientChild>(
                             bundle,
                             [MR.V1_00_000.Profile.PatientChild],
-                            (resource as any).subject.reference
+                            res.subject.reference
                         );
 
                         if (modelResult) {
@@ -373,20 +373,22 @@ export default class ClinicalImpressionInvestigationModel extends MPBaseModel<
         }
     }
 
-    getItemCoding(item: MIOEntry<any>): string {
+    getItemCoding(item: MIOEntry<ClinicalImpressionInvestigationType>): string {
         return Array.from(
             new Set(
-                item.resource.code.coding.map((c: any) => {
-                    return c._display?.extension
-                        ?.map((e: any) => {
-                            return e.extension
-                                ? e.extension.map((ex: any) => {
-                                      return ex.valueString;
-                                  })
-                                : "unknown";
-                        })
-                        .join(", ");
-                })
+                (item.resource.code.coding as Util.FHIR.Coding[]).map(
+                    (c: Util.FHIR.Coding) => {
+                        return c._display?.extension
+                            ?.map((e) => {
+                                return e.extension
+                                    ? e.extension.map((ex) => {
+                                          return ex.valueString;
+                                      })
+                                    : "unknown";
+                            })
+                            .join(", ");
+                    }
+                )
             )
         ).join(", ");
     }
@@ -395,8 +397,11 @@ export default class ClinicalImpressionInvestigationModel extends MPBaseModel<
         return "This profile has no coding";
     }
 
-    public getMainValue(): ModelValue | undefined {
-        return undefined;
+    public getMainValue(): ModelValue {
+        return {
+            value: this.values.map((v) => v.value).join(", "),
+            label: this.headline
+        };
     }
 
     public toPDFContent(
@@ -450,6 +455,7 @@ export default class ClinicalImpressionInvestigationModel extends MPBaseModel<
                             value.subModels.forEach((model) => {
                                 const sub = new model(
                                     value.subEntry?.resource,
+                                    value.subEntry?.fullUrl ?? "",
                                     this.parent
                                 );
                                 const pdfContent = sub.toPDFContent(

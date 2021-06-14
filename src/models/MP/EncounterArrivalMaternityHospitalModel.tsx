@@ -22,15 +22,16 @@ import { ParserUtil, MR } from "@kbv/mioparser";
 import { Util } from "../../components";
 
 import MPBaseModel from "./MPBaseModel";
-import { ModelValue } from "../BaseModel";
+import { ModelValue } from "../Types";
 
 export default class EncounterArrivalMaternityHospitalModel extends MPBaseModel<MR.V1_00_000.Profile.EncounterArrivalMaternityHospital> {
     constructor(
         value: MR.V1_00_000.Profile.EncounterArrivalMaternityHospital,
+        fullUrl: string,
         parent: MR.V1_00_000.Profile.Bundle,
         history?: History
     ) {
-        super(value, parent, history);
+        super(value, fullUrl, parent, history);
 
         this.headline = "Vorstellung in einer Entbindungsklinik";
 
@@ -78,7 +79,7 @@ export default class EncounterArrivalMaternityHospitalModel extends MPBaseModel<
             .join(",");
     }
 
-    getMainValue(): ModelValue | undefined {
+    public getMainValue(): ModelValue {
         return {
             value: Util.Misc.formatDate(this.value.period.start),
             label: this.getCoding()

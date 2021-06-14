@@ -54,12 +54,17 @@ export default class Routing extends React.Component {
                 // MIOs
                 { path: "/mio/:id", component: Overview },
                 { path: "/mios/:id", component: Overview },
-                { path: "/entry/:id/:entry", component: Detail },
-                { path: "/subEntry/:id/:entry", component: Detail },
+                { path: "/entry/:id/:entry/:filter?/:filterValue?", component: Detail },
+                {
+                    path: "/subEntry/:id/:entry/:filter?/:filterValue?",
+                    component: Detail
+                },
                 { path: "/section/:id/:section/:patient?", component: OverviewSection },
                 // EXAMPLES
                 { path: "/examples", component: Examples, exact: true },
+                { path: "/example/:id", component: Overview },
                 { path: "/examples/:id", component: Overview }
+                // TODO: solve example stuff via routing??? (not via EXAMPLE_PREFIX)
             ]
         },
         {
@@ -104,6 +109,9 @@ export default class Routing extends React.Component {
                 )}
 
                 <Redirect exact from="/mio" to="/main" />
+                <Redirect exact from="/mios" to="/main" />
+
+                <Redirect exact from="/example" to="/main" />
             </IonRouterOutlet>
         );
     }

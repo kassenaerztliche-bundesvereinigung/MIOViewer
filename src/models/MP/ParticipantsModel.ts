@@ -22,22 +22,26 @@ import { ParserUtil, MR } from "@kbv/mioparser";
 import { Util } from "../../components";
 
 import MPBaseModel from "./MPBaseModel";
-import { ModelValue } from "../BaseModel";
+import { ModelValue } from "../Types";
 
-export default class ParticipantsModel extends MPBaseModel<
-    MR.V1_00_000.Profile.EncounterGeneral | MR.V1_00_000.Profile.AppointmentPregnancy
-> {
+export type ParticipantsType =
+    | MR.V1_00_000.Profile.EncounterGeneral
+    | MR.V1_00_000.Profile.AppointmentPregnancy;
+
+export default class ParticipantsModel extends MPBaseModel<ParticipantsType> {
     constructor(
-        value:
-            | MR.V1_00_000.Profile.EncounterGeneral
-            | MR.V1_00_000.Profile.AppointmentPregnancy,
+        value: ParticipantsType,
+        fullUrl: string,
         parent: MR.V1_00_000.Profile.Bundle,
         history?: History
     ) {
-        super(value, parent, history);
+        super(value, fullUrl, parent, history);
 
         this.headline = "Teilnehmer";
-        const participants = this.value.participant as any[];
+        const participants = this.value.participant as {
+            individual?: { reference: string };
+            actor: { reference: string };
+        }[];
 
         this.values = participants
             ? participants.map((p, index) => {
@@ -90,11 +94,14 @@ export default class ParticipantsModel extends MPBaseModel<
             : [];
     }
 
-    getCoding(): string {
-        return "";
+    public getCoding(): string {
+        return "This profile has no coding";
     }
 
-    getMainValue(): ModelValue | undefined {
-        return undefined;
+    public getMainValue(): ModelValue {
+        return {
+            value: this.values.map((v) => v.value).join(", "),
+            label: this.headline
+        };
     }
 }

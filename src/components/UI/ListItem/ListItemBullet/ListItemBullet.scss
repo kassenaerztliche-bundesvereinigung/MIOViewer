@@ -28,6 +28,13 @@
             list-style-type: none;
             hyphens: auto;
 
+            &.hint-box {
+                font-size: 10px;
+                color: #23519d;
+                line-height: $space;
+                margin-left: 0;
+            }
+
             &::before {
                 content: "–";
                 font-size: 1rem;

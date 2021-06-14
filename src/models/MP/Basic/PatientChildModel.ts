@@ -21,17 +21,18 @@ import { History } from "history";
 import { MR } from "@kbv/mioparser";
 import { Util } from "../../../components";
 
-import { ModelValue } from "../../BaseModel";
 import MPBaseModel from "../MPBaseModel";
 import { AdditionalCommentModel } from "../../Comprehensive";
+import { ModelValue } from "../../Types";
 
 export default class PatientChildModel extends MPBaseModel<MR.V1_00_000.Profile.PatientChild> {
     constructor(
         value: MR.V1_00_000.Profile.PatientChild,
+        fullUrl: string,
         parent: MR.V1_00_000.Profile.Bundle,
         history?: History
     ) {
-        super(value, parent, history);
+        super(value, fullUrl, parent, history);
 
         const identifier = this.getIdentifier();
 
@@ -50,6 +51,7 @@ export default class PatientChildModel extends MPBaseModel<MR.V1_00_000.Profile.
 
         const commentModel = new AdditionalCommentModel(
             this.value,
+            this.fullUrl,
             this.parent,
             history,
             "Besonderheiten"
@@ -85,10 +87,10 @@ export default class PatientChildModel extends MPBaseModel<MR.V1_00_000.Profile.
     }
 
     getCoding(): string {
-        return "";
+        return "This profile has no coding";
     }
 
-    getMainValue(): ModelValue {
+    public getMainValue(): ModelValue {
         const identifier = this.value.identifier.map((i) => {
             return i.extension?.map((e) => e.valueInteger);
         });

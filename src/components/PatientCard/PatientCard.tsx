@@ -18,7 +18,7 @@
 
 import React from "react";
 
-import { Vaccination, ZAEB, MR } from "@kbv/mioparser";
+import { Vaccination, ZAEB, MR, CMR } from "@kbv/mioparser";
 import { Util } from "../";
 
 import "./PatientCard.scss";
@@ -27,7 +27,10 @@ type PatientProps = {
     patient:
         | Vaccination.V1_00_000.Profile.Patient
         | ZAEB.V1_00_000.Profile.Patient
-        | MR.V1_00_000.Profile.PatientMother;
+        | MR.V1_00_000.Profile.PatientMother
+        | CMR.V1_00_000.Profile.CMRPatient
+        | CMR.V1_00_000.Profile.PCPatient
+        | CMR.V1_00_000.Profile.PNPatient;
 };
 
 export default class PatientCard extends React.Component<PatientProps> {

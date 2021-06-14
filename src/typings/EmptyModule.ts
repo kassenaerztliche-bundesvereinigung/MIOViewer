@@ -16,4 +16,7 @@
  * along with MIO Viewer. If not, see <https://www.gnu.org/licenses/>.
  */
 
-export { default } from "./ListItemExpandable";
+export default class EmptyModule {
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    constructor() {}
+}

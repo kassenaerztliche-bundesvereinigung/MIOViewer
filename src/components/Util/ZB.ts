@@ -17,29 +17,75 @@
  */
 
 import { ZAEB, MIOEntry, ParserUtil } from "@kbv/mioparser";
+import { Util } from "../index";
 
 type Bundle = ZAEB.V1_00_000.Profile.Bundle;
+
+export function getComposition(
+    mio: Bundle
+): MIOEntry<ZAEB.V1_00_000.Profile.Composition> | undefined {
+    return ParserUtil.getEntry<ZAEB.V1_00_000.Profile.Composition>(mio, [
+        ZAEB.V1_00_000.Profile.Composition
+    ]);
+}
 
 export function getPatient(
     mio: Bundle
 ): MIOEntry<ZAEB.V1_00_000.Profile.Patient> | undefined {
-    return ParserUtil.getEntry<ZAEB.V1_00_000.Profile.Patient>(mio, [
-        ZAEB.V1_00_000.Profile.Patient
-    ]);
+    const subject = Util.ZB.getComposition(mio)?.resource.subject.reference;
+    return Util.ZB.getPatientByRef(mio, subject);
+}
+
+export function getPatientByRef(
+    mio: Bundle,
+    ref?: string
+): MIOEntry<ZAEB.V1_00_000.Profile.Patient> | undefined {
+    if (!ref) return;
+    return ParserUtil.getEntryWithRef<ZAEB.V1_00_000.Profile.Patient>(
+        mio,
+        [ZAEB.V1_00_000.Profile.Patient],
+        ref
+    );
+}
+
+export function getEntries(
+    mio: Bundle
+): MIOEntry<
+    ZAEB.V1_00_000.Profile.Observation | ZAEB.V1_00_000.Profile.GaplessDocumentation
+>[] {
+    const entries: MIOEntry<
+        ZAEB.V1_00_000.Profile.Observation | ZAEB.V1_00_000.Profile.GaplessDocumentation
+    >[] = [];
+
+    const composition = Util.ZB.getComposition(mio)?.resource;
+    if (composition) {
+        const refs = composition.section
+            .map((s) => s.entry.map((e) => e.reference))
+            .flat();
+
+        refs.forEach((ref) => {
+            const resource = ParserUtil.getEntryWithRef<
+                | ZAEB.V1_00_000.Profile.Observation
+                | ZAEB.V1_00_000.Profile.GaplessDocumentation
+            >(
+                mio,
+                [
+                    ZAEB.V1_00_000.Profile.Observation,
+                    ZAEB.V1_00_000.Profile.GaplessDocumentation
+                ],
+                ref
+            );
+            if (resource) entries.push(resource);
+        });
+    }
+
+    return entries;
 }
 
 export function getObservation(
     mio: Bundle
 ): MIOEntry<ZAEB.V1_00_000.Profile.Observation> | undefined {
     return ParserUtil.getEntry<ZAEB.V1_00_000.Profile.Observation>(mio, [
-        ZAEB.V1_00_000.Profile.Observation
-    ]);
-}
-
-export function getObservations(
-    mio: Bundle
-): MIOEntry<ZAEB.V1_00_000.Profile.Observation>[] {
-    return ParserUtil.getEntries<ZAEB.V1_00_000.Profile.Observation>(mio, [
         ZAEB.V1_00_000.Profile.Observation
     ]);
 }

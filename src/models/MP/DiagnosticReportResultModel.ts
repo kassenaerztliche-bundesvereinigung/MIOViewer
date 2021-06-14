@@ -23,21 +23,20 @@ import { Util } from "../../components";
 
 import { ObservationModel } from "./Basic";
 import MPBaseModel from "./MPBaseModel";
-import { ModelValue } from "../BaseModel";
+import { ModelValue } from "../Types";
 
 const PR = MR.V1_00_000.Profile;
 const CM = MR.V1_00_000.ConceptMap;
 
-export default class DiagnosticReportResultModel extends MPBaseModel<
+export type DiagnosticReportResultType =
     | MR.V1_00_000.Profile.DiagnosticReportUltrasoundI
     | MR.V1_00_000.Profile.DiagnosticReportUltrasoundII
-    | MR.V1_00_000.Profile.DiagnosticReportUltrasoundIII
-> {
+    | MR.V1_00_000.Profile.DiagnosticReportUltrasoundIII;
+
+export default class DiagnosticReportResultModel extends MPBaseModel<DiagnosticReportResultType> {
     constructor(
-        value:
-            | MR.V1_00_000.Profile.DiagnosticReportUltrasoundI
-            | MR.V1_00_000.Profile.DiagnosticReportUltrasoundII
-            | MR.V1_00_000.Profile.DiagnosticReportUltrasoundIII,
+        value: DiagnosticReportResultType,
+        fullUrl: string,
         parent: MR.V1_00_000.Profile.Bundle,
         history?: History,
         protected codeConceptMap: ParserUtil.ConceptMap[] | undefined = [
@@ -48,7 +47,7 @@ export default class DiagnosticReportResultModel extends MPBaseModel<
             CM.BiometricsIIIIIGerman
         ]
     ) {
-        super(value, parent, history);
+        super(value, fullUrl, parent, history);
 
         this.headline = "Befunde";
 
@@ -97,6 +96,7 @@ export default class DiagnosticReportResultModel extends MPBaseModel<
                     const resultCM = MR.V1_00_000.ConceptMap;
                     const model = new ObservationModel(
                         result.resource,
+                        result.fullUrl,
                         parent,
                         history,
                         [
@@ -122,12 +122,14 @@ export default class DiagnosticReportResultModel extends MPBaseModel<
         }
     }
 
-    // eslint-disable-next-line
-    public getCoding(resource?: unknown): string {
-        return "";
+    public getCoding(): string {
+        return "This profile has no coding";
     }
 
-    getMainValue(): ModelValue | undefined {
-        return undefined;
+    public getMainValue(): ModelValue {
+        return {
+            value: this.values.map((v) => v.value).join(", "),
+            label: this.headline
+        };
     }
 }

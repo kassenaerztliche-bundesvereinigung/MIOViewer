@@ -18,11 +18,12 @@
 
 import { History } from "history";
 
-import { KBVBundleResource, Vaccination, ZAEB, MR } from "@kbv/mioparser";
+import { KBVBundleResource, Vaccination, ZAEB, MR, CMR } from "@kbv/mioparser";
 import { UI, Util } from "../../components/";
 
-import BaseModel, { ModelValue } from "../BaseModel";
+import BaseModel from "../BaseModel";
 import { Content } from "pdfmake/interfaces";
+import { ModelValue } from "../Types";
 
 export default class TelecomModel<
     T extends
@@ -32,9 +33,11 @@ export default class TelecomModel<
         | ZAEB.V1_00_000.Profile.Organization
         | MR.V1_00_000.Profile.Organization
         | MR.V1_00_000.Profile.Practitioner
+        | CMR.V1_00_000.Profile.CMRPractitioner
+        | CMR.V1_00_000.Profile.CMROrganization
 > extends BaseModel<T> {
-    constructor(value: T, parent: KBVBundleResource, history?: History) {
-        super(value, parent, history);
+    constructor(value: T, fullUrl: string, parent: KBVBundleResource, history?: History) {
+        super(value, fullUrl, parent, history);
 
         this.headline = "Kontaktinformationen";
         const telecom = Util.Misc.getTelecom(this.value);
@@ -66,5 +69,14 @@ export default class TelecomModel<
 
     public toString(): string {
         throw new Error("Method not implemented.");
+    }
+
+    // TODO:
+    public getMainValue(): ModelValue {
+        const defaultValue = {
+            label: "-",
+            value: "-"
+        };
+        return this.values.length ? this.values[0] : defaultValue;
     }
 }

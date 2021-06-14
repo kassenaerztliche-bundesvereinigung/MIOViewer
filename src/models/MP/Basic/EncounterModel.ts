@@ -22,7 +22,7 @@ import { ParserUtil, MR } from "@kbv/mioparser";
 import { Util } from "../../../components";
 
 import MPBaseModel from "../MPBaseModel";
-import { ModelValue } from "../../BaseModel";
+import { ModelValue } from "../../Types";
 
 const PR = MR.V1_00_000.Profile;
 
@@ -33,11 +33,12 @@ export default class EncounterModel<
 > extends MPBaseModel<T> {
     constructor(
         value: T,
+        fullUrl: string,
         parent: MR.V1_00_000.Profile.Bundle,
         history?: History,
         customLabel = "Untersucht am"
     ) {
-        super(value, parent, history);
+        super(value, fullUrl, parent, history);
 
         this.headline = this.getPeriod();
 
@@ -76,7 +77,7 @@ export default class EncounterModel<
     }
 
     protected getPeriod(): string {
-        const period = this.value.period as any;
+        const period = this.value.period as { start?: string; end?: string };
         if (Object.prototype.hasOwnProperty.call(period, "start")) {
             return (
                 Util.Misc.formatDate(period.start) +
@@ -86,11 +87,14 @@ export default class EncounterModel<
         return "-";
     }
 
-    getCoding(): string {
-        return "";
+    public getCoding(): string {
+        return "This profile has no coding";
     }
 
-    getMainValue(): ModelValue | undefined {
-        return undefined;
+    public getMainValue(): ModelValue {
+        return {
+            value: this.getPeriod(),
+            label: "Untersuchungsdatum"
+        };
     }
 }

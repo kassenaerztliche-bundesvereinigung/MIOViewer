@@ -22,16 +22,21 @@ import { ParserUtil, MR } from "@kbv/mioparser";
 import { Util } from "../../../components";
 
 import MPBaseModel from "../MPBaseModel";
-import { ModelValue } from "../../BaseModel";
 import { Content } from "pdfmake/interfaces";
+import { ModelValue } from "../../Types";
 
 export default class ProcedureBaseModel<
     T extends
         | MR.V1_00_000.Profile.ProcedureAntiDProphylaxis
         | MR.V1_00_000.Profile.ProcedureCounselling
 > extends MPBaseModel<T> {
-    constructor(value: T, parent: MR.V1_00_000.Profile.Bundle, history?: History) {
-        super(value, parent, history);
+    constructor(
+        value: T,
+        fullUrl: string,
+        parent: MR.V1_00_000.Profile.Bundle,
+        history?: History
+    ) {
+        super(value, fullUrl, parent, history);
 
         this.headline = this.getCoding();
 
@@ -105,19 +110,21 @@ export default class ProcedureBaseModel<
     }
 
     public getCoding(): string {
-        const value = this.value as any;
+        const value = this.value as { code: Util.FHIR.Code };
         return Array.from(
             new Set(
-                value.code.coding.map((c: any) => {
-                    return c._display.extension
-                        .map((e: any) => e.extension.map((ex: any) => ex.valueString))
-                        .join(", ");
+                value.code.coding.map((c: Util.FHIR.Coding) => {
+                    return (
+                        c._display?.extension
+                            ?.map((e) => e.extension?.map((ex) => ex.valueString))
+                            .join(", ") ?? "-"
+                    );
                 })
             )
         ).join(", ");
     }
 
-    getMainValue(): ModelValue | undefined {
+    public getMainValue(): ModelValue {
         return {
             value: Util.Misc.formatDate(this.value.performedDateTime),
             label: this.getCoding()

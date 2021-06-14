@@ -21,16 +21,17 @@ import { History } from "history";
 import { MR } from "@kbv/mioparser";
 import { Util } from "../../../components";
 
-import { ModelValue } from "../../BaseModel";
 import MPBaseModel from "../MPBaseModel";
+import { ModelValue } from "../../Types";
 
 export default class PatientMotherModel extends MPBaseModel<MR.V1_00_000.Profile.PatientMother> {
     constructor(
         value: MR.V1_00_000.Profile.PatientMother,
+        fullUrl: string,
         parent: MR.V1_00_000.Profile.Bundle,
         history?: History
     ) {
-        super(value, parent, history);
+        super(value, fullUrl, parent, history);
 
         this.headline = Util.MP.getPatientMotherName(this.value);
         this.values = [
@@ -52,11 +53,14 @@ export default class PatientMotherModel extends MPBaseModel<MR.V1_00_000.Profile
         );
     }
 
-    getCoding(): string {
-        return "";
+    public getCoding(): string {
+        return "This profile has no coding";
     }
 
-    getMainValue(): ModelValue | undefined {
-        return undefined;
+    public getMainValue(): ModelValue {
+        return {
+            value: Util.MP.getPatientMotherName(this.value),
+            label: "Patient/-in"
+        };
     }
 }

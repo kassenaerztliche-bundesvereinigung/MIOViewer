@@ -20,7 +20,8 @@ import { Constants, SettingsActions, SettingsState } from "../Types";
 
 const initialSettingsState: SettingsState = {
     showIntro: true,
-    cookiesAccepted: false
+    cookiesAccepted: false,
+    devMode: false
 };
 
 export { initialSettingsState };
@@ -36,6 +37,8 @@ export function settingsReducer(
         return { ...state, showIntro: payload.value };
     } else if (action.type === Constants.ACCEPT_COOKIES) {
         return { ...state, cookiesAccepted: payload.value };
+    } else if (action.type === Constants.DEV_MODE) {
+        return { ...state, devMode: payload.value };
     } else {
         return state;
     }

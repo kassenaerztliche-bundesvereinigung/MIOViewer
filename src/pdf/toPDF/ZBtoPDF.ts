@@ -23,7 +23,7 @@ import { Util } from "../../components";
 
 import * as Models from "../../models";
 
-import { horizontalLine } from "../PDFMaker";
+import { horizontalLine } from "../PDFHelper";
 import PDFRepresentation from "../PDFRepresentation";
 
 export default class ZBtoPDF extends PDFRepresentation<ZAEB.V1_00_000.Profile.Bundle> {
@@ -32,23 +32,22 @@ export default class ZBtoPDF extends PDFRepresentation<ZAEB.V1_00_000.Profile.Bu
     }
 
     public getContent(): Content {
-        const observations = ParserUtil.getEntries<
-            | ZAEB.V1_00_000.Profile.Observation
-            | ZAEB.V1_00_000.Profile.GaplessDocumentation
-        >(this.value, [
-            ZAEB.V1_00_000.Profile.Observation,
-            ZAEB.V1_00_000.Profile.GaplessDocumentation
-        ]);
+        const observations = Util.ZB.getEntries(this.value);
 
         const contentObservations = observations.map((o) => {
             if (ZAEB.V1_00_000.Profile.GaplessDocumentation.is(o.resource)) {
                 const model = new Models.ZB.GaplessDocumentationModel(
                     o.resource,
+                    o.fullUrl,
                     this.value
                 );
                 return model.toPDFContent();
             } else {
-                const model = new Models.ZB.ObservationModel(o.resource, this.value);
+                const model = new Models.ZB.ObservationModel(
+                    o.resource,
+                    o.fullUrl,
+                    this.value
+                );
                 return model.toPDFContent();
             }
         });
@@ -83,14 +82,17 @@ export default class ZBtoPDF extends PDFRepresentation<ZAEB.V1_00_000.Profile.Bu
             if (organization && organization.resource) {
                 const organizationModel = new Models.ZB.OrganizationModel(
                     organization.resource,
+                    organization.fullUrl,
                     this.value
                 );
                 const address = new Models.AddressModel(
                     organization.resource,
+                    organization.fullUrl,
                     this.value
                 );
                 const telecom = new Models.TelecomModel(
                     organization.resource,
+                    organization.fullUrl,
                     this.value
                 );
 
@@ -109,9 +111,14 @@ export default class ZBtoPDF extends PDFRepresentation<ZAEB.V1_00_000.Profile.Bu
         if (patientResource) {
             const model = new Models.ZB.PatientModel(
                 patientResource.resource,
+                patientResource.fullUrl,
                 this.value
             );
-            const address = new Models.AddressModel(patientResource.resource, this.value);
+            const address = new Models.AddressModel(
+                patientResource.resource,
+                patientResource.fullUrl,
+                this.value
+            );
             patientContent = [model.toPDFContent(), address.toPDFContent()];
         }
 

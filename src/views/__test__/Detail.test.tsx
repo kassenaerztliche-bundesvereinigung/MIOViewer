@@ -24,8 +24,11 @@ import * as TestUtil from "miotestdata";
 
 import MIOParser, {
     ParserUtil,
+    AnyType,
     Vaccination,
     ZAEB,
+    MR,
+    CMR,
     KBVBundleResource
 } from "@kbv/mioparser";
 
@@ -33,6 +36,8 @@ import { Util } from "../../components";
 
 import DetailIM from "../IM/Detail";
 import DetailZB from "../ZB/Detail";
+import DetailMR from "../MP/Detail";
+import DetailUH from "../UH/Detail";
 
 describe("<Detail-View />", () => {
     const mioParser = new MIOParser();
@@ -41,8 +46,8 @@ describe("<Detail-View />", () => {
         component: React.ComponentType;
         details: {
             getFunction: any; // eslint-disable-line
-            testId: string | undefined;
-            profile: any; // eslint-disable-line
+            testId: string | RegExp | undefined;
+            profile: AnyType;
             required: string[];
         }[];
     } & TestUtil.HasMioString;
@@ -78,7 +83,7 @@ describe("<Detail-View />", () => {
                 },
                 {
                     getFunction: Util.IM.getPractitioner,
-                    testId: undefined, // TODO: "detail-VaccinationPractitioner" | "detail-VaccinationPractitionerAddendum"
+                    testId: /(detail-VaccinationPractitioner)|(detail-VaccinationPractitionerAddendum)/,
                     profile: Vaccination.V1_00_000.Profile.Practitioner,
                     required: ["Funktionsbezeichnung"]
                 }
@@ -111,6 +116,36 @@ describe("<Detail-View />", () => {
                     testId: "detail-ZAEBGaplessDocumentation",
                     profile: ZAEB.V1_00_000.Profile.GaplessDocumentation,
                     required: ["Datum", "Eintrag durch", "Datum des Eintrags"]
+                }
+            ]
+        },
+        {
+            mioString: "MR",
+            component: DetailMR,
+            details: [
+                {
+                    getFunction: Util.MP.getPatientMother,
+                    testId: "detail-MRPatientMother",
+                    profile: MR.V1_00_000.Profile.PatientMother,
+                    required: ["Geburtsdatum"]
+                },
+                {
+                    getFunction: Util.MP.getAuthor,
+                    testId: /(detail-MROrganization)|(detail-MRPractitioner)/,
+                    profile: MR.V1_00_000.Profile.Organization,
+                    required: []
+                }
+            ]
+        },
+        {
+            mioString: "UH",
+            component: DetailUH,
+            details: [
+                {
+                    getFunction: Util.UH.getPatient,
+                    testId: /(detail-CMRPatient)|(detail-PCPatient)|(detail-PNPatient)/,
+                    profile: CMR.V1_00_000.Profile.CMRPatient,
+                    required: ["Geburtsdatum"]
                 }
             ]
         }

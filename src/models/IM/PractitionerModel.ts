@@ -21,20 +21,22 @@ import { History } from "history";
 import { KBVBundleResource, ParserUtil, Vaccination } from "@kbv/mioparser";
 import { Util } from "../../components";
 
-import BaseModel, { ModelValue } from "../BaseModel";
+import BaseModel from "../BaseModel";
+import { ModelValue } from "../Types";
 
-export default class PractitionerModel extends BaseModel<
+export type PractitionerType =
     | Vaccination.V1_00_000.Profile.Practitioner
-    | Vaccination.V1_00_000.Profile.PractitionerAddendum
-> {
+    | Vaccination.V1_00_000.Profile.PractitionerAddendum;
+
+export default class PractitionerModel extends BaseModel<PractitionerType> {
     constructor(
-        value:
-            | Vaccination.V1_00_000.Profile.Practitioner
-            | Vaccination.V1_00_000.Profile.PractitionerAddendum,
+        value: PractitionerType,
+        fullUrl: string,
         parent: KBVBundleResource,
         history?: History
     ) {
-        super(value, parent, history);
+        super(value, fullUrl, parent, history);
+
         this.headline = Util.IM.getPractitionerName(this.value);
         this.values = [
             {
@@ -118,5 +120,12 @@ export default class PractitionerModel extends BaseModel<
             .filter((v) => v.value !== "-" && !v.label.includes("Geburtsname"))
             .map((v) => v.label + ": " + v.value)
             .join("\n");
+    }
+
+    public getMainValue(): ModelValue {
+        return {
+            value: this.headline,
+            label: "Behandelnde Person"
+        };
     }
 }

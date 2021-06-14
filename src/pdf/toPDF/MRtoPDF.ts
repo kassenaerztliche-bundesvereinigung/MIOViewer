@@ -22,11 +22,12 @@ import { ParserUtil, MR } from "@kbv/mioparser";
 import { Util } from "../../components";
 
 import * as Models from "../../models";
-import { horizontalLine } from "../PDFMaker";
+
+import Mappings from "../../views/MP/Mappings";
 import Compare from "../../views/MP/Compare";
 
+import { horizontalLine } from "../PDFHelper";
 import PDFRepresentation from "../PDFRepresentation";
-import Mappings from "../../views/MP/Mappings";
 
 const MR_PR = MR.V1_00_000.Profile;
 
@@ -68,15 +69,31 @@ export default class MRtoPDF extends PDFRepresentation<MR.V1_00_000.Profile.Bund
             const author = Util.MP.getAuthor(this.value, ref);
 
             if (author && author.resource) {
-                const res = author.resource;
                 let model;
-                if (MR.V1_00_000.Profile.Practitioner.is(res)) {
-                    model = new Models.MP.Basic.PractitionerModel(res, this.value);
+
+                if (MR.V1_00_000.Profile.Practitioner.is(author.resource)) {
+                    model = new Models.MP.Basic.PractitionerModel(
+                        author.resource,
+                        author.fullUrl,
+                        this.value
+                    );
                 } else {
-                    model = new Models.MP.Basic.OrganizationModel(res, this.value);
+                    model = new Models.MP.Basic.OrganizationModel(
+                        author.resource,
+                        author.fullUrl,
+                        this.value
+                    );
                 }
-                const address = new Models.AddressModel(author.resource, this.value);
-                const telecom = new Models.TelecomModel(author.resource, this.value);
+                const address = new Models.AddressModel(
+                    author.resource,
+                    author.fullUrl,
+                    this.value
+                );
+                const telecom = new Models.TelecomModel(
+                    author.resource,
+                    author.fullUrl,
+                    this.value
+                );
 
                 authorContent = [
                     [horizontalLine],
@@ -93,9 +110,14 @@ export default class MRtoPDF extends PDFRepresentation<MR.V1_00_000.Profile.Bund
         if (patientResource) {
             const model = new Models.MP.Basic.PatientMotherModel(
                 patientResource.resource,
+                patientResource.fullUrl,
                 this.value
             );
-            const address = new Models.AddressModel(patientResource.resource, this.value);
+            const address = new Models.AddressModel(
+                patientResource.resource,
+                patientResource.fullUrl,
+                this.value
+            );
             patient = [model.toPDFContent(), address.toPDFContent()];
         }
 
@@ -204,11 +226,12 @@ export default class MRtoPDF extends PDFRepresentation<MR.V1_00_000.Profile.Bund
                 this.value,
                 [MR_PR.ObservationSpecialFindings],
                 ref
-            )?.resource;
+            );
 
             if (res) {
                 const model = new Models.MP.Basic.ObservationModel(
-                    res,
+                    res.resource,
+                    res.fullUrl,
                     this.value,
                     undefined,
                     [MR.V1_00_000.ConceptMap.SpecialFindingsGerman]
@@ -379,10 +402,14 @@ export default class MRtoPDF extends PDFRepresentation<MR.V1_00_000.Profile.Bund
                 this.value,
                 [MR_PR.ObservationUltrasound],
                 ref
-            )?.resource;
+            );
 
             if (res) {
-                const model = new Models.MP.Basic.ObservationModel(res, this.value);
+                const model = new Models.MP.Basic.ObservationModel(
+                    res.resource,
+                    res.fullUrl,
+                    this.value
+                );
                 const note = model.getNote();
 
                 content.push(
@@ -509,15 +536,16 @@ export default class MRtoPDF extends PDFRepresentation<MR.V1_00_000.Profile.Bund
         slices.forEach((subSection) => {
             subSection.entry?.forEach((entry) => {
                 const ref = entry.reference;
-                const resource = ParserUtil.getEntryWithRef<MR.V1_00_000.Profile.ClinicalImpressionBirthExaminationDeliveryInformation>(
+                const res = ParserUtil.getEntryWithRef<MR.V1_00_000.Profile.ClinicalImpressionBirthExaminationDeliveryInformation>(
                     this.value,
                     [MR_PR.ClinicalImpressionBirthExaminationDeliveryInformation],
                     ref
-                )?.resource;
+                );
 
-                if (resource) {
+                if (res) {
                     const model = new Models.MP.Basic.ClinicalImpressionModel(
-                        resource,
+                        res.resource,
+                        res.fullUrl,
                         this.value
                     );
 
@@ -528,7 +556,11 @@ export default class MRtoPDF extends PDFRepresentation<MR.V1_00_000.Profile.Bund
                         subSection.section
                     );
 
-                    const childrenContent = this.mapChildren(resource, childSection);
+                    const childrenContent = this.mapChildren(
+                        res.resource,
+                        res.fullUrl,
+                        childSection
+                    );
                     if (childrenContent.length) {
                         content.push(
                             this.sectionWithContent(
@@ -558,22 +590,24 @@ export default class MRtoPDF extends PDFRepresentation<MR.V1_00_000.Profile.Bund
         slices.forEach((subSection) => {
             subSection.entry?.forEach((entry) => {
                 const ref = entry.reference;
-                const resource = ParserUtil.getEntryWithRef<MR.V1_00_000.Profile.ClinicalImpressionFirstExaminationAfterChildbirth>(
+                const res = ParserUtil.getEntryWithRef<MR.V1_00_000.Profile.ClinicalImpressionFirstExaminationAfterChildbirth>(
                     this.value,
                     [MR_PR.ClinicalImpressionFirstExaminationAfterChildbirth],
                     ref
-                )?.resource;
+                );
 
-                if (resource) {
+                if (res) {
                     const model = new Models.MP.Basic.ClinicalImpressionModel(
-                        resource,
+                        res.resource,
+                        res.fullUrl,
                         this.value
                     );
 
                     content.push(model.toPDFContent(), horizontalLine);
 
                     const mother = new Models.MP.InformationAboutMotherModel(
-                        resource,
+                        res.resource,
+                        res.fullUrl,
                         this.value
                     );
 
@@ -584,7 +618,11 @@ export default class MRtoPDF extends PDFRepresentation<MR.V1_00_000.Profile.Bund
                         subSection.section
                     );
 
-                    const childrenContent = this.mapChildren(resource, childSection);
+                    const childrenContent = this.mapChildren(
+                        res.resource,
+                        res.fullUrl,
+                        childSection
+                    );
                     if (childrenContent.length) {
                         content.push(
                             this.sectionWithContent(
@@ -618,22 +656,24 @@ export default class MRtoPDF extends PDFRepresentation<MR.V1_00_000.Profile.Bund
         slices.forEach((subSection) => {
             subSection.entry?.forEach((entry) => {
                 const ref = entry.reference;
-                const resource = ParserUtil.getEntryWithRef<MR.V1_00_000.Profile.ClinicalImpressionSecondExaminationAfterChildbirth>(
+                const res = ParserUtil.getEntryWithRef<MR.V1_00_000.Profile.ClinicalImpressionSecondExaminationAfterChildbirth>(
                     this.value,
                     [MR_PR.ClinicalImpressionSecondExaminationAfterChildbirth],
                     ref
-                )?.resource;
+                );
 
-                if (resource) {
+                if (res) {
                     const entryModel = new Models.MP.Basic.ClinicalImpressionModel(
-                        resource,
+                        res.resource,
+                        res.fullUrl,
                         this.value
                     );
 
                     content.push(entryModel.toPDFContent(), horizontalLine);
 
                     const mother = new Models.MP.InformationAboutMotherModel(
-                        resource,
+                        res.resource,
+                        res.fullUrl,
                         this.value
                     );
 
@@ -646,7 +686,11 @@ export default class MRtoPDF extends PDFRepresentation<MR.V1_00_000.Profile.Bund
                         subSection.section
                     );
 
-                    const childrenContent = this.mapChildren(resource, childSection);
+                    const childrenContent = this.mapChildren(
+                        res.resource,
+                        res.fullUrl,
+                        childSection
+                    );
                     if (childrenContent.length) {
                         content.push(
                             this.sectionWithContent(
@@ -672,6 +716,7 @@ export default class MRtoPDF extends PDFRepresentation<MR.V1_00_000.Profile.Bund
             | MR.V1_00_000.Profile.ClinicalImpressionBirthExaminationDeliveryInformation
             | MR.V1_00_000.Profile.ClinicalImpressionSecondExaminationAfterChildbirth
             | MR.V1_00_000.Profile.ClinicalImpressionFirstExaminationAfterChildbirth,
+        fullUrl: string,
         section:
             | MR.V1_00_000.Profile.CompositionUntersuchungenEpikriseGeburtSection[]
             | MR.V1_00_000.Profile.CompositionUntersuchungenEpikriseWochenbettAngabenZumKind[]
@@ -679,7 +724,11 @@ export default class MRtoPDF extends PDFRepresentation<MR.V1_00_000.Profile.Bund
     ): Content[] {
         const content: Content = [];
 
-        const model = new Models.MP.InformationAboutChildModel(resource, this.value);
+        const model = new Models.MP.InformationAboutChildModel(
+            resource,
+            fullUrl,
+            this.value
+        );
 
         model.getChildren().forEach((child) => {
             const childContent: Content = [];
@@ -705,7 +754,7 @@ export default class MRtoPDF extends PDFRepresentation<MR.V1_00_000.Profile.Bund
 
                 entries.forEach((entry: { reference: string }) => {
                     const ref = entry.reference;
-                    const entryResource = ParserUtil.getEntryWithRef<
+                    const res = ParserUtil.getEntryWithRef<
                         | MR.V1_00_000.Profile.PatientChild
                         // Geburt
                         | MR.V1_00_000.Profile.ObservationBirthMode
@@ -745,13 +794,14 @@ export default class MRtoPDF extends PDFRepresentation<MR.V1_00_000.Profile.Bund
                             MR_PR.ObservationNeedOfTreatmentU3
                         ],
                         ref
-                    )?.resource;
+                    );
 
-                    if (entryResource) {
-                        if (MR.V1_00_000.Profile.PatientChild.is(entryResource)) {
-                            if (child === entryResource.id) {
+                    if (res) {
+                        if (MR.V1_00_000.Profile.PatientChild.is(res.resource)) {
+                            if (child === res.resource.id) {
                                 const entryModel = new Models.MP.Basic.PatientChildModel(
-                                    entryResource,
+                                    res.resource,
+                                    res.fullUrl,
                                     this.value
                                 );
 
@@ -762,7 +812,8 @@ export default class MRtoPDF extends PDFRepresentation<MR.V1_00_000.Profile.Bund
                                 child === ParserUtil.getUuid(resource.subject.reference)
                             ) {
                                 const entryModel = new Models.MP.Basic.ObservationModel(
-                                    entryResource,
+                                    res.resource,
+                                    res.fullUrl,
                                     this.value
                                 );
 

@@ -13,45 +13,42 @@
 </p>
 
 # MIO Viewer
-Der MIO Viewer ist ein JavaScript/TypeScript Package, dass es möglich macht Medizinische Informationsobjekte (kurz MIO) in einem einfachen Interface darzustellen. 
-MIOs dienen dazu, medizinische Daten - etwa in einer elektronischen Patientenakte - standardisiert, also nach einem festgelegten Format, zu dokumentieren. 
-Sie können als kleine digitale Informationsbausteine verstanden werden, die universell verwendbar und kombinierbar sind. 
-Beispiele für bereits entwickelte MIOs sind der Impfpass und das zahnärztliche Bonusheft. Mehr dazu auf https://mio.kbv.de. 
 
-Über diese Anwendung können entschlüsselte JSON- und XML MIOs eingelesen werden. Diese werden dann dargestellt und lassen sich auch als PDF exportieren. 
+Der MIO Viewer ist ein JavaScript/TypeScript Package, dass es möglich macht Medizinische Informationsobjekte (kurz MIO) in einem einfachen Interface darzustellen.
+MIOs dienen dazu, medizinische Daten - etwa in einer elektronischen Patientenakte - standardisiert, also nach einem festgelegten Format, zu dokumentieren.
+Sie können als kleine digitale Informationsbausteine verstanden werden, die universell verwendbar und kombinierbar sind.
+Beispiele für bereits entwickelte MIOs sind der Impfpass und das zahnärztliche Bonusheft. Mehr dazu auf https://mio.kbv.de.
 
-## Hintergrund 
+Über diese Anwendung können entschlüsselte JSON- und XML MIOs eingelesen werden. Diese werden dann dargestellt und lassen sich auch als PDF exportieren.
 
-Ab dem Jahr 2022 werden in der elektronische Patientenakte MIOs für alle Versicherten in Deutschland eingeführt. 
-Die KBV hat den gesetzlichen Auftrag, die semantische und syntaktische Interoperabilität für Inhalte der elektronischen Patientenakte festzulegen. 
-Zu diesem Zweck entwickelt die KBV die medizinischen Informationsobjekte, mit dem Ziel einen einheitlichen Standard zur Übertragung und Verarbeitung von medizinischen Daten zu definieren. 
-Die MIOs werden in HL7® FHIR® profiliert. 
+## Hintergrund
 
-Der MIO Viewer ist ein Tool, was es Endanwendern einfach machen soll sich diese Informationen anzeigen zu lassen. 
-Hierfür wird es zur freien Nutzung unter der LGPLv3 Lizenz zur Verfügung gestellt. 
+Ab dem Jahr 2022 werden in der elektronische Patientenakte MIOs für alle Versicherten in Deutschland eingeführt.
+Die KBV hat den gesetzlichen Auftrag, die semantische und syntaktische Interoperabilität für Inhalte der elektronischen Patientenakte festzulegen.
+Zu diesem Zweck entwickelt die KBV die medizinischen Informationsobjekte, mit dem Ziel einen einheitlichen Standard zur Übertragung und Verarbeitung von medizinischen Daten zu definieren.
+Die MIOs werden in HL7® FHIR® profiliert.
 
-## Allgemeines 
+Der MIO Viewer ist ein Tool, was es Endanwendern einfach machen soll sich diese Informationen anzeigen zu lassen.
+Hierfür wird es zur freien Nutzung unter der LGPLv3 Lizenz zur Verfügung gestellt.
 
-Folgende MIOs können vom Viewer angezeigt werden:
+## Allgemeines
 
--   Impfpass
--   Zahnärztliches Bonusheft
--   Mutterpass
+Welche MIOs verarbeitet werden können kann dem [Changelog](https://github.com/kassenaerztliche-bundesvereinigung/MIOViewer/blob/master/CHANGELOG.md) entnommen werden.
 
 ## Setup
 
 Die folgenden Anweisungen sollen helfen die Software herunterzuladen, installieren und auszuführen.
 
-### Voraussetzungen 
+### Voraussetzungen
 
 [![Node Version](http://img.shields.io/badge/node-<=12.19.0-brightgreen.svg?style=flat-square)](https://nodejs.org/)
 [![NPM Version](https://img.shields.io/npm/v/npm.svg?style=flat-square)](https://www.npmjs.com/)
 
-<a href="http://nodejs.org" target="_blank">Node.js</a> mit NPM muss installiert sein. 
+<a href="http://nodejs.org" target="_blank">Node.js</a> mit NPM muss installiert sein.
 
-### Setup 
+### Setup
 
-Code von GitHub runterladen oder klonen. 
+Code von GitHub runterladen oder klonen.
 
 ```shell script
 $ git clone https://github.com/kassenaerztliche-bundesvereinigung/mioviewer.git
@@ -60,21 +57,23 @@ $ npm install
 $ npm run start
 ```
 
-Nach erfolgreichem Start der Anwendung kann der Browser auf http://localhost:3000/ geöffnet werden. 
+Nach erfolgreichem Start der Anwendung kann der Browser auf http://localhost:3000/ geöffnet werden.
 
-Beispiel Dateien können im Repository `https://github.com/kassenaerztliche-bundesvereinigung/miotestdata/` unter `/examples` gefunden werden. 
+Beispiel Dateien können im Repository `https://github.com/kassenaerztliche-bundesvereinigung/miotestdata/` unter `/examples` gefunden werden.
 
-### Mitwirken 
+### Mitwirken
+
 Derzeit ist keine Mitwirkung von externen Entwicklern vorgesehen. Dies kann sich aber ändern. #stayTuned
 
 Softwarefehler können über die [GitHub Issues](https://github.com/kassenaerztliche-bundesvereinigung/MIOViewer/issues) Seite gemeldet werden.
-Über GitHub oder die Mail-Adresse support.mio@kbv.de können Fragen gestellt werden nachdem das FAQ konsultiert wurde. 
+Über GitHub oder die Mail-Adresse support.mio@kbv.de können Fragen gestellt werden, nachdem das FAQ konsultiert wurde.
 
-### Lizenz 
+### Lizenz
 
-Diese Software ist unter der LGPLv3 Lizenz lizensiert worden - siehe <a href="./COPYING.LESSER">LICENSE</a> für Details. 
+Diese Software ist unter der LGPLv3 Lizenz lizensiert worden - siehe <a href="./COPYING.LESSER">LICENSE</a> für Details.
 (c) 2020 - 2021 Kassenärztliche Bundesvereinigung KdöR
 
 ### Bekannte Fehler
-* Durch einen Bug in Safari 14.0.0 ist die Verwendung des MIO Viewers in dieser Version nicht möglich. Daher sollte Chrome
-oder Firefox genutzt werden, bzw. ein neuerer Release von Safari.
+
+-   Durch einen Bug in Safari 14.0.0 ist die Verwendung des MIO Viewers in dieser Version nicht möglich. Daher sollte Chrome
+    oder Firefox genutzt werden, bzw. ein neuerer Release von Safari.

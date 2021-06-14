@@ -24,9 +24,12 @@ import ListItem from "../ListItem";
 
 import "./ListItemBullet.scss";
 
-export default class ListItemBullet extends ListItem<ListItemProps, unknown> {
+export default class ListItemBullet extends ListItem<
+    ListItemProps & { liClassName?: string },
+    unknown
+> {
     render(): JSX.Element {
-        const { label, value, disabled, className } = this.props;
+        const { label, value, disabled, className, liClassName } = this.props;
 
         return (
             <IonItem
@@ -42,7 +45,9 @@ export default class ListItemBullet extends ListItem<ListItemProps, unknown> {
                             <ul className={"bullet"}>
                                 {" "}
                                 {value.split("\n").map((e, i) => (
-                                    <li key={i}>{e}</li>
+                                    <li className={liClassName} key={i}>
+                                        {e}
+                                    </li>
                                 ))}
                             </ul>
                         ) : (

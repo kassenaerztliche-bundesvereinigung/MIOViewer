@@ -24,7 +24,7 @@ import { render } from "@testing-library/react";
 import * as ViewerTestUtil from "../../../test/TestUtil.test";
 import * as TestUtil from "miotestdata";
 
-import MIOParser, { Vaccination, ZAEB } from "@kbv/mioparser";
+import MIOParser, { Vaccination, ZAEB, MR, CMR } from "@kbv/mioparser";
 
 import { Util } from "../index";
 import PatientCard from "../PatientCard";
@@ -33,7 +33,11 @@ describe("<PatientCard />", () => {
     type CardValue = {
         bundleType:
             | typeof Vaccination.V1_00_000.Profile.BundleEntry
-            | typeof ZAEB.V1_00_000.Profile.Bundle;
+            | typeof ZAEB.V1_00_000.Profile.Bundle
+            | typeof MR.V1_00_000.Profile.Bundle
+            | typeof CMR.V1_00_000.Profile.CMRBundle
+            | typeof CMR.V1_00_000.Profile.PCBundle
+            | typeof CMR.V1_00_000.Profile.PNBundle;
         getFunction: any; // eslint-disable-line
     } & TestUtil.HasMioString;
     const cardList: CardValue[] = [
@@ -46,6 +50,26 @@ describe("<PatientCard />", () => {
             mioString: "ZB",
             bundleType: ZAEB.V1_00_000.Profile.Bundle,
             getFunction: Util.ZB.getPatient
+        },
+        {
+            mioString: "MR",
+            bundleType: MR.V1_00_000.Profile.Bundle,
+            getFunction: Util.MP.getPatientMother
+        },
+        {
+            mioString: "UH",
+            bundleType: CMR.V1_00_000.Profile.CMRBundle,
+            getFunction: Util.UH.getPatient
+        },
+        {
+            mioString: "UH",
+            bundleType: CMR.V1_00_000.Profile.PCBundle,
+            getFunction: Util.UH.getPatient
+        },
+        {
+            mioString: "UH",
+            bundleType: CMR.V1_00_000.Profile.PNBundle,
+            getFunction: Util.UH.getPatient
         }
     ];
 

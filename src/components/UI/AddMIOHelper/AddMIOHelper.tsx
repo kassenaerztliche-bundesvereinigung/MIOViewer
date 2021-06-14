@@ -87,16 +87,17 @@ export default class AddMIOHelper {
     };
 
     bigFile = (files: File[]): boolean => {
-        const thresholdSize = 1000000.0;
+        const thresholdSize = 1048576.0;
         const totalSize = files.reduce(
             (accum, current): number => accum + current.size,
             0
         );
+        console.log(totalSize);
         return totalSize > thresholdSize;
     };
 
     tooBig = (files: File[]): boolean => {
-        const thresholdSize = 10000000.0;
+        const thresholdSize = 10485760.0;
         const totalSize = files.reduce(
             (accum, current): number => accum + current.size,
             0
@@ -108,7 +109,7 @@ export default class AddMIOHelper {
         const bigFile = this.bigFile(files);
         const tooBig = this.tooBig(files);
 
-        console.log(files);
+        // console.log(files);
 
         this.setState(
             {
@@ -217,7 +218,7 @@ export default class AddMIOHelper {
                 } else {
                     if (results && results.length > 0) {
                         try {
-                            results.forEach((r: MIOParserResult) => console.log(r));
+                            // results.forEach((r: MIOParserResult) => console.log(r));
                             const last = results.pop();
                             results.forEach((result: MIOParserResult) =>
                                 this.handleResult(result, files[0].name)
@@ -245,7 +246,7 @@ export default class AddMIOHelper {
                         // Try parse Error and GeneralError
                         try {
                             const parsed = JSON.parse(results);
-                            console.log(parsed);
+                            // console.log(parsed);
                             if (parsed.message) {
                                 results = new Error(parsed.message);
 

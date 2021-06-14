@@ -16,11 +16,12 @@
  * along with MIO Viewer. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { MIOConnector } from "../../../store";
+import { MIOConnector, SettingsConnector } from "../../../store";
 import { Util, UI } from "../../../components/";
 
 import * as Models from "../../../models";
-import DetailBase, { DetailMapping } from "../../Comprehensive/Detail/DetailBase";
+import DetailBase from "../../Comprehensive/Detail/DetailBase";
+import { DetailMapping } from "../../Comprehensive/Detail/Types";
 
 import { Vaccination } from "@kbv/mioparser";
 
@@ -106,9 +107,8 @@ class Detail extends DetailBase<Vaccination.V1_00_000.Profile.BundleEntry> {
 
     protected getPatient() {
         const { mio } = this.props;
-        return Util.IM.getPatient(mio as Vaccination.V1_00_000.Profile.BundleEntry)
-            ?.resource;
+        return Util.IM.getPatient(mio as Vaccination.V1_00_000.Profile.BundleEntry);
     }
 }
 
-export default MIOConnector(Detail);
+export default SettingsConnector(MIOConnector(Detail));

@@ -17,9 +17,15 @@
  */
 
 import * as ListItem from "../ListItem";
+import { ModelValue } from "../../../models";
+import React from "react";
+import * as UI from "../index";
+
+export type RenderComponent = React.ComponentType<UI.ListItem.Props>;
 
 export type DetailListProps = {
     headline?: string;
     subline?: string;
-    items: ListItem.Props[];
+    minorHints?: ModelValue[];
+    items: (ModelValue | ListItem.Props)[];
 };

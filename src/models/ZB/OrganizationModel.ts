@@ -20,15 +20,17 @@ import { History } from "history";
 
 import { ParserUtil, KBVBundleResource, ZAEB } from "@kbv/mioparser";
 
-import BaseModel, { ModelValue } from "../BaseModel";
+import BaseModel from "../BaseModel";
+import { ModelValue } from "../Types";
 
 export default class OrganizationModel extends BaseModel<ZAEB.V1_00_000.Profile.Organization> {
     constructor(
         value: ZAEB.V1_00_000.Profile.Organization,
+        fullUrl: string,
         parent: KBVBundleResource,
         history?: History
     ) {
-        super(value, parent, history);
+        super(value, fullUrl, parent, history);
 
         this.headline = this.value.name;
         this.values = [this.getIdentifier()];
@@ -80,5 +82,12 @@ export default class OrganizationModel extends BaseModel<ZAEB.V1_00_000.Profile.
 
     public toString(): string {
         return this.values.map((v) => v.label + ": " + v.value).join("\n");
+    }
+
+    public getMainValue(): ModelValue {
+        return {
+            value: this.headline,
+            label: "Organisation"
+        };
     }
 }

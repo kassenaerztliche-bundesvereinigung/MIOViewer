@@ -25,10 +25,11 @@ import RecordModel from "./RecordModel";
 export default class RecordAddendumModel extends RecordModel<Vaccination.V1_00_000.Profile.RecordAddendum> {
     constructor(
         value: Vaccination.V1_00_000.Profile.RecordAddendum,
+        fullUrl: string,
         parent: KBVBundleResource,
         history?: History
     ) {
-        super(value, parent, history);
+        super(value, fullUrl, parent, history);
 
         this.values.push({
             value: this.value.reportOrigin.text,

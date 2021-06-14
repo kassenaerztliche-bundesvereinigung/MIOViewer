@@ -42,6 +42,7 @@ export type MIOFile = {
 export interface SettingsState {
     showIntro: boolean;
     cookiesAccepted: boolean;
+    devMode: boolean;
 }
 
 export enum Constants {
@@ -50,5 +51,6 @@ export enum Constants {
     PARSE_MIO = "PARSE_MIO",
     PARSE_MIOS = "PARSE_MIOS",
     SHOW_INTRO = "SHOW_INTRO",
-    ACCEPT_COOKIES = "ACCEPT_COOKIES"
+    ACCEPT_COOKIES = "ACCEPT_COOKIES",
+    DEV_MODE = "DEV_MODE"
 }

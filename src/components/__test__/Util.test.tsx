@@ -46,11 +46,15 @@ describe("<Util/>", () => {
         },
         {
             mioString: "ZB",
-            functions: [
-                Util.ZB.getPatient,
-                Util.ZB.getOrganization,
-                Util.ZB.getObservations
-            ]
+            functions: [Util.ZB.getPatient, Util.ZB.getOrganization, Util.ZB.getEntries]
+        },
+        {
+            mioString: "MR",
+            functions: [Util.MP.getPatientMother]
+        },
+        {
+            mioString: "UH",
+            functions: [Util.UH.getPatient, Util.UH.getTypeFromBundle]
         }
     ];
 

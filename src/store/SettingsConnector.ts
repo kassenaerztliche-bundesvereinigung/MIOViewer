@@ -23,14 +23,15 @@ import { AsyncAction } from "./index";
 import { connect } from "react-redux";
 
 const mapStateToProps = ({ settingsState }: MIOViewerRootState): SettingsState => {
-    const { showIntro, cookiesAccepted } = settingsState;
-    return { showIntro, cookiesAccepted };
+    const { showIntro, cookiesAccepted, devMode } = settingsState;
+    return { showIntro, cookiesAccepted, devMode };
 };
 
 const mapDispatcherToProps = (dispatch: Dispatch<MIOActions>) => {
     return {
         setShowIntro: (value: boolean) => AsyncAction.setShowIntro(dispatch, value),
-        acceptCookies: (value = true) => AsyncAction.acceptCookies(dispatch, value)
+        acceptCookies: (value = true) => AsyncAction.acceptCookies(dispatch, value),
+        setDevMode: (value: boolean) => AsyncAction.setDevMode(dispatch, value)
     };
 };
 

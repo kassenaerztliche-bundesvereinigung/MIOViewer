@@ -29,25 +29,34 @@ import "./Profil.scss";
 
 type ProfilState = {
     showModal: boolean;
+    modalText: string;
 };
 
 class Profil extends React.Component<SettingsConnectorType, ProfilState> {
     constructor(props: SettingsConnectorType) {
         super(props);
-        this.state = { showModal: false };
+        this.state = {
+            showModal: false,
+            modalText: ""
+        };
     }
 
-    protected setShowModal = (value: boolean) => {
-        this.setState({ showModal: value });
+    protected setShowModal = (value: boolean, text = "") => {
+        this.setState({ showModal: value, modalText: text });
     };
 
-    protected change = async (value: boolean): Promise<void> => {
+    protected changeShowIntro = async (value: boolean): Promise<void> => {
         await this.props.setShowIntro(value);
     };
 
+    protected changeDevMode = async (value: boolean): Promise<void> => {
+        await this.props.setDevMode(value);
+    };
+
     render(): JSX.Element {
-        const { showIntro } = this.props;
+        const { showIntro, devMode } = this.props;
         const headline = "Applikationseinstellungen";
+
         return (
             <UI.BasicView headline={"Profil"} padding={false} id={"profil"}>
                 <UI.DetailList.StickyHeader className={"detail-list"}>
@@ -56,22 +65,39 @@ class Profil extends React.Component<SettingsConnectorType, ProfilState> {
                     </h5>
                     <IonItem className={"ion-no-padding ion-margin-horizontal"}>
                         <IonLabel className={"ion-no-margin ion-no-padding only-text"}>
+                            <span>Entwicklungsmodus</span>
+                            <UI.ButtonIcon
+                                icon={Icons.HelpCircle}
+                                onClick={() =>
+                                    this.setShowModal(
+                                        true,
+                                        "Diese Option aktiviert die Möglichkeit sich den Quellcode der MIO Beispieldateien ansehen zu können."
+                                    )
+                                }
+                            />
+                        </IonLabel>
+                        <UI.Toggle checked={devMode} onChange={this.changeDevMode} />
+                    </IonItem>
+
+                    <IonItem className={"ion-no-padding ion-margin-horizontal"}>
+                        <IonLabel className={"ion-no-margin ion-no-padding only-text"}>
                             <span>MIO Einführung</span>
                             <UI.ButtonIcon
                                 icon={Icons.HelpCircle}
-                                onClick={() => this.setShowModal(true)}
+                                onClick={() =>
+                                    this.setShowModal(
+                                        true,
+                                        "Diese Option aktiviert einmalig das Anzeigen der „MIO-Einführung“ beim Start der Anwendung"
+                                    )
+                                }
                             />
                         </IonLabel>
-                        <UI.Toggle checked={showIntro} onChange={this.change} />
+                        <UI.Toggle checked={showIntro} onChange={this.changeShowIntro} />
                     </IonItem>
+
                     <UI.Modal
                         headline={"Info"}
-                        content={
-                            <p>
-                                Diese Option aktiviert einmalig das Anzeigen der
-                                „MIO-Einführung“ beim Start der Anwendung
-                            </p>
-                        }
+                        content={<p>{this.state.modalText}</p>}
                         show={this.state.showModal}
                         onClose={() => this.setShowModal(false)}
                     />

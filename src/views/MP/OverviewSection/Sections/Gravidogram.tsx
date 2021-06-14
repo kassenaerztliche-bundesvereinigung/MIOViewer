@@ -51,11 +51,12 @@ export default class Gravidogram extends Section<MR.V1_00_000.Profile.Compositio
                 mio,
                 [MR.V1_00_000.Profile.ClinicalImpressionPregnancyChartEntry],
                 ref
-            )?.resource;
+            );
 
             if (res) {
                 const model = new Models.MP.Basic.ClinicalImpressionModel(
-                    res,
+                    res.resource,
+                    res.fullUrl,
                     mio,
                     history
                 );

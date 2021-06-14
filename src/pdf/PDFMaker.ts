@@ -16,39 +16,24 @@
  * along with MIO Viewer. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { KBVResource, KBVBundleResource, Vaccination, ZAEB, MR } from "@kbv/mioparser";
+import {
+    KBVResource,
+    KBVBundleResource,
+    Vaccination,
+    ZAEB,
+    MR,
+    CMR
+} from "@kbv/mioparser";
 import { Util } from "../components";
 import { TDocumentDefinitions, Content } from "pdfmake/interfaces";
 import * as pdfMake from "pdfmake/build/pdfmake";
 import { vfs } from "../assets/fonts/vfs_fonts";
 
-import { IMtoPDF, ZBtoPDF, MRtoPDF } from "./toPDF";
+import { horizontalLine } from "./PDFHelper";
+
+import { IMtoPDF, ZBtoPDF, MRtoPDF, CMRtoPDF, PCtoPDF, PNtoPDF } from "./toPDF";
 
 import splashLogos from "../assets/img/logos-pdf.png";
-
-export const horizontalLine = {
-    table: {
-        widths: ["*"],
-        body: [[" "], [" "]],
-        margin: [0, 20, 0, 0]
-    },
-    layout: {
-        // eslint-disable-next-line
-        hLineWidth: (i: number, node: any): number => {
-            return i === 0 || i === node.table.body.length ? 0 : 0.5;
-        },
-        vLineWidth: (): number => {
-            return 0;
-        },
-        hLineColor: (): string => {
-            return "#d8dfe2";
-        }
-    }
-};
-
-export const pageBreakBefore: Content = { text: "", pageBreak: "before" };
-
-export const pageBreakAfter: Content = { text: "", pageBreak: "after" };
 
 export default class PDFMaker {
     public static async create(
@@ -71,7 +56,20 @@ export default class PDFMaker {
             valueContent = new MRtoPDF(value).getContent();
             style = "mr";
             exportHeader = "Mutterpass";
+        } else if (CMR.V1_00_000.Profile.CMRBundle.is(value)) {
+            valueContent = new CMRtoPDF(value).getContent();
+            style = "cmr";
+            exportHeader = "Kinderuntersuchungsheft";
+        } else if (CMR.V1_00_000.Profile.PCBundle.is(value)) {
+            valueContent = new PCtoPDF(value).getContent();
+            style = "cmr";
+            exportHeader = "Kinderuntersuchungsheft";
+        } else if (CMR.V1_00_000.Profile.PNBundle.is(value)) {
+            valueContent = new PNtoPDF(value).getContent();
+            style = "cmr";
+            exportHeader = "Kinderuntersuchungsheft";
         }
+
         const baseContent: Content = [
             {
                 text: "",
@@ -101,10 +99,11 @@ export default class PDFMaker {
                     ]
                 }
             },
+            horizontalLine,
             {
-                text: "\n\n"
-            },
-            horizontalLine
+                text: "",
+                margin: [0, -16, 0, 0]
+            }
         ];
 
         const docDefinition: TDocumentDefinitions = {
@@ -153,7 +152,7 @@ export default class PDFMaker {
                                 " Uhr"
                             ],
                             alignment: "right",
-                            width: 150,
+                            width: 200,
                             fontSize: 9,
                             color: "#000000"
                         },
@@ -194,7 +193,7 @@ export default class PDFMaker {
                 },
                 hint: {
                     fontSize: 12,
-                    color: "#5f7c88",
+                    color: "#23519d",
                     margin: [0, 5, 0, 20]
                 },
                 zaeb: {

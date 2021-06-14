@@ -18,11 +18,12 @@
 
 import { Content } from "pdfmake/interfaces";
 
-import { KBVBundleResource, ParserUtil, MIOEntry } from "@kbv/mioparser";
-import { Util } from "../components";
+import { KBVBundleResource, ParserUtil, MIOEntry, AnyType } from "@kbv/mioparser";
+import { Util, UI } from "../components";
 
-import { horizontalLine, pageBreakAfter } from "./PDFMaker";
-import { DetailMapping } from "../views/Comprehensive/Detail/DetailBase";
+import { horizontalLine, pageBreakAfter } from "./PDFHelper";
+import { DetailMapping } from "../views/Comprehensive/Detail/Types";
+import { ModelValue } from "../models";
 
 export default abstract class PDFRepresentation<T extends KBVBundleResource> {
     protected title?: string;
@@ -40,9 +41,43 @@ export default abstract class PDFRepresentation<T extends KBVBundleResource> {
         title: string,
         date?: string,
         authorContent?: Content,
-        patient?: Content
+        patient?: Content,
+        encounterContent?: Content
     ): Content {
         this.title = title;
+
+        const body = [
+            [{ text: title, style: "h2" }, ""],
+            [
+                {
+                    text:
+                        this.singular && this.genitive
+                            ? `Erstellungsdatum des ${this.singular}${this.genitive}:`
+                            : "Erstellungsdatum:",
+                    bold: true
+                },
+                Util.Misc.formatDate(date)
+            ],
+            [
+                {
+                    text: this.singular
+                        ? `${this.singular} erstellt von:`
+                        : "Erstellt von:",
+                    bold: true
+                },
+                authorContent ? authorContent : "-"
+            ]
+        ];
+
+        if (encounterContent) {
+            body.push([
+                {
+                    text: "Untersuchung:",
+                    bold: true
+                },
+                encounterContent
+            ]);
+        }
 
         return [
             {
@@ -51,23 +86,11 @@ export default abstract class PDFRepresentation<T extends KBVBundleResource> {
                 table: {
                     headerRows: 0,
                     widths: ["40%", "*"],
-                    body: [
-                        [{ text: title, style: "h2" }, ""],
-                        [
-                            {
-                                text: `Erstellungsdatum des ${this.singular}${this.genitive}:`,
-                                bold: true
-                            },
-                            Util.Misc.formatDate(date)
-                        ],
-                        [
-                            { text: `${this.singular} erstellt von:`, bold: true },
-                            authorContent ? authorContent : "-"
-                        ]
-                    ]
+                    body: body
                 }
             },
             horizontalLine,
+            pageBreakAfter,
             {
                 text: "Patient/-in",
                 margin: [0, 0, 0, 0],
@@ -81,11 +104,12 @@ export default abstract class PDFRepresentation<T extends KBVBundleResource> {
     }
 
     // eslint-disable-next-line
-    protected getSection<T>(section: any, sectionStack: any[]): T | undefined {
+    protected getSection<T>(section: any, sectionStack: AnyType[]): T | undefined {
         let result = undefined;
         if (sectionStack.length) {
             sectionStack.forEach((s) => {
                 if (section && section.section) {
+                    // eslint-disable-next-line
                     section = ParserUtil.getSlice<any>(s, section.section);
                 }
             });
@@ -133,6 +157,75 @@ export default abstract class PDFRepresentation<T extends KBVBundleResource> {
         }
     }
 
+    protected hint(value: ModelValue): Content {
+        if (
+            value.value === "Beratung vor allem zu folgenden Themen:" ||
+            value.value ===
+                "(u.a. behandlungsbedürftige Hyperbilirubinämie bei einem vorausgegangenen Kind)"
+        ) {
+            return { text: `${value.value}`, style: "p", margin: [0, 0, 0, 8] };
+        } else
+            return {
+                columns: [
+                    {
+                        text: `${value.label}` + (value.label === "Hinweis" ? ":" : ""),
+                        style: "hint",
+                        bold: true,
+                        width: "auto"
+                    },
+                    {
+                        text: " ",
+                        width: 5
+                    },
+                    {
+                        text: `${value.value}`,
+                        style: "hint",
+                        width: "*"
+                    }
+                ]
+            };
+    }
+
+    protected hintBox(value: ModelValue): Content[] {
+        const bulletStrings = UI.ListItem.HintBox.getBulletStrings(value.value).map(
+            (v) => "– " + v
+        );
+
+        if (!bulletStrings.length) bulletStrings.push(value.value);
+
+        return [
+            {
+                layout: "noBorders",
+                margin: [0, 8, 0, 8],
+                table: {
+                    headerRows: 0,
+                    widths: ["*"],
+                    body: [
+                        [
+                            {
+                                text: value.label,
+                                style: "hint",
+                                bold: true,
+                                fillColor: "#e9edf5",
+                                margin: [12, 8, 12, 12]
+                            }
+                        ],
+                        ...bulletStrings.map((v) => {
+                            return [
+                                {
+                                    text: v,
+                                    style: "hint",
+                                    fillColor: "#e9edf5",
+                                    margin: [12, -10, 12, 8]
+                                }
+                            ];
+                        })
+                    ]
+                }
+            }
+        ];
+    }
+
     protected sectionWithContent(
         title: string,
         content: Content[],
@@ -149,7 +242,7 @@ export default abstract class PDFRepresentation<T extends KBVBundleResource> {
 
     protected mapToModels(
         mapping: DetailMapping[],
-        compare?: (a: MIOEntry<any>, b: MIOEntry<any>) => number,
+        compare?: (a: MIOEntry<any>, b: MIOEntry<any>) => number, // eslint-disable-line
         section?: { entry?: { reference: string }[] },
         onlyMainValue = false
     ): Content[] {
@@ -178,15 +271,15 @@ export default abstract class PDFRepresentation<T extends KBVBundleResource> {
         const content: Content = [];
 
         entries.forEach((entry) => {
-            const res = entry.resource;
             return mapping.forEach((m) => {
-                if (m.profile.is(res)) {
+                if (m.profile.is(entry.resource)) {
                     const pdfContent: Content = [];
                     m.models?.forEach((model) => {
                         if (onlyMainValue) {
                             pdfContent.push(
                                 new model(
-                                    res,
+                                    entry.resource,
+                                    entry.fullUrl,
                                     this.value,
                                     undefined,
                                     m.valueConceptMaps,
@@ -200,7 +293,8 @@ export default abstract class PDFRepresentation<T extends KBVBundleResource> {
                         } else {
                             pdfContent.push(
                                 new model(
-                                    res,
+                                    entry.resource,
+                                    entry.fullUrl,
                                     this.value,
                                     undefined,
                                     m.valueConceptMaps,

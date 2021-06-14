@@ -18,15 +18,16 @@
 
 import React from "react";
 
-import { MIOConnector } from "../../../store";
+import { MIOConnector, SettingsConnector } from "../../../store";
 
 import * as Models from "../../../models";
 
 import DetailComponent from "../../../components/Detail/Detail";
-import DetailBase, { DetailMapping } from "../../Comprehensive/Detail/DetailBase";
+import DetailBase from "../../Comprehensive/Detail/DetailBase";
+import { DetailMapping } from "../../Comprehensive/Detail/Types";
 import { UI } from "../../../components";
 
-import { MR } from "@kbv/mioparser";
+import { MIOEntry, MR } from "@kbv/mioparser";
 import Mappings from "../Mappings";
 
 type ListItemType = { header: string; testIdSuffix?: string; component: JSX.Element };
@@ -88,13 +89,13 @@ class Detail extends DetailBase<MR.V1_00_000.Profile.Bundle> {
     }
 
     protected mapResource = (): ListItemType | undefined => {
-        const { mio, entry, history, location, match } = this.props;
+        const { mio, entry, history, location, match, devMode } = this.props;
 
         if (mio && entry) {
-            const resource = entry.resource;
+            const resource = entry;
             const props = {
                 mio: mio,
-                entry: resource,
+                entry: resource.resource,
                 history: history,
                 location: location,
                 match: match
@@ -104,7 +105,7 @@ class Detail extends DetailBase<MR.V1_00_000.Profile.Bundle> {
 
             let mappedResult: ListItemType | undefined = undefined;
             this.getMappings().forEach((mapping) => {
-                if (!mappedResult && mapping.profile.is(resource)) {
+                if (!mappedResult && mapping.profile.is(entry.resource)) {
                     const models = [];
 
                     if (mapping.models.length) {
@@ -114,7 +115,8 @@ class Detail extends DetailBase<MR.V1_00_000.Profile.Bundle> {
                             ) {
                                 models.push(
                                     new model(
-                                        resource as any,
+                                        entry.resource,
+                                        entry.fullUrl,
                                         bundle,
                                         history,
                                         mapping.valueConceptMaps,
@@ -131,7 +133,8 @@ class Detail extends DetailBase<MR.V1_00_000.Profile.Bundle> {
                         });
                     } else {
                         const model = new Models.MP.Basic.ObservationModel(
-                            resource as any,
+                            entry.resource as Models.MP.Basic.ObservationType,
+                            entry.fullUrl,
                             bundle,
                             history,
                             mapping.valueConceptMaps,
@@ -147,7 +150,13 @@ class Detail extends DetailBase<MR.V1_00_000.Profile.Bundle> {
                     mappedResult = {
                         header: mapping.header ? mapping.header : "Details",
                         testIdSuffix: mapping.profile.name,
-                        component: <DetailComponent {...props} models={[...models]} />
+                        component: (
+                            <DetailComponent
+                                {...props}
+                                models={[...models]}
+                                devMode={devMode}
+                            />
+                        )
                     };
                 }
             });
@@ -155,7 +164,7 @@ class Detail extends DetailBase<MR.V1_00_000.Profile.Bundle> {
         }
     };
 
-    protected getPatient(): MR.V1_00_000.Profile.PatientMother | undefined {
+    protected getPatient(): MIOEntry<MR.V1_00_000.Profile.PatientMother> | undefined {
         return undefined;
     }
 
@@ -164,4 +173,4 @@ class Detail extends DetailBase<MR.V1_00_000.Profile.Bundle> {
     }
 }
 
-export default MIOConnector(Detail);
+export default SettingsConnector(MIOConnector(Detail));

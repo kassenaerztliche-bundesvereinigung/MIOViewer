@@ -19,8 +19,8 @@
 @import "../../../../assets/css/colors";
 @import "../../../../assets/css/variables";
 
-.list-item-expandable {
-    .expandable-wrapper {
+.list-item-collapsible {
+    .collapsible-wrapper {
         background-color: transparent;
         transition: background-color $duration $easing;
 

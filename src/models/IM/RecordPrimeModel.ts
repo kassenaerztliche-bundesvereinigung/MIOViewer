@@ -26,10 +26,11 @@ import RecordModel from "./RecordModel";
 export default class RecordPrimeModel extends RecordModel<Vaccination.V1_00_000.Profile.RecordPrime> {
     constructor(
         value: Vaccination.V1_00_000.Profile.RecordPrime,
+        fullUrl: string,
         parent: KBVBundleResource,
         history?: History
     ) {
-        super(value, parent, history);
+        super(value, fullUrl, parent, history);
 
         const disclaimer = ParserUtil.getSlice<Vaccination.V1_00_000.Profile.RecordPrimeNoteHinweis>(
             Vaccination.V1_00_000.Profile.RecordPrimeNoteHinweis,
@@ -63,7 +64,7 @@ export default class RecordPrimeModel extends RecordModel<Vaccination.V1_00_000.
         this.values.push({
             value: disclaimer ? disclaimer.text : "-",
             label: "Allgemeiner Hinweis für den Impfling oder Sorgeberechtigten",
-            renderAs: UI.ListItem.Expandable
+            renderAs: UI.ListItem.Collapsible
         });
     }
 }

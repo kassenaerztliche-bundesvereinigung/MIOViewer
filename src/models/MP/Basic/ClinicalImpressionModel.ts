@@ -22,36 +22,31 @@ import { ParserUtil, MR } from "@kbv/mioparser";
 import { Util } from "../../../components";
 
 import MPBaseModel from "../MPBaseModel";
-import { ModelValue } from "../../BaseModel";
 
 import { getCoding } from "../Util";
 import * as Models from "../../index";
+import { ModelValue } from "../../index";
 
-export default class ClinicalImpressionModel extends MPBaseModel<
+export type ClinicalImpressionType =
     | MR.V1_00_000.Profile.ClinicalImpressionInitialExamination
     | MR.V1_00_000.Profile.ClinicalImpressionPregnancyChartEntry
     | MR.V1_00_000.Profile.ClinicalImpressionPregnancyExaminationDischargeSummary
     | MR.V1_00_000.Profile.ClinicalImpressionBirthExaminationDeliveryInformation
     | MR.V1_00_000.Profile.ClinicalImpressionFirstExaminationAfterChildbirth
     | MR.V1_00_000.Profile.ClinicalImpressionSecondExaminationAfterChildbirth
-    | MR.V1_00_000.Profile.ClinicalImpressionBirthExaminationChildInformation
-> {
+    | MR.V1_00_000.Profile.ClinicalImpressionBirthExaminationChildInformation;
+
+export default class ClinicalImpressionModel extends MPBaseModel<ClinicalImpressionType> {
     constructor(
-        value:
-            | MR.V1_00_000.Profile.ClinicalImpressionInitialExamination
-            | MR.V1_00_000.Profile.ClinicalImpressionPregnancyChartEntry
-            | MR.V1_00_000.Profile.ClinicalImpressionPregnancyExaminationDischargeSummary
-            | MR.V1_00_000.Profile.ClinicalImpressionBirthExaminationDeliveryInformation
-            | MR.V1_00_000.Profile.ClinicalImpressionFirstExaminationAfterChildbirth
-            | MR.V1_00_000.Profile.ClinicalImpressionSecondExaminationAfterChildbirth
-            | MR.V1_00_000.Profile.ClinicalImpressionBirthExaminationChildInformation,
+        value: ClinicalImpressionType,
+        fullUrl: string,
         parent: MR.V1_00_000.Profile.Bundle,
         history?: History,
         protected valueConceptMap: ParserUtil.ConceptMap[] | undefined = undefined,
         protected codeConceptMap: ParserUtil.ConceptMap[] | undefined = undefined,
         customHeadline?: string
     ) {
-        super(value, parent, history);
+        super(value, fullUrl, parent, history);
 
         this.headline =
             customHeadline ?? Util.Misc.formatDate(this.value.effectiveDateTime);
@@ -152,6 +147,7 @@ export default class ClinicalImpressionModel extends MPBaseModel<
         ) {
             const investigation = new Models.MP.Basic.ClinicalImpressionInvestigationModel(
                 value,
+                fullUrl,
                 parent,
                 history
             );
@@ -160,12 +156,12 @@ export default class ClinicalImpressionModel extends MPBaseModel<
         }
     }
 
-    public getCoding(resource?: unknown): string {
-        const value = resource ? resource : (this.value as unknown);
-        return getCoding(value, this.codeConceptMap);
+    public getCoding(resource?: { code?: Util.FHIR.Code }): string {
+        if (!resource) resource = this.value;
+        return getCoding(resource, this.codeConceptMap);
     }
 
-    getMainValue(): ModelValue {
+    public getMainValue(): ModelValue {
         if (MR.V1_00_000.Profile.ClinicalImpressionPregnancyChartEntry.is(this.value)) {
             const identifier =
                 this.value.identifier && this.value.identifier.length

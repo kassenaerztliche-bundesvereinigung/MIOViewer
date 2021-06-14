@@ -17,41 +17,20 @@
  */
 
 import { ParserUtil } from "@kbv/mioparser";
-
-export function translateCode(
-    code: string,
-    conceptMaps: ParserUtil.ConceptMap[]
-): string[] {
-    const translated: string[] = [];
-    conceptMaps.forEach((conceptMap: ParserUtil.ConceptMap) => {
-        if (conceptMap) {
-            const translatedCode = ParserUtil.translateCode(code, conceptMap);
-
-            if (code !== translatedCode.join(", ")) {
-                translated.push(translatedCode.join(", "));
-            }
-        } else {
-            translated.push(code);
-        }
-    });
-
-    return translated;
-}
+import { Util } from "../../components";
 
 export function getCoding(
-    resource?: any,
+    resource?: { code?: Util.FHIR.Code }, // eslint-disable-line
     codeConceptMap?: ParserUtil.ConceptMap[]
 ): string {
-    const translated = resource.code.coding.map((c: any) => {
-        if (c._display) {
+    const translated = resource?.code?.coding?.map((c: Util.FHIR.Coding) => {
+        if (c._display && c._display.extension) {
             return c._display.extension
-                .map((e: { extension: { valueString: string }[] }) =>
-                    e.extension.map((ex) => ex.valueString)
-                )
+                .map((e) => e.extension?.map((ex) => ex.valueString))
                 .join(", ");
         } else {
             if (codeConceptMap) {
-                const translatedCode = translateCode(c.code, codeConceptMap);
+                const translatedCode = Util.FHIR.translateCode(c.code, codeConceptMap);
                 if (translatedCode.length) return translatedCode;
             }
 
@@ -63,6 +42,5 @@ export function getCoding(
             }
         }
     });
-
-    return Array.from(new Set<string>(translated.flat())).join(", ");
+    return translated ? Array.from(new Set<string>(translated.flat())).join(", ") : "-";
 }

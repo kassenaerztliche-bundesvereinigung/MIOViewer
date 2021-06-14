@@ -17,7 +17,7 @@
  */
 import React from "react";
 
-import { MR, ParserUtil } from "@kbv/mioparser";
+import { MR, ParserUtil, AnyType } from "@kbv/mioparser";
 
 import { UI, Util } from "../../../../components";
 import * as Models from "../../../../models";
@@ -40,8 +40,7 @@ export default class ChildInformation extends Section<
             listGroups: []
         };
 
-        // eslint-disable-next-line
-        const sectionStack: any[] = [
+        const sectionStack: AnyType[] = [
             MR.V1_00_000.Profile.CompositionUntersuchungen,
             MR.V1_00_000.Profile.CompositionUntersuchungenEpikrise
         ];
@@ -70,21 +69,22 @@ export default class ChildInformation extends Section<
     }
 
     protected getDetails(): JSX.Element[] {
-        const { mio, history, location, match } = this.props;
+        const { mio, history, location, match, devMode } = this.props;
 
         const details: JSX.Element[] = [];
         this.section?.entry?.forEach((entry) => {
             const ref = entry.reference;
-            const resource = ParserUtil.getEntryWithRef<MR.V1_00_000.Profile.PatientChild>(
+            const res = ParserUtil.getEntryWithRef<MR.V1_00_000.Profile.PatientChild>(
                 mio,
                 [PR.PatientChild],
                 ref
-            )?.resource;
+            );
 
-            if (resource) {
-                if (this.patientId === resource.id) {
+            if (res) {
+                if (this.patientId === res.resource.id) {
                     const model = new Models.MP.Basic.PatientChildModel(
-                        resource,
+                        res.resource,
+                        res.fullUrl,
                         mio,
                         history
                     );
@@ -93,11 +93,12 @@ export default class ChildInformation extends Section<
                         <DetailComponent
                             models={[model]}
                             mio={mio}
-                            entry={resource}
+                            entry={res.resource}
                             location={location}
                             history={history}
                             match={match}
                             key={details.length}
+                            devMode={devMode}
                         />
                     );
                     details.push(component);
@@ -114,7 +115,7 @@ export default class ChildInformation extends Section<
         const items: UI.ListItem.Props[] = [];
         this.section?.entry?.forEach((entry) => {
             const ref = entry.reference;
-            const resource = ParserUtil.getEntryWithRef<
+            const res = ParserUtil.getEntryWithRef<
                 // Geburt
                 | MR.V1_00_000.Profile.ObservationBirthMode
                 | MR.V1_00_000.Profile.ObservationWeightChild
@@ -152,13 +153,14 @@ export default class ChildInformation extends Section<
                     PR.ObservationNeedOfTreatmentU3
                 ],
                 ref
-            )?.resource;
+            );
 
-            if (resource) {
+            if (res) {
                 if (this.patientId) {
-                    if (this.checkPatient(resource)) {
+                    if (this.checkPatient(res.resource)) {
                         const model = new Models.MP.Basic.ObservationModel(
-                            resource,
+                            res.resource,
+                            res.fullUrl,
                             mio,
                             history
                         );
@@ -189,17 +191,18 @@ export default class ChildInformation extends Section<
             if (apgarSection) {
                 apgarSection.entry?.forEach((entry) => {
                     const ref = entry.reference;
-                    const resource = ParserUtil.getEntryWithRef<MR.V1_00_000.Profile.ObservationApgarScore>(
+                    const res = ParserUtil.getEntryWithRef<MR.V1_00_000.Profile.ObservationApgarScore>(
                         mio,
                         [PR.ObservationApgarScore],
                         ref
-                    )?.resource;
+                    );
 
-                    if (resource) {
+                    if (res) {
                         if (this.patientId) {
-                            if (this.checkPatient(resource)) {
+                            if (this.checkPatient(res.resource)) {
                                 const model = new Models.MP.Basic.ObservationModel(
-                                    resource,
+                                    res.resource,
+                                    res.fullUrl,
                                     mio,
                                     history
                                 );

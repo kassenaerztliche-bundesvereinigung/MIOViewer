@@ -29,6 +29,7 @@ export interface MIOFolderProps {
     label?: string;
     subline?: string;
     labelBG?: boolean;
+    badge?: string;
 }
 
 export default class MIOFolder extends React.Component<MIOFolderProps> {
@@ -47,7 +48,8 @@ export default class MIOFolder extends React.Component<MIOFolderProps> {
             outlined,
             label,
             subline,
-            labelBG
+            labelBG,
+            badge
         } = this.props;
 
         return (
@@ -75,7 +77,10 @@ export default class MIOFolder extends React.Component<MIOFolderProps> {
                         />
                     ) : undefined}
                 </svg>
-                <div className={"content " + (label ? "hasLabel" : "")}>{children}</div>
+                <div className={"content " + (label ? "hasLabel" : "")}>
+                    {badge && <div className="badge">{badge}</div>}
+                    {children}
+                </div>
                 {label ? (
                     <div className={"text-container"}>
                         <div className={"inner" + (subline ? " has-subline" : "")}>

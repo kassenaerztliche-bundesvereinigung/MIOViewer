@@ -21,16 +21,17 @@ import { History } from "history";
 import { ParserUtil, KBVBundleResource, ZAEB } from "@kbv/mioparser";
 import { Util, UI } from "../../components";
 
-import { AddressModel, BaseModel, TelecomModel } from "../";
+import { AddressModel, BaseModel, ModelValue, TelecomModel } from "../";
 import { OrganizationModel } from "./";
 
 export default class GaplessDocumentationModel extends BaseModel<ZAEB.V1_00_000.Profile.GaplessDocumentation> {
     constructor(
         value: ZAEB.V1_00_000.Profile.GaplessDocumentation,
+        fullUrl: string,
         parent: KBVBundleResource,
         history?: History
     ) {
-        super(value, parent, history);
+        super(value, fullUrl, parent, history);
 
         this.headline = this.value.code.text;
 
@@ -70,7 +71,7 @@ export default class GaplessDocumentationModel extends BaseModel<ZAEB.V1_00_000.
             {
                 label: "Allgemeiner Hinweis",
                 value: disclaimer ? disclaimer : "-",
-                renderAs: UI.ListItem.Expandable
+                renderAs: UI.ListItem.Collapsible
             }
         ];
     }
@@ -82,5 +83,12 @@ export default class GaplessDocumentationModel extends BaseModel<ZAEB.V1_00_000.
             this.values.map((v) => v.label + ": " + v.value).join("\n") +
             "\n\n"
         );
+    }
+
+    public getMainValue(): ModelValue {
+        return {
+            value: Util.Misc.formatDate(this.value.valueDateTime),
+            label: this.value.code.text
+        };
     }
 }

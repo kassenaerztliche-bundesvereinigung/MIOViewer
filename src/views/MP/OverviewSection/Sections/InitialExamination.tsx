@@ -40,7 +40,7 @@ export default class InitialExamination extends Section<MR.V1_00_000.Profile.Com
     }
 
     protected getDetails(): JSX.Element[] {
-        const { mio, history, location, match } = this.props;
+        const { mio, history, location, match, devMode } = this.props;
 
         const details: JSX.Element[] = [];
         this.section?.entry.forEach((entry) => {
@@ -49,25 +49,28 @@ export default class InitialExamination extends Section<MR.V1_00_000.Profile.Com
                 mio,
                 [MR.V1_00_000.Profile.ClinicalImpressionInitialExamination],
                 ref
-            )?.resource;
+            );
 
             if (res) {
                 const model = new Models.MP.Basic.ClinicalImpressionModel(
-                    res,
+                    res.resource,
+                    res.fullUrl,
                     mio,
                     history,
                     undefined
                 );
 
                 const finding = new Models.MP.Basic.ClinicalImpressionFindingModel(
-                    res,
+                    res.resource,
+                    res.fullUrl,
                     mio,
                     history,
                     undefined
                 );
 
                 const investigationModel = new Models.MP.Basic.ClinicalImpressionInvestigationModel(
-                    res,
+                    res.resource,
+                    res.fullUrl,
                     mio,
                     history
                 );
@@ -76,11 +79,12 @@ export default class InitialExamination extends Section<MR.V1_00_000.Profile.Com
                     <DetailComponent
                         models={[model, finding, investigationModel]}
                         mio={mio}
-                        entry={res}
+                        entry={res.resource}
                         location={location}
                         history={history}
                         match={match}
                         key={details.length}
+                        devMode={devMode}
                     />
                 );
 

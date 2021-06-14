@@ -76,7 +76,7 @@ class Technical extends React.Component<RouteComponentProps> {
             >
                 <div className={"page-padded"}>
                     {parts.map((part) => (
-                        <UI.ListItem.Expandable
+                        <UI.ListItem.Collapsible
                             value={part.value}
                             label={part.label}
                             key={part.label}

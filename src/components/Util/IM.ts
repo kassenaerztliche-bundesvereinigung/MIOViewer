@@ -17,15 +17,94 @@
  */
 
 import { Vaccination, MIOEntry, ParserUtil } from "@kbv/mioparser";
+import { Util } from "../index";
 
 type Bundle = Vaccination.V1_00_000.Profile.BundleEntry;
+
+export function getComposition(
+    mio: Bundle
+):
+    | MIOEntry<
+          | Vaccination.V1_00_000.Profile.CompositionPrime
+          | Vaccination.V1_00_000.Profile.CompositionAddendum
+      >
+    | undefined {
+    return ParserUtil.getEntry<
+        | Vaccination.V1_00_000.Profile.CompositionPrime
+        | Vaccination.V1_00_000.Profile.CompositionAddendum
+    >(mio, [
+        Vaccination.V1_00_000.Profile.CompositionPrime,
+        Vaccination.V1_00_000.Profile.CompositionAddendum
+    ]);
+}
 
 export function getPatient(
     mio: Bundle
 ): MIOEntry<Vaccination.V1_00_000.Profile.Patient> | undefined {
-    return ParserUtil.getEntry<Vaccination.V1_00_000.Profile.Patient>(mio, [
-        Vaccination.V1_00_000.Profile.Patient
-    ]);
+    const ref = getComposition(mio)?.resource.subject.reference;
+    if (!ref) return;
+    return ParserUtil.getEntryWithRef<Vaccination.V1_00_000.Profile.Patient>(
+        mio,
+        [Vaccination.V1_00_000.Profile.Patient],
+        ref
+    );
+}
+
+export function getEntries(
+    mio: Bundle
+): MIOEntry<
+    | Vaccination.V1_00_000.Profile.Condition
+    | Vaccination.V1_00_000.Profile.ObservationImmunizationStatus
+    | Vaccination.V1_00_000.Profile.RecordPrime
+    | Vaccination.V1_00_000.Profile.RecordAddendum
+>[] {
+    const entries: MIOEntry<
+        | Vaccination.V1_00_000.Profile.Condition
+        | Vaccination.V1_00_000.Profile.ObservationImmunizationStatus
+        | Vaccination.V1_00_000.Profile.RecordPrime
+        | Vaccination.V1_00_000.Profile.RecordAddendum
+    >[] = [];
+
+    const composition = Util.IM.getComposition(mio)?.resource;
+    if (composition) {
+        if (Vaccination.V1_00_000.Profile.CompositionPrime.is(composition)) {
+            const refs = composition.section
+                .map((s) => s.entry.map((e) => e.reference))
+                .flat();
+
+            refs.forEach((ref) => {
+                const resource = ParserUtil.getEntryWithRef<
+                    | Vaccination.V1_00_000.Profile.Condition
+                    | Vaccination.V1_00_000.Profile.ObservationImmunizationStatus
+                    | Vaccination.V1_00_000.Profile.RecordPrime
+                >(
+                    mio,
+                    [
+                        Vaccination.V1_00_000.Profile.Condition,
+                        Vaccination.V1_00_000.Profile.ObservationImmunizationStatus,
+                        Vaccination.V1_00_000.Profile.RecordPrime
+                    ],
+                    ref
+                );
+                if (resource) entries.push(resource);
+            });
+        } else {
+            const refs = composition.section
+                .map((s) => s.entry.map((e) => e.reference))
+                .flat();
+
+            refs.forEach((ref) => {
+                const resource = ParserUtil.getEntryWithRef<Vaccination.V1_00_000.Profile.RecordAddendum>(
+                    mio,
+                    [Vaccination.V1_00_000.Profile.RecordAddendum],
+                    ref
+                );
+                if (resource) entries.push(resource);
+            });
+        }
+    }
+
+    return entries;
 }
 
 export function getRecordPrime(

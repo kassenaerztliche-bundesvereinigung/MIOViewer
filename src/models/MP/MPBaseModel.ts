@@ -20,16 +20,18 @@ import { History } from "history";
 
 import { MR, MRResource } from "@kbv/mioparser";
 
-import BaseModel, { ModelValue } from "../BaseModel";
+import BaseModel from "../BaseModel";
 import { Content } from "pdfmake/interfaces";
+import { ModelValue } from "../Types";
 
 export default abstract class MPBaseModel<T extends MRResource> extends BaseModel<T> {
     protected constructor(
         value: T,
+        fullUrl: string,
         parent: MR.V1_00_000.Profile.Bundle,
         history?: History
     ) {
-        super(value, parent, history);
+        super(value, fullUrl, parent, history);
     }
 
     public abstract getCoding(resource?: never): string;
@@ -51,12 +53,6 @@ export default abstract class MPBaseModel<T extends MRResource> extends BaseMode
     public toString(): string {
         return this.values.map((v) => v.label + ": " + v.value).join("\n");
     }
-
-    /**
-     * Main value of model. Should be used/displayed in parent list (ie. as ListItem to reference Detail).
-     * Which value/label pair (ModelValue) best describes the model.
-     */
-    public abstract getMainValue(): ModelValue | undefined;
 
     public mainValueToPDFContent(): Content {
         const mainValue = this.getMainValue();
