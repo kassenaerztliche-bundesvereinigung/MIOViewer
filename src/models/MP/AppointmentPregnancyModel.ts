@@ -24,11 +24,11 @@ import { Util } from "../../components";
 import MPBaseModel from "./MPBaseModel";
 import { ModelValue } from "../Types";
 
-export default class AppointmentPregnancyModel extends MPBaseModel<MR.V1_00_000.Profile.AppointmentPregnancy> {
+export default class AppointmentPregnancyModel extends MPBaseModel<MR.V1_0_0.Profile.AppointmentPregnancy> {
     constructor(
-        value: MR.V1_00_000.Profile.AppointmentPregnancy,
+        value: MR.V1_0_0.Profile.AppointmentPregnancy,
         fullUrl: string,
-        parent: MR.V1_00_000.Profile.Bundle,
+        parent: MR.V1_0_0.Profile.Bundle,
         history?: History
     ) {
         super(value, fullUrl, parent, history);

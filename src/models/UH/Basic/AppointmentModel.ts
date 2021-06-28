@@ -26,20 +26,20 @@ import { ModelValue } from "../../Types";
 import { Content } from "pdfmake/interfaces";
 
 export type AppointmentType =
-    | CMR.V1_00_000.Profile.CMRAppointmentParticipationPeriod
-    | CMR.V1_00_000.Profile.CMRAppointmentNextAppointment
-    | CMR.V1_00_000.Profile.CMRAppointmentNextImmunizationAppointment;
+    | CMR.V1_0_0.Profile.CMRAppointmentParticipationPeriod
+    | CMR.V1_0_0.Profile.CMRAppointmentNextAppointment
+    | CMR.V1_0_0.Profile.CMRAppointmentNextImmunizationAppointment;
 
 export default class AppointmentModel extends BaseModel<AppointmentType> {
     constructor(
         value: AppointmentType,
         fullUrl: string,
-        parent: CMR.V1_00_000.Profile.CMRBundle,
+        parent: CMR.V1_0_0.Profile.CMRBundle,
         history?: History
     ) {
         super(value, fullUrl, parent, history);
 
-        if (CMR.V1_00_000.Profile.CMRAppointmentParticipationPeriod.is(value)) {
+        if (CMR.V1_0_0.Profile.CMRAppointmentParticipationPeriod.is(value)) {
             this.headline = "Bitte bringen Sie Ihr Kind zur Untersuchung:";
             this.values.push(this.getServiceType());
         } else {
@@ -53,17 +53,17 @@ export default class AppointmentModel extends BaseModel<AppointmentType> {
         return this.value.participant.map((p) => {
             const ref = p.actor.reference;
             const actor = ParserUtil.getEntryWithRef<
-                CMR.V1_00_000.Profile.CMRPatient | CMR.V1_00_000.Profile.CMRPractitioner
+                CMR.V1_0_0.Profile.CMRPatient | CMR.V1_0_0.Profile.CMRPractitioner
             >(
                 this.parent,
-                [CMR.V1_00_000.Profile.CMRPatient, CMR.V1_00_000.Profile.CMRPractitioner],
+                [CMR.V1_0_0.Profile.CMRPatient, CMR.V1_0_0.Profile.CMRPractitioner],
                 ref
             );
 
             let value = "-";
 
             if (actor) {
-                if (CMR.V1_00_000.Profile.CMRPatient.is(actor.resource)) {
+                if (CMR.V1_0_0.Profile.CMRPatient.is(actor.resource)) {
                     value = Util.UH.getPatientName(actor.resource);
                 } else {
                     value = Util.UH.getPractitionerName(actor.resource);
@@ -72,7 +72,7 @@ export default class AppointmentModel extends BaseModel<AppointmentType> {
 
             return {
                 value,
-                label: CMR.V1_00_000.Profile.CMRPatient.is(actor?.resource)
+                label: CMR.V1_0_0.Profile.CMRPatient.is(actor?.resource)
                     ? "Patient/-in"
                     : "Behandelnde Person",
                 onClick: Util.Misc.toEntry(this.history, this.parent, actor)
@@ -108,8 +108,8 @@ export default class AppointmentModel extends BaseModel<AppointmentType> {
 
     public getServiceType(): ModelValue {
         const cm = [
-            CMR.V1_00_000.ConceptMap.CMRExaminationNumberGerman,
-            CMR.V1_00_000.ConceptMap.PCPNExaminationNumberGerman
+            CMR.V1_0_0.ConceptMap.CMRExaminationNumberGerman,
+            CMR.V1_0_0.ConceptMap.PCPNExaminationNumberGerman
         ];
 
         const serviceType: Set<string> = new Set<string>();
@@ -147,7 +147,7 @@ export default class AppointmentModel extends BaseModel<AppointmentType> {
         subTable?: boolean,
         removeHTML?: boolean
     ): Content {
-        if (CMR.V1_00_000.Profile.CMRAppointmentParticipationPeriod.is(this.value)) {
+        if (CMR.V1_0_0.Profile.CMRAppointmentParticipationPeriod.is(this.value)) {
             const value = this.getRequestedPeriod()
                 .map((v) => v.value)
                 .join(", ");

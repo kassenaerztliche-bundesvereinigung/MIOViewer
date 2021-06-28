@@ -25,9 +25,9 @@ import { Util } from "../../components";
 import BaseModel from "../BaseModel";
 import { ModelValue } from "../Types";
 
-export default class PatientModel extends BaseModel<Vaccination.V1_00_000.Profile.Patient> {
+export default class PatientModel extends BaseModel<Vaccination.V1_1_0.Profile.Patient> {
     constructor(
-        value: Vaccination.V1_00_000.Profile.Patient,
+        value: Vaccination.V1_1_0.Profile.Patient,
         fullUrl: string,
         parent: KBVBundleResource,
         history?: History

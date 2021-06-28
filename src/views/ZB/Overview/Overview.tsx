@@ -23,34 +23,35 @@ import { ZAEB, ZAEBResource, MIOEntry, ParserUtil } from "@kbv/mioparser";
 
 import { UI, Util } from "../../../components/";
 import PatientCard from "../../../components/PatientCard";
+import Compare from "../Compare";
 
 type OverviewGroup = {
     headline: string;
     subline?: string;
     baseValues: (
-        | typeof ZAEB.V1_00_000.Profile.Observation
-        | typeof ZAEB.V1_00_000.Profile.GaplessDocumentation
+        | typeof ZAEB.V1_1_0.Profile.ObservationDentalCheckUp
+        | typeof ZAEB.V1_1_0.Profile.ObservationGaplessDocumentation
     )[];
     template: (
         values: UI.EntryGroupTemplateValues<
-            | ZAEB.V1_00_000.Profile.Observation
-            | ZAEB.V1_00_000.Profile.GaplessDocumentation
+            | ZAEB.V1_1_0.Profile.ObservationDentalCheckUp
+            | ZAEB.V1_1_0.Profile.ObservationGaplessDocumentation
         >
     ) => JSX.Element | undefined;
     compare?: (
         a: MIOEntry<
-            | ZAEB.V1_00_000.Profile.Observation
-            | ZAEB.V1_00_000.Profile.GaplessDocumentation
+            | ZAEB.V1_1_0.Profile.ObservationDentalCheckUp
+            | ZAEB.V1_1_0.Profile.ObservationGaplessDocumentation
         >,
         b: MIOEntry<
-            | ZAEB.V1_00_000.Profile.Observation
-            | ZAEB.V1_00_000.Profile.GaplessDocumentation
+            | ZAEB.V1_1_0.Profile.ObservationDentalCheckUp
+            | ZAEB.V1_1_0.Profile.ObservationGaplessDocumentation
         >
     ) => number;
 };
 
 type OverviewProps = {
-    mio: ZAEB.V1_00_000.Profile.Bundle;
+    mio: ZAEB.V1_1_0.Profile.Bundle;
     history: History;
 };
 
@@ -68,53 +69,16 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
         };
     }
 
-    compareObservation(
-        a: MIOEntry<
-            | ZAEB.V1_00_000.Profile.Observation
-            | ZAEB.V1_00_000.Profile.GaplessDocumentation
-        >,
-        b: MIOEntry<
-            | ZAEB.V1_00_000.Profile.Observation
-            | ZAEB.V1_00_000.Profile.GaplessDocumentation
-        >
-    ): number {
-        if (
-            ZAEB.V1_00_000.Profile.Observation.is(a.resource) &&
-            ZAEB.V1_00_000.Profile.Observation.is(b.resource)
-        ) {
-            if (a.resource.effectiveDateTime && b.resource.effectiveDateTime) {
-                const dateA = new Date(a.resource.effectiveDateTime).getTime();
-                const dateB = new Date(b.resource.effectiveDateTime).getTime();
-                return dateB - dateA;
-            } else {
-                return 0;
-            }
-        } else if (
-            ZAEB.V1_00_000.Profile.GaplessDocumentation.is(a.resource) &&
-            ZAEB.V1_00_000.Profile.GaplessDocumentation.is(b.resource)
-        ) {
-            if (a.resource.valueDateTime && b.resource.valueDateTime) {
-                const dateA = new Date(a.resource.valueDateTime).getTime();
-                const dateB = new Date(b.resource.valueDateTime).getTime();
-                return dateB - dateA;
-            } else {
-                return 0;
-            }
-        } else {
-            return 0;
-        }
-    }
-
     componentDidMount(): void {
         const { mio, history } = this.props;
 
         const templateObservation = (
             values: UI.EntryGroupTemplateValues<
-                | ZAEB.V1_00_000.Profile.Observation
-                | ZAEB.V1_00_000.Profile.GaplessDocumentation
+                | ZAEB.V1_1_0.Profile.ObservationDentalCheckUp
+                | ZAEB.V1_1_0.Profile.ObservationGaplessDocumentation
             >
         ): JSX.Element | undefined => {
-            if (ZAEB.V1_00_000.Profile.Observation.is(values.entry.resource)) {
+            if (ZAEB.V1_1_0.Profile.ObservationDentalCheckUp.is(values.entry.resource)) {
                 return (
                     <UI.ListItem.Basic
                         value={Util.Misc.formatDate(
@@ -126,11 +90,13 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
                     />
                 );
             } else if (
-                ZAEB.V1_00_000.Profile.GaplessDocumentation.is(values.entry.resource)
+                ZAEB.V1_1_0.Profile.ObservationGaplessDocumentation.is(
+                    values.entry.resource
+                )
             ) {
-                const composition = ParserUtil.getEntry<ZAEB.V1_00_000.Profile.Composition>(
+                const composition = ParserUtil.getEntry<ZAEB.V1_1_0.Profile.Composition>(
                     mio,
-                    [ZAEB.V1_00_000.Profile.Composition]
+                    [ZAEB.V1_1_0.Profile.Composition]
                 );
 
                 const from = Util.Misc.formatDate(values.entry.resource.valueDateTime);
@@ -148,8 +114,8 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
         };
 
         const profiles = [
-            ZAEB.V1_00_000.Profile.Observation,
-            ZAEB.V1_00_000.Profile.GaplessDocumentation
+            ZAEB.V1_1_0.Profile.ObservationDentalCheckUp,
+            ZAEB.V1_1_0.Profile.ObservationGaplessDocumentation
         ];
 
         const groups: OverviewGroup[] = [
@@ -157,7 +123,7 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
                 headline: "Bonusheft Einträge",
                 baseValues: profiles,
                 template: templateObservation,
-                compare: this.compareObservation
+                compare: Compare.Observation
             }
         ];
 

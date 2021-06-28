@@ -24,11 +24,11 @@ import { UI, Util } from "../../components";
 import { ObservationModel } from "./Basic";
 import { ModelValue } from "../Types";
 
-export default class ObservationBloodGroupSerologyModel extends ObservationModel<MR.V1_00_000.Profile.ObservationBloodGroupSerology> {
+export default class ObservationBloodGroupSerologyModel extends ObservationModel<MR.V1_0_0.Profile.ObservationBloodGroupSerology> {
     constructor(
-        value: MR.V1_00_000.Profile.ObservationBloodGroupSerology,
+        value: MR.V1_0_0.Profile.ObservationBloodGroupSerology,
         fullUrl: string,
-        parent: MR.V1_00_000.Profile.Bundle,
+        parent: MR.V1_0_0.Profile.Bundle,
         history?: History
     ) {
         super(
@@ -66,13 +66,13 @@ export default class ObservationBloodGroupSerologyModel extends ObservationModel
     public getComponents(): ModelValue[] {
         return this.value && this.value.component
             ? this.value.component.map((c) => {
-                  if (MR.V1_00_000.Profile.ObservationBloodGroupSerologyAB0.is(c)) {
+                  if (MR.V1_0_0.Profile.ObservationBloodGroupSerologyAB0.is(c)) {
                       return {
                           value: c.valueCodeableConcept.coding
                               .map((cm) =>
                                   ParserUtil.translateCode(
                                       cm.code,
-                                      MR.V1_00_000.ConceptMap.AB0SystemGerman
+                                      MR.V1_0_0.ConceptMap.AB0SystemGerman
                                   )
                               )
                               .join(", "),
@@ -84,7 +84,7 @@ export default class ObservationBloodGroupSerologyModel extends ObservationModel
                               .map((cm) =>
                                   ParserUtil.translateCode(
                                       cm.code,
-                                      MR.V1_00_000.ConceptMap.RhesusSystemGerman
+                                      MR.V1_0_0.ConceptMap.RhesusSystemGerman
                                   )
                               )
                               .join(", "),

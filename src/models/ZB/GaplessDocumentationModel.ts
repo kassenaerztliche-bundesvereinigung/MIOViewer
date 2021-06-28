@@ -24,9 +24,9 @@ import { Util, UI } from "../../components";
 import { AddressModel, BaseModel, ModelValue, TelecomModel } from "../";
 import { OrganizationModel } from "./";
 
-export default class GaplessDocumentationModel extends BaseModel<ZAEB.V1_00_000.Profile.GaplessDocumentation> {
+export default class GaplessDocumentationModel extends BaseModel<ZAEB.V1_1_0.Profile.ObservationGaplessDocumentation> {
     constructor(
-        value: ZAEB.V1_00_000.Profile.GaplessDocumentation,
+        value: ZAEB.V1_1_0.Profile.ObservationGaplessDocumentation,
         fullUrl: string,
         parent: KBVBundleResource,
         history?: History
@@ -35,20 +35,20 @@ export default class GaplessDocumentationModel extends BaseModel<ZAEB.V1_00_000.
 
         this.headline = this.value.code.text;
 
-        const composition = ParserUtil.getEntry<ZAEB.V1_00_000.Profile.Composition>(
+        const composition = ParserUtil.getEntry<ZAEB.V1_1_0.Profile.Composition>(
             this.parent,
-            [ZAEB.V1_00_000.Profile.Composition]
+            [ZAEB.V1_1_0.Profile.Composition]
         )?.resource;
 
         const authorRef = composition?.author[0].reference;
 
         const organization = Util.ZB.getOrganization(
-            this.parent as ZAEB.V1_00_000.Profile.Bundle,
+            this.parent as ZAEB.V1_1_0.Profile.Bundle,
             authorRef
         );
 
-        const disclaimer = ParserUtil.getSlice<ZAEB.V1_00_000.Profile.GaplessDocumentationDisclaimer>(
-            ZAEB.V1_00_000.Profile.GaplessDocumentationDisclaimer,
+        const disclaimer = ParserUtil.getSlice<ZAEB.V1_1_0.Profile.ObservationGaplessDocumentationDisclaimer>(
+            ZAEB.V1_1_0.Profile.ObservationGaplessDocumentationDisclaimer,
             value.extension
         )?.valueString;
 

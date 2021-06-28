@@ -22,22 +22,22 @@ import { MR, ParserUtil, AnyType } from "@kbv/mioparser";
 import { UI, Util } from "../../components";
 import { InformationAboutModel } from "./";
 
-const PR = MR.V1_00_000.Profile;
+const PR = MR.V1_0_0.Profile;
 
 export default class InformationAboutChildModel extends InformationAboutModel {
     constructor(
         value:
-            | MR.V1_00_000.Profile.ClinicalImpressionBirthExaminationDeliveryInformation
-            | MR.V1_00_000.Profile.ClinicalImpressionFirstExaminationAfterChildbirth
-            | MR.V1_00_000.Profile.ClinicalImpressionSecondExaminationAfterChildbirth,
+            | MR.V1_0_0.Profile.ClinicalImpressionBirthExaminationDeliveryInformation
+            | MR.V1_0_0.Profile.ClinicalImpressionFirstExaminationAfterChildbirth
+            | MR.V1_0_0.Profile.ClinicalImpressionSecondExaminationAfterChildbirth,
         fullUrl: string,
-        parent: MR.V1_00_000.Profile.Bundle,
+        parent: MR.V1_0_0.Profile.Bundle,
         history?: History
     ) {
         // eslint-disable-next-line
         const sectionStack: AnyType[] = [
-            MR.V1_00_000.Profile.CompositionUntersuchungen,
-            MR.V1_00_000.Profile.CompositionUntersuchungenEpikrise
+            MR.V1_0_0.Profile.CompositionUntersuchungen,
+            MR.V1_0_0.Profile.CompositionUntersuchungenEpikrise
         ];
 
         if (PR.ClinicalImpressionBirthExaminationDeliveryInformation.is(value)) {
@@ -67,39 +67,39 @@ export default class InformationAboutChildModel extends InformationAboutModel {
         informationAbout?.forEach((ref) => {
             const result = ParserUtil.getEntryWithRef<
                 // Geburt
-                | MR.V1_00_000.Profile.ObservationBirthMode
-                | MR.V1_00_000.Profile.ObservationWeightChild
-                | MR.V1_00_000.Profile.ObservationHeadCircumference
-                | MR.V1_00_000.Profile.ObservationBirthHeight
-                | MR.V1_00_000.Profile.ObservationApgarScore
-                | MR.V1_00_000.Profile.ObservationpHValueUmbilicalArtery
-                | MR.V1_00_000.Profile.ObservationMalformation
+                | MR.V1_0_0.Profile.ObservationBirthMode
+                | MR.V1_0_0.Profile.ObservationWeightChild
+                | MR.V1_0_0.Profile.ObservationHeadCircumference
+                | MR.V1_0_0.Profile.ObservationBirthHeight
+                | MR.V1_0_0.Profile.ObservationApgarScore
+                | MR.V1_0_0.Profile.ObservationpHValueUmbilicalArtery
+                | MR.V1_0_0.Profile.ObservationMalformation
                 // Wochenbett
-                | MR.V1_00_000.Profile.ObservationBloodGroupSerologyChild
-                | MR.V1_00_000.Profile.ObservationDirectCoombstest
+                | MR.V1_0_0.Profile.ObservationBloodGroupSerologyChild
+                | MR.V1_0_0.Profile.ObservationDirectCoombstest
                 // Zweite Untersuchung nach Entbindung
-                | MR.V1_00_000.Profile.ObservationU3Performed
-                | MR.V1_00_000.Profile.ObservationChildIsHealthy
-                | MR.V1_00_000.Profile.ObservationNeedOfTreatmentU3
+                | MR.V1_0_0.Profile.ObservationU3Performed
+                | MR.V1_0_0.Profile.ObservationChildIsHealthy
+                | MR.V1_0_0.Profile.ObservationNeedOfTreatmentU3
             >(
                 this.parent,
                 [
                     // Geburt
-                    MR.V1_00_000.Profile.ObservationLiveBirth,
-                    MR.V1_00_000.Profile.ObservationBirthMode,
-                    MR.V1_00_000.Profile.ObservationWeightChild,
-                    MR.V1_00_000.Profile.ObservationHeadCircumference,
-                    MR.V1_00_000.Profile.ObservationBirthHeight,
-                    MR.V1_00_000.Profile.ObservationApgarScore,
-                    MR.V1_00_000.Profile.ObservationpHValueUmbilicalArtery,
-                    MR.V1_00_000.Profile.ObservationMalformation,
+                    MR.V1_0_0.Profile.ObservationLiveBirth,
+                    MR.V1_0_0.Profile.ObservationBirthMode,
+                    MR.V1_0_0.Profile.ObservationWeightChild,
+                    MR.V1_0_0.Profile.ObservationHeadCircumference,
+                    MR.V1_0_0.Profile.ObservationBirthHeight,
+                    MR.V1_0_0.Profile.ObservationApgarScore,
+                    MR.V1_0_0.Profile.ObservationpHValueUmbilicalArtery,
+                    MR.V1_0_0.Profile.ObservationMalformation,
                     // Wochenbett
-                    MR.V1_00_000.Profile.ObservationBloodGroupSerologyChild,
-                    MR.V1_00_000.Profile.ObservationDirectCoombstest,
+                    MR.V1_0_0.Profile.ObservationBloodGroupSerologyChild,
+                    MR.V1_0_0.Profile.ObservationDirectCoombstest,
                     // Zweite Untersuchung nach Entbindung
-                    MR.V1_00_000.Profile.ObservationU3Performed,
-                    MR.V1_00_000.Profile.ObservationChildIsHealthy,
-                    MR.V1_00_000.Profile.ObservationNeedOfTreatmentU3
+                    MR.V1_0_0.Profile.ObservationU3Performed,
+                    MR.V1_0_0.Profile.ObservationChildIsHealthy,
+                    MR.V1_0_0.Profile.ObservationNeedOfTreatmentU3
                 ],
                 ref
             );
@@ -111,9 +111,9 @@ export default class InformationAboutChildModel extends InformationAboutModel {
         const children: Set<string> = new Set<string>();
         resources.forEach((resource) => {
             const ref = resource.subject.reference;
-            const result = ParserUtil.getEntryWithRef<MR.V1_00_000.Profile.PatientChild>(
+            const result = ParserUtil.getEntryWithRef<MR.V1_0_0.Profile.PatientChild>(
                 this.parent,
-                [MR.V1_00_000.Profile.PatientChild],
+                [MR.V1_0_0.Profile.PatientChild],
                 ref
             );
 
@@ -129,10 +129,10 @@ export default class InformationAboutChildModel extends InformationAboutModel {
         if (this.section) {
             const children: { id: string; name: string }[] = [];
             this.getChildren().forEach((ref: string) => {
-                const bundle = this.parent as MR.V1_00_000.Profile.Bundle;
-                const child = ParserUtil.getEntryWithRef<MR.V1_00_000.Profile.PatientChild>(
+                const bundle = this.parent as MR.V1_0_0.Profile.Bundle;
+                const child = ParserUtil.getEntryWithRef<MR.V1_0_0.Profile.PatientChild>(
                     bundle,
-                    [MR.V1_00_000.Profile.PatientChild],
+                    [MR.V1_0_0.Profile.PatientChild],
                     ref
                 );
                 if (child) {
@@ -145,19 +145,19 @@ export default class InformationAboutChildModel extends InformationAboutModel {
 
             let section = "Angaben zum Kind";
             if (
-                MR.V1_00_000.Profile.ClinicalImpressionBirthExaminationDeliveryInformation.is(
+                MR.V1_0_0.Profile.ClinicalImpressionBirthExaminationDeliveryInformation.is(
                     this.value
                 )
             ) {
                 section += " Geburt";
             } else if (
-                MR.V1_00_000.Profile.ClinicalImpressionFirstExaminationAfterChildbirth.is(
+                MR.V1_0_0.Profile.ClinicalImpressionFirstExaminationAfterChildbirth.is(
                     this.value
                 )
             ) {
                 section += " Wochenbett";
             } else if (
-                MR.V1_00_000.Profile.ClinicalImpressionSecondExaminationAfterChildbirth.is(
+                MR.V1_0_0.Profile.ClinicalImpressionSecondExaminationAfterChildbirth.is(
                     this.value
                 )
             ) {

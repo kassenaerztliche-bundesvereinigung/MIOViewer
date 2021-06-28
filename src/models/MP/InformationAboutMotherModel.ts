@@ -25,14 +25,14 @@ import * as Models from "../index";
 export default class InformationAboutMotherModel extends InformationAboutModel {
     constructor(
         value:
-            | MR.V1_00_000.Profile.ClinicalImpressionFirstExaminationAfterChildbirth
-            | MR.V1_00_000.Profile.ClinicalImpressionSecondExaminationAfterChildbirth,
+            | MR.V1_0_0.Profile.ClinicalImpressionFirstExaminationAfterChildbirth
+            | MR.V1_0_0.Profile.ClinicalImpressionSecondExaminationAfterChildbirth,
         fullUrl: string,
-        parent: MR.V1_00_000.Profile.Bundle,
+        parent: MR.V1_0_0.Profile.Bundle,
         history?: History
     ) {
-        const PR = MR.V1_00_000.Profile;
-        const CM = MR.V1_00_000.ConceptMap;
+        const PR = MR.V1_0_0.Profile;
+        const CM = MR.V1_0_0.ConceptMap;
 
         const mappings = [
             // Epikrise - Erste Untersuchung

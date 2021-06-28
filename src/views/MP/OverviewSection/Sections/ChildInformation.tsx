@@ -24,13 +24,15 @@ import * as Models from "../../../../models";
 import DetailComponent from "../../../../components/Detail/Detail";
 
 import Section, { SectionProps, Sections } from "../Section";
-const PR = MR.V1_00_000.Profile;
+import { History } from "history";
+const PR = MR.V1_0_0.Profile;
 
-export default class ChildInformation extends Section<
-    | MR.V1_00_000.Profile.CompositionUntersuchungenEpikriseGeburtSection
-    | MR.V1_00_000.Profile.CompositionUntersuchungenEpikriseWochenbettAngabenZumKind
-    | MR.V1_00_000.Profile.CompositionUntersuchungenEpikriseZweiteUntersuchungNachEntbindungAngabenZumKind
-> {
+type SectionType =
+    | MR.V1_0_0.Profile.CompositionUntersuchungenEpikriseGeburtSection
+    | MR.V1_0_0.Profile.CompositionUntersuchungenEpikriseWochenbettAngabenZumKind
+    | MR.V1_0_0.Profile.CompositionUntersuchungenEpikriseZweiteUntersuchungNachEntbindungAngabenZumKind;
+
+export default class ChildInformation extends Section<SectionType> {
     protected patientId: string | undefined;
 
     constructor(props: SectionProps) {
@@ -41,8 +43,8 @@ export default class ChildInformation extends Section<
         };
 
         const sectionStack: AnyType[] = [
-            MR.V1_00_000.Profile.CompositionUntersuchungen,
-            MR.V1_00_000.Profile.CompositionUntersuchungenEpikrise
+            MR.V1_0_0.Profile.CompositionUntersuchungen,
+            MR.V1_0_0.Profile.CompositionUntersuchungenEpikrise
         ];
 
         if (this.props.id === Sections.AngabenZumKindGeburt) {
@@ -74,7 +76,7 @@ export default class ChildInformation extends Section<
         const details: JSX.Element[] = [];
         this.section?.entry?.forEach((entry) => {
             const ref = entry.reference;
-            const res = ParserUtil.getEntryWithRef<MR.V1_00_000.Profile.PatientChild>(
+            const res = ParserUtil.getEntryWithRef<MR.V1_0_0.Profile.PatientChild>(
                 mio,
                 [PR.PatientChild],
                 ref
@@ -109,29 +111,32 @@ export default class ChildInformation extends Section<
         return details;
     }
 
-    protected getListGroups(): UI.DetailList.Props[] {
-        const { mio, history } = this.props;
-
-        const items: UI.ListItem.Props[] = [];
-        this.section?.entry?.forEach((entry) => {
+    public static getListGroups(
+        mio: MR.V1_0_0.Profile.Bundle,
+        section?: SectionType,
+        patientId?: string,
+        history?: History
+    ): Models.ModelValue[] {
+        const items: Models.ModelValue[] = [];
+        section?.entry?.forEach((entry: { reference: string }) => {
             const ref = entry.reference;
             const res = ParserUtil.getEntryWithRef<
                 // Geburt
-                | MR.V1_00_000.Profile.ObservationBirthMode
-                | MR.V1_00_000.Profile.ObservationWeightChild
-                | MR.V1_00_000.Profile.ObservationHeadCircumference
-                | MR.V1_00_000.Profile.ObservationBirthHeight
-                | MR.V1_00_000.Profile.ObservationApgarScore
-                | MR.V1_00_000.Profile.ObservationpHValueUmbilicalArtery
-                | MR.V1_00_000.Profile.ObservationMalformation
-                | MR.V1_00_000.Profile.ObservationLiveBirth
+                | MR.V1_0_0.Profile.ObservationBirthMode
+                | MR.V1_0_0.Profile.ObservationWeightChild
+                | MR.V1_0_0.Profile.ObservationHeadCircumference
+                | MR.V1_0_0.Profile.ObservationBirthHeight
+                | MR.V1_0_0.Profile.ObservationApgarScore
+                | MR.V1_0_0.Profile.ObservationpHValueUmbilicalArtery
+                | MR.V1_0_0.Profile.ObservationMalformation
+                | MR.V1_0_0.Profile.ObservationLiveBirth
                 // Wochenbett
-                | MR.V1_00_000.Profile.ObservationBloodGroupSerologyChild
-                | MR.V1_00_000.Profile.ObservationDirectCoombstest
+                | MR.V1_0_0.Profile.ObservationBloodGroupSerologyChild
+                | MR.V1_0_0.Profile.ObservationDirectCoombstest
                 // Zweite Untersuchung nach Entbindung
-                | MR.V1_00_000.Profile.ObservationU3Performed
-                | MR.V1_00_000.Profile.ObservationChildIsHealthy
-                | MR.V1_00_000.Profile.ObservationNeedOfTreatmentU3
+                | MR.V1_0_0.Profile.ObservationU3Performed
+                | MR.V1_0_0.Profile.ObservationChildIsHealthy
+                | MR.V1_0_0.Profile.ObservationNeedOfTreatmentU3
             >(
                 mio,
                 [
@@ -156,8 +161,8 @@ export default class ChildInformation extends Section<
             );
 
             if (res) {
-                if (this.patientId) {
-                    if (this.checkPatient(res.resource)) {
+                if (patientId) {
+                    if (ChildInformation.checkPatient(mio, res.resource, patientId)) {
                         const model = new Models.MP.Basic.ObservationModel(
                             res.resource,
                             res.fullUrl,
@@ -177,29 +182,33 @@ export default class ChildInformation extends Section<
         });
 
         if (
-            MR.V1_00_000.Profile.CompositionUntersuchungenEpikriseGeburtSection.is(
-                this.section
-            )
+            MR.V1_0_0.Profile.CompositionUntersuchungenEpikriseGeburtSection.is(section)
         ) {
-            const apgarSection = ParserUtil.getSlice<MR.V1_00_000.Profile.CompositionUntersuchungenEpikriseGeburtSectionSection>(
+            const apgarSection = ParserUtil.getSlice<MR.V1_0_0.Profile.CompositionUntersuchungenEpikriseGeburtSectionSection>(
                 PR.CompositionUntersuchungenEpikriseGeburtSectionSection,
-                this.section?.section
+                section?.section
             );
 
-            const apgarItems: UI.ListItem.Props[] = [];
+            const apgarItems: Models.ModelValue[] = [];
 
             if (apgarSection) {
                 apgarSection.entry?.forEach((entry) => {
                     const ref = entry.reference;
-                    const res = ParserUtil.getEntryWithRef<MR.V1_00_000.Profile.ObservationApgarScore>(
+                    const res = ParserUtil.getEntryWithRef<MR.V1_0_0.Profile.ObservationApgarScore>(
                         mio,
                         [PR.ObservationApgarScore],
                         ref
                     );
 
                     if (res) {
-                        if (this.patientId) {
-                            if (this.checkPatient(res.resource)) {
+                        if (patientId) {
+                            if (
+                                ChildInformation.checkPatient(
+                                    mio,
+                                    res.resource,
+                                    patientId
+                                )
+                            ) {
                                 const model = new Models.MP.Basic.ObservationModel(
                                     res.resource,
                                     res.fullUrl,
@@ -208,11 +217,7 @@ export default class ChildInformation extends Section<
                                 );
 
                                 const mainValue = model.getMainValue();
-                                apgarItems.push({
-                                    value: mainValue.value,
-                                    label: mainValue.label,
-                                    onClick: Util.Misc.toEntryByRef(history, mio, ref)
-                                });
+                                apgarItems.push(mainValue);
                             }
                         }
                     }
@@ -222,19 +227,33 @@ export default class ChildInformation extends Section<
             }
         }
 
+        return items;
+    }
+
+    protected getListGroups(): UI.DetailList.Props[] {
+        const { mio, history } = this.props;
+
+        const items: UI.ListItem.Props[] = ChildInformation.getListGroups(
+            mio,
+            this.section,
+            this.patientId,
+            history
+        );
+
         return [{ items }];
     }
 
-    protected checkPatient(resource: { subject: { reference: string } }): boolean {
-        const { mio } = this.props;
-        const child = ParserUtil.getEntryWithRef<MR.V1_00_000.Profile.PatientChild>(
+    public static checkPatient(
+        mio: MR.V1_0_0.Profile.Bundle,
+        resource: { subject: { reference: string } },
+        patientId: string
+    ): boolean {
+        const child = ParserUtil.getEntryWithRef<MR.V1_0_0.Profile.PatientChild>(
             mio,
             [PR.PatientChild],
             resource.subject.reference
         );
 
-        return (
-            child !== undefined && this.patientId === ParserUtil.getUuid(child.fullUrl)
-        );
+        return child !== undefined && patientId === ParserUtil.getUuid(child.fullUrl);
     }
 }

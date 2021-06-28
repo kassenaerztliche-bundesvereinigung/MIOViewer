@@ -36,6 +36,19 @@ type Code = {
     text?: string;
 };
 
+type CodingEmpty = {
+    system?: string;
+    version?: string;
+    code?: string;
+    display?: string;
+    _display?: _Display;
+};
+
+type CodeEmpty = {
+    coding?: CodingEmpty[];
+    id?: string;
+};
+
 export type { Code, Coding, _Display };
 
 export function translateCode(
@@ -75,27 +88,39 @@ export function handleCodingDisplay(display: _Display): string[] {
     return results;
 }
 
-export function handleCode(code: Code, conceptMap?: ParserUtil.ConceptMap[]): string[] {
-    if (code.coding.length) {
-        let translated: string[] = [];
+export function handleCode(
+    code: Code | CodeEmpty,
+    conceptMap?: ParserUtil.ConceptMap[]
+): string[] {
+    const coding = code.coding;
+    if (coding && coding.length) {
+        const translated: string[] = [];
 
         if (conceptMap) {
-            translated = code.coding
-                .map((coding) => ParserUtil.multiTranslateCode(coding.code, conceptMap))
-                .flat();
+            coding.forEach((code) => {
+                if (!code.code) return;
+                translated.push(...ParserUtil.multiTranslateCode(code.code, conceptMap));
+            });
         }
 
         if (!translated.length) {
-            const mapped = code.coding.map((coding) => {
-                const _display = coding._display;
+            const mapped: string[] = [];
+
+            coding.forEach((code) => {
+                const _display = code._display;
                 if (_display && _display.extension) {
-                    return handleCodingDisplay(_display);
-                } else {
-                    return coding.display ?? coding.code;
+                    mapped.push(...handleCodingDisplay(_display));
+                } else if (code.display) {
+                    mapped.push(code.display);
+                } else if (code.code) {
+                    mapped.push(code.code);
                 }
             });
-            return mapped.flat();
-        } else return translated;
+
+            return Array.from(new Set(mapped));
+        } else {
+            return Array.from(new Set(translated));
+        }
     }
 
     return ["-"];
@@ -109,4 +134,20 @@ export function getCoding(
     if (!resource || !resource.code) return "-";
     const code = handleCode(resource.code, conceptMap);
     return Array.from(new Set<string>(code)).join(separator);
+}
+
+export function handleCodeVS(
+    c: Coding | CodingEmpty,
+    valueSets: ParserUtil.ValueSet[]
+): string[] {
+    const results: Set<string> = new Set<string>();
+    valueSets.forEach((valueSet) => {
+        valueSet.forEach((include) => {
+            const result = include.concept.filter((concept) => c.code === concept.code);
+
+            if (result.length) results.add(result[0].display ?? "-");
+        });
+    });
+
+    return Array.from(results);
 }

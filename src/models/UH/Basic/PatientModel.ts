@@ -25,18 +25,18 @@ import BaseModel from "./CMRBaseModel";
 import { ModelValue } from "../../Types";
 
 export type PatientType =
-    | CMR.V1_00_000.Profile.CMRPatient
-    | CMR.V1_00_000.Profile.PCPatient
-    | CMR.V1_00_000.Profile.PNPatient;
+    | CMR.V1_0_0.Profile.CMRPatient
+    | CMR.V1_0_0.Profile.PCPatient
+    | CMR.V1_0_0.Profile.PNPatient;
 
 export default class PatientModel extends BaseModel<PatientType> {
     constructor(
         value: PatientType,
         fullUrl: string,
         parent:
-            | CMR.V1_00_000.Profile.CMRBundle
-            | CMR.V1_00_000.Profile.PCBundle
-            | CMR.V1_00_000.Profile.PNBundle,
+            | CMR.V1_0_0.Profile.CMRBundle
+            | CMR.V1_0_0.Profile.PCBundle
+            | CMR.V1_0_0.Profile.PNBundle,
         history?: History
     ) {
         super(value, fullUrl, parent, history);
@@ -56,7 +56,7 @@ export default class PatientModel extends BaseModel<PatientType> {
         let value = this.value.birthDate;
         if (!value) {
             const absentReason = ParserUtil.getSlice(
-                CMR.V1_00_000.Profile.CMRPatientBirthDateDataabsentreason,
+                CMR.V1_0_0.Profile.CMRPatientBirthDateDataabsentreason,
                 this.value._birthDate?.extension
             );
 

@@ -23,7 +23,7 @@ import * as Models from "../../../../models";
 
 import Section, { SectionProps } from "../Section";
 
-export default class Anamnesis extends Section<MR.V1_00_000.Profile.CompositionAnamneseUndAllgemeineBefunde> {
+export default class Anamnesis extends Section<MR.V1_0_0.Profile.CompositionAnamneseUndAllgemeineBefunde> {
     constructor(props: SectionProps) {
         super(props);
 
@@ -33,7 +33,7 @@ export default class Anamnesis extends Section<MR.V1_00_000.Profile.CompositionA
         };
 
         this.section = this.getSection([
-            MR.V1_00_000.Profile.CompositionAnamneseUndAllgemeineBefunde
+            MR.V1_0_0.Profile.CompositionAnamneseUndAllgemeineBefunde
         ]);
     }
 
@@ -55,19 +55,19 @@ export default class Anamnesis extends Section<MR.V1_00_000.Profile.CompositionA
         this.section?.entry.forEach((entry) => {
             const ref = entry.reference;
             const resAnamnesis = ParserUtil.getEntryWithRef<
-                | MR.V1_00_000.Profile.ObservationAge
-                | MR.V1_00_000.Profile.ObservationBaselineWeightMother
-                | MR.V1_00_000.Profile.ObservationHeight
-                | MR.V1_00_000.Profile.ObservationGravida
-                | MR.V1_00_000.Profile.ObservationPara
+                | MR.V1_0_0.Profile.ObservationAge
+                | MR.V1_0_0.Profile.ObservationBaselineWeightMother
+                | MR.V1_0_0.Profile.ObservationHeight
+                | MR.V1_0_0.Profile.ObservationGravida
+                | MR.V1_0_0.Profile.ObservationPara
             >(
                 mio,
                 [
-                    MR.V1_00_000.Profile.ObservationAge,
-                    MR.V1_00_000.Profile.ObservationBaselineWeightMother,
-                    MR.V1_00_000.Profile.ObservationHeight,
-                    MR.V1_00_000.Profile.ObservationGravida,
-                    MR.V1_00_000.Profile.ObservationPara
+                    MR.V1_0_0.Profile.ObservationAge,
+                    MR.V1_0_0.Profile.ObservationBaselineWeightMother,
+                    MR.V1_0_0.Profile.ObservationHeight,
+                    MR.V1_0_0.Profile.ObservationGravida,
+                    MR.V1_0_0.Profile.ObservationPara
                 ],
                 ref
             );
@@ -87,9 +87,9 @@ export default class Anamnesis extends Section<MR.V1_00_000.Profile.CompositionA
                 });
             }
 
-            const resPreviousPregnancy = ParserUtil.getEntryWithRef<MR.V1_00_000.Profile.ObservationPreviousPregnancy>(
+            const resPreviousPregnancy = ParserUtil.getEntryWithRef<MR.V1_0_0.Profile.ObservationPreviousPregnancy>(
                 mio,
-                [MR.V1_00_000.Profile.ObservationPreviousPregnancy],
+                [MR.V1_0_0.Profile.ObservationPreviousPregnancy],
                 ref
             );
 

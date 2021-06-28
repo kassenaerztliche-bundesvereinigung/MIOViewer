@@ -23,10 +23,10 @@ import { Util } from "components";
 import { ModelValue } from "../Types";
 
 export default class QualificationModel<
-    T extends CMR.V1_00_000.Profile.CMRPractitioner
+    T extends CMR.V1_0_0.Profile.CMRPractitioner
 > extends BaseModel<T> {
     protected code?: string;
-    protected qualificationCoding?: CMR.V1_00_000.Profile.CMRPractitionerQualification;
+    protected qualificationCoding?: CMR.V1_0_0.Profile.CMRPractitionerQualification;
 
     constructor(value: T, fullUrl: string, parent: KBVBundleResource, history?: History) {
         super(value, fullUrl, parent, history);
@@ -74,9 +74,9 @@ export default class QualificationModel<
 
     protected getQualificationIssuer(): ModelValue {
         const issuerRef = this.qualificationCoding?.issuer?.reference ?? "";
-        const organization = ParserUtil.getEntryWithRef<CMR.V1_00_000.Profile.CMROrganization>(
+        const organization = ParserUtil.getEntryWithRef<CMR.V1_0_0.Profile.CMROrganization>(
             this.parent,
-            [CMR.V1_00_000.Profile.CMROrganization],
+            [CMR.V1_0_0.Profile.CMROrganization],
             issuerRef
         )?.resource;
 

@@ -26,7 +26,7 @@ import PatientCard from "../../../../components/PatientCard";
 import * as Models from "../../../../models";
 
 type OverviewProps = {
-    mio: CMR.V1_00_000.Profile.PNBundle;
+    mio: CMR.V1_0_0.Profile.PNBundle;
 } & RouteComponentProps;
 
 export default class Overview extends React.Component<OverviewProps> {
@@ -36,21 +36,21 @@ export default class Overview extends React.Component<OverviewProps> {
         const composition = Util.UH.getComposition(mio);
 
         const model = new Models.UH.PN.CompositionModel(
-            composition?.resource as CMR.V1_00_000.Profile.PNCompositionParentalNotes,
+            composition?.resource as CMR.V1_0_0.Profile.PNCompositionParentalNotes,
             composition?.fullUrl ?? "",
             mio,
             history
         );
 
         const modelNotes = new Models.UH.PN.ParentalNotesModel(
-            composition?.resource as CMR.V1_00_000.Profile.PNCompositionParentalNotes,
+            composition?.resource as CMR.V1_0_0.Profile.PNCompositionParentalNotes,
             composition?.fullUrl ?? "",
             mio,
             history
         );
 
         const modelHints = new Models.UH.Basic.CompositionHintsModel(
-            composition?.resource as CMR.V1_00_000.Profile.PNCompositionParentalNotes,
+            composition?.resource as CMR.V1_0_0.Profile.PNCompositionParentalNotes,
             composition?.fullUrl ?? "",
             mio
         );

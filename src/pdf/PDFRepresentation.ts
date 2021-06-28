@@ -21,7 +21,7 @@ import { Content } from "pdfmake/interfaces";
 import { KBVBundleResource, ParserUtil, MIOEntry, AnyType } from "@kbv/mioparser";
 import { Util, UI } from "../components";
 
-import { horizontalLine, pageBreakAfter } from "./PDFHelper";
+import { horizontalLine, modelValueToPDF, pageBreakAfter } from "./PDFHelper";
 import { DetailMapping } from "../views/Comprehensive/Detail/Types";
 import { ModelValue } from "../models";
 
@@ -277,18 +277,20 @@ export default abstract class PDFRepresentation<T extends KBVBundleResource> {
                     m.models?.forEach((model) => {
                         if (onlyMainValue) {
                             pdfContent.push(
-                                new model(
-                                    entry.resource,
-                                    entry.fullUrl,
-                                    this.value,
-                                    undefined,
-                                    m.valueConceptMaps,
-                                    m.codeConceptMaps,
-                                    m.customLabel,
-                                    m.noValue,
-                                    m.noHeadline,
-                                    m.customHeadline
-                                ).mainValueToPDFContent()
+                                modelValueToPDF(
+                                    new model(
+                                        entry.resource,
+                                        entry.fullUrl,
+                                        this.value,
+                                        undefined,
+                                        m.valueConceptMaps,
+                                        m.codeConceptMaps,
+                                        m.customLabel,
+                                        m.noValue,
+                                        m.noHeadline,
+                                        m.customHeadline
+                                    ).getMainValue()
+                                )
                             );
                         } else {
                             pdfContent.push(

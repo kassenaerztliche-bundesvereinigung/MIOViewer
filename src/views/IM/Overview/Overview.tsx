@@ -30,25 +30,26 @@ import {
 } from "@kbv/mioparser";
 
 import { UI, Util } from "../../../components/";
+import * as Models from "../../../models";
 
-import { ListVaccination, ListObservation, ListCondition } from "../Possibilities";
 import PatientCard from "../../../components/PatientCard";
+import Compare from "../Compare";
 
 type OverviewGroup<T extends KBVResource> = {
     headline: string;
     subline?: string;
     baseValues: (
-        | typeof Vaccination.V1_00_000.Profile.RecordPrime
-        | typeof Vaccination.V1_00_000.Profile.RecordAddendum
-        | typeof Vaccination.V1_00_000.Profile.ObservationImmunizationStatus
-        | typeof Vaccination.V1_00_000.Profile.Condition
+        | typeof Vaccination.V1_1_0.Profile.RecordPrime
+        | typeof Vaccination.V1_1_0.Profile.RecordAddendum
+        | typeof Vaccination.V1_1_0.Profile.ObservationImmunizationStatus
+        | typeof Vaccination.V1_1_0.Profile.Condition
     )[];
     template: (values: UI.EntryGroupTemplateValues<T>) => JSX.Element | undefined;
     compare?: (a: MIOEntry<T>, b: MIOEntry<T>) => number;
 };
 
 type OverviewProps = {
-    mio: Vaccination.V1_00_000.Profile.BundleEntry;
+    mio: Vaccination.V1_1_0.Profile.BundleEntry;
     history: History;
 };
 
@@ -70,29 +71,10 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
         const { mio, history } = this.props;
 
         if (mio) {
-            const compareRecord = (
-                a: MIOEntry<
-                    | Vaccination.V1_00_000.Profile.RecordAddendum
-                    | Vaccination.V1_00_000.Profile.RecordPrime
-                >,
-                b: MIOEntry<
-                    | Vaccination.V1_00_000.Profile.RecordAddendum
-                    | Vaccination.V1_00_000.Profile.RecordPrime
-                >
-            ) => {
-                if (a.resource.occurrenceDateTime && b.resource.occurrenceDateTime) {
-                    const dateA = new Date(a.resource.occurrenceDateTime).getTime();
-                    const dateB = new Date(b.resource.occurrenceDateTime).getTime();
-                    return dateB - dateA;
-                } else {
-                    return 0;
-                }
-            };
-
             const templateRecord = (
                 values: UI.EntryGroupTemplateValues<
-                    | Vaccination.V1_00_000.Profile.RecordAddendum
-                    | Vaccination.V1_00_000.Profile.RecordPrime
+                    | Vaccination.V1_1_0.Profile.RecordAddendum
+                    | Vaccination.V1_1_0.Profile.RecordPrime
                 >
             ): JSX.Element | undefined => {
                 const entry = values.entry;
@@ -102,7 +84,7 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
                         td.coding.forEach((coding) => {
                             const code = ParserUtil.translateCode(
                                 coding.code,
-                                Vaccination.V1_00_000.ConceptMap.VaccineTargetdisease
+                                Vaccination.V1_1_0.ConceptMap.VaccineTargetdisease
                             );
                             codes.push(code.join(", "));
                         })
@@ -121,49 +103,45 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
                 );
             };
 
-            const compareObservation = (
-                a: MIOEntry<Vaccination.V1_00_000.Profile.ObservationImmunizationStatus>,
-                b: MIOEntry<Vaccination.V1_00_000.Profile.ObservationImmunizationStatus>
-            ) => {
-                const dateA = new Date(a.resource.issued).getTime();
-                const dateB = new Date(b.resource.issued).getTime();
-                return dateB - dateA;
-            };
-
             const templateObservation = (
-                values: UI.EntryGroupTemplateValues<Vaccination.V1_00_000.Profile.ObservationImmunizationStatus>
+                values: UI.EntryGroupTemplateValues<Vaccination.V1_1_0.Profile.ObservationImmunizationStatus>
             ): JSX.Element | undefined => {
-                const entry = values.entry;
+                const model = new Models.IM.ObservationModel(
+                    values.entry.resource,
+                    values.entry.fullUrl,
+                    this.props.mio,
+                    this.props.history
+                );
+
+                const mv = model.getMainValue();
 
                 return (
                     <UI.ListItem.Basic
-                        value={entry.resource.code.text}
-                        label={Util.Misc.formatDate(values.entry.resource.issued)}
-                        onClick={Util.Misc.toEntry(history, mio, values.entry)}
+                        value={mv.value}
+                        label={mv.label}
+                        onClick={mv.onClick}
                         key={`item_${values.index}`}
                     />
                 );
             };
 
-            const compareCondition = (
-                a: MIOEntry<Vaccination.V1_00_000.Profile.Condition>,
-                b: MIOEntry<Vaccination.V1_00_000.Profile.Condition>
-            ) => {
-                const dateA = new Date(a.resource.recordedDate).getTime();
-                const dateB = new Date(b.resource.recordedDate).getTime();
-                return dateB - dateA;
-            };
-
             const templateCondition = (
-                values: UI.EntryGroupTemplateValues<Vaccination.V1_00_000.Profile.Condition>
+                values: UI.EntryGroupTemplateValues<Vaccination.V1_1_0.Profile.Condition>
             ): JSX.Element | undefined => {
-                const entry = values.entry;
+                const model = new Models.IM.ConditionModel(
+                    values.entry.resource,
+                    values.entry.fullUrl,
+                    this.props.mio,
+                    this.props.history
+                );
+
+                const mv = model.getMainValue();
 
                 return (
                     <UI.ListItem.Basic
-                        value={entry.resource.code.text}
-                        label={Util.Misc.formatDate(entry.resource.recordedDate)}
-                        onClick={Util.Misc.toEntry(history, mio, entry)}
+                        value={mv.value}
+                        label={mv.label}
+                        onClick={mv.onClick}
                         key={`item_${values.index}`}
                     />
                 );
@@ -172,28 +150,29 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
             // eslint-disable-next-line
             const groups: OverviewGroup<any>[] = [
                 {
-                    headline: ListVaccination.headline,
-                    subline: ListVaccination.subline,
+                    headline: "Impfungen",
+                    subline:
+                        "Inklusive passive Immunisierungen mit humanen (oder heterologen) Immunglobulinen",
                     baseValues: [
-                        Vaccination.V1_00_000.Profile.RecordAddendum,
-                        Vaccination.V1_00_000.Profile.RecordPrime
+                        Vaccination.V1_1_0.Profile.RecordAddendum,
+                        Vaccination.V1_1_0.Profile.RecordPrime
                     ],
                     template: templateRecord,
-                    compare: compareRecord
+                    compare: Compare.Record
                 },
                 {
-                    headline: ListObservation.headline,
+                    headline: "Immunreaktion (Tests)",
                     baseValues: [
-                        Vaccination.V1_00_000.Profile.ObservationImmunizationStatus
+                        Vaccination.V1_1_0.Profile.ObservationImmunizationStatus
                     ],
                     template: templateObservation,
-                    compare: compareObservation
+                    compare: Compare.Observation
                 },
                 {
-                    headline: ListCondition.headline,
-                    baseValues: [Vaccination.V1_00_000.Profile.Condition],
+                    headline: "Erkrankungen, die zu einer Immunisierung geführt haben",
+                    baseValues: [Vaccination.V1_1_0.Profile.Condition],
                     template: templateCondition,
-                    compare: compareCondition
+                    compare: Compare.Condition
                 }
             ];
 

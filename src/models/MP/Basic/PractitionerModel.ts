@@ -19,21 +19,17 @@
 import { History } from "history";
 
 import { ParserUtil, MR } from "@kbv/mioparser";
-import {
-    IHEXDSAuthorSpecialityRestrictedValueSet,
-    PractitionerFunctionAddendumValueSet
-} from "@kbv/mioparser/dist/Definitions/KBV/MR/1.00.000/ValueSet";
 
 import { Util } from "../../../components";
 
 import MPBaseModel from "../MPBaseModel";
 import { ModelValue } from "../../Types";
 
-export default class PractitionerModel extends MPBaseModel<MR.V1_00_000.Profile.Practitioner> {
+export default class PractitionerModel extends MPBaseModel<MR.V1_0_0.Profile.Practitioner> {
     constructor(
-        value: MR.V1_00_000.Profile.Practitioner,
+        value: MR.V1_0_0.Profile.Practitioner,
         fullUrl: string,
-        parent: MR.V1_00_000.Profile.Bundle,
+        parent: MR.V1_0_0.Profile.Bundle,
         history?: History
     ) {
         super(value, fullUrl, parent, history);
@@ -49,44 +45,30 @@ export default class PractitionerModel extends MPBaseModel<MR.V1_00_000.Profile.
     }
 
     protected getQualification(): string {
+        // TODO: refactor
         if (this.value.qualification) {
             return this.value.qualification
                 .map((q) => {
                     return q.code.coding
-                        .map((c) => {
-                            if (c.display) return c.display;
-                            else {
-                                const results: Set<string> = new Set<string>();
+                        .map((coding) => {
+                            const translated = Util.FHIR.translateCode(
+                                coding.code ?? "",
+                                [MR.V1_0_0.ConceptMap.PractitionerFunctionGerman]
+                            );
 
-                                IHEXDSAuthorSpecialityRestrictedValueSet.forEach((vs) => {
-                                    const result = vs.concept.filter(
-                                        (concept) => c.code === concept.code
-                                    );
+                            if (translated.length) {
+                                return translated.join(", ");
+                            } else {
+                                const VS = MR.V1_0_0.ValueSet;
 
-                                    if (result.length) results.add(result[0].display);
-                                });
+                                const translatedVS = Util.FHIR.handleCodeVS(coding, [
+                                    VS.IHEXDSAuthorSpecialityRestrictedValueSet,
+                                    VS.PractitionerFunctionAddendumValueSet
+                                ]);
 
-                                PractitionerFunctionAddendumValueSet.forEach((vs) => {
-                                    const result = vs.concept.filter(
-                                        (concept) => c.code === concept.code
-                                    );
-
-                                    if (result.length) results.add(result[0].display);
-                                });
-
-                                if (c.code) {
-                                    const result = ParserUtil.translateCode(
-                                        c.code,
-                                        MR.V1_00_000.ConceptMap.PractitionerFunctionGerman
-                                    );
-
-                                    if (result.length && c.code !== result[0]) {
-                                        result.forEach((r) => results.add(r));
-                                    }
-                                }
-
-                                const arr = Array.from(results);
-                                return arr.length ? arr.join(", ") : c.code;
+                                return translatedVS.length
+                                    ? translatedVS.join(", ")
+                                    : coding.code;
                             }
                         })
                         .join(", ");
@@ -99,8 +81,8 @@ export default class PractitionerModel extends MPBaseModel<MR.V1_00_000.Profile.
 
     protected getIdentifier(): ModelValue {
         if (this.value.identifier) {
-            const ANR = ParserUtil.getSlice<MR.V1_00_000.Profile.PractitionerANR>(
-                MR.V1_00_000.Profile.PractitionerANR,
+            const ANR = ParserUtil.getSlice<MR.V1_0_0.Profile.PractitionerANR>(
+                MR.V1_0_0.Profile.PractitionerANR,
                 this.value.identifier
             );
 
@@ -110,8 +92,8 @@ export default class PractitionerModel extends MPBaseModel<MR.V1_00_000.Profile.
                     label: "Lebenslange Arztnummer (LANR)"
                 };
 
-            const EFN = ParserUtil.getSlice<MR.V1_00_000.Profile.PractitionerEFN>(
-                MR.V1_00_000.Profile.PractitionerEFN,
+            const EFN = ParserUtil.getSlice<MR.V1_0_0.Profile.PractitionerEFN>(
+                MR.V1_0_0.Profile.PractitionerEFN,
                 this.value.identifier
             );
 
@@ -121,8 +103,8 @@ export default class PractitionerModel extends MPBaseModel<MR.V1_00_000.Profile.
                     label: "Einheitliche Fortbildungsnummer (EFN)"
                 };
 
-            const IK = ParserUtil.getSlice<MR.V1_00_000.Profile.PractitionerHebammenIK>(
-                MR.V1_00_000.Profile.PractitionerHebammenIK,
+            const IK = ParserUtil.getSlice<MR.V1_0_0.Profile.PractitionerHebammenIK>(
+                MR.V1_0_0.Profile.PractitionerHebammenIK,
                 this.value.identifier
             );
 

@@ -1,322 +1,336 @@
 {
-    "resourceType": "Bundle",
-    "id": "f6d996f8-1b4f-4145-8d33-e488fb82a6f5",
-    "meta": {
-        "profile": ["https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_PC_Bundle|1.0.0"]
-    },
-    "identifier": {
-        "system": "urn:ietf:rfc:3937",
-        "value": "f6d996f8-1b4f-4145-8d33-e488fb82a6f5"
-    },
-    "type": "document",
-    "timestamp": "2019-12-23T12:30:02Z",
-    "entry": [
-        {
-            "fullUrl": "urn:uuid:b452f730-1925-406c-a331-71c614201204",
-            "resource": {
-                "resourceType": "Composition",
-                "id": "b452f730-1925-406c-a331-71c614201204",
-                "meta": {
-                    "profile": [
-                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_PC_Composition_Examination_Participation|1.0.0"
-                    ]
-                },
-                "extension": [
-                    {
-                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_MIO_CMR_Note",
-                        "valueString": "Liebe Eltern! Schützen Sie die Daten Ihres Kindes! Mit dieser herausnehmbaren Karte können Sie bei Behörden, Kindertragesstätten, Schulen und Jugendämtern den Nachweis erbringen, dass Ihr Kind an den Untersuchungen teilgenommen hat."
-                    },
-                    {
-                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_MIO_CMR_Instruction",
-                        "valueString": "* Die Untersuchung beinhaltet eine ärztliche Beratung in Bezug auf einen vollständigeen altersgemäßen, entsprechend der Schutzimpfungs-Richtlinie des G-BA ausreichenden Impfschutz."
-                    }
-                ],
-                "status": "final",
-                "type": {
-                    "coding": [
-                        {
-                            "system": "http://snomed.info/sct",
-                            "version": "http://snomed.info/sct/900000000000207008/version/20200731",
-                            "code": "314845004",
-                            "display": "Patient participation status (finding)"
-                        }
-                    ]
-                },
-                "subject": {
-                    "reference": "urn:uuid:04ad3612-60a7-4303-aa8a-82860106a1ab"
-                },
-                "encounter": {
-                    "reference": "urn:uuid:a6e05952-ad7a-4950-9eee-9755896dc6de"
-                },
-                "date": "2020-01-02",
-                "author": [
-                    {
-                        "reference": "urn:uuid:e27f5ba9-7b10-4055-a355-c9fd27da69b1"
-                    }
-                ],
-                "title": "Teilnahmekarte"
-            }
-        },
-        {
-            "fullUrl": "urn:uuid:a6e05952-ad7a-4950-9eee-9755896dc6de",
-            "resource": {
-                "resourceType": "Encounter",
-                "id": "a6e05952-ad7a-4950-9eee-9755896dc6de",
-                "meta": {
-                    "profile": [
-                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_PC_Encounter|1.0.0"
-                    ]
-                },
-                "status": "finished",
-                "class": {
-                    "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
-                    "version": "2.0.0",
-                    "code": "AMB",
-                    "display": "ambulatory"
-                },
-                "type": [
-                    {
-                        "coding": [
-                            {
-                                "system": "http://snomed.info/sct",
-                                "version": "http://snomed.info/sct/900000000000207008/version/20200731",
-                                "code": "170107008",
-                                "_display": {
-                                    "extension": [
-                                        {
-                                            "extension": [
-                                                {
-                                                    "url": "content",
-                                                    "valueString": "U2 3.-10. Lebenstag"
-                                                }
-                                            ],
-                                            "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
-                                        }
-                                    ]
-                                },
-                                "display": "Child examination - 10 days (procedure)"
-                            }
-                        ]
-                    }
-                ],
-                "subject": {
-                    "reference": "urn:uuid:04ad3612-60a7-4303-aa8a-82860106a1ac"
-                },
-                "participant": [
-                    {
-                        "type": [
-                            {
-                                "coding": [
-                                    {
-                                        "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
-                                        "version": "2.0.0",
-                                        "code": "PPRF",
-                                        "display": "primary performer"
-                                    }
-                                ]
-                            }
-                        ],
-                        "individual": {
-                            "reference": "urn:uuid:e27f5ba9-7b10-4055-a355-c9fd27da69b2"
-                        }
-                    }
-                ],
-                "period": {
-                    "start": "2020-01-02"
-                }
-            }
-        },
-        {
-            "fullUrl": "urn:uuid:04ad3612-60a7-4303-aa8a-82860106a1ab",
-            "resource": {
-                "resourceType": "Patient",
-                "id": "04ad3612-60a7-4303-aa8a-82860106a1ab",
-                "meta": {
-                    "profile": [
-                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_PC_Patient|1.0.0"
-                    ]
-                },
-                "identifier": [
-                    {
-                        "type": {
-                            "coding": [
-                                {
-                                    "system": "https://fhir.kbv.de/CodeSystem/KBV_CS_Base_identifier_type",
-                                    "code": "kvk"
-                                }
-                            ]
-                        },
-                        "system": "http://fhir.de/NamingSystem/gkv/kvk-versichertennummer",
-                        "value": "F123456784"
-                    }
-                ],
-                "name": [
-                    {
-                        "use": "official",
-                        "text": "Peter Rot",
-                        "_family": {
-                            "extension": [
-                                {
-                                    "url": "http://hl7.org/fhir/StructureDefinition/humanname-own-name",
-                                    "valueString": "Rot"
-                                }
-                            ]
-                        },
-                        "family": "Rot",
-                        "given": ["Peter"]
-                    }
-                ],
-                "birthDate": "1935-06-22"
-            }
-        },
-        {
-            "fullUrl": "urn:uuid:04ad3612-60a7-4303-aa8a-82860106a1ac",
-            "resource": {
-                "resourceType": "Patient",
-                "id": "04ad3612-60a7-4303-aa8a-82860106a1ac",
-                "meta": {
-                    "profile": [
-                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_CMR_Patient|1.0.0"
-                    ]
-                },
-                "identifier": [
-                    {
-                        "type": {
-                            "coding": [
-                                {
-                                    "system": "https://fhir.kbv.de/CodeSystem/KBV_CS_Base_identifier_type",
-                                    "code": "kvk"
-                                }
-                            ]
-                        },
-                        "system": "http://fhir.de/NamingSystem/gkv/kvk-versichertennummer",
-                        "value": "F123456784"
-                    }
-                ],
-                "name": [
-                    {
-                        "use": "official",
-                        "text": "Peter Rot",
-                        "_family": {
-                            "extension": [
-                                {
-                                    "url": "http://hl7.org/fhir/StructureDefinition/humanname-own-name",
-                                    "valueString": "Rot"
-                                }
-                            ]
-                        },
-                        "family": "Rot",
-                        "given": ["Peter"]
-                    }
-                ],
-                "birthDate": "1935-06-22"
-            }
-        },
-        {
-            "fullUrl": "urn:uuid:e27f5ba9-7b10-4055-a355-c9fd27da69b1",
-            "resource": {
-                "resourceType": "Practitioner",
-                "id": "e27f5ba9-7b10-4055-a355-c9fd27da69b1",
-                "meta": {
-                    "profile": [
-                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_PC_Practitioner|1.0.0"
-                    ]
-                },
-                "identifier": [
-                    {
-                        "type": {
-                            "coding": [
-                                {
-                                    "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
-                                    "code": "LANR"
-                                }
-                            ]
-                        },
-                        "system": "https://fhir.kbv.de/NamingSystem/KBV_NS_Base_ANR",
-                        "value": "123456789"
-                    }
-                ],
-                "name": [
-                    {
-                        "use": "official",
-                        "text": "Dr. med. Till Früherkenner",
-                        "_family": {
-                            "extension": [
-                                {
-                                    "url": "http://hl7.org/fhir/StructureDefinition/humanname-own-name",
-                                    "valueString": "Früherkenner"
-                                }
-                            ]
-                        },
-                        "family": "Früherkenner",
-                        "given": ["Till"],
-                        "prefix": ["Dr. med."],
-                        "_prefix": [
-                            {
-                                "extension": [
-                                    {
-                                        "url": "http://hl7.org/fhir/StructureDefinition/iso21090-EN-qualifier",
-                                        "valueCode": "AC"
-                                    }
-                                ]
-                            }
-                        ]
-                    }
-                ]
-            }
-        },
-        {
-            "fullUrl": "urn:uuid:e27f5ba9-7b10-4055-a355-c9fd27da69b2",
-            "resource": {
-                "resourceType": "Practitioner",
-                "id": "e27f5ba9-7b10-4055-a355-c9fd27da69b2",
-                "meta": {
-                    "profile": [
-                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_CMR_Practitioner|1.0.0"
-                    ]
-                },
-                "identifier": [
-                    {
-                        "type": {
-                            "coding": [
-                                {
-                                    "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
-                                    "code": "LANR"
-                                }
-                            ]
-                        },
-                        "system": "https://fhir.kbv.de/NamingSystem/KBV_NS_Base_ANR",
-                        "value": "123456789"
-                    }
-                ],
-                "name": [
-                    {
-                        "use": "official",
-                        "text": "Dr. med. Till Früherkenner",
-                        "_family": {
-                            "extension": [
-                                {
-                                    "url": "http://hl7.org/fhir/StructureDefinition/humanname-own-name",
-                                    "valueString": "Früherkenner"
-                                }
-                            ]
-                        },
-                        "family": "Früherkenner",
-                        "given": ["Till"],
-                        "prefix": ["Dr. med."],
-                        "_prefix": [
-                            {
-                                "extension": [
-                                    {
-                                        "url": "http://hl7.org/fhir/StructureDefinition/iso21090-EN-qualifier",
-                                        "valueCode": "AC"
-                                    }
-                                ]
-                            }
-                        ]
-                    }
-                ]
-            }
-        }
-    ]
+	"resourceType": "Bundle",
+	"id": "f6d996f8-1b4f-4145-8d33-e488fb82a6f5",
+	"meta": {
+		"profile": [
+			"https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_PC_Bundle|1.0.0"
+		]
+	},
+	"identifier": {
+		"system": "urn:ietf:rfc:3937",
+		"value": "f6d996f8-1b4f-4145-8d33-e488fb82a6f5"
+	},
+	"type": "document",
+	"timestamp": "2019-12-23T12:30:02Z",
+	"entry": [
+		{
+			"fullUrl": "urn:uuid:b452f730-1925-406c-a331-71c614201204",
+			"resource": {
+				"resourceType": "Composition",
+				"id": "b452f730-1925-406c-a331-71c614201204",
+				"meta": {
+					"profile": [
+						"https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_PC_Composition_Examination_Participation|1.0.0"
+					]
+				},
+				"extension": [
+					{
+						"url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_MIO_CMR_Note",
+						"valueString": "Liebe Eltern! Schützen Sie die Daten Ihres Kindes! Mit dieser herausnehmbaren Karte können Sie bei Behörden, Kindertragesstätten, Schulen und Jugendämtern den Nachweis erbringen, dass Ihr Kind an den Untersuchungen teilgenommen hat."
+					},
+					{
+						"url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_MIO_CMR_Instruction",
+						"valueString": "* Die Untersuchung beinhaltet eine ärztliche Beratung in Bezug auf einen vollständigeen altersgemäßen, entsprechend der Schutzimpfungs-Richtlinie des G-BA ausreichenden Impfschutz."
+					}
+				],
+				"status": "final",
+				"type": {
+					"coding": [
+						{
+							"system": "http://snomed.info/sct",
+							"version": "http://snomed.info/sct/900000000000207008/version/20200731",
+							"code": "314845004",
+							"display": "Patient participation status (finding)"
+						}
+					]
+				},
+				"subject": {
+					"reference": "urn:uuid:04ad3612-60a7-4303-aa8a-82860106a1ab"
+				},
+				"encounter": {
+					"reference": "urn:uuid:a6e05952-ad7a-4950-9eee-9755896dc6de"
+				},
+				"date": "2020-01-02",
+				"author": [
+					{
+						"reference": "urn:uuid:e27f5ba9-7b10-4055-a355-c9fd27da69b1"
+					}
+				],
+				"title": "Teilnahmekarte"
+			}
+		},
+		{
+			"fullUrl": "urn:uuid:a6e05952-ad7a-4950-9eee-9755896dc6de",
+			"resource": {
+				"resourceType": "Encounter",
+				"id": "a6e05952-ad7a-4950-9eee-9755896dc6de",
+				"meta": {
+					"profile": [
+						"https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_PC_Encounter|1.0.0"
+					]
+				},
+				"status": "finished",
+				"class": {
+					"system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+					"version": "2.0.0",
+					"code": "AMB",
+					"display": "ambulatory"
+				},
+				"type": [
+					{
+						"coding": [
+							{
+								"system": "http://snomed.info/sct",
+								"version": "http://snomed.info/sct/900000000000207008/version/20200731",
+								"code": "170107008",
+								"_display": {
+									"extension": [
+										{
+											"extension": [
+												{
+													"url": "content",
+													"valueString": "U2 3.-10. Lebenstag"
+												}
+											],
+											"url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+										}
+									]
+								},
+								"display": "Child examination - 10 days (procedure)"
+							}
+						]
+					}
+				],
+				"subject": {
+					"reference": "urn:uuid:04ad3612-60a7-4303-aa8a-82860106a1ac"
+				},
+				"participant": [
+					{
+						"type": [
+							{
+								"coding": [
+									{
+										"system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+										"version": "2.0.0",
+										"code": "PPRF",
+										"display": "primary performer"
+									}
+								]
+							}
+						],
+						"individual": {
+							"reference": "urn:uuid:e27f5ba9-7b10-4055-a355-c9fd27da69b2"
+						}
+					}
+				],
+				"period": {
+					"start": "2020-01-02"
+				}
+			}
+		},
+		{
+			"fullUrl": "urn:uuid:04ad3612-60a7-4303-aa8a-82860106a1ab",
+			"resource": {
+				"resourceType": "Patient",
+				"id": "04ad3612-60a7-4303-aa8a-82860106a1ab",
+				"meta": {
+					"profile": [
+						"https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_PC_Patient|1.0.0"
+					]
+				},
+				"identifier": [
+					{
+						"type": {
+							"coding": [
+								{
+									"system": "https://fhir.kbv.de/CodeSystem/KBV_CS_Base_identifier_type",
+									"code": "kvk"
+								}
+							]
+						},
+						"system": "http://fhir.de/NamingSystem/gkv/kvk-versichertennummer",
+						"value": "F123456784"
+					}
+				],
+				"name": [
+					{
+						"use": "official",
+						"text": "Peter Rot",
+						"_family": {
+							"extension": [
+								{
+									"url": "http://hl7.org/fhir/StructureDefinition/humanname-own-name",
+									"valueString": "Rot"
+								}
+							]
+						},
+						"family": "Rot",
+						"given": [
+							"Peter"
+						]
+					}
+				],
+				"birthDate": "1935-06-22"
+			}
+		},
+		{
+			"fullUrl": "urn:uuid:04ad3612-60a7-4303-aa8a-82860106a1ac",
+			"resource": {
+				"resourceType": "Patient",
+				"id": "04ad3612-60a7-4303-aa8a-82860106a1ac",
+				"meta": {
+					"profile": [
+						"https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_CMR_Patient|1.0.0"
+					]
+				},
+				"identifier": [
+					{
+						"type": {
+							"coding": [
+								{
+									"system": "https://fhir.kbv.de/CodeSystem/KBV_CS_Base_identifier_type",
+									"code": "kvk"
+								}
+							]
+						},
+						"system": "http://fhir.de/NamingSystem/gkv/kvk-versichertennummer",
+						"value": "F123456784"
+					}
+				],
+				"name": [
+					{
+						"use": "official",
+						"text": "Peter Rot",
+						"_family": {
+							"extension": [
+								{
+									"url": "http://hl7.org/fhir/StructureDefinition/humanname-own-name",
+									"valueString": "Rot"
+								}
+							]
+						},
+						"family": "Rot",
+						"given": [
+							"Peter"
+						]
+					}
+				],
+				"birthDate": "1935-06-22"
+			}
+		},
+		{
+			"fullUrl": "urn:uuid:e27f5ba9-7b10-4055-a355-c9fd27da69b1",
+			"resource": {
+				"resourceType": "Practitioner",
+				"id": "e27f5ba9-7b10-4055-a355-c9fd27da69b1",
+				"meta": {
+					"profile": [
+						"https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_PC_Practitioner|1.0.0"
+					]
+				},
+				"identifier": [
+					{
+						"type": {
+							"coding": [
+								{
+									"system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+									"code": "LANR"
+								}
+							]
+						},
+						"system": "https://fhir.kbv.de/NamingSystem/KBV_NS_Base_ANR",
+						"value": "123456789"
+					}
+				],
+				"name": [
+					{
+						"use": "official",
+						"text": "Dr. med. Till Früherkenner",
+						"_family": {
+							"extension": [
+								{
+									"url": "http://hl7.org/fhir/StructureDefinition/humanname-own-name",
+									"valueString": "Früherkenner"
+								}
+							]
+						},
+						"family": "Früherkenner",
+						"given": [
+							"Till"
+						],
+						"prefix": [
+							"Dr. med."
+						],
+						"_prefix": [
+							{
+								"extension": [
+									{
+										"url": "http://hl7.org/fhir/StructureDefinition/iso21090-EN-qualifier",
+										"valueCode": "AC"
+									}
+								]
+							}
+						]
+					}
+				]
+			}
+		},
+		{
+			"fullUrl": "urn:uuid:e27f5ba9-7b10-4055-a355-c9fd27da69b2",
+			"resource": {
+				"resourceType": "Practitioner",
+				"id": "e27f5ba9-7b10-4055-a355-c9fd27da69b2",
+				"meta": {
+					"profile": [
+						"https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_CMR_Practitioner|1.0.0"
+					]
+				},
+				"identifier": [
+					{
+						"type": {
+							"coding": [
+								{
+									"system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+									"code": "LANR"
+								}
+							]
+						},
+						"system": "https://fhir.kbv.de/NamingSystem/KBV_NS_Base_ANR",
+						"value": "123456789"
+					}
+				],
+				"name": [
+					{
+						"use": "official",
+						"text": "Dr. med. Till Früherkenner",
+						"_family": {
+							"extension": [
+								{
+									"url": "http://hl7.org/fhir/StructureDefinition/humanname-own-name",
+									"valueString": "Früherkenner"
+								}
+							]
+						},
+						"family": "Früherkenner",
+						"given": [
+							"Till"
+						],
+						"prefix": [
+							"Dr. med."
+						],
+						"_prefix": [
+							{
+								"extension": [
+									{
+										"url": "http://hl7.org/fhir/StructureDefinition/iso21090-EN-qualifier",
+										"valueCode": "AC"
+									}
+								]
+							}
+						]
+					}
+				]
+			}
+		}
+	]
 }

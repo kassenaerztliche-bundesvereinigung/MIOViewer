@@ -28,7 +28,7 @@ describe("Mutterpass Section Tests", () => {
     ViewerTestUtil.mock();
 
     const mioParser = new MIOParser();
-    let bundle: MR.V1_00_000.Profile.Bundle | undefined = undefined;
+    let bundle: MR.V1_0_0.Profile.Bundle | undefined = undefined;
     let store: any = undefined; // eslint-disable-line
 
     it("Loads max example", async (done) => {
@@ -36,7 +36,7 @@ describe("Mutterpass Section Tests", () => {
         expect(file).toBeDefined();
         if (file) {
             const result = await mioParser.parseString(file);
-            bundle = result.value as MR.V1_00_000.Profile.Bundle;
+            bundle = result.value as MR.V1_0_0.Profile.Bundle;
             store = ViewerTestUtil.createStoreWithMios([bundle]);
             done();
         }

@@ -36,7 +36,7 @@ describe("<IM.Overview />", () => {
         it(file, async () => {
             const blob = new Blob([fs.readFileSync(file)]);
             const result = await mioParser.parseFile(blob);
-            const bundle = result.value as Vaccination.V1_00_000.Profile.BundleEntry;
+            const bundle = result.value as Vaccination.V1_1_0.Profile.BundleEntry;
             const history = createMemoryHistory();
             history.push(`/mio/${ParserUtil.getUuidFromBundle(bundle)}`);
 

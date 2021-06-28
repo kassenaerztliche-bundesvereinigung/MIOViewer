@@ -29,15 +29,15 @@ import { ModelValue } from "../../../../models";
 import Mappings from "../../Mappings";
 
 type OverviewProps = {
-    mio: CMR.V1_00_000.Profile.CMRBundle;
+    mio: CMR.V1_0_0.Profile.CMRBundle;
 } & RouteComponentProps;
 
 type CompositionType =
-    | CMR.V1_00_000.Profile.CMRCompositionCysticFibrosisScreening
-    | CMR.V1_00_000.Profile.CMRCompositionExtendedNewbornScreening
-    | CMR.V1_00_000.Profile.CMRCompositionHipScreening
-    | CMR.V1_00_000.Profile.CMRCompositionNeonatalHearscreening
-    | CMR.V1_00_000.Profile.CMRCompositionPulseOxymetryScreening;
+    | CMR.V1_0_0.Profile.CMRCompositionCysticFibrosisScreening
+    | CMR.V1_0_0.Profile.CMRCompositionExtendedNewbornScreening
+    | CMR.V1_0_0.Profile.CMRCompositionHipScreening
+    | CMR.V1_0_0.Profile.CMRCompositionNeonatalHearscreening
+    | CMR.V1_0_0.Profile.CMRCompositionPulseOxymetryScreening;
 
 export default class OverviewSpecial extends React.Component<OverviewProps> {
     protected composition?: MIOEntry<CompositionType>;

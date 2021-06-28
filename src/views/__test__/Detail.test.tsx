@@ -60,31 +60,31 @@ describe("<Detail-View />", () => {
                 {
                     getFunction: Util.IM.getPatient,
                     testId: "detail-VaccinationPatient",
-                    profile: Vaccination.V1_00_000.Profile.Patient,
+                    profile: Vaccination.V1_1_0.Profile.Patient,
                     required: ["Geburtsdatum"]
                 },
                 {
                     getFunction: Util.IM.getOrganization,
                     testId: "detail-VaccinationOrganization",
-                    profile: Vaccination.V1_00_000.Profile.Organization,
+                    profile: Vaccination.V1_1_0.Profile.Organization,
                     required: []
                 },
                 {
                     getFunction: Util.IM.getRecordPrime,
                     testId: "detail-VaccinationRecordPrime",
-                    profile: Vaccination.V1_00_000.Profile.RecordPrime,
+                    profile: Vaccination.V1_1_0.Profile.RecordPrime,
                     required: []
                 },
                 {
                     getFunction: Util.IM.getRecordAddendum,
                     testId: "detail-VaccinationRecordAddendum",
-                    profile: Vaccination.V1_00_000.Profile.RecordAddendum,
+                    profile: Vaccination.V1_1_0.Profile.RecordAddendum,
                     required: ["Datum der Impfung"]
                 },
                 {
                     getFunction: Util.IM.getPractitioner,
                     testId: /(detail-VaccinationPractitioner)|(detail-VaccinationPractitionerAddendum)/,
-                    profile: Vaccination.V1_00_000.Profile.Practitioner,
+                    profile: Vaccination.V1_1_0.Profile.Practitioner,
                     required: ["Funktionsbezeichnung"]
                 }
             ]
@@ -96,25 +96,25 @@ describe("<Detail-View />", () => {
                 {
                     getFunction: Util.ZB.getPatient,
                     testId: "detail-ZAEBPatient",
-                    profile: ZAEB.V1_00_000.Profile.Patient,
+                    profile: ZAEB.V1_1_0.Profile.Patient,
                     required: ["Geburtsdatum"]
                 },
                 {
                     getFunction: Util.ZB.getOrganization,
                     testId: "detail-ZAEBOrganization",
-                    profile: ZAEB.V1_00_000.Profile.Organization,
+                    profile: ZAEB.V1_1_0.Profile.Organization,
                     required: []
                 },
                 {
-                    getFunction: Util.ZB.getObservation,
-                    testId: "detail-ZAEBObservation",
-                    profile: ZAEB.V1_00_000.Profile.Observation,
+                    getFunction: Util.ZB.getObservationDentalCheckUp,
+                    testId: "detail-ZAEBObservationDentalCheckUp",
+                    profile: ZAEB.V1_1_0.Profile.ObservationDentalCheckUp,
                     required: ["Art der Untersuchung", "Datum"]
                 },
                 {
-                    getFunction: Util.ZB.getGaplessDocumentation,
-                    testId: "detail-ZAEBGaplessDocumentation",
-                    profile: ZAEB.V1_00_000.Profile.GaplessDocumentation,
+                    getFunction: Util.ZB.getObservationGaplessDocumentation,
+                    testId: "detail-ZAEBObservationGaplessDocumentation",
+                    profile: ZAEB.V1_1_0.Profile.ObservationGaplessDocumentation,
                     required: ["Datum", "Eintrag durch", "Datum des Eintrags"]
                 }
             ]
@@ -126,13 +126,13 @@ describe("<Detail-View />", () => {
                 {
                     getFunction: Util.MP.getPatientMother,
                     testId: "detail-MRPatientMother",
-                    profile: MR.V1_00_000.Profile.PatientMother,
+                    profile: MR.V1_0_0.Profile.PatientMother,
                     required: ["Geburtsdatum"]
                 },
                 {
                     getFunction: Util.MP.getAuthor,
                     testId: /(detail-MROrganization)|(detail-MRPractitioner)/,
-                    profile: MR.V1_00_000.Profile.Organization,
+                    profile: MR.V1_0_0.Profile.Organization,
                     required: []
                 }
             ]
@@ -144,7 +144,7 @@ describe("<Detail-View />", () => {
                 {
                     getFunction: Util.UH.getPatient,
                     testId: /(detail-CMRPatient)|(detail-PCPatient)|(detail-PNPatient)/,
-                    profile: CMR.V1_00_000.Profile.CMRPatient,
+                    profile: CMR.V1_0_0.Profile.CMRPatient,
                     required: ["Geburtsdatum"]
                 }
             ]
@@ -158,7 +158,7 @@ describe("<Detail-View />", () => {
                     it(file, async (done) => {
                         const blob = new Blob([fs.readFileSync(file)]);
                         const result = await mioParser.parseFile(blob);
-                        const bundle = result.value as Vaccination.V1_00_000.Profile.BundleEntry;
+                        const bundle = result.value as Vaccination.V1_1_0.Profile.BundleEntry;
                         const store = ViewerTestUtil.createStoreWithMios([bundle]);
                         const entryFound = detail.getFunction(bundle);
 
@@ -247,8 +247,8 @@ describe("<Detail-View />", () => {
             const bundle = result.value as KBVBundleResource;
             const store = ViewerTestUtil.createStoreWithMios([bundle]);
 
-            const entry = ParserUtil.getEntry<ZAEB.V1_00_000.Profile.Patient>(bundle, [
-                ZAEB.V1_00_000.Profile.Patient
+            const entry = ParserUtil.getEntry<ZAEB.V1_1_0.Profile.Patient>(bundle, [
+                ZAEB.V1_1_0.Profile.Patient
             ]);
 
             const entryId = entry ? ParserUtil.getUuidFromEntry(entry) : "-";
@@ -262,7 +262,7 @@ describe("<Detail-View />", () => {
 
             expect(
                 getAllByText(
-                    "Das Detail zum Profil KBV_PR_MIO_ZAEB_Patient|1.00.000 kann nicht angezeigt werden"
+                    "Das Detail zum Profil KBV_PR_MIO_ZAEB_Patient|1.1.0 kann nicht angezeigt werden"
                 )
             ).toBeDefined();
             expect(getByTestId("error-list")).toBeDefined();
@@ -278,9 +278,9 @@ describe("<Detail-View />", () => {
             const bundle = result.value as KBVBundleResource;
             const store = ViewerTestUtil.createStoreWithMios([bundle]);
 
-            const entry = ParserUtil.getEntry<Vaccination.V1_00_000.Profile.Patient>(
+            const entry = ParserUtil.getEntry<Vaccination.V1_1_0.Profile.Patient>(
                 bundle,
-                [Vaccination.V1_00_000.Profile.Patient]
+                [Vaccination.V1_1_0.Profile.Patient]
             );
 
             const entryId = entry ? ParserUtil.getUuidFromEntry(entry) : "-";
@@ -294,7 +294,7 @@ describe("<Detail-View />", () => {
 
             expect(
                 getAllByText(
-                    "Das Detail zum Profil KBV_PR_MIO_Vaccination_Patient|1.00.000 kann nicht angezeigt werden"
+                    "Das Detail zum Profil KBV_PR_MIO_Vaccination_Patient|1.1.0 kann nicht angezeigt werden"
                 )
             ).toBeDefined();
             expect(getByTestId("error-list")).toBeDefined();

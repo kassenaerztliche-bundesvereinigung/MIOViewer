@@ -38,8 +38,8 @@ export enum Sections {
 }
 
 export type SectionProps = {
-    mio: MR.V1_00_000.Profile.Bundle;
-    composition: MR.V1_00_000.Profile.Composition;
+    mio: MR.V1_0_0.Profile.Bundle;
+    composition: MR.V1_0_0.Profile.Composition;
     id: string;
     devMode: boolean;
 } & RouteComponentProps;

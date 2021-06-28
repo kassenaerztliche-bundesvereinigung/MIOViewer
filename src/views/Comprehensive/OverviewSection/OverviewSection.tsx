@@ -36,7 +36,7 @@ class OverviewSection extends React.Component<
         let component = undefined;
         const section = match.params.section;
 
-        if (MR.V1_00_000.Profile.Bundle.is(mio)) {
+        if (MR.V1_0_0.Profile.Bundle.is(mio)) {
             component = (
                 <OverviewSectionMP
                     mio={mio}

@@ -42,12 +42,12 @@ export default abstract class DetailBase<
     protected abstract showPatient(): boolean;
     protected abstract getPatient():
         | MIOEntry<
-              | Vaccination.V1_00_000.Profile.Patient
-              | ZAEB.V1_00_000.Profile.Patient
-              | MR.V1_00_000.Profile.PatientMother
-              | CMR.V1_00_000.Profile.CMRPatient
-              | CMR.V1_00_000.Profile.PCPatient
-              | CMR.V1_00_000.Profile.PNPatient
+              | Vaccination.V1_1_0.Profile.Patient
+              | ZAEB.V1_1_0.Profile.Patient
+              | MR.V1_0_0.Profile.PatientMother
+              | CMR.V1_0_0.Profile.CMRPatient
+              | CMR.V1_0_0.Profile.PCPatient
+              | CMR.V1_0_0.Profile.PNPatient
           >
         | undefined;
     protected abstract getHeaderClass(): UI.MIOClassName;
@@ -108,7 +108,10 @@ export default abstract class DetailBase<
             if (mapped) {
                 return mapped;
             } else {
-                const profile: string = entry.resource.meta.profile[0];
+                const profile: string = entry?.resource.meta
+                    ? entry.resource.meta.profile[0]
+                    : "";
+
                 return {
                     header: "Sorry",
                     component: (

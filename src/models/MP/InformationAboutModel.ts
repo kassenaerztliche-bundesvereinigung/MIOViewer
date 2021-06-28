@@ -26,24 +26,24 @@ import * as Models from "../index";
 import { ModelValue } from "../index";
 
 export default class InformationAboutModel extends MPBaseModel<
-    | MR.V1_00_000.Profile.ClinicalImpressionBirthExaminationDeliveryInformation
-    | MR.V1_00_000.Profile.ClinicalImpressionFirstExaminationAfterChildbirth
-    | MR.V1_00_000.Profile.ClinicalImpressionSecondExaminationAfterChildbirth
+    | MR.V1_0_0.Profile.ClinicalImpressionBirthExaminationDeliveryInformation
+    | MR.V1_0_0.Profile.ClinicalImpressionFirstExaminationAfterChildbirth
+    | MR.V1_0_0.Profile.ClinicalImpressionSecondExaminationAfterChildbirth
 > {
-    protected composition: MIOEntry<MR.V1_00_000.Profile.Composition> | undefined;
+    protected composition: MIOEntry<MR.V1_0_0.Profile.Composition> | undefined;
     protected section:
-        | MR.V1_00_000.Profile.CompositionUntersuchungenEpikriseGeburtSection
-        | MR.V1_00_000.Profile.CompositionUntersuchungenEpikriseWochenbettAngabenZumKind
-        | MR.V1_00_000.Profile.CompositionUntersuchungenEpikriseWochenbettAngabenZurMutter
+        | MR.V1_0_0.Profile.CompositionUntersuchungenEpikriseGeburtSection
+        | MR.V1_0_0.Profile.CompositionUntersuchungenEpikriseWochenbettAngabenZumKind
+        | MR.V1_0_0.Profile.CompositionUntersuchungenEpikriseWochenbettAngabenZurMutter
         | undefined;
 
     constructor(
         value:
-            | MR.V1_00_000.Profile.ClinicalImpressionBirthExaminationDeliveryInformation
-            | MR.V1_00_000.Profile.ClinicalImpressionFirstExaminationAfterChildbirth
-            | MR.V1_00_000.Profile.ClinicalImpressionSecondExaminationAfterChildbirth,
+            | MR.V1_0_0.Profile.ClinicalImpressionBirthExaminationDeliveryInformation
+            | MR.V1_0_0.Profile.ClinicalImpressionFirstExaminationAfterChildbirth
+            | MR.V1_0_0.Profile.ClinicalImpressionSecondExaminationAfterChildbirth,
         fullUrl: string,
-        parent: MR.V1_00_000.Profile.Bundle,
+        parent: MR.V1_0_0.Profile.Bundle,
         history?: History,
         protected mappings: DetailMapping[] = [],
         protected sectionStack: AnyType[] = []
@@ -51,7 +51,7 @@ export default class InformationAboutModel extends MPBaseModel<
         super(value, fullUrl, parent, history);
 
         this.composition = ParserUtil.getEntry(this.parent, [
-            MR.V1_00_000.Profile.Composition
+            MR.V1_0_0.Profile.Composition
         ]);
 
         this.section = this.getSection(sectionStack);
@@ -60,9 +60,9 @@ export default class InformationAboutModel extends MPBaseModel<
 
     protected getSection<
         T extends
-            | MR.V1_00_000.Profile.CompositionUntersuchungenEpikriseGeburtSection
-            | MR.V1_00_000.Profile.CompositionUntersuchungenEpikriseWochenbettAngabenZumKind
-            | MR.V1_00_000.Profile.CompositionUntersuchungenEpikriseWochenbettAngabenZurMutter
+            | MR.V1_0_0.Profile.CompositionUntersuchungenEpikriseGeburtSection
+            | MR.V1_0_0.Profile.CompositionUntersuchungenEpikriseWochenbettAngabenZumKind
+            | MR.V1_0_0.Profile.CompositionUntersuchungenEpikriseWochenbettAngabenZurMutter
     >(sectionStack: AnyType[]): T | undefined {
         let result = undefined;
         let section = this.composition?.resource;
@@ -94,7 +94,7 @@ export default class InformationAboutModel extends MPBaseModel<
 
     protected resolveMapping(resource: unknown, fullUrl: string): void {
         const mappings = this.mappings;
-        const bundle = this.parent as MR.V1_00_000.Profile.Bundle;
+        const bundle = this.parent as MR.V1_0_0.Profile.Bundle;
 
         if (resource) {
             let model!: Models.Model;

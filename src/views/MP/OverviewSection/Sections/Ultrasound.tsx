@@ -22,7 +22,7 @@ import { UI, Util } from "../../../../components";
 
 import Section, { SectionProps } from "../Section";
 
-export default class Ultrasound extends Section<MR.V1_00_000.Profile.CompositionUntersuchungenUltraschall> {
+export default class Ultrasound extends Section<MR.V1_0_0.Profile.CompositionUntersuchungenUltraschall> {
     constructor(props: SectionProps) {
         super(props);
 
@@ -32,8 +32,8 @@ export default class Ultrasound extends Section<MR.V1_00_000.Profile.Composition
         };
 
         this.section = this.getSection([
-            MR.V1_00_000.Profile.CompositionUntersuchungen,
-            MR.V1_00_000.Profile.CompositionUntersuchungenUltraschall
+            MR.V1_0_0.Profile.CompositionUntersuchungen,
+            MR.V1_0_0.Profile.CompositionUntersuchungenUltraschall
         ]);
     }
 
@@ -48,9 +48,9 @@ export default class Ultrasound extends Section<MR.V1_00_000.Profile.Composition
 
         this.section?.entry?.forEach((entry) => {
             const ref = entry.reference;
-            const res = ParserUtil.getEntryWithRef<MR.V1_00_000.Profile.ObservationUltrasound>(
+            const res = ParserUtil.getEntryWithRef<MR.V1_0_0.Profile.ObservationUltrasound>(
                 mio,
-                [MR.V1_00_000.Profile.ObservationUltrasound],
+                [MR.V1_0_0.Profile.ObservationUltrasound],
                 ref
             )?.resource;
 
@@ -64,14 +64,14 @@ export default class Ultrasound extends Section<MR.V1_00_000.Profile.Composition
         });
 
         const slices = ParserUtil.getSlices<
-            | MR.V1_00_000.Profile.CompositionUntersuchungenUltraschallUltraschallI
-            | MR.V1_00_000.Profile.CompositionUntersuchungenUltraschallUltraschallII
-            | MR.V1_00_000.Profile.CompositionUntersuchungenUltraschallUltraschallIII
+            | MR.V1_0_0.Profile.CompositionUntersuchungenUltraschallUltraschallI
+            | MR.V1_0_0.Profile.CompositionUntersuchungenUltraschallUltraschallII
+            | MR.V1_0_0.Profile.CompositionUntersuchungenUltraschallUltraschallIII
         >(
             [
-                MR.V1_00_000.Profile.CompositionUntersuchungenUltraschallUltraschallI,
-                MR.V1_00_000.Profile.CompositionUntersuchungenUltraschallUltraschallII,
-                MR.V1_00_000.Profile.CompositionUntersuchungenUltraschallUltraschallIII
+                MR.V1_0_0.Profile.CompositionUntersuchungenUltraschallUltraschallI,
+                MR.V1_0_0.Profile.CompositionUntersuchungenUltraschallUltraschallII,
+                MR.V1_0_0.Profile.CompositionUntersuchungenUltraschallUltraschallIII
             ],
             this.section?.section
         );
@@ -82,15 +82,15 @@ export default class Ultrasound extends Section<MR.V1_00_000.Profile.Composition
             section.entry.forEach((entry) => {
                 const ref = entry.reference;
                 const res = ParserUtil.getEntryWithRef<
-                    | MR.V1_00_000.Profile.DiagnosticReportUltrasoundI
-                    | MR.V1_00_000.Profile.DiagnosticReportUltrasoundII
-                    | MR.V1_00_000.Profile.DiagnosticReportUltrasoundIII
+                    | MR.V1_0_0.Profile.DiagnosticReportUltrasoundI
+                    | MR.V1_0_0.Profile.DiagnosticReportUltrasoundII
+                    | MR.V1_0_0.Profile.DiagnosticReportUltrasoundIII
                 >(
                     mio,
                     [
-                        MR.V1_00_000.Profile.DiagnosticReportUltrasoundI,
-                        MR.V1_00_000.Profile.DiagnosticReportUltrasoundII,
-                        MR.V1_00_000.Profile.DiagnosticReportUltrasoundIII
+                        MR.V1_0_0.Profile.DiagnosticReportUltrasoundI,
+                        MR.V1_0_0.Profile.DiagnosticReportUltrasoundII,
+                        MR.V1_0_0.Profile.DiagnosticReportUltrasoundIII
                     ],
                     ref
                 )?.resource;
@@ -112,9 +112,9 @@ export default class Ultrasound extends Section<MR.V1_00_000.Profile.Composition
 
         const others: UI.ListItem.Props[] = [];
 
-        const otherSlices = ParserUtil.getSlices<MR.V1_00_000.Profile.CompositionUntersuchungenUltraschallWeitereUltraschallUntersuchungen>(
+        const otherSlices = ParserUtil.getSlices<MR.V1_0_0.Profile.CompositionUntersuchungenUltraschallWeitereUltraschallUntersuchungen>(
             [
-                MR.V1_00_000.Profile
+                MR.V1_0_0.Profile
                     .CompositionUntersuchungenUltraschallWeitereUltraschallUntersuchungen
             ],
             this.section?.section
@@ -125,9 +125,9 @@ export default class Ultrasound extends Section<MR.V1_00_000.Profile.Composition
             let label = "-";
             section.entry.forEach((entry) => {
                 const ref = entry.reference;
-                const res = ParserUtil.getEntryWithRef<MR.V1_00_000.Profile.ObservationOtherUltrasoundStudies>(
+                const res = ParserUtil.getEntryWithRef<MR.V1_0_0.Profile.ObservationOtherUltrasoundStudies>(
                     mio,
-                    [MR.V1_00_000.Profile.ObservationOtherUltrasoundStudies],
+                    [MR.V1_0_0.Profile.ObservationOtherUltrasoundStudies],
                     ref
                 )?.resource;
 

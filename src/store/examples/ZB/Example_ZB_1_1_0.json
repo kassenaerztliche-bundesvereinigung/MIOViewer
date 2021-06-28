@@ -1,0 +1,300 @@
+{
+	"resourceType": "Bundle",
+	"id": "ec5bf24f-e823-45d6-97c6-14e35ded0ec0",
+	"meta": {
+		"profile": [
+			"https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_ZAEB_Bundle|1.1.0"
+		]
+	},
+	"identifier": {
+		"system": "urn:ietf:rfc:3986",
+		"value": "urn:uuid:ec5bf24f-e823-45d6-97c6-14e35ded0ec0"
+	},
+	"type": "document",
+	"timestamp": "2021-01-27T12:30:02Z",
+	"entry": [
+		{
+			"fullUrl": "urn:uuid:2c3a4aa6-cbea-4ac1-a6e5-865b93424e0a",
+			"resource": {
+				"resourceType": "Composition",
+				"id": "2c3a4aa6-cbea-4ac1-a6e5-865b93424e0a",
+				"meta": {
+					"profile": [
+						"https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_ZAEB_Composition|1.1.0"
+					]
+				},
+				"status": "final",
+				"type": {
+					"coding": [
+						{
+							"system": "http://snomed.info/sct",
+							"version": "http://snomed.info/sct/900000000000207008/version/20210131",
+							"code": "371525003",
+							"display": "Clinical procedure report (record artifact)"
+						}
+					]
+				},
+				"subject": {
+					"reference": "urn:uuid:ba5f36ef-84e9-4a83-852b-e74dac4014ed"
+				},
+				"date": "2018-07-01T12:30:02Z",
+				"author": [
+					{
+						"reference": "urn:uuid:2952e04f-50ec-4f27-a06d-f47a500b6998"
+					}
+				],
+				"title": "Bonushefteintrag",
+				"section": [
+					{
+						"entry": [
+							{
+								"reference": "urn:uuid:321c66be-ea2e-4559-9e3d-b6f2326f2dcf"
+							},
+							{
+								"reference": "urn:uuid:2071b7f6-6574-46c1-b3a9-e4ef8a93500e"
+							}
+						]
+					}
+				]
+			}
+		},
+		{
+			"fullUrl": "urn:uuid:ba5f36ef-84e9-4a83-852b-e74dac4014ed",
+			"resource": {
+				"resourceType": "Patient",
+				"id": "ba5f36ef-84e9-4a83-852b-e74dac4014ed",
+				"meta": {
+					"profile": [
+						"https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_ZAEB_Patient|1.1.0"
+					]
+				},
+				"text": {
+					"status": "generated",
+					"div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>Patient: Dr. Graf Ludger von Königsstein</p></div>"
+				},
+				"identifier": [
+					{
+						"type": {
+							"coding": [
+								{
+									"system": "http://fhir.de/CodeSystem/identifier-type-de-basis",
+									"code": "GKV"
+								}
+							]
+						},
+						"system": "http://fhir.de/NamingSystem/gkv/kvid-10",
+						"value": "L234567890"
+					}
+				],
+				"name": [
+					{
+						"use": "official",
+						"text": "Dr. Graf Ludger von Königsstein",
+						"_family": {
+							"extension": [
+								{
+									"url": "http://fhir.de/StructureDefinition/humanname-namenszusatz",
+									"valueString": "Graf"
+								},
+								{
+									"url": "http://hl7.org/fhir/StructureDefinition/humanname-own-name",
+									"valueString": "Königsstein"
+								},
+								{
+									"url": "http://hl7.org/fhir/StructureDefinition/humanname-own-prefix",
+									"valueString": "von"
+								}
+							]
+						},
+						"family": "Graf von Königsstein",
+						"given": [
+							"Ludger"
+						],
+						"prefix": [
+							"Dr."
+						],
+						"_prefix": [
+							{
+								"extension": [
+									{
+										"url": "http://hl7.org/fhir/StructureDefinition/iso21090-EN-qualifier",
+										"valueCode": "AC"
+									}
+								]
+							}
+						]
+					}
+				],
+				"birthDate": "1935-06-22",
+				"address": [
+					{
+						"extension": [
+							{
+								"url": "http://hl7.org/fhir/StructureDefinition/iso21090-ADXP-precinct",
+								"valueString": "Mitte"
+							}
+						],
+						"type": "both",
+						"line": [
+							"Musterweg 42 Hinterhof",
+							"Mitte"
+						],
+						"_line": [
+							{
+								"extension": [
+									{
+										"url": "http://hl7.org/fhir/StructureDefinition/iso21090-ADXP-streetName",
+										"valueString": "Musterweg"
+									},
+									{
+										"url": "http://hl7.org/fhir/StructureDefinition/iso21090-ADXP-houseNumber",
+										"valueString": "42"
+									},
+									{
+										"url": "http://hl7.org/fhir/StructureDefinition/iso21090-ADXP-additionalLocator",
+										"valueString": "Hinterhof"
+									}
+								]
+							}
+						],
+						"city": "Berlin",
+						"postalCode": "10787",
+						"country": "DE"
+					}
+				]
+			}
+		},
+		{
+			"fullUrl": "urn:uuid:2952e04f-50ec-4f27-a06d-f47a500b6998",
+			"resource": {
+				"resourceType": "Organization",
+				"id": "2952e04f-50ec-4f27-a06d-f47a500b6998",
+				"meta": {
+					"profile": [
+						"https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_ZAEB_Organization|1.1.0"
+					]
+				},
+				"text": {
+					"status": "generated",
+					"div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>Organisation - Dr. med. Hans Topp-Glücklich</p></div>"
+				},
+				"identifier": [
+					{
+						"type": {
+							"coding": [
+								{
+									"system": "http://fhir.de/CodeSystem/identifier-type-de-basis",
+									"code": "KZVA"
+								}
+							]
+						},
+						"system": "http://fhir.de/NamingSystem/kzbv/kzvabrechnungsnummer",
+						"value": "123456789"
+					}
+				],
+				"name": "Dr. med. Hans Topp-Glücklich",
+				"address": [
+					{
+						"type": "both",
+						"text": "Musterweg 1, 10787 Berlin, Deutschland",
+						"line": [
+							"Musterweg 1"
+						],
+						"_line": [
+							{
+								"extension": [
+									{
+										"url": "http://hl7.org/fhir/StructureDefinition/iso21090-ADXP-streetName",
+										"valueString": "Musterweg"
+									},
+									{
+										"url": "http://hl7.org/fhir/StructureDefinition/iso21090-ADXP-houseNumber",
+										"valueString": "1"
+									}
+								]
+							}
+						],
+						"city": "Berlin",
+						"postalCode": "10787",
+						"country": "DE"
+					}
+				]
+			}
+		},
+		{
+			"fullUrl": "urn:uuid:2071b7f6-6574-46c1-b3a9-e4ef8a93500e",
+			"resource": {
+				"resourceType": "Observation",
+				"id": "2071b7f6-6574-46c1-b3a9-e4ef8a93500e",
+				"meta": {
+					"profile": [
+						"https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_ZAEB_Observation_Gapless_Documentation|1.1.0"
+					]
+				},
+				"text": {
+					"status": "extensions",
+					"div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>lückenlose Dokumentation</p></div>"
+				},
+				"extension": [
+					{
+						"url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_MIO_ZAEB_Disclaimer",
+						"valueString": "Die Vertragsparteien sind sich einig, dass der Zahnarzt im Nachhinein für eine falsche Jahresangabe nicht haftbar gemacht werden kann, wenn die Krankenkasse bei der Prüfung eines Heil- und Kostenplanes keinen Bonus oder eine andere Bonusstufe feststellt."
+					}
+				],
+				"status": "final",
+				"code": {
+					"text": "Datum, seit dem eine lückenlose Dokumentation in dem Papier-Zahnbonusheft nachweislich vorliegt."
+				},
+				"subject": {
+					"reference": "urn:uuid:ba5f36ef-84e9-4a83-852b-e74dac4014ed"
+				},
+				"valueDateTime": "2015-01-02"
+			}
+		},
+		{
+			"fullUrl": "urn:uuid:321c66be-ea2e-4559-9e3d-b6f2326f2dcf",
+			"resource": {
+				"resourceType": "Observation",
+				"id": "321c66be-ea2e-4559-9e3d-b6f2326f2dcf",
+				"meta": {
+					"profile": [
+						"https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_ZAEB_Observation_Dental_Check_Up|1.1.0"
+					]
+				},
+				"text": {
+					"status": "generated",
+					"div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>zahnärztliche Untersuchung Erwachsene</p></div>"
+				},
+				"status": "final",
+				"code": {
+					"coding": [
+						{
+							"system": "http://snomed.info/sct",
+							"version": "http://snomed.info/sct/900000000000207008/version/20210131",
+							"code": "63963009",
+							"_display": {
+								"extension": [
+									{
+										"extension": [
+											{
+												"url": "content",
+												"valueString": "Zahnärztliche Untersuchung (Erwachsen)"
+											}
+										],
+										"url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+									}
+								]
+							},
+							"display": "Dental prophylaxis, adult (procedure)"
+						}
+					]
+				},
+				"subject": {
+					"reference": "urn:uuid:ba5f36ef-84e9-4a83-852b-e74dac4014ed"
+				},
+				"effectiveDateTime": "2020-01-02",
+				"valueBoolean": true
+			}
+		}
+	]
+}

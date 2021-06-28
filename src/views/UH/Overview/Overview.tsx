@@ -50,16 +50,16 @@ export default class Overview extends UI.MIOSlides<OverviewProps, OverviewState>
         bundles.sort((a, b) => {
             const compositionA = Util.UH.getComposition(
                 a as
-                    | CMR.V1_00_000.Profile.CMRBundle
-                    | CMR.V1_00_000.Profile.PCBundle
-                    | CMR.V1_00_000.Profile.PNBundle
+                    | CMR.V1_0_0.Profile.CMRBundle
+                    | CMR.V1_0_0.Profile.PCBundle
+                    | CMR.V1_0_0.Profile.PNBundle
             )?.resource;
 
             const compositionB = Util.UH.getComposition(
                 b as
-                    | CMR.V1_00_000.Profile.CMRBundle
-                    | CMR.V1_00_000.Profile.PCBundle
-                    | CMR.V1_00_000.Profile.PNBundle
+                    | CMR.V1_0_0.Profile.CMRBundle
+                    | CMR.V1_0_0.Profile.PCBundle
+                    | CMR.V1_0_0.Profile.PNBundle
             )?.resource;
 
             if (compositionA && compositionB) {

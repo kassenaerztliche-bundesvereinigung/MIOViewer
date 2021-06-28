@@ -48,19 +48,19 @@ class Overview extends React.Component<MIOConnectorType & RouteComponentProps> {
             }
         } else {
             if (mio) {
-                if (Vaccination.V1_00_000.Profile.BundleEntry.is(mio)) {
+                if (Vaccination.V1_1_0.Profile.BundleEntry.is(mio)) {
                     headline = "Impfpass";
                     mioClass = "impfpass";
                     component = <OverviewIM mio={mio} history={history} />;
-                } else if (ZAEB.V1_00_000.Profile.Bundle.is(mio)) {
+                } else if (ZAEB.V1_1_0.Profile.Bundle.is(mio)) {
                     headline = "Zahnärztliches Bonusheft";
                     mioClass = "zaeb";
                     component = <OverviewZAEB mio={mio} history={history} />;
-                } else if (MR.V1_00_000.Profile.Bundle.is(mio)) {
+                } else if (MR.V1_0_0.Profile.Bundle.is(mio)) {
                     headline = "Mutterpass";
                     mioClass = "mutterpass";
                     component = <OverviewMP mio={mio} history={history} />;
-                } else if (CMR.V1_00_000.Profile.CMRBundle.is(mio)) {
+                } else if (CMR.V1_0_0.Profile.CMRBundle.is(mio)) {
                     const composition = Util.UH.getUComposition(mio)?.resource;
                     headline = composition
                         ? Util.UH.getType(composition)
@@ -79,10 +79,10 @@ class Overview extends React.Component<MIOConnectorType & RouteComponentProps> {
                             match={match}
                         />
                     );
-                } else if (CMR.V1_00_000.Profile.PCBundle.is(mio)) {
-                    const composition = ParserUtil.getEntry<CMR.V1_00_000.Profile.PCCompositionExaminationParticipation>(
+                } else if (CMR.V1_0_0.Profile.PCBundle.is(mio)) {
+                    const composition = ParserUtil.getEntry<CMR.V1_0_0.Profile.PCCompositionExaminationParticipation>(
                         mio,
-                        [CMR.V1_00_000.Profile.PCCompositionExaminationParticipation]
+                        [CMR.V1_0_0.Profile.PCCompositionExaminationParticipation]
                     );
 
                     headline = composition
@@ -97,7 +97,7 @@ class Overview extends React.Component<MIOConnectorType & RouteComponentProps> {
                             match={match}
                         />
                     );
-                } else if (CMR.V1_00_000.Profile.PNBundle.is(mio)) {
+                } else if (CMR.V1_0_0.Profile.PNBundle.is(mio)) {
                     headline = "Elternnotiz";
                     mioClass = "uheft";
                     component = (

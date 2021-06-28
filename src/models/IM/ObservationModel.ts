@@ -22,28 +22,37 @@ import { KBVBundleResource, Vaccination } from "@kbv/mioparser";
 import { Util } from "../../components";
 
 import BaseModel from "../BaseModel";
-import { PractitionerModel } from "./index";
-import { AdditionalCommentModel, TelecomModel } from "../Comprehensive";
 import { ModelValue } from "../Types";
 
-export default class ObservationModel extends BaseModel<Vaccination.V1_00_000.Profile.ObservationImmunizationStatus> {
+export default class ObservationModel extends BaseModel<Vaccination.V1_1_0.Profile.ObservationImmunizationStatus> {
     constructor(
-        value: Vaccination.V1_00_000.Profile.ObservationImmunizationStatus,
+        value: Vaccination.V1_1_0.Profile.ObservationImmunizationStatus,
         fullUrl: string,
         parent: KBVBundleResource,
         history?: History
     ) {
         super(value, fullUrl, parent, history);
 
-        this.headline = this.value.code.text;
+        this.headline = Util.FHIR.handleCode(this.value.code, [
+            Vaccination.V1_1_0.ConceptMap.LabImmuneReactionTestPresenceGerman
+        ]).join(", ");
 
         this.values.push({
             value: Util.Misc.formatDate(this.value.issued),
             label: "Datum des Tests"
         });
 
+        const interpretation = this.value.interpretation;
         this.values.push({
-            value: this.value.interpretation.map((i) => i.text).join(", "),
+            value: interpretation
+                ? interpretation
+                      .map((i) =>
+                          Util.FHIR.handleCode(i, [
+                              Vaccination.V1_1_0.ConceptMap.LabTiterImmunityGerman
+                          ])
+                      )
+                      .join(", ")
+                : "-",
             label: "Ergebnis"
         });
 
@@ -53,26 +62,6 @@ export default class ObservationModel extends BaseModel<Vaccination.V1_00_000.Pr
                     ? this.value.note.map((n) => n.text).join(", ")
                     : "-",
             label: "Anmerkungen zum durchgeführten Test"
-        });
-
-        let performerName = undefined;
-        let performerRef = undefined;
-        let performer = undefined;
-        if (this.value.performer && this.value.performer.length > 0) {
-            performerRef = this.value.performer[0].reference;
-            performer = Util.IM.getPractitioner(
-                this.parent as Vaccination.V1_00_000.Profile.BundleEntry,
-                performerRef
-            );
-            performerName = Util.IM.getPractitionerName(performer?.resource);
-        }
-
-        this.values.push({
-            value: performerName ? performerName : "-",
-            label: "Dokumentiert von",
-            onClick: Util.Misc.toEntryByRef(history, parent, performerRef, true),
-            subEntry: performer,
-            subModels: [PractitionerModel, TelecomModel, AdditionalCommentModel]
         });
     }
 
@@ -87,8 +76,9 @@ export default class ObservationModel extends BaseModel<Vaccination.V1_00_000.Pr
 
     public getMainValue(): ModelValue {
         return {
-            value: this.value.code.text,
-            label: Util.Misc.formatDate(this.value.issued)
+            value: this.headline,
+            label: Util.Misc.formatDate(this.value.issued),
+            onClick: Util.Misc.toEntryByRef(this.history, this.parent, this.fullUrl)
         };
     }
 }

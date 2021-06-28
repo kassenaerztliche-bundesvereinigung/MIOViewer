@@ -24,11 +24,11 @@ import { Util } from "../../components";
 import MPBaseModel from "./MPBaseModel";
 import { ModelValue } from "../Types";
 
-export default class EncounterArrivalMaternityHospitalModel extends MPBaseModel<MR.V1_00_000.Profile.EncounterArrivalMaternityHospital> {
+export default class EncounterArrivalMaternityHospitalModel extends MPBaseModel<MR.V1_0_0.Profile.EncounterArrivalMaternityHospital> {
     constructor(
-        value: MR.V1_00_000.Profile.EncounterArrivalMaternityHospital,
+        value: MR.V1_0_0.Profile.EncounterArrivalMaternityHospital,
         fullUrl: string,
-        parent: MR.V1_00_000.Profile.Bundle,
+        parent: MR.V1_0_0.Profile.Bundle,
         history?: History
     ) {
         super(value, fullUrl, parent, history);
@@ -36,16 +36,16 @@ export default class EncounterArrivalMaternityHospitalModel extends MPBaseModel<
         this.headline = "Vorstellung in einer Entbindungsklinik";
 
         const subjectRef = this.value.subject.reference;
-        const patient = ParserUtil.getEntryWithRef<MR.V1_00_000.Profile.PatientMother>(
+        const patient = ParserUtil.getEntryWithRef<MR.V1_0_0.Profile.PatientMother>(
             this.parent,
-            [MR.V1_00_000.Profile.PatientMother],
+            [MR.V1_0_0.Profile.PatientMother],
             subjectRef
         );
 
         const providerRef = this.value.serviceProvider.reference;
-        const provider = ParserUtil.getEntryWithRef<MR.V1_00_000.Profile.Organization>(
+        const provider = ParserUtil.getEntryWithRef<MR.V1_0_0.Profile.Organization>(
             this.parent,
-            [MR.V1_00_000.Profile.Organization],
+            [MR.V1_0_0.Profile.Organization],
             providerRef
         );
 

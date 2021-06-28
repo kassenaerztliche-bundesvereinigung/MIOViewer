@@ -69,12 +69,12 @@ describe("<Detail />", () => {
                     getFunction: Util.ZB.getOrganization
                 },
                 {
-                    testId: "detail-ZAEBObservation",
-                    getFunction: Util.ZB.getObservation
+                    testId: "detail-ZAEBObservationDentalCheckUp",
+                    getFunction: Util.ZB.getObservationDentalCheckUp
                 },
                 {
-                    testId: "detail-ZAEBGaplessDocumentation",
-                    getFunction: Util.ZB.getGaplessDocumentation
+                    testId: "detail-ZAEBObservationGaplessDocumentation",
+                    getFunction: Util.ZB.getObservationGaplessDocumentation
                 }
             ]
         }

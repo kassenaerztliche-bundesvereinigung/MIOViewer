@@ -17,6 +17,7 @@
  */
 
 import { Content } from "pdfmake/interfaces";
+import { ModelValue } from "../models";
 
 export const horizontalLine = {
     table: {
@@ -37,6 +38,24 @@ export const horizontalLine = {
         }
     }
 };
+
+export function modelValueToPDF(value: ModelValue): Content {
+    const content: Content[] = [
+        { text: value.label + ":", bold: true },
+        { text: value.value }
+    ];
+
+    return [
+        {
+            layout: "noBorders",
+            table: {
+                headerRows: 0,
+                widths: ["40%", "*"],
+                body: [content]
+            }
+        }
+    ];
+}
 
 export const pageBreakBefore: Content = { text: "", pageBreak: "before" };
 

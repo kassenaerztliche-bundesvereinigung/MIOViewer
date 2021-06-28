@@ -23,11 +23,11 @@ import { ParserUtil, MR } from "@kbv/mioparser";
 import { ProcedureBaseModel } from "./Basic";
 import * as UI from "../../components/UI";
 
-export default class ProcedureCounsellingModel extends ProcedureBaseModel<MR.V1_00_000.Profile.ProcedureCounselling> {
+export default class ProcedureCounsellingModel extends ProcedureBaseModel<MR.V1_0_0.Profile.ProcedureCounselling> {
     constructor(
-        value: MR.V1_00_000.Profile.ProcedureCounselling,
+        value: MR.V1_0_0.Profile.ProcedureCounselling,
         fullUrl: string,
-        parent: MR.V1_00_000.Profile.Bundle,
+        parent: MR.V1_0_0.Profile.Bundle,
         history?: History
     ) {
         super(value, fullUrl, parent, history);
@@ -43,7 +43,7 @@ export default class ProcedureCounsellingModel extends ProcedureBaseModel<MR.V1_
                               return code.coding.map((c) => {
                                   return ParserUtil.translateCode(
                                       c.code,
-                                      MR.V1_00_000.ConceptMap.CounsellingGerman
+                                      MR.V1_0_0.ConceptMap.CounsellingGerman
                                   );
                               });
                           })

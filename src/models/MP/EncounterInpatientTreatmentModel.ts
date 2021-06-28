@@ -24,11 +24,11 @@ import { Util } from "../../components";
 import { EncounterModel } from "./Basic";
 import { ModelValue } from "../Types";
 
-export default class EncounterInpatientTreatmentModel extends EncounterModel<MR.V1_00_000.Profile.EncounterInpatientTreatment> {
+export default class EncounterInpatientTreatmentModel extends EncounterModel<MR.V1_0_0.Profile.EncounterInpatientTreatment> {
     constructor(
-        value: MR.V1_00_000.Profile.EncounterInpatientTreatment,
+        value: MR.V1_0_0.Profile.EncounterInpatientTreatment,
         fullUrl: string,
-        parent: MR.V1_00_000.Profile.Bundle,
+        parent: MR.V1_0_0.Profile.Bundle,
         history?: History
     ) {
         super(value, fullUrl, parent, history, "Zeitraum");
@@ -69,8 +69,8 @@ export default class EncounterInpatientTreatmentModel extends EncounterModel<MR.
             new Set(
                 this.value.type.map((t) =>
                     t.coding.map((c) => {
-                        const slice = ParserUtil.getSlice<MR.V1_00_000.Profile.EncounterInpatientTreatmentTypeCodingDisplayAnzeigenameCodeSnomed>(
-                            MR.V1_00_000.Profile
+                        const slice = ParserUtil.getSlice<MR.V1_0_0.Profile.EncounterInpatientTreatmentTypeCodingDisplayAnzeigenameCodeSnomed>(
+                            MR.V1_0_0.Profile
                                 .EncounterInpatientTreatmentTypeCodingDisplayAnzeigenameCodeSnomed,
                             c._display?.extension
                         );

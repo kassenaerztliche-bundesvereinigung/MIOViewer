@@ -25,11 +25,11 @@ import MPBaseModel from "../MPBaseModel";
 import { AdditionalCommentModel } from "../../Comprehensive";
 import { ModelValue } from "../../Types";
 
-export default class PatientChildModel extends MPBaseModel<MR.V1_00_000.Profile.PatientChild> {
+export default class PatientChildModel extends MPBaseModel<MR.V1_0_0.Profile.PatientChild> {
     constructor(
-        value: MR.V1_00_000.Profile.PatientChild,
+        value: MR.V1_0_0.Profile.PatientChild,
         fullUrl: string,
-        parent: MR.V1_00_000.Profile.Bundle,
+        parent: MR.V1_0_0.Profile.Bundle,
         history?: History
     ) {
         super(value, fullUrl, parent, history);

@@ -134,7 +134,7 @@ abstract class MIOSlides<
             const mioId = ParserUtil.getUuid(mio.identifier.value);
             const path = (isExample ? "/example/" : "/mio/") + mioId;
 
-            if (Vaccination.V1_00_000.Profile.BundleEntry.is(mio)) {
+            if (Vaccination.V1_1_0.Profile.BundleEntry.is(mio)) {
                 const patient = Util.IM.getPatient(mio);
                 mioFolders.push(
                     <UI.MIOFolder
@@ -146,7 +146,7 @@ abstract class MIOSlides<
                         labelBG={true}
                     />
                 );
-            } else if (ZAEB.V1_00_000.Profile.Bundle.is(mio)) {
+            } else if (ZAEB.V1_1_0.Profile.Bundle.is(mio)) {
                 const patient = Util.ZB.getPatient(mio);
                 mioFolders.push(
                     <UI.MIOFolder
@@ -158,8 +158,9 @@ abstract class MIOSlides<
                         subline={patient ? Util.ZB.getPatientName(patient.resource) : ""}
                     />
                 );
-            } else if (MR.V1_00_000.Profile.Bundle.is(mio)) {
+            } else if (MR.V1_0_0.Profile.Bundle.is(mio)) {
                 const patient = Util.MP.getPatientMother(mio);
+
                 mioFolders.push(
                     <UI.MIOFolder
                         key={mioId + index.toString()}
@@ -172,7 +173,7 @@ abstract class MIOSlides<
                         }
                     />
                 );
-            } else if (CMR.V1_00_000.Profile.CMRBundle.is(mio) && ungroup) {
+            } else if (CMR.V1_0_0.Profile.CMRBundle.is(mio) && ungroup) {
                 const type = Util.UH.getTypeFromBundle(mio);
                 const patient = Util.UH.getPatient(mio);
 
@@ -186,7 +187,7 @@ abstract class MIOSlides<
                         labelBG={true}
                     />
                 );
-            } else if (CMR.V1_00_000.Profile.PCBundle.is(mio) && ungroup) {
+            } else if (CMR.V1_0_0.Profile.PCBundle.is(mio) && ungroup) {
                 const type = Util.UH.getEncounterTypeFromBundle(mio);
                 const patient = Util.UH.getPatient(mio);
 
@@ -200,7 +201,7 @@ abstract class MIOSlides<
                         labelBG={true}
                     />
                 );
-            } else if (CMR.V1_00_000.Profile.PNBundle.is(mio) && ungroup) {
+            } else if (CMR.V1_0_0.Profile.PNBundle.is(mio) && ungroup) {
                 const type = Util.UH.getEncounterTypeFromBundle(mio);
                 const patient = Util.UH.getPatient(mio);
 

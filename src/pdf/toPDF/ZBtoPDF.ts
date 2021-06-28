@@ -26,8 +26,8 @@ import * as Models from "../../models";
 import { horizontalLine } from "../PDFHelper";
 import PDFRepresentation from "../PDFRepresentation";
 
-export default class ZBtoPDF extends PDFRepresentation<ZAEB.V1_00_000.Profile.Bundle> {
-    constructor(value: ZAEB.V1_00_000.Profile.Bundle) {
+export default class ZBtoPDF extends PDFRepresentation<ZAEB.V1_1_0.Profile.Bundle> {
+    constructor(value: ZAEB.V1_1_0.Profile.Bundle) {
         super(value, "Bonushefteintrag", "s");
     }
 
@@ -35,7 +35,7 @@ export default class ZBtoPDF extends PDFRepresentation<ZAEB.V1_00_000.Profile.Bu
         const observations = Util.ZB.getEntries(this.value);
 
         const contentObservations = observations.map((o) => {
-            if (ZAEB.V1_00_000.Profile.GaplessDocumentation.is(o.resource)) {
+            if (ZAEB.V1_1_0.Profile.ObservationGaplessDocumentation.is(o.resource)) {
                 const model = new Models.ZB.GaplessDocumentationModel(
                     o.resource,
                     o.fullUrl,
@@ -66,9 +66,9 @@ export default class ZBtoPDF extends PDFRepresentation<ZAEB.V1_00_000.Profile.Bu
     }
 
     public getHeading(): Content {
-        const composition = ParserUtil.getEntry<ZAEB.V1_00_000.Profile.Composition>(
+        const composition = ParserUtil.getEntry<ZAEB.V1_1_0.Profile.Composition>(
             this.value,
-            [ZAEB.V1_00_000.Profile.Composition]
+            [ZAEB.V1_1_0.Profile.Composition]
         );
 
         const title = composition ? composition.resource.title : "-";

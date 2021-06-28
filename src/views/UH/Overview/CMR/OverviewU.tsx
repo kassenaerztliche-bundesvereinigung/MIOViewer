@@ -27,20 +27,20 @@ import { ModelValue } from "../../../../models";
 import * as Models from "../../../../models";
 
 type OverviewProps = {
-    mio: CMR.V1_00_000.Profile.CMRBundle;
+    mio: CMR.V1_0_0.Profile.CMRBundle;
 } & RouteComponentProps;
 
 type CompositionType =
-    | CMR.V1_00_000.Profile.CMRCompositionU1
-    | CMR.V1_00_000.Profile.CMRCompositionU2
-    | CMR.V1_00_000.Profile.CMRCompositionU3
-    | CMR.V1_00_000.Profile.CMRCompositionU4
-    | CMR.V1_00_000.Profile.CMRCompositionU5
-    | CMR.V1_00_000.Profile.CMRCompositionU6
-    | CMR.V1_00_000.Profile.CMRCompositionU7
-    | CMR.V1_00_000.Profile.CMRCompositionU7a
-    | CMR.V1_00_000.Profile.CMRCompositionU8
-    | CMR.V1_00_000.Profile.CMRCompositionU9;
+    | CMR.V1_0_0.Profile.CMRCompositionU1
+    | CMR.V1_0_0.Profile.CMRCompositionU2
+    | CMR.V1_0_0.Profile.CMRCompositionU3
+    | CMR.V1_0_0.Profile.CMRCompositionU4
+    | CMR.V1_0_0.Profile.CMRCompositionU5
+    | CMR.V1_0_0.Profile.CMRCompositionU6
+    | CMR.V1_0_0.Profile.CMRCompositionU7
+    | CMR.V1_0_0.Profile.CMRCompositionU7a
+    | CMR.V1_0_0.Profile.CMRCompositionU8
+    | CMR.V1_0_0.Profile.CMRCompositionU9;
 
 type OverviewGroup = {
     headline?: string;
@@ -135,7 +135,7 @@ export default class OverviewU extends React.Component<OverviewProps> {
                                             value = mv.value;
                                             label = subSection.title;
                                             if (
-                                                CMR.V1_00_000.Profile.CMRObservationU4U9StatusOfImmunization.is(
+                                                CMR.V1_0_0.Profile.CMRObservationU4U9StatusOfImmunization.is(
                                                     entry.resource
                                                 )
                                             ) {
@@ -256,8 +256,8 @@ export default class OverviewU extends React.Component<OverviewProps> {
 
             // Special Extension fixes for U4 and U5
             if (
-                CMR.V1_00_000.Profile.CMRCompositionU4Ergebnisse.is(section) ||
-                CMR.V1_00_000.Profile.CMRCompositionU5Ergebnisse.is(section)
+                CMR.V1_0_0.Profile.CMRCompositionU4Ergebnisse.is(section) ||
+                CMR.V1_0_0.Profile.CMRCompositionU5Ergebnisse.is(section)
             ) {
                 minorHints.push({
                     value: " " + ext.valueString,

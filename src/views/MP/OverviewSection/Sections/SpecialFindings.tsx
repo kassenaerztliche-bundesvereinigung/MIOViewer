@@ -23,7 +23,7 @@ import * as Models from "../../../../models";
 
 import Section, { SectionProps } from "../Section";
 
-export default class SpecialFindings extends Section<MR.V1_00_000.Profile.CompositionBesondereBefunde> {
+export default class SpecialFindings extends Section<MR.V1_0_0.Profile.CompositionBesondereBefunde> {
     constructor(props: SectionProps) {
         super(props);
         this.state = {
@@ -31,9 +31,7 @@ export default class SpecialFindings extends Section<MR.V1_00_000.Profile.Compos
             listGroups: []
         };
 
-        this.section = this.getSection([
-            MR.V1_00_000.Profile.CompositionBesondereBefunde
-        ]);
+        this.section = this.getSection([MR.V1_0_0.Profile.CompositionBesondereBefunde]);
     }
 
     protected getDetails(): JSX.Element[] {
@@ -46,9 +44,9 @@ export default class SpecialFindings extends Section<MR.V1_00_000.Profile.Compos
         const items: UI.ListItem.Props[] = [];
         this.section?.entry?.forEach((entry) => {
             const ref = entry.reference;
-            const res = ParserUtil.getEntryWithRef<MR.V1_00_000.Profile.ObservationSpecialFindings>(
+            const res = ParserUtil.getEntryWithRef<MR.V1_0_0.Profile.ObservationSpecialFindings>(
                 mio,
-                [MR.V1_00_000.Profile.ObservationSpecialFindings],
+                [MR.V1_0_0.Profile.ObservationSpecialFindings],
                 ref
             );
 
@@ -58,7 +56,7 @@ export default class SpecialFindings extends Section<MR.V1_00_000.Profile.Compos
                     res.fullUrl,
                     mio,
                     history,
-                    [MR.V1_00_000.ConceptMap.SpecialFindingsGerman]
+                    [MR.V1_0_0.ConceptMap.SpecialFindingsGerman]
                 );
                 const mainValue = model.getMainValue();
                 items.push({

@@ -18,15 +18,15 @@
 
 import { History } from "history";
 
-import { KBVBundleResource, ParserUtil, Vaccination } from "@kbv/mioparser";
+import { KBVBundleResource, ParserUtil, Vaccination, KBVBase } from "@kbv/mioparser";
 import { Util } from "../../components";
 
 import BaseModel from "../BaseModel";
 import { ModelValue } from "../Types";
 
 export type PractitionerType =
-    | Vaccination.V1_00_000.Profile.Practitioner
-    | Vaccination.V1_00_000.Profile.PractitionerAddendum;
+    | Vaccination.V1_1_0.Profile.Practitioner
+    | Vaccination.V1_1_0.Profile.PractitionerAddendum;
 
 export default class PractitionerModel extends BaseModel<PractitionerType> {
     constructor(
@@ -52,30 +52,41 @@ export default class PractitionerModel extends BaseModel<PractitionerType> {
     }
 
     protected getQualification(): string {
-        if (this.value.qualification) {
-            return this.value.qualification
-                .map((q) => {
-                    if (q.code.text) {
-                        return q.code.text;
-                    } else {
-                        return q.code.coding
-                            .map((c) => {
-                                if (c.display) return c.display;
-                                else return c.code;
-                            })
-                            .join(", ");
-                    }
-                })
-                .join(", ");
-        }
+        if (!this.value.qualification) return "-";
+        return this.value.qualification
+            .map((q) => {
+                if (!q.code.coding || !q.code.coding.length) return "-";
+                return q.code.coding
+                    .map((coding) => {
+                        const translated = Util.FHIR.translateCode(coding.code ?? "", [
+                            KBVBase.V1_1_1.ConceptMap.PractitionerFunctionGerman
+                        ]);
 
-        return "-";
+                        if (translated.length) {
+                            return translated.join(", ");
+                        } else {
+                            const VS = Vaccination.V1_1_0.ValueSet;
+
+                            const translatedVS = Util.FHIR.handleCodeVS(coding, [
+                                VS.IHEXDSAuthorSpecialityRestrictedValueSet,
+                                VS.PractitionerSpecialityValueSet,
+                                VS.PractitionerSpecialityAddendumValueSet
+                            ]);
+
+                            return translatedVS.length
+                                ? translatedVS.join(", ")
+                                : coding.code ?? q.code.text ?? "-";
+                        }
+                    })
+                    .join(", ");
+            })
+            .join(", ");
     }
 
     protected getIdentifier(): ModelValue {
         if (this.value.identifier) {
-            const ANR = ParserUtil.getSlice<Vaccination.V1_00_000.Profile.PractitionerANR>(
-                Vaccination.V1_00_000.Profile.PractitionerANR,
+            const ANR = ParserUtil.getSlice<Vaccination.V1_1_0.Profile.PractitionerANR>(
+                Vaccination.V1_1_0.Profile.PractitionerANR,
                 this.value.identifier
             );
 
@@ -85,8 +96,8 @@ export default class PractitionerModel extends BaseModel<PractitionerType> {
                     label: "Lebenslange Arztnummer (LANR)"
                 };
 
-            const EFN = ParserUtil.getSlice<Vaccination.V1_00_000.Profile.PractitionerEFN>(
-                Vaccination.V1_00_000.Profile.PractitionerEFN,
+            const EFN = ParserUtil.getSlice<Vaccination.V1_1_0.Profile.PractitionerEFN>(
+                Vaccination.V1_1_0.Profile.PractitionerEFN,
                 this.value.identifier
             );
 
@@ -96,8 +107,8 @@ export default class PractitionerModel extends BaseModel<PractitionerType> {
                     label: "Einheitliche Fortbildungsnummer (EFN)"
                 };
 
-            const ID = ParserUtil.getSlice<Vaccination.V1_00_000.Profile.PractitionerId>(
-                Vaccination.V1_00_000.Profile.PractitionerId,
+            const ID = ParserUtil.getSlice<Vaccination.V1_1_0.Profile.PractitionerId>(
+                Vaccination.V1_1_0.Profile.PractitionerId,
                 this.value.identifier
             );
 

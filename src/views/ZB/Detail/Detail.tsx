@@ -19,44 +19,18 @@
 import { MIOConnector, SettingsConnector } from "../../../store";
 import { UI, Util } from "../../../components";
 
-import * as Models from "../../../models";
-
 import DetailBase from "../../Comprehensive/Detail/DetailBase";
 import { DetailMapping } from "../../Comprehensive/Detail/Types";
 
 import { MIOEntry, ZAEB } from "@kbv/mioparser";
+import Mappings from "../Mappings";
 
-class Detail extends DetailBase<ZAEB.V1_00_000.Profile.Bundle> {
+class Detail extends DetailBase<ZAEB.V1_1_0.Profile.Bundle> {
     protected getHeaderClass(): UI.MIOClassName {
         return "zaeb";
     }
 
-    static mappings = [
-        {
-            profile: ZAEB.V1_00_000.Profile.Observation,
-            header: "Details der Untersuchung",
-            models: [Models.ZB.ObservationModel]
-        },
-        {
-            profile: ZAEB.V1_00_000.Profile.GaplessDocumentation,
-            header: "Lückenlose Dokumentation",
-            models: [Models.ZB.GaplessDocumentationModel]
-        },
-        {
-            profile: ZAEB.V1_00_000.Profile.Patient,
-            header: "Patient/-in",
-            models: [Models.ZB.PatientModel, Models.AddressModel]
-        },
-        {
-            profile: ZAEB.V1_00_000.Profile.Organization,
-            header: "Details zur Organisation",
-            models: [
-                Models.ZB.OrganizationModel,
-                Models.AddressModel,
-                Models.TelecomModel
-            ]
-        }
-    ];
+    static mappings = [...Mappings.Basic];
 
     protected getMappings(): DetailMapping[] {
         return Detail.mappings;
@@ -66,25 +40,25 @@ class Detail extends DetailBase<ZAEB.V1_00_000.Profile.Bundle> {
         const { entry } = this.props;
         if (entry) {
             return (
-                ZAEB.V1_00_000.Profile.Observation.is(entry.resource) ||
-                ZAEB.V1_00_000.Profile.GaplessDocumentation.is(entry.resource)
+                ZAEB.V1_1_0.Profile.ObservationDentalCheckUp.is(entry.resource) ||
+                ZAEB.V1_1_0.Profile.ObservationGaplessDocumentation.is(entry.resource)
             );
         } else {
             return false;
         }
     }
 
-    protected getPatient(): MIOEntry<ZAEB.V1_00_000.Profile.Patient> | undefined {
+    protected getPatient(): MIOEntry<ZAEB.V1_1_0.Profile.Patient> | undefined {
         const { mio, entry } = this.props;
         const resource = entry?.resource;
 
         if (
             resource &&
-            (ZAEB.V1_00_000.Profile.Observation.is(resource) ||
-                ZAEB.V1_00_000.Profile.GaplessDocumentation.is(resource))
+            (ZAEB.V1_1_0.Profile.ObservationDentalCheckUp.is(resource) ||
+                ZAEB.V1_1_0.Profile.ObservationGaplessDocumentation.is(resource))
         ) {
             return Util.ZB.getPatientByRef(
-                mio as ZAEB.V1_00_000.Profile.Bundle,
+                mio as ZAEB.V1_1_0.Profile.Bundle,
                 resource.subject.reference
             );
         }

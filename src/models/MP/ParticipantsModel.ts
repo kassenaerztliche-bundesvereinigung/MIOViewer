@@ -25,14 +25,14 @@ import MPBaseModel from "./MPBaseModel";
 import { ModelValue } from "../Types";
 
 export type ParticipantsType =
-    | MR.V1_00_000.Profile.EncounterGeneral
-    | MR.V1_00_000.Profile.AppointmentPregnancy;
+    | MR.V1_0_0.Profile.EncounterGeneral
+    | MR.V1_0_0.Profile.AppointmentPregnancy;
 
 export default class ParticipantsModel extends MPBaseModel<ParticipantsType> {
     constructor(
         value: ParticipantsType,
         fullUrl: string,
-        parent: MR.V1_00_000.Profile.Bundle,
+        parent: MR.V1_0_0.Profile.Bundle,
         history?: History
     ) {
         super(value, fullUrl, parent, history);
@@ -49,15 +49,15 @@ export default class ParticipantsModel extends MPBaseModel<ParticipantsType> {
                   const ref = part.reference;
 
                   const result = ParserUtil.getEntryWithRef<
-                      | MR.V1_00_000.Profile.Organization
-                      | MR.V1_00_000.Profile.PatientMother
-                      | MR.V1_00_000.Profile.Practitioner
+                      | MR.V1_0_0.Profile.Organization
+                      | MR.V1_0_0.Profile.PatientMother
+                      | MR.V1_0_0.Profile.Practitioner
                   >(
                       this.parent,
                       [
-                          MR.V1_00_000.Profile.Organization,
-                          MR.V1_00_000.Profile.PatientMother,
-                          MR.V1_00_000.Profile.Practitioner
+                          MR.V1_0_0.Profile.Organization,
+                          MR.V1_0_0.Profile.PatientMother,
+                          MR.V1_0_0.Profile.Practitioner
                       ],
                       ref
                   );
@@ -72,13 +72,13 @@ export default class ParticipantsModel extends MPBaseModel<ParticipantsType> {
                   if (result) {
                       onClick = Util.Misc.toEntry(history, parent, result, true);
 
-                      if (MR.V1_00_000.Profile.Organization.is(resource)) {
+                      if (MR.V1_0_0.Profile.Organization.is(resource)) {
                           participantValue = resource.name;
                           label = "Einrichtung";
-                      } else if (MR.V1_00_000.Profile.PatientMother.is(resource)) {
+                      } else if (MR.V1_0_0.Profile.PatientMother.is(resource)) {
                           participantValue = Util.MP.getPatientMotherName(resource);
                           label = "Patient/-in";
-                      } else if (MR.V1_00_000.Profile.Practitioner.is(resource)) {
+                      } else if (MR.V1_0_0.Profile.Practitioner.is(resource)) {
                           participantValue = Util.MP.getPractitionerName(resource);
                           label = "Behandelnde Person";
                       }

@@ -27,97 +27,97 @@ import { getCoding } from "../Util";
 import { ModelValue } from "../../Types";
 
 export type ObservationType =
-    | MR.V1_00_000.Profile.ObservationCalculatedDeliveryDate
-    | MR.V1_00_000.Profile.ObservationDateDeterminationChildbirth
-    | MR.V1_00_000.Profile.ObservationDateOfConception
-    | MR.V1_00_000.Profile.ObservationDeterminationOfPregnancy
-    | MR.V1_00_000.Profile.ObservationMenstrualCycle
-    | MR.V1_00_000.Profile.ObservationAge
-    | MR.V1_00_000.Profile.ObservationBaselineWeightMother
-    | MR.V1_00_000.Profile.ObservationHeight
-    | MR.V1_00_000.Profile.ObservationGravida
-    | MR.V1_00_000.Profile.ObservationPara
-    | MR.V1_00_000.Profile.ObservationPregnancyRisk
-    | MR.V1_00_000.Profile.ObservationPreviousPregnancy
-    | MR.V1_00_000.Profile.ObservationCatalogueA
-    | MR.V1_00_000.Profile.ObservationSpecialFindings
-    | MR.V1_00_000.Profile.ObservationoGTTPretest
-    | MR.V1_00_000.Profile.ObservationoGTTDiagnosistest
-    | MR.V1_00_000.Profile.ObservationHIVTestPerformed
-    | MR.V1_00_000.Profile.ObservationExamination
-    | MR.V1_00_000.Profile.ObservationImmunizationStatus
-    | MR.V1_00_000.Profile.ObservationBloodGroupSerology
-    | MR.V1_00_000.Profile.ObservationOtherBloodGroupSystems
-    | MR.V1_00_000.Profile.ObservationBloodPressure
-    | MR.V1_00_000.Profile.ObservationWeightMother
-    | MR.V1_00_000.Profile.ObservationFundusHeight
-    | MR.V1_00_000.Profile.ObservationVaricosis
-    | MR.V1_00_000.Profile.ObservationEdema
-    | MR.V1_00_000.Profile.ObservationUrine
-    | MR.V1_00_000.Profile.ObservationUrineSugar
-    | MR.V1_00_000.Profile.ObservationUrineProtein
-    | MR.V1_00_000.Profile.ObservationUrineNitrite
-    | MR.V1_00_000.Profile.ObservationUrineBlood
-    | MR.V1_00_000.Profile.ObservationVaginalExamination
-    | MR.V1_00_000.Profile.ObservationHeartSoundsChild
-    | MR.V1_00_000.Profile.ObservationChildMovement
-    | MR.V1_00_000.Profile.ObservationNumberOfCheckups
-    | MR.V1_00_000.Profile.ObservationPresentationAtBirthClinic
-    | MR.V1_00_000.Profile.ObservationInpatientStayDuringPregnancy
-    | MR.V1_00_000.Profile.ObservationCardiotocography
+    | MR.V1_0_0.Profile.ObservationCalculatedDeliveryDate
+    | MR.V1_0_0.Profile.ObservationDateDeterminationChildbirth
+    | MR.V1_0_0.Profile.ObservationDateOfConception
+    | MR.V1_0_0.Profile.ObservationDeterminationOfPregnancy
+    | MR.V1_0_0.Profile.ObservationMenstrualCycle
+    | MR.V1_0_0.Profile.ObservationAge
+    | MR.V1_0_0.Profile.ObservationBaselineWeightMother
+    | MR.V1_0_0.Profile.ObservationHeight
+    | MR.V1_0_0.Profile.ObservationGravida
+    | MR.V1_0_0.Profile.ObservationPara
+    | MR.V1_0_0.Profile.ObservationPregnancyRisk
+    | MR.V1_0_0.Profile.ObservationPreviousPregnancy
+    | MR.V1_0_0.Profile.ObservationCatalogueA
+    | MR.V1_0_0.Profile.ObservationSpecialFindings
+    | MR.V1_0_0.Profile.ObservationoGTTPretest
+    | MR.V1_0_0.Profile.ObservationoGTTDiagnosistest
+    | MR.V1_0_0.Profile.ObservationHIVTestPerformed
+    | MR.V1_0_0.Profile.ObservationExamination
+    | MR.V1_0_0.Profile.ObservationImmunizationStatus
+    | MR.V1_0_0.Profile.ObservationBloodGroupSerology
+    | MR.V1_0_0.Profile.ObservationOtherBloodGroupSystems
+    | MR.V1_0_0.Profile.ObservationBloodPressure
+    | MR.V1_0_0.Profile.ObservationWeightMother
+    | MR.V1_0_0.Profile.ObservationFundusHeight
+    | MR.V1_0_0.Profile.ObservationVaricosis
+    | MR.V1_0_0.Profile.ObservationEdema
+    | MR.V1_0_0.Profile.ObservationUrine
+    | MR.V1_0_0.Profile.ObservationUrineSugar
+    | MR.V1_0_0.Profile.ObservationUrineProtein
+    | MR.V1_0_0.Profile.ObservationUrineNitrite
+    | MR.V1_0_0.Profile.ObservationUrineBlood
+    | MR.V1_0_0.Profile.ObservationVaginalExamination
+    | MR.V1_0_0.Profile.ObservationHeartSoundsChild
+    | MR.V1_0_0.Profile.ObservationChildMovement
+    | MR.V1_0_0.Profile.ObservationNumberOfCheckups
+    | MR.V1_0_0.Profile.ObservationPresentationAtBirthClinic
+    | MR.V1_0_0.Profile.ObservationInpatientStayDuringPregnancy
+    | MR.V1_0_0.Profile.ObservationCardiotocography
     // Ultrasound
-    | MR.V1_00_000.Profile.ObservationUltrasound
-    | MR.V1_00_000.Profile.ObservationOtherUltrasoundStudies
-    | MR.V1_00_000.Profile.DiagnosticReportUltrasoundI
-    | MR.V1_00_000.Profile.DiagnosticReportUltrasoundII
-    | MR.V1_00_000.Profile.DiagnosticReportUltrasoundIII
+    | MR.V1_0_0.Profile.ObservationUltrasound
+    | MR.V1_0_0.Profile.ObservationOtherUltrasoundStudies
+    | MR.V1_0_0.Profile.DiagnosticReportUltrasoundI
+    | MR.V1_0_0.Profile.DiagnosticReportUltrasoundII
+    | MR.V1_0_0.Profile.DiagnosticReportUltrasoundIII
     // Ultrasound DiagnosticReport result
-    | MR.V1_00_000.Profile.ObservationGeneralInformation
-    | MR.V1_00_000.Profile.ObservationPregnancyInformation
-    | MR.V1_00_000.Profile.ObservationSingletonPregnancy
-    | MR.V1_00_000.Profile.ObservationHeartAction
-    | MR.V1_00_000.Profile.ObservationLocalisationPlacenta
-    | MR.V1_00_000.Profile.ObservationChildPosition
-    | MR.V1_00_000.Profile.ObservationBiometricsI
-    | MR.V1_00_000.Profile.ObservationBiometricsII
-    | MR.V1_00_000.Profile.ObservationBiometricsIII
-    | MR.V1_00_000.Profile.ObservationPercentile
-    | MR.V1_00_000.Profile.ObservationTimelyDevelopment
-    | MR.V1_00_000.Profile.ObservationFindingsRequiredControl
-    | MR.V1_00_000.Profile.ObservationAbnormalities
-    | MR.V1_00_000.Profile.ObservationConsultationInitiated
-    | MR.V1_00_000.Profile.ObservationMorphology
+    | MR.V1_0_0.Profile.ObservationGeneralInformation
+    | MR.V1_0_0.Profile.ObservationPregnancyInformation
+    | MR.V1_0_0.Profile.ObservationSingletonPregnancy
+    | MR.V1_0_0.Profile.ObservationHeartAction
+    | MR.V1_0_0.Profile.ObservationLocalisationPlacenta
+    | MR.V1_0_0.Profile.ObservationChildPosition
+    | MR.V1_0_0.Profile.ObservationBiometricsI
+    | MR.V1_0_0.Profile.ObservationBiometricsII
+    | MR.V1_0_0.Profile.ObservationBiometricsIII
+    | MR.V1_0_0.Profile.ObservationPercentile
+    | MR.V1_0_0.Profile.ObservationTimelyDevelopment
+    | MR.V1_0_0.Profile.ObservationFindingsRequiredControl
+    | MR.V1_0_0.Profile.ObservationAbnormalities
+    | MR.V1_0_0.Profile.ObservationConsultationInitiated
+    | MR.V1_0_0.Profile.ObservationMorphology
     // Epikrise
-    | MR.V1_00_000.Profile.ObservationExternalBirth
+    | MR.V1_0_0.Profile.ObservationExternalBirth
     // Epikrise - Geburt - Angaben zum Kind
-    | MR.V1_00_000.Profile.ObservationLiveBirth
-    | MR.V1_00_000.Profile.ObservationBirthMode
-    | MR.V1_00_000.Profile.ObservationWeightChild
-    | MR.V1_00_000.Profile.ObservationHeadCircumference
-    | MR.V1_00_000.Profile.ObservationBirthHeight
-    | MR.V1_00_000.Profile.ObservationApgarScore
-    | MR.V1_00_000.Profile.ObservationpHValueUmbilicalArtery
-    | MR.V1_00_000.Profile.ObservationMalformation
+    | MR.V1_0_0.Profile.ObservationLiveBirth
+    | MR.V1_0_0.Profile.ObservationBirthMode
+    | MR.V1_0_0.Profile.ObservationWeightChild
+    | MR.V1_0_0.Profile.ObservationHeadCircumference
+    | MR.V1_0_0.Profile.ObservationBirthHeight
+    | MR.V1_0_0.Profile.ObservationApgarScore
+    | MR.V1_0_0.Profile.ObservationpHValueUmbilicalArtery
+    | MR.V1_0_0.Profile.ObservationMalformation
     // Epikrise - Wochenbett - Angaben zur Mutter
-    | MR.V1_00_000.Profile.ObservationPuerperiumNormal
-    | MR.V1_00_000.Profile.ObservationGynecologicalFindingNormal
-    | MR.V1_00_000.Profile.ObservationAntiDProphylaxisPostPartum
-    | MR.V1_00_000.Profile.ObservationAdviceOnIodineIntake
+    | MR.V1_0_0.Profile.ObservationPuerperiumNormal
+    | MR.V1_0_0.Profile.ObservationGynecologicalFindingNormal
+    | MR.V1_0_0.Profile.ObservationAntiDProphylaxisPostPartum
+    | MR.V1_0_0.Profile.ObservationAdviceOnIodineIntake
     // Epikrise - Wochenbett - Angaben zum Kind
-    | MR.V1_00_000.Profile.ObservationBloodGroupSerologyChild
-    | MR.V1_00_000.Profile.ObservationDirectCoombstest
+    | MR.V1_0_0.Profile.ObservationBloodGroupSerologyChild
+    | MR.V1_0_0.Profile.ObservationDirectCoombstest
     // Epikrise - Zweite Untersuchung
-    | MR.V1_00_000.Profile.ObservationBreastfeedingBehavior
-    | MR.V1_00_000.Profile.ObservationUrineSediment
-    | MR.V1_00_000.Profile.ObservationU3Performed
-    | MR.V1_00_000.Profile.ObservationNeedOfTreatmentU3
-    | MR.V1_00_000.Profile.ObservationChildIsHealthy;
+    | MR.V1_0_0.Profile.ObservationBreastfeedingBehavior
+    | MR.V1_0_0.Profile.ObservationUrineSediment
+    | MR.V1_0_0.Profile.ObservationU3Performed
+    | MR.V1_0_0.Profile.ObservationNeedOfTreatmentU3
+    | MR.V1_0_0.Profile.ObservationChildIsHealthy;
 
 export default class ObservationModel<T extends ObservationType> extends MPBaseModel<T> {
     constructor(
         value: T,
         fullUrl: string,
-        parent: MR.V1_00_000.Profile.Bundle,
+        parent: MR.V1_0_0.Profile.Bundle,
         history?: History,
         protected valueConceptMaps: ParserUtil.ConceptMap[] | undefined = undefined,
         protected codeConceptMaps: ParserUtil.ConceptMap[] | undefined = undefined,
@@ -145,10 +145,10 @@ export default class ObservationModel<T extends ObservationType> extends MPBaseM
 
         const subjectRef = this.value.subject.reference;
         const patient = ParserUtil.getEntryWithRef<
-            MR.V1_00_000.Profile.PatientMother | MR.V1_00_000.Profile.PatientChild
+            MR.V1_0_0.Profile.PatientMother | MR.V1_0_0.Profile.PatientChild
         >(
             this.parent,
-            [MR.V1_00_000.Profile.PatientMother, MR.V1_00_000.Profile.PatientChild],
+            [MR.V1_0_0.Profile.PatientMother, MR.V1_0_0.Profile.PatientChild],
             subjectRef
         );
 
@@ -158,28 +158,28 @@ export default class ObservationModel<T extends ObservationType> extends MPBaseM
         if (performerRefs?.length) {
             // There is only one (0..1)
             const performer = ParserUtil.getEntryWithRef<
-                MR.V1_00_000.Profile.Organization | MR.V1_00_000.Profile.Practitioner
+                MR.V1_0_0.Profile.Organization | MR.V1_0_0.Profile.Practitioner
             >(
                 this.parent,
-                [MR.V1_00_000.Profile.Organization, MR.V1_00_000.Profile.Practitioner],
+                [MR.V1_0_0.Profile.Organization, MR.V1_0_0.Profile.Practitioner],
                 performerRefs[0]
             );
 
             toPerformerEntry = Util.Misc.toEntry(history, parent, performer, true);
 
             if (performer) {
-                if (MR.V1_00_000.Profile.Organization.is(performer.resource)) {
+                if (MR.V1_0_0.Profile.Organization.is(performer.resource)) {
                     if (performer.resource.name) performerName = performer.resource.name;
-                } else if (MR.V1_00_000.Profile.Practitioner.is(performer.resource)) {
+                } else if (MR.V1_0_0.Profile.Practitioner.is(performer.resource)) {
                     performerName = Util.MP.getPractitionerName(performer.resource);
                 }
             }
         }
 
         const encounterRef = this.value.encounter.reference;
-        const encounter = ParserUtil.getEntryWithRef<MR.V1_00_000.Profile.EncounterGeneral>(
+        const encounter = ParserUtil.getEntryWithRef<MR.V1_0_0.Profile.EncounterGeneral>(
             this.parent,
-            [MR.V1_00_000.Profile.EncounterGeneral],
+            [MR.V1_0_0.Profile.EncounterGeneral],
             encounterRef
         );
         const toEncounterEntry = Util.Misc.toEntry(history, parent, encounter, true);
@@ -223,16 +223,14 @@ export default class ObservationModel<T extends ObservationType> extends MPBaseM
 
         const note = this.getNote();
         if (note) {
-            if (
-                MR.V1_00_000.Profile.ObservationDateDeterminationChildbirth.is(this.value)
-            ) {
+            if (MR.V1_0_0.Profile.ObservationDateDeterminationChildbirth.is(this.value)) {
                 note.label = "Ergänzende Angabe";
             } else if (
-                MR.V1_00_000.Profile.ObservationCatalogueA.is(this.value) ||
-                MR.V1_00_000.Profile.ObservationSpecialFindings.is(this.value)
+                MR.V1_0_0.Profile.ObservationCatalogueA.is(this.value) ||
+                MR.V1_0_0.Profile.ObservationSpecialFindings.is(this.value)
             ) {
                 note.label = "Besonderheiten";
-            } else if (MR.V1_00_000.Profile.ObservationUltrasound.is(this.value)) {
+            } else if (MR.V1_0_0.Profile.ObservationUltrasound.is(this.value)) {
                 note.label = "Bemerkungen";
             }
             this.values.push(note);
@@ -300,7 +298,7 @@ export default class ObservationModel<T extends ObservationType> extends MPBaseM
             const unitTranslated = Array.from(
                 new Set<string>(
                     Util.FHIR.translateCode(unit ?? "", [
-                        MR.V1_00_000.ConceptMap.ExaminationUnitGerman
+                        MR.V1_0_0.ConceptMap.ExaminationUnitGerman
                     ])
                 )
             );
@@ -311,7 +309,7 @@ export default class ObservationModel<T extends ObservationType> extends MPBaseM
 
             value = resource.valueQuantity?.value + unitStr;
         } else if (Object.prototype.hasOwnProperty.call(resource, "valueDateTime")) {
-            if (MR.V1_00_000.Profile.ObservationPreviousPregnancy.is(this.value)) {
+            if (MR.V1_0_0.Profile.ObservationPreviousPregnancy.is(this.value)) {
                 value = Util.Misc.dateYear(resource.valueDateTime);
             } else {
                 value = Util.Misc.formatDate(resource.valueDateTime);
@@ -403,7 +401,7 @@ export default class ObservationModel<T extends ObservationType> extends MPBaseM
                         .map((c) => {
                             return ParserUtil.translateCode(
                                 c.code,
-                                MR.V1_00_000.ConceptMap.ExaminationInterpretationGerman
+                                MR.V1_0_0.ConceptMap.ExaminationInterpretationGerman
                             );
                         })
                         .join(", ");

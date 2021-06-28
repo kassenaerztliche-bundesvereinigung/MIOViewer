@@ -22,7 +22,7 @@ import { UI, Util } from "../../../../components";
 
 import Section, { SectionProps } from "../Section";
 
-export default class Epicrisis extends Section<MR.V1_00_000.Profile.CompositionUntersuchungenEpikrise> {
+export default class Epicrisis extends Section<MR.V1_0_0.Profile.CompositionUntersuchungenEpikrise> {
     constructor(props: SectionProps) {
         super(props);
 
@@ -32,8 +32,8 @@ export default class Epicrisis extends Section<MR.V1_00_000.Profile.CompositionU
         };
 
         this.section = this.getSection([
-            MR.V1_00_000.Profile.CompositionUntersuchungen,
-            MR.V1_00_000.Profile.CompositionUntersuchungenEpikrise
+            MR.V1_0_0.Profile.CompositionUntersuchungen,
+            MR.V1_0_0.Profile.CompositionUntersuchungenEpikrise
         ]);
     }
 
@@ -46,8 +46,8 @@ export default class Epicrisis extends Section<MR.V1_00_000.Profile.CompositionU
 
         const pregnancyItems: UI.ListItem.Props[] = [];
 
-        const slices = ParserUtil.getSlices<MR.V1_00_000.Profile.CompositionUntersuchungenEpikriseSchwangerschaft>(
-            [MR.V1_00_000.Profile.CompositionUntersuchungenEpikriseSchwangerschaft],
+        const slices = ParserUtil.getSlices<MR.V1_0_0.Profile.CompositionUntersuchungenEpikriseSchwangerschaft>(
+            [MR.V1_0_0.Profile.CompositionUntersuchungenEpikriseSchwangerschaft],
             this.section?.section
         );
 
@@ -55,10 +55,10 @@ export default class Epicrisis extends Section<MR.V1_00_000.Profile.CompositionU
             let toEntry = undefined;
             section.entry.forEach((entry) => {
                 const ref = entry.reference;
-                const res = ParserUtil.getEntryWithRef<MR.V1_00_000.Profile.ClinicalImpressionPregnancyExaminationDischargeSummary>(
+                const res = ParserUtil.getEntryWithRef<MR.V1_0_0.Profile.ClinicalImpressionPregnancyExaminationDischargeSummary>(
                     mio,
                     [
-                        MR.V1_00_000.Profile
+                        MR.V1_0_0.Profile
                             .ClinicalImpressionPregnancyExaminationDischargeSummary
                     ],
                     ref
@@ -75,8 +75,8 @@ export default class Epicrisis extends Section<MR.V1_00_000.Profile.CompositionU
 
         const birthItems: UI.ListItem.Props[] = [];
 
-        const slicesBirth = ParserUtil.getSlices<MR.V1_00_000.Profile.CompositionUntersuchungenEpikriseGeburt>(
-            [MR.V1_00_000.Profile.CompositionUntersuchungenEpikriseGeburt],
+        const slicesBirth = ParserUtil.getSlices<MR.V1_0_0.Profile.CompositionUntersuchungenEpikriseGeburt>(
+            [MR.V1_0_0.Profile.CompositionUntersuchungenEpikriseGeburt],
             this.section?.section
         );
 
@@ -84,10 +84,10 @@ export default class Epicrisis extends Section<MR.V1_00_000.Profile.CompositionU
             let toEntry = undefined;
             section.entry?.forEach((entry) => {
                 const ref = entry.reference;
-                const res = ParserUtil.getEntryWithRef<MR.V1_00_000.Profile.ClinicalImpressionBirthExaminationDeliveryInformation>(
+                const res = ParserUtil.getEntryWithRef<MR.V1_0_0.Profile.ClinicalImpressionBirthExaminationDeliveryInformation>(
                     mio,
                     [
-                        MR.V1_00_000.Profile
+                        MR.V1_0_0.Profile
                             .ClinicalImpressionBirthExaminationDeliveryInformation
                     ],
                     ref
@@ -104,8 +104,8 @@ export default class Epicrisis extends Section<MR.V1_00_000.Profile.CompositionU
 
         const firstExaminationItems: UI.ListItem.Props[] = [];
 
-        const slicesFirstExamination = ParserUtil.getSlices<MR.V1_00_000.Profile.CompositionUntersuchungenEpikriseWochenbett>(
-            [MR.V1_00_000.Profile.CompositionUntersuchungenEpikriseWochenbett],
+        const slicesFirstExamination = ParserUtil.getSlices<MR.V1_0_0.Profile.CompositionUntersuchungenEpikriseWochenbett>(
+            [MR.V1_0_0.Profile.CompositionUntersuchungenEpikriseWochenbett],
             this.section?.section
         );
 
@@ -113,12 +113,9 @@ export default class Epicrisis extends Section<MR.V1_00_000.Profile.CompositionU
             let toEntry = undefined;
             section.entry?.forEach((entry) => {
                 const ref = entry.reference;
-                const res = ParserUtil.getEntryWithRef<MR.V1_00_000.Profile.ClinicalImpressionFirstExaminationAfterChildbirth>(
+                const res = ParserUtil.getEntryWithRef<MR.V1_0_0.Profile.ClinicalImpressionFirstExaminationAfterChildbirth>(
                     mio,
-                    [
-                        MR.V1_00_000.Profile
-                            .ClinicalImpressionFirstExaminationAfterChildbirth
-                    ],
+                    [MR.V1_0_0.Profile.ClinicalImpressionFirstExaminationAfterChildbirth],
                     ref
                 )?.resource;
 
@@ -133,9 +130,9 @@ export default class Epicrisis extends Section<MR.V1_00_000.Profile.CompositionU
 
         const secondExaminationItems: UI.ListItem.Props[] = [];
 
-        const slicesSecondExamination = ParserUtil.getSlices<MR.V1_00_000.Profile.CompositionUntersuchungenEpikriseZweiteUntersuchungNachEntbindung>(
+        const slicesSecondExamination = ParserUtil.getSlices<MR.V1_0_0.Profile.CompositionUntersuchungenEpikriseZweiteUntersuchungNachEntbindung>(
             [
-                MR.V1_00_000.Profile
+                MR.V1_0_0.Profile
                     .CompositionUntersuchungenEpikriseZweiteUntersuchungNachEntbindung
             ],
             this.section?.section
@@ -145,10 +142,10 @@ export default class Epicrisis extends Section<MR.V1_00_000.Profile.CompositionU
             let toEntry = undefined;
             section.entry?.forEach((entry) => {
                 const ref = entry.reference;
-                const res = ParserUtil.getEntryWithRef<MR.V1_00_000.Profile.ClinicalImpressionSecondExaminationAfterChildbirth>(
+                const res = ParserUtil.getEntryWithRef<MR.V1_0_0.Profile.ClinicalImpressionSecondExaminationAfterChildbirth>(
                     mio,
                     [
-                        MR.V1_00_000.Profile
+                        MR.V1_0_0.Profile
                             .ClinicalImpressionSecondExaminationAfterChildbirth
                     ],
                     ref

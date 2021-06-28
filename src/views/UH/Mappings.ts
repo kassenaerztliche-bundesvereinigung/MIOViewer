@@ -21,28 +21,28 @@ import { KBVBundleResource, MIOEntry, CMR } from "@kbv/mioparser";
 import * as Models from "../../models";
 import { DetailMapping } from "../Comprehensive/Detail/Types";
 
-const PR = CMR.V1_00_000.Profile;
-const CM = CMR.V1_00_000.ConceptMap;
+const PR = CMR.V1_0_0.Profile;
+const CM = CMR.V1_0_0.ConceptMap;
 
 export default class Mappings {
     static Basic: DetailMapping[] = [
         {
-            profile: CMR.V1_00_000.Profile.CMRPatient,
+            profile: PR.CMRPatient,
             header: "Patient/-in",
             models: [Models.UH.Basic.PatientModel]
         },
         {
-            profile: CMR.V1_00_000.Profile.PCPatient,
+            profile: PR.PCPatient,
             header: "Patient/-in",
             models: [Models.UH.Basic.PatientModel]
         },
         {
-            profile: CMR.V1_00_000.Profile.PNPatient,
+            profile: PR.PNPatient,
             header: "Patient/-in",
             models: [Models.UH.Basic.PatientModel]
         },
         {
-            profile: CMR.V1_00_000.Profile.CMRPractitioner,
+            profile: PR.CMRPractitioner,
             header: "Behandelnde Person",
             models: [
                 Models.UH.Basic.PractitionerModel,
@@ -52,7 +52,7 @@ export default class Mappings {
             ]
         },
         {
-            profile: CMR.V1_00_000.Profile.PCPractitioner,
+            profile: PR.PCPractitioner,
             header: "Behandelnde Person",
             models: [
                 Models.UH.Basic.PractitionerModel,
@@ -62,7 +62,7 @@ export default class Mappings {
             ]
         },
         {
-            profile: CMR.V1_00_000.Profile.CMROrganization,
+            profile: PR.CMROrganization,
             header: "Details zur Einrichtung",
             models: [
                 Models.UH.Basic.OrganizationModel,
@@ -72,7 +72,7 @@ export default class Mappings {
             ]
         },
         {
-            profile: CMR.V1_00_000.Profile.CMROrganizationScreeningLaboratory,
+            profile: PR.CMROrganizationScreeningLaboratory,
             header: "Details zur Einrichtung",
             models: [
                 Models.UH.Basic.OrganizationModel,
@@ -81,7 +81,7 @@ export default class Mappings {
             ]
         },
         {
-            profile: CMR.V1_00_000.Profile.PCOrganization,
+            profile: PR.PCOrganization,
             header: "Details zur Einrichtung",
             models: [
                 Models.UH.Basic.OrganizationModel,
@@ -91,17 +91,17 @@ export default class Mappings {
             ]
         },
         {
-            profile: CMR.V1_00_000.Profile.CMREncounter,
+            profile: PR.CMREncounter,
             header: "Details",
             models: [Models.UH.Basic.EncounterModel]
         },
         {
-            profile: CMR.V1_00_000.Profile.PCEncounter,
+            profile: PR.PCEncounter,
             header: "Details",
             models: [Models.UH.Basic.EncounterModel]
         },
         {
-            profile: CMR.V1_00_000.Profile.PNEncounter,
+            profile: PR.PNEncounter,
             header: "Details",
             models: [Models.UH.Basic.EncounterModel]
         }
@@ -618,7 +618,8 @@ export default class Mappings {
         {
             profile: PR.CMRDiagnosticReportU3U4HipScreening,
             models: [Models.UH.Basic.DiagnosticReportModel],
-            codeConceptMaps: [CM.CMRHipScreeningMethodGerman]
+            codeConceptMaps: [CM.CMRHipScreeningMethodGerman],
+            valueConceptMaps: [CM.CMRGrafHipUltrasoundClassificationGerman]
         },
         {
             profile: PR.CMRDiagnosticReportU1U5NeonatalHearscreening,
@@ -1027,12 +1028,12 @@ export default class Mappings {
 
     static Filterable: DetailMapping[] = [
         {
-            profile: CMR.V1_00_000.Profile.CMRPractitioner,
+            profile: PR.CMRPractitioner,
             header: "Qualifikation",
             models: [Models.QualificationModel]
         },
         {
-            profile: CMR.V1_00_000.Profile.CMROrganizationScreeningLaboratory,
+            profile: PR.CMROrganizationScreeningLaboratory,
             header: "Kontaktperson",
             models: [Models.ContactDetailsModel]
         }

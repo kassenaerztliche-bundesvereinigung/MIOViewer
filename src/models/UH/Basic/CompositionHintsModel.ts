@@ -25,27 +25,27 @@ import BaseModel from "./CMRBaseModel";
 import { ModelValue } from "../../Types";
 
 export type CompositionHintsType =
-    | CMR.V1_00_000.Profile.CMRCompositionU1
-    | CMR.V1_00_000.Profile.CMRCompositionU2
-    | CMR.V1_00_000.Profile.CMRCompositionU3
-    | CMR.V1_00_000.Profile.CMRCompositionU4
-    | CMR.V1_00_000.Profile.CMRCompositionU5
-    | CMR.V1_00_000.Profile.CMRCompositionU6
-    | CMR.V1_00_000.Profile.CMRCompositionU7
-    | CMR.V1_00_000.Profile.CMRCompositionU7a
-    | CMR.V1_00_000.Profile.CMRCompositionU8
-    | CMR.V1_00_000.Profile.CMRCompositionU9
-    | CMR.V1_00_000.Profile.PCCompositionExaminationParticipation
-    | CMR.V1_00_000.Profile.PNCompositionParentalNotes;
+    | CMR.V1_0_0.Profile.CMRCompositionU1
+    | CMR.V1_0_0.Profile.CMRCompositionU2
+    | CMR.V1_0_0.Profile.CMRCompositionU3
+    | CMR.V1_0_0.Profile.CMRCompositionU4
+    | CMR.V1_0_0.Profile.CMRCompositionU5
+    | CMR.V1_0_0.Profile.CMRCompositionU6
+    | CMR.V1_0_0.Profile.CMRCompositionU7
+    | CMR.V1_0_0.Profile.CMRCompositionU7a
+    | CMR.V1_0_0.Profile.CMRCompositionU8
+    | CMR.V1_0_0.Profile.CMRCompositionU9
+    | CMR.V1_0_0.Profile.PCCompositionExaminationParticipation
+    | CMR.V1_0_0.Profile.PNCompositionParentalNotes;
 
 export default class CompositionHintsModel extends BaseModel<CompositionHintsType> {
     constructor(
         value: CompositionHintsType,
         fullUrl: string,
         parent:
-            | CMR.V1_00_000.Profile.CMRBundle
-            | CMR.V1_00_000.Profile.PCBundle
-            | CMR.V1_00_000.Profile.PNBundle,
+            | CMR.V1_0_0.Profile.CMRBundle
+            | CMR.V1_0_0.Profile.PCBundle
+            | CMR.V1_0_0.Profile.PNBundle,
         history?: History
     ) {
         super(value, fullUrl, parent, history);

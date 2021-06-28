@@ -19,8 +19,8 @@
 import { KBVBundleResource, ParserUtil } from "@kbv/mioparser";
 
 // Example files to import
-import IMExample_1_0_0 from "./IM/Example_IM_1_0_0.json";
-import ZBExample_1_0_0 from "./ZB/Example_ZB_1_0_0.json";
+import IMExample_1_1_0 from "./IM/Example_IM_1_1_0.json";
+import ZBExample_1_1_0 from "./ZB/Example_ZB_1_1_0.json";
 import MPExample_1_0_0 from "./MP/Example_MR_1_0_0.json";
 import UHExample_1_0_0_U2 from "./UH/1_0_0/KBV_PR_MIO_CMR_Bundle_U2.json";
 import UHExample_1_0_0_U3 from "./UH/1_0_0/KBV_PR_MIO_CMR_Bundle_U3.json";
@@ -32,8 +32,8 @@ import UHExample_1_0_0_PN from "./UH/1_0_0/KBV_PR_MIO_CMR_Bundle_PN.json";
 const EXAMPLE_PREFIX = "example-";
 
 const exampleFiles = [
-    IMExample_1_0_0,
-    ZBExample_1_0_0,
+    IMExample_1_1_0,
+    ZBExample_1_1_0,
     MPExample_1_0_0,
     UHExample_1_0_0_U2,
     UHExample_1_0_0_U3,

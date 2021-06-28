@@ -32,7 +32,7 @@ import Mappings from "../Mappings";
 
 type ListItemType = { header: string; testIdSuffix?: string; component: JSX.Element };
 
-class Detail extends DetailBase<MR.V1_00_000.Profile.Bundle> {
+class Detail extends DetailBase<MR.V1_0_0.Profile.Bundle> {
     protected getHeaderClass(): UI.MIOClassName {
         return "mutterpass";
     }
@@ -101,7 +101,7 @@ class Detail extends DetailBase<MR.V1_00_000.Profile.Bundle> {
                 match: match
             };
 
-            const bundle = mio as MR.V1_00_000.Profile.Bundle;
+            const bundle = mio as MR.V1_0_0.Profile.Bundle;
 
             let mappedResult: ListItemType | undefined = undefined;
             this.getMappings().forEach((mapping) => {
@@ -164,7 +164,7 @@ class Detail extends DetailBase<MR.V1_00_000.Profile.Bundle> {
         }
     };
 
-    protected getPatient(): MIOEntry<MR.V1_00_000.Profile.PatientMother> | undefined {
+    protected getPatient(): MIOEntry<MR.V1_0_0.Profile.PatientMother> | undefined {
         return undefined;
     }
 

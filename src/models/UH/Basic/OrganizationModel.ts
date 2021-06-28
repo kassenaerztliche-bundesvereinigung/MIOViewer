@@ -24,9 +24,9 @@ import BaseModel from "./CMRBaseModel";
 import { ModelValue } from "../../Types";
 
 export type OrganizationType =
-    | CMR.V1_00_000.Profile.CMROrganization
-    | CMR.V1_00_000.Profile.CMROrganizationScreeningLaboratory
-    | CMR.V1_00_000.Profile.PCOrganization;
+    | CMR.V1_0_0.Profile.CMROrganization
+    | CMR.V1_0_0.Profile.CMROrganizationScreeningLaboratory
+    | CMR.V1_0_0.Profile.PCOrganization;
 
 export default class OrganizationModel extends BaseModel<OrganizationType> {
     constructor(
@@ -39,9 +39,9 @@ export default class OrganizationModel extends BaseModel<OrganizationType> {
             value,
             fullUrl,
             parent as
-                | CMR.V1_00_000.Profile.CMRBundle
-                | CMR.V1_00_000.Profile.PCBundle
-                | CMR.V1_00_000.Profile.PNBundle,
+                | CMR.V1_0_0.Profile.CMRBundle
+                | CMR.V1_0_0.Profile.PCBundle
+                | CMR.V1_0_0.Profile.PNBundle,
             history
         );
 
@@ -51,8 +51,8 @@ export default class OrganizationModel extends BaseModel<OrganizationType> {
 
     protected getIdentifier(): ModelValue {
         if (this.value.identifier) {
-            const iknr = ParserUtil.getSlice<CMR.V1_00_000.Profile.CMROrganizationInstitutionskennzeichen>(
-                CMR.V1_00_000.Profile.CMROrganizationInstitutionskennzeichen,
+            const iknr = ParserUtil.getSlice<CMR.V1_0_0.Profile.CMROrganizationInstitutionskennzeichen>(
+                CMR.V1_0_0.Profile.CMROrganizationInstitutionskennzeichen,
                 this.value.identifier
             );
 
@@ -62,8 +62,8 @@ export default class OrganizationModel extends BaseModel<OrganizationType> {
                     label: "Institutionskennzeichen (IKNR)"
                 };
 
-            const bsnr = ParserUtil.getSlice<CMR.V1_00_000.Profile.CMROrganizationBetriebsstaettennummer>(
-                CMR.V1_00_000.Profile.CMROrganizationBetriebsstaettennummer,
+            const bsnr = ParserUtil.getSlice<CMR.V1_0_0.Profile.CMROrganizationBetriebsstaettennummer>(
+                CMR.V1_0_0.Profile.CMROrganizationBetriebsstaettennummer,
                 this.value.identifier
             );
 

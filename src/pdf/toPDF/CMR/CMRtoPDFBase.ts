@@ -28,9 +28,9 @@ import PDFRepresentation from "../../PDFRepresentation";
 export default abstract class CMRtoPDFBase<
     T,
     B extends
-        | CMR.V1_00_000.Profile.CMRBundle
-        | CMR.V1_00_000.Profile.PCBundle
-        | CMR.V1_00_000.Profile.PNBundle
+        | CMR.V1_0_0.Profile.CMRBundle
+        | CMR.V1_0_0.Profile.PCBundle
+        | CMR.V1_0_0.Profile.PNBundle
 > extends PDFRepresentation<B> {
     protected composition?: MIOEntry<T>;
 

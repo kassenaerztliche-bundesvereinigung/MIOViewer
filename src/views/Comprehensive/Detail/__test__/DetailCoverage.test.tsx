@@ -48,6 +48,7 @@ describe("Detail Coverage", () => {
         "VaccinationCondition",
         "VaccinationObservationImmunizationStatus",
         "VaccinationOrganization",
+        "VaccinationOrganizationAddendum",
         "VaccinationPatient",
         "VaccinationPractitioner",
         "VaccinationPractitionerAddendum",
@@ -72,8 +73,8 @@ describe("Detail Coverage", () => {
     const allProfilesZB: string[] = [
         "ZAEBBundle",
         "ZAEBComposition",
-        "ZAEBGaplessDocumentation",
-        "ZAEBObservation",
+        "ZAEBObservationDentalCheckUp",
+        "ZAEBObservationGaplessDocumentation",
         "ZAEBOrganization",
         "ZAEBPatient"
     ];

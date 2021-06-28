@@ -25,48 +25,54 @@ import BaseModel from "../BaseModel";
 import { OrganizationModel, PractitionerModel } from "./";
 import { AdditionalCommentModel, AddressModel, ModelValue, TelecomModel } from "../";
 
-type Bundle = Vaccination.V1_00_000.Profile.BundleEntry;
+type Bundle = Vaccination.V1_1_0.Profile.BundleEntry;
 
 export default class RecordModel<
     T extends
-        | Vaccination.V1_00_000.Profile.RecordPrime
-        | Vaccination.V1_00_000.Profile.RecordAddendum
+        | Vaccination.V1_1_0.Profile.RecordPrime
+        | Vaccination.V1_1_0.Profile.RecordAddendum
 > extends BaseModel<T> {
     constructor(value: T, fullUrl: string, parent: KBVBundleResource, history?: History) {
         super(value, fullUrl, parent, history);
 
         let headline = "";
         this.value.protocolApplied.forEach((protocol) => {
-            headline += protocol.targetDisease.map((disease) => disease.text).join(", ");
+            headline += protocol.targetDisease
+                .map((disease) =>
+                    Util.FHIR.handleCode(disease, [
+                        Vaccination.V1_1_0.ConceptMap.VaccineTargetdisease
+                    ])
+                )
+                .join(", ");
         });
 
         this.headline = headline;
 
         let vaccineCode = "-";
-        if (this.value.vaccineCode.text) vaccineCode = this.value.vaccineCode.text;
-        else if (this.value.vaccineCode.coding) {
-            const codes: string[] = [];
-            this.value.vaccineCode.coding.forEach((coding) => {
-                codes.push(
-                    ParserUtil.translateCode(
-                        coding.code,
-                        Vaccination.V1_00_000.ConceptMap.VaccineGerman
-                    ).join(", ")
-                );
-            });
-            vaccineCode = codes.join(", ");
+        if (this.value.vaccineCode.text) {
+            vaccineCode = this.value.vaccineCode.text;
+        } else if (this.value.vaccineCode.coding) {
+            vaccineCode = Util.FHIR.handleCode(this.value.vaccineCode, [
+                Vaccination.V1_1_0.ConceptMap.VaccineGerman
+            ]).join(", ");
         }
 
         const followUp = this.getFollowUp(this.value);
 
-        const attester = ParserUtil.getSlice<Vaccination.V1_00_000.Extension.Attester>(
-            Vaccination.V1_00_000.Extension.Attester,
+        const attester = ParserUtil.getSlices<
+            | Vaccination.V1_1_0.Extension.Attester
+            | Vaccination.V1_1_0.Extension.AttesterAddendum
+        >(
+            [
+                Vaccination.V1_1_0.Extension.Attester,
+                Vaccination.V1_1_0.Extension.AttesterAddendum
+            ],
             this.value.extension
         );
 
         const entryAttester = Util.IM.getPractitionerroleByExtension(
             parent as Bundle,
-            attester
+            attester[0]
         );
 
         const organizationAttester = Util.IM.getOrganization(
@@ -79,8 +85,8 @@ export default class RecordModel<
             entryAttester?.resource.practitioner.reference
         );
 
-        const enterer = ParserUtil.getSlice<Vaccination.V1_00_000.Extension.Enterer>(
-            Vaccination.V1_00_000.Extension.Enterer,
+        const enterer = ParserUtil.getSlice<Vaccination.V1_1_0.Extension.Enterer>(
+            Vaccination.V1_1_0.Extension.Enterer,
             this.value.extension
         );
 
@@ -162,21 +168,21 @@ export default class RecordModel<
 
     protected getFollowUp = (
         record:
-            | Vaccination.V1_00_000.Profile.RecordPrime
-            | Vaccination.V1_00_000.Profile.RecordAddendum
-    ): Vaccination.V1_00_000.Extension.FollowUp | undefined => {
+            | Vaccination.V1_1_0.Profile.RecordPrime
+            | Vaccination.V1_1_0.Profile.RecordAddendum
+    ): Vaccination.V1_1_0.Extension.FollowUp | undefined => {
         let result = undefined;
         record.protocolApplied.forEach(
             (
                 protocol:
-                    | Vaccination.V1_00_000.Profile.RecordPrimeProtocolApplied
-                    | Vaccination.V1_00_000.Profile.RecordAddendumProtocolApplied
+                    | Vaccination.V1_1_0.Profile.RecordPrimeProtocolApplied
+                    | Vaccination.V1_1_0.Profile.RecordAddendumProtocolApplied
             ) => {
                 if (protocol.extension) {
                     const filtered = protocol.extension.filter((e) =>
-                        Vaccination.V1_00_000.Extension.FollowUp.is(e)
+                        Vaccination.V1_1_0.Extension.FollowUp.is(e)
                     );
-                    result = filtered[0] as Vaccination.V1_00_000.Extension.FollowUp;
+                    result = filtered[0] as Vaccination.V1_1_0.Extension.FollowUp;
                 }
             }
         );
@@ -196,7 +202,8 @@ export default class RecordModel<
     public getMainValue(): ModelValue {
         return {
             value: this.headline,
-            label: Util.Misc.formatDate(this.value.occurrenceDateTime)
+            label: Util.Misc.formatDate(this.value.occurrenceDateTime),
+            onClick: Util.Misc.toEntryByRef(this.history, this.parent, this.fullUrl)
         };
     }
 }

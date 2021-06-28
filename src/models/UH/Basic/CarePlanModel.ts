@@ -27,19 +27,19 @@ import OrganizationModel from "./OrganizationModel";
 import { AdditionalCommentModel, AddressModel, TelecomModel } from "../../Comprehensive";
 
 export type CarePlanType =
-    | CMR.V1_00_000.Profile.CMRCarePlanU2U9Result
-    | CMR.V1_00_000.Profile.CMRCarePlanU3U4HipScreeningPlan;
+    | CMR.V1_0_0.Profile.CMRCarePlanU2U9Result
+    | CMR.V1_0_0.Profile.CMRCarePlanU3U4HipScreeningPlan;
 
 export default class CarePlanModel extends BaseModel<CarePlanType> {
     constructor(
         value: CarePlanType,
         fullUrl: string,
-        parent: CMR.V1_00_000.Profile.CMRBundle,
+        parent: CMR.V1_0_0.Profile.CMRBundle,
         history?: History
     ) {
         super(value, fullUrl, parent, history);
 
-        if (CMR.V1_00_000.Profile.CMRCarePlanU3U4HipScreeningPlan.is(this.value)) {
+        if (CMR.V1_0_0.Profile.CMRCarePlanU3U4HipScreeningPlan.is(this.value)) {
             this.headline = this.value.title;
         } else {
             this.headline = "Weiteres Vorgehen";
@@ -88,10 +88,10 @@ export default class CarePlanModel extends BaseModel<CarePlanType> {
         this.value.activity.forEach((activity: Activity) => {
             const detail = activity.detail;
 
-            if (CMR.V1_00_000.Profile.CMRCarePlanU3U4HipScreeningPlan.is(this.value)) {
+            if (CMR.V1_0_0.Profile.CMRCarePlanU3U4HipScreeningPlan.is(this.value)) {
                 values.push({
                     value: Util.FHIR.handleCode(detail.code, [
-                        CMR.V1_00_000.ConceptMap.CMRHipProceedingGerman
+                        CMR.V1_0_0.ConceptMap.CMRHipProceedingGerman
                     ]).join(", "),
                     label: ""
                 });
@@ -103,7 +103,7 @@ export default class CarePlanModel extends BaseModel<CarePlanType> {
             }
         });
 
-        if (CMR.V1_00_000.Profile.CMRCarePlanU3U4HipScreeningPlan.is(this.value)) {
+        if (CMR.V1_0_0.Profile.CMRCarePlanU3U4HipScreeningPlan.is(this.value)) {
             return [
                 {
                     value: values.map((v) => v.value).join("\n"),

@@ -24,15 +24,15 @@ import { AdditionalCommentModel, TelecomModel, IM } from "../../models";
 import { horizontalLine } from "../PDFHelper";
 import PDFRepresentation from "../PDFRepresentation";
 
-export default class IMtoPDF extends PDFRepresentation<Vaccination.V1_00_000.Profile.BundleEntry> {
-    constructor(value: Vaccination.V1_00_000.Profile.BundleEntry) {
+export default class IMtoPDF extends PDFRepresentation<Vaccination.V1_1_0.Profile.BundleEntry> {
+    constructor(value: Vaccination.V1_1_0.Profile.BundleEntry) {
         super(value, "Impfeintrag", "s");
     }
 
     public getContent(): Content {
-        const recordsAddendum = ParserUtil.getEntries<Vaccination.V1_00_000.Profile.RecordAddendum>(
+        const recordsAddendum = ParserUtil.getEntries<Vaccination.V1_1_0.Profile.RecordAddendum>(
             this.value,
-            [Vaccination.V1_00_000.Profile.RecordAddendum]
+            [Vaccination.V1_1_0.Profile.RecordAddendum]
         );
 
         let recordContent = recordsAddendum.map((r) => {
@@ -40,9 +40,9 @@ export default class IMtoPDF extends PDFRepresentation<Vaccination.V1_00_000.Pro
             return model.toPDFContent();
         });
 
-        const recordsPrime = ParserUtil.getEntries<Vaccination.V1_00_000.Profile.RecordPrime>(
+        const recordsPrime = ParserUtil.getEntries<Vaccination.V1_1_0.Profile.RecordPrime>(
             this.value,
-            [Vaccination.V1_00_000.Profile.RecordPrime]
+            [Vaccination.V1_1_0.Profile.RecordPrime]
         );
 
         recordContent = [
@@ -57,9 +57,9 @@ export default class IMtoPDF extends PDFRepresentation<Vaccination.V1_00_000.Pro
             recordContent = [this.pdfContentHint("Impfungen", "Impfpass")];
         }
 
-        const observations = ParserUtil.getEntries<Vaccination.V1_00_000.Profile.ObservationImmunizationStatus>(
+        const observations = ParserUtil.getEntries<Vaccination.V1_1_0.Profile.ObservationImmunizationStatus>(
             this.value,
-            [Vaccination.V1_00_000.Profile.ObservationImmunizationStatus]
+            [Vaccination.V1_1_0.Profile.ObservationImmunizationStatus]
         );
 
         let observationsContent = observations.map((o) => {
@@ -73,9 +73,9 @@ export default class IMtoPDF extends PDFRepresentation<Vaccination.V1_00_000.Pro
             ];
         }
 
-        const conditions = ParserUtil.getEntries<Vaccination.V1_00_000.Profile.Condition>(
+        const conditions = ParserUtil.getEntries<Vaccination.V1_1_0.Profile.Condition>(
             this.value,
-            [Vaccination.V1_00_000.Profile.Condition]
+            [Vaccination.V1_1_0.Profile.Condition]
         );
 
         let conditionsContent = conditions.map((c) => {
@@ -122,11 +122,11 @@ export default class IMtoPDF extends PDFRepresentation<Vaccination.V1_00_000.Pro
 
     public getHeading(): Content {
         const composition = ParserUtil.getEntry<
-            | Vaccination.V1_00_000.Profile.CompositionAddendum
-            | Vaccination.V1_00_000.Profile.CompositionPrime
+            | Vaccination.V1_1_0.Profile.CompositionAddendum
+            | Vaccination.V1_1_0.Profile.CompositionPrime
         >(this.value, [
-            Vaccination.V1_00_000.Profile.CompositionAddendum,
-            Vaccination.V1_00_000.Profile.CompositionPrime
+            Vaccination.V1_1_0.Profile.CompositionAddendum,
+            Vaccination.V1_1_0.Profile.CompositionPrime
         ]);
 
         const title = composition ? composition.resource.title : "-";
@@ -136,13 +136,13 @@ export default class IMtoPDF extends PDFRepresentation<Vaccination.V1_00_000.Pro
         let authorContent: Content | undefined = undefined;
         if (ref) {
             const practitioner = ParserUtil.getEntryWithRef<
-                | Vaccination.V1_00_000.Profile.Practitioner
-                | Vaccination.V1_00_000.Profile.PractitionerAddendum
+                | Vaccination.V1_1_0.Profile.Practitioner
+                | Vaccination.V1_1_0.Profile.PractitionerAddendum
             >(
                 this.value,
                 [
-                    Vaccination.V1_00_000.Profile.Practitioner,
-                    Vaccination.V1_00_000.Profile.PractitionerAddendum
+                    Vaccination.V1_1_0.Profile.Practitioner,
+                    Vaccination.V1_1_0.Profile.PractitionerAddendum
                 ],
                 ref
             );
@@ -172,9 +172,9 @@ export default class IMtoPDF extends PDFRepresentation<Vaccination.V1_00_000.Pro
             }
         }
 
-        const patientResource = ParserUtil.getEntry<Vaccination.V1_00_000.Profile.Patient>(
+        const patientResource = ParserUtil.getEntry<Vaccination.V1_1_0.Profile.Patient>(
             this.value,
-            [Vaccination.V1_00_000.Profile.Patient]
+            [Vaccination.V1_1_0.Profile.Patient]
         );
 
         let patientContent = undefined;

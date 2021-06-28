@@ -22,7 +22,7 @@ import { UI, Util } from "../../../../components";
 
 import Section, { SectionProps } from "../Section";
 
-export default class Cardiotocography extends Section<MR.V1_00_000.Profile.CompositionUntersuchungenCardiotokographie> {
+export default class Cardiotocography extends Section<MR.V1_0_0.Profile.CompositionUntersuchungenCardiotokographie> {
     constructor(props: SectionProps) {
         super(props);
         this.state = {
@@ -31,8 +31,8 @@ export default class Cardiotocography extends Section<MR.V1_00_000.Profile.Compo
         };
 
         this.section = this.getSection([
-            MR.V1_00_000.Profile.CompositionUntersuchungen,
-            MR.V1_00_000.Profile.CompositionUntersuchungenCardiotokographie
+            MR.V1_0_0.Profile.CompositionUntersuchungen,
+            MR.V1_0_0.Profile.CompositionUntersuchungenCardiotokographie
         ]);
     }
 
@@ -46,9 +46,9 @@ export default class Cardiotocography extends Section<MR.V1_00_000.Profile.Compo
         const items: UI.ListItem.Props[] = [];
         this.section?.entry.forEach((entry) => {
             const ref = entry.reference;
-            const res = ParserUtil.getEntryWithRef<MR.V1_00_000.Profile.ObservationCardiotocography>(
+            const res = ParserUtil.getEntryWithRef<MR.V1_0_0.Profile.ObservationCardiotocography>(
                 mio,
-                [MR.V1_00_000.Profile.ObservationCardiotocography],
+                [MR.V1_0_0.Profile.ObservationCardiotocography],
                 ref
             )?.resource;
 

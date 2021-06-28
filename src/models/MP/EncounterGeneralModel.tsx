@@ -25,11 +25,11 @@ import { EncounterModel } from "./Basic";
 import * as Models from "../index";
 import { ModelValue } from "../index";
 
-export default class EncounterGeneralModel extends EncounterModel<MR.V1_00_000.Profile.EncounterGeneral> {
+export default class EncounterGeneralModel extends EncounterModel<MR.V1_0_0.Profile.EncounterGeneral> {
     constructor(
-        value: MR.V1_00_000.Profile.EncounterGeneral,
+        value: MR.V1_0_0.Profile.EncounterGeneral,
         fullUrl: string,
-        parent: MR.V1_00_000.Profile.Bundle,
+        parent: MR.V1_0_0.Profile.Bundle,
         history?: History,
         customLabel = "Untersucht am"
     ) {

@@ -27,14 +27,14 @@ import { ModelValue } from "../Types";
 
 export default class TelecomModel<
     T extends
-        | Vaccination.V1_00_000.Profile.Practitioner
-        | Vaccination.V1_00_000.Profile.PractitionerAddendum
-        | Vaccination.V1_00_000.Profile.Organization
-        | ZAEB.V1_00_000.Profile.Organization
-        | MR.V1_00_000.Profile.Organization
-        | MR.V1_00_000.Profile.Practitioner
-        | CMR.V1_00_000.Profile.CMRPractitioner
-        | CMR.V1_00_000.Profile.CMROrganization
+        | Vaccination.V1_1_0.Profile.Practitioner
+        | Vaccination.V1_1_0.Profile.PractitionerAddendum
+        | Vaccination.V1_1_0.Profile.Organization
+        | ZAEB.V1_1_0.Profile.Organization
+        | MR.V1_0_0.Profile.Organization
+        | MR.V1_0_0.Profile.Practitioner
+        | CMR.V1_0_0.Profile.CMRPractitioner
+        | CMR.V1_0_0.Profile.CMROrganization
 > extends BaseModel<T> {
     constructor(value: T, fullUrl: string, parent: KBVBundleResource, history?: History) {
         super(value, fullUrl, parent, history);

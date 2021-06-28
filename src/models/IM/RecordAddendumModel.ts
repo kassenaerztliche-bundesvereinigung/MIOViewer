@@ -22,9 +22,9 @@ import { ParserUtil, KBVBundleResource, Vaccination } from "@kbv/mioparser";
 
 import RecordModel from "./RecordModel";
 
-export default class RecordAddendumModel extends RecordModel<Vaccination.V1_00_000.Profile.RecordAddendum> {
+export default class RecordAddendumModel extends RecordModel<Vaccination.V1_1_0.Profile.RecordAddendum> {
     constructor(
-        value: Vaccination.V1_00_000.Profile.RecordAddendum,
+        value: Vaccination.V1_1_0.Profile.RecordAddendum,
         fullUrl: string,
         parent: KBVBundleResource,
         history?: History
@@ -45,8 +45,8 @@ export default class RecordAddendumModel extends RecordModel<Vaccination.V1_00_0
         });
 
         let entryTypeStr = "-";
-        const entryType = ParserUtil.getSlice<Vaccination.V1_00_000.Extension.EntryType>(
-            Vaccination.V1_00_000.Extension.EntryType,
+        const entryType = ParserUtil.getSlice<Vaccination.V1_1_0.Extension.EntryType>(
+            Vaccination.V1_1_0.Extension.EntryType,
             this.value.extension
         );
         if (entryType && entryType.valueCodeableConcept) {

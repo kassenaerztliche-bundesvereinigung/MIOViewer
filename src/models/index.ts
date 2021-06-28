@@ -38,6 +38,7 @@ import { ModelValue } from "./Types";
 type Model =
     | IM.ConditionModel
     | IM.ObservationModel
+    | IM.OrganizationModel
     | IM.PatientModel
     | IM.PractitionerModel
     | IM.RecordAddendumModel
@@ -50,8 +51,8 @@ type Model =
     | MP.Basic.ClinicalImpressionInvestigationModel
     | MP.Basic.ClinicalImpressionModel
     | MP.Basic.EncounterModel<
-          | MR.V1_00_000.Profile.EncounterGeneral
-          | MR.V1_00_000.Profile.EncounterInpatientTreatment
+          | MR.V1_0_0.Profile.EncounterGeneral
+          | MR.V1_0_0.Profile.EncounterInpatientTreatment
       >
     | MP.Basic.ObservationModel<MP.Basic.ObservationType>
     | MP.Basic.OrganizationModel
@@ -59,8 +60,8 @@ type Model =
     | MP.Basic.PatientMotherModel
     | MP.Basic.PractitionerModel
     | MP.Basic.ProcedureBaseModel<
-          | MR.V1_00_000.Profile.ProcedureAntiDProphylaxis
-          | MR.V1_00_000.Profile.ProcedureCounselling
+          | MR.V1_0_0.Profile.ProcedureAntiDProphylaxis
+          | MR.V1_0_0.Profile.ProcedureCounselling
       >
     | MP.AppointmentPregnancyModel
     | MP.EncounterArrivalMaternityHospitalModel
@@ -93,27 +94,28 @@ type Model =
     | UH.PN.ParentalNotesModel
     | AdditionalCommentModel
     | AddressModel<
-          | Vaccination.V1_00_000.Profile.Organization
-          | ZAEB.V1_00_000.Profile.Patient
-          | ZAEB.V1_00_000.Profile.Organization
-          | MR.V1_00_000.Profile.PatientMother
-          | MR.V1_00_000.Profile.Practitioner
+          | Vaccination.V1_1_0.Profile.Organization
+          | ZAEB.V1_1_0.Profile.Patient
+          | ZAEB.V1_1_0.Profile.Organization
+          | MR.V1_0_0.Profile.PatientMother
+          | MR.V1_0_0.Profile.Practitioner
       >
-    | ContactModel<CMR.V1_00_000.Profile.CMROrganizationScreeningLaboratory>
+    | ContactModel<CMR.V1_0_0.Profile.CMROrganizationScreeningLaboratory>
     | PatientSimpleModel
     | TelecomModel<
-          | Vaccination.V1_00_000.Profile.Practitioner
-          | Vaccination.V1_00_000.Profile.PractitionerAddendum
-          | Vaccination.V1_00_000.Profile.Organization
-          | ZAEB.V1_00_000.Profile.Organization
-          | MR.V1_00_000.Profile.Practitioner
+          | Vaccination.V1_1_0.Profile.Practitioner
+          | Vaccination.V1_1_0.Profile.PractitionerAddendum
+          | Vaccination.V1_1_0.Profile.Organization
+          | ZAEB.V1_1_0.Profile.Organization
+          | MR.V1_0_0.Profile.Practitioner
       >
-    | QualificationModel<CMR.V1_00_000.Profile.CMRPractitioner>
-    | ContactDetailsModel<CMR.V1_00_000.Profile.CMROrganizationScreeningLaboratory>;
+    | QualificationModel<CMR.V1_0_0.Profile.CMRPractitioner>
+    | ContactDetailsModel<CMR.V1_0_0.Profile.CMROrganizationScreeningLaboratory>;
 
 type ModelType =
     | typeof IM.ConditionModel
     | typeof IM.ObservationModel
+    | typeof IM.OrganizationModel
     | typeof IM.PatientModel
     | typeof IM.PractitionerModel
     | typeof IM.RecordAddendumModel

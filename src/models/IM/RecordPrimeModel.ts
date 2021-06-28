@@ -23,17 +23,17 @@ import { UI } from "../../components";
 
 import RecordModel from "./RecordModel";
 
-export default class RecordPrimeModel extends RecordModel<Vaccination.V1_00_000.Profile.RecordPrime> {
+export default class RecordPrimeModel extends RecordModel<Vaccination.V1_1_0.Profile.RecordPrime> {
     constructor(
-        value: Vaccination.V1_00_000.Profile.RecordPrime,
+        value: Vaccination.V1_1_0.Profile.RecordPrime,
         fullUrl: string,
         parent: KBVBundleResource,
         history?: History
     ) {
         super(value, fullUrl, parent, history);
 
-        const disclaimer = ParserUtil.getSlice<Vaccination.V1_00_000.Profile.RecordPrimeNoteHinweis>(
-            Vaccination.V1_00_000.Profile.RecordPrimeNoteHinweis,
+        const disclaimer = ParserUtil.getSlice<Vaccination.V1_1_0.Profile.RecordPrimeNoteHinweis>(
+            Vaccination.V1_1_0.Profile.RecordPrimeNoteHinweis,
             this.value.note
         );
 
@@ -45,8 +45,8 @@ export default class RecordPrimeModel extends RecordModel<Vaccination.V1_00_000.
         });
 
         let entryTypeStr = "_";
-        const entryType = ParserUtil.getSlice<Vaccination.V1_00_000.Extension.EntryType>(
-            Vaccination.V1_00_000.Extension.EntryType,
+        const entryType = ParserUtil.getSlice<Vaccination.V1_1_0.Extension.EntryType>(
+            Vaccination.V1_1_0.Extension.EntryType,
             this.value.extension
         );
 

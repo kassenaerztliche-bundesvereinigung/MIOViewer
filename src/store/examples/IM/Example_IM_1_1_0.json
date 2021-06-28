@@ -1,0 +1,685 @@
+{
+	"resourceType": "Bundle",
+	"id": "6413570d-d8ce-4afa-9f6e-0950111a4cb8",
+	"meta": {
+		"lastUpdated": "2019-12-24T12:30:02Z",
+		"profile": [
+			"https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_Vaccination_Bundle_Entry|1.1.0"
+		]
+	},
+	"identifier": {
+		"system": "urn:ietf:rfc:3986",
+		"value": "urn:uuid:6413570d-d8ce-4afa-9f6e-0950111a4cb8"
+	},
+	"type": "document",
+	"timestamp": "2019-12-23T12:30:02Z",
+	"entry": [
+		{
+			"fullUrl": "urn:uuid:802e8ddf-da94-4d45-9b9a-ef24001dbfd4",
+			"resource": {
+				"resourceType": "Composition",
+				"id": "802e8ddf-da94-4d45-9b9a-ef24001dbfd4",
+				"meta": {
+					"profile": [
+						"https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_Vaccination_Composition_Prime|1.1.0"
+					]
+				},
+				"status": "final",
+				"type": {
+					"coding": [
+						{
+							"system": "http://loinc.org",
+							"code": "11369-6",
+							"display": "History of Immunization Narrative"
+						}
+					]
+				},
+				"subject": {
+					"reference": "urn:uuid:7eb1aef1-a24e-42e0-926d-904470d044dc"
+				},
+				"date": "2020-07-01",
+				"author": [
+					{
+						"reference": "urn:uuid:ebefcfca-7168-40e5-8918-7af38c7f10c9"
+					}
+				],
+				"title": "Impfeintrag-/einträge",
+				"section": [
+					{
+						"code": {
+							"coding": [
+								{
+									"system": "http://snomed.info/sct",
+									"version": "http://snomed.info/sct/900000000000207008/version/20210131",
+									"code": "713404003",
+									"display": "Vaccination given (situation)"
+								}
+							]
+						},
+						"entry": [
+							{
+								"reference": "urn:uuid:f9b89c2a-fe63-4a7f-9f4a-1335526b29cb"
+							}
+						]
+					},
+					{
+						"code": {
+							"coding": [
+								{
+									"system": "http://snomed.info/sct",
+									"version": "http://snomed.info/sct/900000000000207008/version/20210131",
+									"code": "243796009:363589002=121258006",
+									"display": "Situation with explicit context (situation) : Associated procedure (attribute) = Procedure to identify antibody (procedure)"
+								}
+							]
+						},
+						"entry": [
+							{
+								"reference": "urn:uuid:9629ba34-1c3e-44bf-b71b-084fe3bca00b"
+							}
+						]
+					},
+					{
+						"code": {
+							"coding": [
+								{
+									"system": "http://snomed.info/sct",
+									"version": "http://snomed.info/sct/900000000000207008/version/20210131",
+									"code": "161413004:363589002=35123003",
+									"display": "History of infectious disease (situation) : Associated procedure (attribute) = Active immunity, function (observable entity)"
+								}
+							]
+						},
+						"entry": [
+							{
+								"reference": "urn:uuid:da020cdd-7a43-4e82-9bb6-37845e572a6d"
+							}
+						],
+						"section": [
+							{
+								"entry": [
+									{
+										"reference": "urn:uuid:70c4e890-b1fa-4bff-9a04-5d6ac5cbfcf4"
+									}
+								]
+							}
+						]
+					}
+				]
+			}
+		},
+		{
+			"fullUrl": "urn:uuid:f9b89c2a-fe63-4a7f-9f4a-1335526b29cb",
+			"resource": {
+				"resourceType": "Immunization",
+				"id": "f9b89c2a-fe63-4a7f-9f4a-1335526b29cb",
+				"meta": {
+					"profile": [
+						"https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_Vaccination_Record_Prime|1.1.0"
+					]
+				},
+				"text": {
+					"status": "extensions",
+					"div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>TBD</p></div>"
+				},
+				"extension": [
+					{
+						"url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_MIO_Vaccination_Entry_Type",
+						"valueCodeableConcept": {
+							"coding": [
+								{
+									"system": "https://fhir.kbv.de/CodeSystem/KBV_CS_MIO_Vaccination_Technical_Entry_Type",
+									"code": "End",
+									"display": "Eintrag nur digital"
+								}
+							]
+						}
+					},
+					{
+						"extension": [
+							{
+								"url": "mode",
+								"valueCodeableConcept": {
+									"coding": [
+										{
+											"system": "http://hl7.org/fhir/composition-attestation-mode",
+											"code": "legal"
+										}
+									]
+								}
+							},
+							{
+								"url": "party",
+								"valueReference": {
+									"reference": "urn:uuid:ebefcfca-7168-40e5-8918-7af38c7f10c9"
+								}
+							}
+						],
+						"url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_MIO_Vaccination_Attester"
+					}
+				],
+				"status": "completed",
+				"vaccineCode": {
+					"coding": [
+						{
+							"system": "http://snomed.info/sct",
+							"version": "http://snomed.info/sct/900000000000207008/version/20210131",
+							"code": "836385002",
+							"_display": {
+								"extension": [
+									{
+										"extension": [
+											{
+												"url": "content",
+												"valueString": "Gelbfieberimpfstoff"
+											}
+										],
+										"url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+									}
+								]
+							},
+							"display": "Vaccine product containing Yellow fever virus antigen (medicinal product)"
+						},
+						{
+							"system": "http://fhir.de/CodeSystem/dimdi/atc",
+							"version": "atcgm2021",
+							"code": "J07BL",
+							"display": "Gelbfieber-Impfstoffe"
+						}
+					],
+					"text": "Gelbfieberimpfstoff"
+				},
+				"patient": {
+					"reference": "urn:uuid:7eb1aef1-a24e-42e0-926d-904470d044dc"
+				},
+				"occurrenceDateTime": "2019-12-23",
+				"primarySource": true,
+				"manufacturer": {
+					"display": "Beispiel-Pharm"
+				},
+				"lotNumber": "ABCD123419",
+				"note": [
+					{
+						"text": "Bei einer ungewöhnlichen Impfreaktion sollte die impfende ärztliche Person benachrichtigt werden. Die ärztlich tätige Person hat, wenn der Verdacht einer gesundheitlichen Schädigung besteht, die über das übliche Ausmaß einer Impfreaktion hinaus geht verpflichtet, den Verdacht dem zuständigen Gesundheitsamt namentlich zu melden (§ 6 Absatz 1 Nr 3 des lnfektionsschutzgesetzes • lfSG) Im Falle eines Impfschadens besteht unter den Voraussetzungen des § 60 Absatz 1 lfSG ein Anspruch auf Entschädigung in entsprechender Anwendung der Vorschriften des Bundesversorgungsgesetzes. Der Antrag ist bei der für die Durchführung des Bundesversorgungsgesetzes zuständigen Behörde (§ 64 Absatz 1 lfSG, i.d.R. 'Versorgungsamt') zu stellen. Weitere Auskünfte erteilt das zuständige Gesundheitsamt."
+					}
+				],
+				"protocolApplied": [
+					{
+						"targetDisease": [
+							{
+								"coding": [
+									{
+										"system": "http://snomed.info/sct",
+										"version": "http://snomed.info/sct/900000000000207008/version/20210131",
+										"code": "16541001",
+										"_display": {
+											"extension": [
+												{
+													"extension": [
+														{
+															"url": "content",
+															"valueString": "Gelbfieber"
+														}
+													],
+													"url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+												}
+											]
+										},
+										"display": "Yellow fever (disorder)"
+									}
+								]
+							}
+						],
+						"_doseNumberString": {
+							"extension": [
+								{
+									"url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+									"valueCode": "unknown"
+								}
+							]
+						}
+					}
+				]
+			}
+		},
+		{
+			"fullUrl": "urn:uuid:70c4e890-b1fa-4bff-9a04-5d6ac5cbfcf4",
+			"resource": {
+				"resourceType": "Provenance",
+				"id": "70c4e890-b1fa-4bff-9a04-5d6ac5cbfcf4",
+				"meta": {
+					"profile": [
+						"https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_Vaccination_Provenance|1.1.0"
+					]
+				},
+				"target": [
+					{
+						"reference": "urn:uuid:da020cdd-7a43-4e82-9bb6-37845e572a6d"
+					}
+				],
+				"recorded": "2019-12-23T08:39:24+10:00",
+				"agent": [
+					{
+						"role": [
+							{
+								"coding": [
+									{
+										"system": "http://snomed.info/sct",
+										"version": "http://snomed.info/sct/900000000000207008/version/20210131",
+										"code": "125677006",
+										"_display": {
+											"extension": [
+												{
+													"extension": [
+														{
+															"url": "content",
+															"valueString": "Angehöriger"
+														}
+													],
+													"url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+												}
+											]
+										},
+										"display": "Relative (person)"
+									}
+								]
+							}
+						],
+						"who": {
+							"extension": [
+								{
+									"url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+									"valueCode": "unknown"
+								}
+							],
+							"display": "unknown"
+						}
+					}
+				]
+			}
+		},
+		{
+			"fullUrl": "urn:uuid:ebefcfca-7168-40e5-8918-7af38c7f10c9",
+			"resource": {
+				"resourceType": "PractitionerRole",
+				"id": "ebefcfca-7168-40e5-8918-7af38c7f10c9",
+				"meta": {
+					"profile": [
+						"https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_Vaccination_Practitionerrole|1.1.0"
+					]
+				},
+				"practitioner": {
+					"reference": "urn:uuid:0dad5f32-8b79-4961-a98b-3e8cd1336d11"
+				},
+				"organization": {
+					"reference": "urn:uuid:13852c9a-2659-4912-9262-73aab94530c7"
+				}
+			}
+		},
+		{
+			"fullUrl": "urn:uuid:0dad5f32-8b79-4961-a98b-3e8cd1336d11",
+			"resource": {
+				"resourceType": "Practitioner",
+				"id": "0dad5f32-8b79-4961-a98b-3e8cd1336d11",
+				"meta": {
+					"profile": [
+						"https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_Vaccination_Practitioner|1.1.0"
+					]
+				},
+				"extension": [
+					{
+						"url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Additional_Comment",
+						"valueString": "Behandelnder Arzt"
+					}
+				],
+				"identifier": [
+					{
+						"type": {
+							"coding": [
+								{
+									"system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+									"code": "LANR"
+								}
+							]
+						},
+						"system": "https://fhir.kbv.de/NamingSystem/KBV_NS_Base_ANR",
+						"value": "838382202"
+					}
+				],
+				"name": [
+					{
+						"use": "official",
+						"_family": {
+							"extension": [
+								{
+									"url": "http://hl7.org/fhir/StructureDefinition/humanname-own-name",
+									"valueString": "Topp-Glücklich"
+								}
+							]
+						},
+						"family": "Topp-Glücklich",
+						"given": [
+							"Hans"
+						],
+						"prefix": [
+							"Dr. med."
+						],
+						"_prefix": [
+							{
+								"extension": [
+									{
+										"url": "http://hl7.org/fhir/StructureDefinition/iso21090-EN-qualifier",
+										"valueCode": "AC"
+									}
+								]
+							}
+						]
+					}
+				],
+				"telecom": [
+					{
+						"system": "phone",
+						"value": "06151/1111111"
+					}
+				],
+				"qualification": [
+					{
+						"code": {
+							"coding": [
+								{
+									"system": "https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_BAR2_WBO",
+									"code": "010",
+									"_display": {
+										"extension": [
+											{
+												"extension": [
+													{
+														"url": "content",
+														"valueString": "Qualifikation"
+													}
+												],
+												"url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+											}
+										]
+									},
+									"display": "FA Allgemeinmedizin"
+								}
+							]
+						}
+					}
+				]
+			}
+		},
+		{
+			"fullUrl": "urn:uuid:7eb1aef1-a24e-42e0-926d-904470d044dc",
+			"resource": {
+				"resourceType": "Patient",
+				"id": "7eb1aef1-a24e-42e0-926d-904470d044dc",
+				"meta": {
+					"profile": [
+						"https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_Vaccination_Patient|1.1.0"
+					]
+				},
+				"text": {
+					"status": "generated",
+					"div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>Patient: Ludger Königsstein</p></div>"
+				},
+				"identifier": [
+					{
+						"type": {
+							"coding": [
+								{
+									"system": "http://fhir.de/CodeSystem/identifier-type-de-basis",
+									"code": "GKV"
+								}
+							]
+						},
+						"system": "http://fhir.de/NamingSystem/gkv/kvid-10",
+						"value": "P234567890"
+					}
+				],
+				"name": [
+					{
+						"use": "official",
+						"text": "Ludger Königsstein",
+						"_family": {
+							"extension": [
+								{
+									"url": "http://hl7.org/fhir/StructureDefinition/humanname-own-name",
+									"valueString": "Königsstein"
+								}
+							]
+						},
+						"family": "Königsstein",
+						"given": [
+							"Ludger"
+						]
+					}
+				],
+				"gender": "male",
+				"birthDate": "1935-06-22"
+			}
+		},
+		{
+			"fullUrl": "urn:uuid:13852c9a-2659-4912-9262-73aab94530c7",
+			"resource": {
+				"resourceType": "Organization",
+				"id": "13852c9a-2659-4912-9262-73aab94530c7",
+				"meta": {
+					"profile": [
+						"https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_Vaccination_Organization|1.1.0"
+					]
+				},
+				"name": "Praxis Dr. med. Hans Topp-Glücklich",
+				"address": [
+					{
+						"type": "both",
+						"line": [
+							"Musterstr. 1"
+						],
+						"_line": [
+							{
+								"extension": [
+									{
+										"url": "http://hl7.org/fhir/StructureDefinition/iso21090-ADXP-houseNumber",
+										"valueString": "1"
+									},
+									{
+										"url": "http://hl7.org/fhir/StructureDefinition/iso21090-ADXP-streetName",
+										"valueString": "Musterstr."
+									}
+								]
+							}
+						],
+						"city": "Darmstadt",
+						"postalCode": "64283",
+						"country": "D"
+					}
+				]
+			}
+		},
+		{
+			"fullUrl": "urn:uuid:9629ba34-1c3e-44bf-b71b-084fe3bca00b",
+			"resource": {
+				"resourceType": "Observation",
+				"id": "9629ba34-1c3e-44bf-b71b-084fe3bca00b",
+				"meta": {
+					"profile": [
+						"https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_Vaccination_Observation_Immunization_Status|1.1.0"
+					]
+				},
+				"text": {
+					"status": "extensions",
+					"div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>TBD</p></div>"
+				},
+				"status": "final",
+				"code": {
+					"coding": [
+						{
+							"system": "http://snomed.info/sct",
+							"version": "http://snomed.info/sct/900000000000207008/version/20210131",
+							"code": "363787002:246093002=259858000,370134009=123029007,370132008=117363000,704319004=50863008,370130000=705057003,704327008=119364003",
+							"_display": {
+								"extension": [
+									{
+										"extension": [
+											{
+												"url": "content",
+												"valueString": "Varizellen Antikörpernachweis"
+											}
+										],
+										"url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+									}
+								]
+							},
+							"display": "Observable entity (observable entity) : Component (attribute) = Varicella-zoster virus antibody (substance) , Time aspect (attribute) = Single point in time (qualifier value) , Scale type (attribute) = Ordinal value (qualifier value) , Inheres in (attribute) = Plasma (substance) , Property (attribute) = Presence (property) (qualifier value) , Direct site (attribute) = Serum specimen (specimen)"
+						},
+						{
+							"system": "http://loinc.org",
+							"version": "2.67",
+							"code": "22600-1",
+							"_display": {
+								"extension": [
+									{
+										"extension": [
+											{
+												"url": "content",
+												"valueString": "Varizellen Antikörpernachweis"
+											}
+										],
+										"url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+									}
+								]
+							},
+							"display": "Varicella zoster virus Ab [Presence] in Serum"
+						}
+					]
+				},
+				"subject": {
+					"reference": "urn:uuid:7eb1aef1-a24e-42e0-926d-904470d044dc"
+				},
+				"issued": "2019-12-23T08:39:24+10:00",
+				"interpretation": [
+					{
+						"coding": [
+							{
+								"system": "http://snomed.info/sct",
+								"version": "http://snomed.info/sct/900000000000207008/version/20210131",
+								"code": "365861007:363713009=260385009",
+								"_display": {
+									"extension": [
+										{
+											"extension": [
+												{
+													"url": "content",
+													"valueString": "Immunität nicht erreicht"
+												}
+											],
+											"url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+										}
+									]
+								},
+								"display": "Finding of immune status (finding) : Has interpretation (attribute) = Negative (qualifier value)"
+							}
+						]
+					}
+				]
+			}
+		},
+		{
+			"fullUrl": "urn:uuid:da020cdd-7a43-4e82-9bb6-37845e572a6d",
+			"resource": {
+				"resourceType": "Condition",
+				"id": "da020cdd-7a43-4e82-9bb6-37845e572a6d",
+				"meta": {
+					"profile": [
+						"https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_Vaccination_Condition|1.1.0"
+					]
+				},
+				"text": {
+					"status": "extensions",
+					"div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>TBD</p></div>"
+				},
+				"clinicalStatus": {
+					"coding": [
+						{
+							"system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+							"code": "resolved"
+						}
+					]
+				},
+				"verificationStatus": {
+					"coding": [
+						{
+							"system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+							"code": "confirmed"
+						}
+					]
+				},
+				"code": {
+					"coding": [
+						{
+							"system": "http://snomed.info/sct",
+							"version": "http://snomed.info/sct/900000000000207008/version/20210131",
+							"code": "27836007",
+							"_display": {
+								"extension": [
+									{
+										"extension": [
+											{
+												"url": "content",
+												"valueString": "Keuchhusten"
+											}
+										],
+										"url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+									}
+								]
+							},
+							"display": "Pertussis (disorder)"
+						},
+						{
+							"system": "http://fhir.de/CodeSystem/dimdi/icd-10-gm",
+							"version": "icd10gm2020",
+							"code": "A37.-",
+							"display": "Keuchhusten"
+						}
+					]
+				},
+				"subject": {
+					"reference": "urn:uuid:7eb1aef1-a24e-42e0-926d-904470d044dc"
+				},
+				"_onsetString": {
+					"extension": [
+						{
+							"url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_MIO_Vaccination_Age_Groups",
+							"valueCodeableConcept": {
+								"coding": [
+									{
+										"system": "http://snomed.info/sct",
+										"version": "http://snomed.info/sct/900000000000207008/version/20200131",
+										"code": "271872005",
+										"_display": {
+											"extension": [
+												{
+													"extension": [
+														{
+															"url": "content",
+															"valueString": "Ältere Person/Senioren (Mit Beginn des 65. Lebensjahres)"
+														}
+													],
+													"url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+												}
+											]
+										},
+										"display": "Old age (qualifier value)"
+									}
+								]
+							}
+						}
+					]
+				},
+				"recordedDate": "2019-12-23"
+			}
+		}
+	]
+}

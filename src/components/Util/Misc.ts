@@ -42,29 +42,29 @@ import * as ZB from "./ZB";
 import * as MP from "./MP";
 
 type patientType =
-    | Vaccination.V1_00_000.Profile.Patient
-    | ZAEB.V1_00_000.Profile.Patient
-    | MR.V1_00_000.Profile.PatientMother
-    | CMR.V1_00_000.Profile.CMRPatient
-    | CMR.V1_00_000.Profile.PCPatient
-    | CMR.V1_00_000.Profile.PNPatient;
+    | Vaccination.V1_1_0.Profile.Patient
+    | ZAEB.V1_1_0.Profile.Patient
+    | MR.V1_0_0.Profile.PatientMother
+    | CMR.V1_0_0.Profile.CMRPatient
+    | CMR.V1_0_0.Profile.PCPatient
+    | CMR.V1_0_0.Profile.PNPatient;
 
 export function checkIfVaccinationPatient(
     patient: patientType
-): patient is Vaccination.V1_00_000.Profile.Patient {
-    return !!(patient as Vaccination.V1_00_000.Profile.Patient);
+): patient is Vaccination.V1_1_0.Profile.Patient {
+    return !!(patient as Vaccination.V1_1_0.Profile.Patient);
 }
 
 export function checkIfZAEBPatient(
     patient: patientType
-): patient is ZAEB.V1_00_000.Profile.Patient {
-    return !!(patient as ZAEB.V1_00_000.Profile.Patient);
+): patient is ZAEB.V1_1_0.Profile.Patient {
+    return !!(patient as ZAEB.V1_1_0.Profile.Patient);
 }
 
 export function checkIfMRPatient(
     patient: patientType
-): patient is MR.V1_00_000.Profile.PatientMother {
-    return !!(patient as MR.V1_00_000.Profile.PatientMother);
+): patient is MR.V1_0_0.Profile.PatientMother {
+    return !!(patient as MR.V1_0_0.Profile.PatientMother);
 }
 
 export function getPatientName(patient: patientType): string {
@@ -161,7 +161,7 @@ export function humanNameToString(
 }
 
 export function getNameFromContact(
-    contact?: CMR.V1_00_000.Profile.CMROrganizationScreeningLaboratoryContact
+    contact?: CMR.V1_0_0.Profile.CMROrganizationScreeningLaboratoryContact
 ): string {
     if (contact) {
         if (contact.id) return contact.id;
@@ -174,15 +174,15 @@ export function getNameFromContact(
 
 export function getTelecom(
     entry:
-        | Vaccination.V1_00_000.Profile.Practitioner
-        | Vaccination.V1_00_000.Profile.PractitionerAddendum
-        | Vaccination.V1_00_000.Profile.Organization
-        | ZAEB.V1_00_000.Profile.Organization
-        | MR.V1_00_000.Profile.Organization
-        | MR.V1_00_000.Profile.Practitioner
-        | CMR.V1_00_000.Profile.CMRPractitioner
-        | CMR.V1_00_000.Profile.CMROrganization
-        | CMR.V1_00_000.Profile.CMROrganizationScreeningLaboratoryContact
+        | Vaccination.V1_1_0.Profile.Practitioner
+        | Vaccination.V1_1_0.Profile.PractitionerAddendum
+        | Vaccination.V1_1_0.Profile.Organization
+        | ZAEB.V1_1_0.Profile.Organization
+        | MR.V1_0_0.Profile.Organization
+        | MR.V1_0_0.Profile.Practitioner
+        | CMR.V1_0_0.Profile.CMRPractitioner
+        | CMR.V1_0_0.Profile.CMROrganization
+        | CMR.V1_0_0.Profile.CMROrganizationScreeningLaboratoryContact
 ): UI.ListItem.Props[] {
     if (entry.telecom && entry.telecom.length) {
         const mapLabel = (v: string): string => {
@@ -277,12 +277,12 @@ export function mapIdentifier(identifier: UI.ListItem.Props): UI.ListItem.Props 
  */
 export function getPatientIdentifier(
     patient:
-        | Vaccination.V1_00_000.Profile.Patient
-        | ZAEB.V1_00_000.Profile.Patient
-        | MR.V1_00_000.Profile.PatientMother
-        | CMR.V1_00_000.Profile.CMRPatient
-        | CMR.V1_00_000.Profile.PCPatient
-        | CMR.V1_00_000.Profile.PNPatient
+        | Vaccination.V1_1_0.Profile.Patient
+        | ZAEB.V1_1_0.Profile.Patient
+        | MR.V1_0_0.Profile.PatientMother
+        | CMR.V1_0_0.Profile.CMRPatient
+        | CMR.V1_0_0.Profile.PCPatient
+        | CMR.V1_0_0.Profile.PNPatient
 ): UI.ListItem.Props[] {
     const identifier: UI.ListItem.Props[] = [];
 

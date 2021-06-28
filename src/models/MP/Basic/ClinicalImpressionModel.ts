@@ -28,19 +28,19 @@ import * as Models from "../../index";
 import { ModelValue } from "../../index";
 
 export type ClinicalImpressionType =
-    | MR.V1_00_000.Profile.ClinicalImpressionInitialExamination
-    | MR.V1_00_000.Profile.ClinicalImpressionPregnancyChartEntry
-    | MR.V1_00_000.Profile.ClinicalImpressionPregnancyExaminationDischargeSummary
-    | MR.V1_00_000.Profile.ClinicalImpressionBirthExaminationDeliveryInformation
-    | MR.V1_00_000.Profile.ClinicalImpressionFirstExaminationAfterChildbirth
-    | MR.V1_00_000.Profile.ClinicalImpressionSecondExaminationAfterChildbirth
-    | MR.V1_00_000.Profile.ClinicalImpressionBirthExaminationChildInformation;
+    | MR.V1_0_0.Profile.ClinicalImpressionInitialExamination
+    | MR.V1_0_0.Profile.ClinicalImpressionPregnancyChartEntry
+    | MR.V1_0_0.Profile.ClinicalImpressionPregnancyExaminationDischargeSummary
+    | MR.V1_0_0.Profile.ClinicalImpressionBirthExaminationDeliveryInformation
+    | MR.V1_0_0.Profile.ClinicalImpressionFirstExaminationAfterChildbirth
+    | MR.V1_0_0.Profile.ClinicalImpressionSecondExaminationAfterChildbirth
+    | MR.V1_0_0.Profile.ClinicalImpressionBirthExaminationChildInformation;
 
 export default class ClinicalImpressionModel extends MPBaseModel<ClinicalImpressionType> {
     constructor(
         value: ClinicalImpressionType,
         fullUrl: string,
-        parent: MR.V1_00_000.Profile.Bundle,
+        parent: MR.V1_0_0.Profile.Bundle,
         history?: History,
         protected valueConceptMap: ParserUtil.ConceptMap[] | undefined = undefined,
         protected codeConceptMap: ParserUtil.ConceptMap[] | undefined = undefined,
@@ -51,16 +51,16 @@ export default class ClinicalImpressionModel extends MPBaseModel<ClinicalImpress
         this.headline =
             customHeadline ?? Util.Misc.formatDate(this.value.effectiveDateTime);
 
-        if (MR.V1_00_000.Profile.ClinicalImpressionPregnancyChartEntry.is(this.value)) {
+        if (MR.V1_0_0.Profile.ClinicalImpressionPregnancyChartEntry.is(this.value)) {
             this.headline = this.getMainValue().value;
         } else {
             this.noHeadline = !customHeadline;
         }
 
         const subjectRef = this.value.subject.reference;
-        const patient = ParserUtil.getEntryWithRef<MR.V1_00_000.Profile.PatientMother>(
+        const patient = ParserUtil.getEntryWithRef<MR.V1_0_0.Profile.PatientMother>(
             this.parent,
-            [MR.V1_00_000.Profile.PatientMother],
+            [MR.V1_0_0.Profile.PatientMother],
             subjectRef
         );
 
@@ -69,9 +69,9 @@ export default class ClinicalImpressionModel extends MPBaseModel<ClinicalImpress
         let toAssessorEntry = undefined;
         if (assessorRef) {
             // There is only one (0..1)
-            const assessor = ParserUtil.getEntryWithRef<MR.V1_00_000.Profile.Practitioner>(
+            const assessor = ParserUtil.getEntryWithRef<MR.V1_0_0.Profile.Practitioner>(
                 this.parent,
-                [MR.V1_00_000.Profile.Practitioner],
+                [MR.V1_0_0.Profile.Practitioner],
                 assessorRef
             );
 
@@ -80,9 +80,9 @@ export default class ClinicalImpressionModel extends MPBaseModel<ClinicalImpress
         }
 
         const encounterRef = this.value.encounter.reference;
-        const encounter = ParserUtil.getEntryWithRef<MR.V1_00_000.Profile.EncounterGeneral>(
+        const encounter = ParserUtil.getEntryWithRef<MR.V1_0_0.Profile.EncounterGeneral>(
             this.parent,
-            [MR.V1_00_000.Profile.EncounterGeneral],
+            [MR.V1_0_0.Profile.EncounterGeneral],
             encounterRef
         );
         const toEncounterEntry = Util.Misc.toEntry(history, parent, encounter, true);
@@ -120,15 +120,13 @@ export default class ClinicalImpressionModel extends MPBaseModel<ClinicalImpress
         const note = this.getNote();
 
         if (
-            MR.V1_00_000.Profile.ClinicalImpressionBirthExaminationDeliveryInformation.is(
+            MR.V1_0_0.Profile.ClinicalImpressionBirthExaminationDeliveryInformation.is(
                 value
             ) ||
-            MR.V1_00_000.Profile.ClinicalImpressionFirstExaminationAfterChildbirth.is(
+            MR.V1_0_0.Profile.ClinicalImpressionFirstExaminationAfterChildbirth.is(
                 value
             ) ||
-            MR.V1_00_000.Profile.ClinicalImpressionSecondExaminationAfterChildbirth.is(
-                value
-            )
+            MR.V1_0_0.Profile.ClinicalImpressionSecondExaminationAfterChildbirth.is(value)
         ) {
             if (note) {
                 this.values.push({
@@ -141,7 +139,7 @@ export default class ClinicalImpressionModel extends MPBaseModel<ClinicalImpress
         }
 
         if (
-            MR.V1_00_000.Profile.ClinicalImpressionBirthExaminationDeliveryInformation.is(
+            MR.V1_0_0.Profile.ClinicalImpressionBirthExaminationDeliveryInformation.is(
                 value
             )
         ) {
@@ -162,7 +160,7 @@ export default class ClinicalImpressionModel extends MPBaseModel<ClinicalImpress
     }
 
     public getMainValue(): ModelValue {
-        if (MR.V1_00_000.Profile.ClinicalImpressionPregnancyChartEntry.is(this.value)) {
+        if (MR.V1_0_0.Profile.ClinicalImpressionPregnancyChartEntry.is(this.value)) {
             const identifier =
                 this.value.identifier && this.value.identifier.length
                     ? this.value.identifier

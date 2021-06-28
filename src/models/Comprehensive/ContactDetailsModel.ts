@@ -23,9 +23,9 @@ import { UI, Util } from "components";
 import { ModelValue } from "../Types";
 
 export default class ContactDetailsModel<
-    T extends CMR.V1_00_000.Profile.CMROrganizationScreeningLaboratory
+    T extends CMR.V1_0_0.Profile.CMROrganizationScreeningLaboratory
 > extends BaseModel<T> {
-    protected contact?: CMR.V1_00_000.Profile.CMROrganizationScreeningLaboratoryContact;
+    protected contact?: CMR.V1_0_0.Profile.CMROrganizationScreeningLaboratoryContact;
 
     constructor(value: T, fullUrl: string, parent: KBVBundleResource, history?: History) {
         super(value, fullUrl, parent, history);

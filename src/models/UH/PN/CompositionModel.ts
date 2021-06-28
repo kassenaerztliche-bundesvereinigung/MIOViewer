@@ -24,17 +24,17 @@ import { Util } from "../../../components";
 import BaseModel from "./../Basic/CMRBaseModel";
 import { ModelValue } from "../../Types";
 
-export default class CompositionModel extends BaseModel<CMR.V1_00_000.Profile.PNCompositionParentalNotes> {
+export default class CompositionModel extends BaseModel<CMR.V1_0_0.Profile.PNCompositionParentalNotes> {
     constructor(
-        value: CMR.V1_00_000.Profile.PNCompositionParentalNotes,
+        value: CMR.V1_0_0.Profile.PNCompositionParentalNotes,
         fullUrl: string,
-        parent: CMR.V1_00_000.Profile.PNBundle,
+        parent: CMR.V1_0_0.Profile.PNBundle,
         history?: History
     ) {
         super(value, fullUrl, parent, history);
 
         const encounterType = Util.UH.getEncounterTypeFromBundle(
-            this.parent as CMR.V1_00_000.Profile.PNBundle,
+            this.parent as CMR.V1_0_0.Profile.PNBundle,
             true
         );
 

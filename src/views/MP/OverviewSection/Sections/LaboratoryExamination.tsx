@@ -23,9 +23,9 @@ import * as Models from "../../../../models";
 
 import Section, { SectionProps } from "../Section";
 
-const PR = MR.V1_00_000.Profile;
+const PR = MR.V1_0_0.Profile;
 
-export default class LaboratoryExamination extends Section<MR.V1_00_000.Profile.CompositionUntersuchungenLaboruntersuchungenUndRoetelnschutz> {
+export default class LaboratoryExamination extends Section<MR.V1_0_0.Profile.CompositionUntersuchungenLaboruntersuchungenUndRoetelnschutz> {
     public readonly sectionName = "Laboruntersuchungen und Rötelnschutz";
 
     constructor(props: SectionProps) {
@@ -52,20 +52,20 @@ export default class LaboratoryExamination extends Section<MR.V1_00_000.Profile.
         this.section?.entry?.forEach((entry) => {
             const ref = entry.reference;
             const res = ParserUtil.getEntryWithRef<
-                | MR.V1_00_000.Profile.ObservationBloodGroupSerology
-                | MR.V1_00_000.Profile.ObservationOtherBloodGroupSystems
+                | MR.V1_0_0.Profile.ObservationBloodGroupSerology
+                | MR.V1_0_0.Profile.ObservationOtherBloodGroupSystems
             >(
                 mio,
                 [
-                    MR.V1_00_000.Profile.ObservationBloodGroupSerology,
-                    MR.V1_00_000.Profile.ObservationOtherBloodGroupSystems
+                    MR.V1_0_0.Profile.ObservationBloodGroupSerology,
+                    MR.V1_0_0.Profile.ObservationOtherBloodGroupSystems
                 ],
                 ref
             );
 
             if (res) {
                 let mainValue;
-                if (MR.V1_00_000.Profile.ObservationBloodGroupSerology.is(res.resource)) {
+                if (MR.V1_0_0.Profile.ObservationBloodGroupSerology.is(res.resource)) {
                     const model = new Models.MP.ObservationBloodGroupSerologyModel(
                         res.resource,
                         res.fullUrl,
@@ -93,8 +93,8 @@ export default class LaboratoryExamination extends Section<MR.V1_00_000.Profile.
 
         const examinationItems: UI.ListItem.Props[] = [];
         const slices = ParserUtil.getSlices<
-            | MR.V1_00_000.Profile.CompositionUntersuchungenLaboruntersuchungenUndRoetelnschutzLaboruntersuchung
-            | MR.V1_00_000.Profile.CompositionUntersuchungenLaboruntersuchungenUndRoetelnschutzLaboruntersuchungMaskiert
+            | MR.V1_0_0.Profile.CompositionUntersuchungenLaboruntersuchungenUndRoetelnschutzLaboruntersuchung
+            | MR.V1_0_0.Profile.CompositionUntersuchungenLaboruntersuchungenUndRoetelnschutzLaboruntersuchungMaskiert
         >(
             [
                 PR.CompositionUntersuchungenLaboruntersuchungenUndRoetelnschutzLaboruntersuchung,
@@ -106,9 +106,9 @@ export default class LaboratoryExamination extends Section<MR.V1_00_000.Profile.
         slices.forEach((section) => {
             section.entry.forEach((entry) => {
                 const ref = entry.reference;
-                const res = ParserUtil.getEntryWithRef<MR.V1_00_000.Profile.ObservationExamination>(
+                const res = ParserUtil.getEntryWithRef<MR.V1_0_0.Profile.ObservationExamination>(
                     mio,
-                    [MR.V1_00_000.Profile.ObservationExamination],
+                    [MR.V1_0_0.Profile.ObservationExamination],
                     ref
                 );
 
@@ -118,11 +118,11 @@ export default class LaboratoryExamination extends Section<MR.V1_00_000.Profile.
                         res.fullUrl,
                         mio,
                         history,
-                        [MR.V1_00_000.ConceptMap.ExaminationResultQualitativeGerman],
+                        [MR.V1_0_0.ConceptMap.ExaminationResultQualitativeGerman],
                         [
-                            MR.V1_00_000.ConceptMap.ExaminationInterpretationGerman,
-                            MR.V1_00_000.ConceptMap.ExaminationSnomedGerman,
-                            MR.V1_00_000.ConceptMap.ExaminationLoincGerman
+                            MR.V1_0_0.ConceptMap.ExaminationInterpretationGerman,
+                            MR.V1_0_0.ConceptMap.ExaminationSnomedGerman,
+                            MR.V1_0_0.ConceptMap.ExaminationLoincGerman
                         ]
                     );
                     const mainValue = model.getMainValue();
@@ -139,9 +139,9 @@ export default class LaboratoryExamination extends Section<MR.V1_00_000.Profile.
         const vaccinationItems: UI.ListItem.Props[] = [];
         this.section?.entry?.forEach((entry) => {
             const ref = entry.reference;
-            const res = ParserUtil.getEntryWithRef<MR.V1_00_000.Profile.ObservationImmunizationStatus>(
+            const res = ParserUtil.getEntryWithRef<MR.V1_0_0.Profile.ObservationImmunizationStatus>(
                 mio,
-                [MR.V1_00_000.Profile.ObservationImmunizationStatus],
+                [MR.V1_0_0.Profile.ObservationImmunizationStatus],
                 ref
             );
 
@@ -152,7 +152,7 @@ export default class LaboratoryExamination extends Section<MR.V1_00_000.Profile.
                     mio,
                     history,
                     [],
-                    [MR.V1_00_000.ConceptMap.ImmunizationStatusGerman]
+                    [MR.V1_0_0.ConceptMap.ImmunizationStatusGerman]
                 );
                 const mainValue = model.getMainValue();
                 vaccinationItems.push({

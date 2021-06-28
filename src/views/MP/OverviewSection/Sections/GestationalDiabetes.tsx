@@ -23,7 +23,7 @@ import * as Models from "../../../../models";
 
 import Section, { SectionProps } from "../Section";
 
-export default class GestationalDiabetes extends Section<MR.V1_00_000.Profile.CompositionBesondereBefundeSection> {
+export default class GestationalDiabetes extends Section<MR.V1_0_0.Profile.CompositionBesondereBefundeSection> {
     constructor(props: SectionProps) {
         super(props);
 
@@ -33,8 +33,8 @@ export default class GestationalDiabetes extends Section<MR.V1_00_000.Profile.Co
         };
 
         this.section = this.getSection([
-            MR.V1_00_000.Profile.CompositionBesondereBefunde,
-            MR.V1_00_000.Profile.CompositionBesondereBefundeSection
+            MR.V1_0_0.Profile.CompositionBesondereBefunde,
+            MR.V1_0_0.Profile.CompositionBesondereBefundeSection
         ]);
     }
 
@@ -61,13 +61,13 @@ export default class GestationalDiabetes extends Section<MR.V1_00_000.Profile.Co
             const ref = entry.reference;
 
             const resTests = ParserUtil.getEntryWithRef<
-                | MR.V1_00_000.Profile.ObservationoGTTPretest
-                | MR.V1_00_000.Profile.ObservationoGTTDiagnosistest
+                | MR.V1_0_0.Profile.ObservationoGTTPretest
+                | MR.V1_0_0.Profile.ObservationoGTTDiagnosistest
             >(
                 mio,
                 [
-                    MR.V1_00_000.Profile.ObservationoGTTPretest,
-                    MR.V1_00_000.Profile.ObservationoGTTDiagnosistest
+                    MR.V1_0_0.Profile.ObservationoGTTPretest,
+                    MR.V1_0_0.Profile.ObservationoGTTDiagnosistest
                 ],
                 ref
             );

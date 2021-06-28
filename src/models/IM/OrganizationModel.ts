@@ -23,9 +23,14 @@ import { ParserUtil, KBVBundleResource, Vaccination } from "@kbv/mioparser";
 import BaseModel from "../BaseModel";
 import { ModelValue } from "../Types";
 
-export default class OrganizationModel extends BaseModel<Vaccination.V1_00_000.Profile.Organization> {
+export default class OrganizationModel extends BaseModel<
+    | Vaccination.V1_1_0.Profile.Organization
+    | Vaccination.V1_1_0.Profile.OrganizationAddendum
+> {
     constructor(
-        value: Vaccination.V1_00_000.Profile.Organization,
+        value:
+            | Vaccination.V1_1_0.Profile.Organization
+            | Vaccination.V1_1_0.Profile.OrganizationAddendum,
         fullUrl: string,
         parent: KBVBundleResource,
         history?: History
@@ -38,8 +43,8 @@ export default class OrganizationModel extends BaseModel<Vaccination.V1_00_000.P
 
     protected getIdentifier(): ModelValue {
         if (this.value.identifier) {
-            const iknr = ParserUtil.getSlice<Vaccination.V1_00_000.Profile.OrganizationInstitutionskennzeichen>(
-                Vaccination.V1_00_000.Profile.OrganizationInstitutionskennzeichen,
+            const iknr = ParserUtil.getSlice<Vaccination.V1_1_0.Profile.OrganizationInstitutionskennzeichen>(
+                Vaccination.V1_1_0.Profile.OrganizationInstitutionskennzeichen,
                 this.value.identifier
             );
 
@@ -49,8 +54,8 @@ export default class OrganizationModel extends BaseModel<Vaccination.V1_00_000.P
                     label: "Institutionskennzeichen (IKNR)"
                 };
 
-            const bsnr = ParserUtil.getSlice<Vaccination.V1_00_000.Profile.OrganizationBetriebsstaettennummer>(
-                Vaccination.V1_00_000.Profile.OrganizationBetriebsstaettennummer,
+            const bsnr = ParserUtil.getSlice<Vaccination.V1_1_0.Profile.OrganizationBetriebsstaettennummer>(
+                Vaccination.V1_1_0.Profile.OrganizationBetriebsstaettennummer,
                 this.value.identifier
             );
 

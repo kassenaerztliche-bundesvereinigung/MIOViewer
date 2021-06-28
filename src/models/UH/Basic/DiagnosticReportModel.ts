@@ -29,69 +29,69 @@ import OrganizationModel from "./OrganizationModel";
 import { AdditionalCommentModel, AddressModel, TelecomModel } from "../../Comprehensive";
 
 type DiagnosticReportType =
-    | CMR.V1_00_000.Profile.CMRDiagnosticReportU3U4HipScreening
-    | CMR.V1_00_000.Profile.CMRDiagnosticReportU1U5NeonatalHearscreening
-    | CMR.V1_00_000.Profile.CMRDiagnosticReportU1U5PediatricDiagnosticAudiologyService
-    | CMR.V1_00_000.Profile.CMRDiagnosticReportU1U3PulseOxymetry
-    | CMR.V1_00_000.Profile.CMRDiagnosticReportPercentileValues
+    | CMR.V1_0_0.Profile.CMRDiagnosticReportU3U4HipScreening
+    | CMR.V1_0_0.Profile.CMRDiagnosticReportU1U5NeonatalHearscreening
+    | CMR.V1_0_0.Profile.CMRDiagnosticReportU1U5PediatricDiagnosticAudiologyService
+    | CMR.V1_0_0.Profile.CMRDiagnosticReportU1U3PulseOxymetry
+    | CMR.V1_0_0.Profile.CMRDiagnosticReportPercentileValues
     // U2
-    | CMR.V1_00_000.Profile.CMRDiagnosticReportU2PhysicalExamSkin
-    | CMR.V1_00_000.Profile.CMRDiagnosticReportU2U4PhysicalExamChestLungRespiratoryTract
-    | CMR.V1_00_000.Profile.CMRDiagnosticReportU2U3PhysicalExamAbdomenGenitals
-    | CMR.V1_00_000.Profile.CMRDiagnosticReportU2U6PhysicalExamHeartBloodCirculation
-    | CMR.V1_00_000.Profile.CMRDiagnosticReportU2U3PhysicalExamEars
-    | CMR.V1_00_000.Profile.CMRDiagnosticReportU2PhysicalExamMusculoskeletalSystem
-    | CMR.V1_00_000.Profile.CMRDiagnosticReportU2PhysicalExamHead
-    | CMR.V1_00_000.Profile.CMRDiagnosticReportU2PhysicalExamMouthNose
-    | CMR.V1_00_000.Profile.CMRDiagnosticReportU2U3PhysicalExamEyes
-    | CMR.V1_00_000.Profile.CMRDiagnosticReportU2U6BodyMeasures
+    | CMR.V1_0_0.Profile.CMRDiagnosticReportU2PhysicalExamSkin
+    | CMR.V1_0_0.Profile.CMRDiagnosticReportU2U4PhysicalExamChestLungRespiratoryTract
+    | CMR.V1_0_0.Profile.CMRDiagnosticReportU2U3PhysicalExamAbdomenGenitals
+    | CMR.V1_0_0.Profile.CMRDiagnosticReportU2U6PhysicalExamHeartBloodCirculation
+    | CMR.V1_0_0.Profile.CMRDiagnosticReportU2U3PhysicalExamEars
+    | CMR.V1_0_0.Profile.CMRDiagnosticReportU2PhysicalExamMusculoskeletalSystem
+    | CMR.V1_0_0.Profile.CMRDiagnosticReportU2PhysicalExamHead
+    | CMR.V1_0_0.Profile.CMRDiagnosticReportU2PhysicalExamMouthNose
+    | CMR.V1_0_0.Profile.CMRDiagnosticReportU2U3PhysicalExamEyes
+    | CMR.V1_0_0.Profile.CMRDiagnosticReportU2U6BodyMeasures
     // U3
-    | CMR.V1_00_000.Profile.CMRDiagnosticReportU3PhysicalExamMusculoskeletalSystem
-    | CMR.V1_00_000.Profile.CMRDiagnosticReportU3PhysicalExamHead
-    | CMR.V1_00_000.Profile.CMRDiagnosticReportU3U4PhysicalExamMouthNose
-    | CMR.V1_00_000.Profile.CMRDiagnosticReportU3U4PhysicalExamSkin
+    | CMR.V1_0_0.Profile.CMRDiagnosticReportU3PhysicalExamMusculoskeletalSystem
+    | CMR.V1_0_0.Profile.CMRDiagnosticReportU3PhysicalExamHead
+    | CMR.V1_0_0.Profile.CMRDiagnosticReportU3U4PhysicalExamMouthNose
+    | CMR.V1_0_0.Profile.CMRDiagnosticReportU3U4PhysicalExamSkin
     // U4
-    | CMR.V1_00_000.Profile.CMRDiagnosticReportU4PhysicalExamAbdomenGenitals
-    | CMR.V1_00_000.Profile.CMRDiagnosticReportU4PhysicalExamHead
-    | CMR.V1_00_000.Profile.CMRDiagnosticReportU4PhysicalExamMusculoskeletalSystem
-    | CMR.V1_00_000.Profile.CMRDiagnosticReportU4U5PhysicalExamEyes
+    | CMR.V1_0_0.Profile.CMRDiagnosticReportU4PhysicalExamAbdomenGenitals
+    | CMR.V1_0_0.Profile.CMRDiagnosticReportU4PhysicalExamHead
+    | CMR.V1_0_0.Profile.CMRDiagnosticReportU4PhysicalExamMusculoskeletalSystem
+    | CMR.V1_0_0.Profile.CMRDiagnosticReportU4U5PhysicalExamEyes
     // U5
-    | CMR.V1_00_000.Profile.CMRDiagnosticReportU5PhysicalExamChestLungRespiratoryTract
-    | CMR.V1_00_000.Profile.CMRDiagnosticReportU5PhysicalExamMouthNose
-    | CMR.V1_00_000.Profile.CMRDiagnosticReportU5PhysicalExamMusculoskeletalSystem
-    | CMR.V1_00_000.Profile.CMRDiagnosticReportU5U6PhysicalExamAbdomenGenitals
-    | CMR.V1_00_000.Profile.CMRDiagnosticReportU5U6PhysicalExamHead
-    | CMR.V1_00_000.Profile.CMRDiagnosticReportU5U9PhysicalExamSkin
+    | CMR.V1_0_0.Profile.CMRDiagnosticReportU5PhysicalExamChestLungRespiratoryTract
+    | CMR.V1_0_0.Profile.CMRDiagnosticReportU5PhysicalExamMouthNose
+    | CMR.V1_0_0.Profile.CMRDiagnosticReportU5PhysicalExamMusculoskeletalSystem
+    | CMR.V1_0_0.Profile.CMRDiagnosticReportU5U6PhysicalExamAbdomenGenitals
+    | CMR.V1_0_0.Profile.CMRDiagnosticReportU5U6PhysicalExamHead
+    | CMR.V1_0_0.Profile.CMRDiagnosticReportU5U9PhysicalExamSkin
     // U6
-    | CMR.V1_00_000.Profile.CMRDiagnosticReportU6PhysicalExamEyes
-    | CMR.V1_00_000.Profile.CMRDiagnosticReportU6PhysicalExamMouthNose
-    | CMR.V1_00_000.Profile.CMRDiagnosticReportU6PhysicalExamMusculoskeletalSystem
-    | CMR.V1_00_000.Profile.CMRDiagnosticReportU6U7PhysicalExamChestLungRespiratoryTract
+    | CMR.V1_0_0.Profile.CMRDiagnosticReportU6PhysicalExamEyes
+    | CMR.V1_0_0.Profile.CMRDiagnosticReportU6PhysicalExamMouthNose
+    | CMR.V1_0_0.Profile.CMRDiagnosticReportU6PhysicalExamMusculoskeletalSystem
+    | CMR.V1_0_0.Profile.CMRDiagnosticReportU6U7PhysicalExamChestLungRespiratoryTract
     // U7
-    | CMR.V1_00_000.Profile.CMRDiagnosticReportU7aandU9PhysicalExamChestLungRespiratoryTract
-    | CMR.V1_00_000.Profile.CMRDiagnosticReportU7aandU9PhysicalExamMusculoskeletalSystem
-    | CMR.V1_00_000.Profile.CMRDiagnosticReportU7aPhysicalExamMouthNose
-    | CMR.V1_00_000.Profile.CMRDiagnosticReportU7aU9PhysicalExamEyes
-    | CMR.V1_00_000.Profile.CMRDiagnosticReportU7PhysicalExamEyes
-    | CMR.V1_00_000.Profile.CMRDiagnosticReportU7PhysicalExamMouthNose
-    | CMR.V1_00_000.Profile.CMRDiagnosticReportU7PhysicalExamMusculoskeletalSystem
-    | CMR.V1_00_000.Profile.CMRDiagnosticReportU7U7aPhysicalExamAbdomenGenitals
-    | CMR.V1_00_000.Profile.CMRDiagnosticReportU7U9BodyMeasures
-    | CMR.V1_00_000.Profile.CMRDiagnosticReportU7U9PhysicalExamHeartBloodCirculation
+    | CMR.V1_0_0.Profile.CMRDiagnosticReportU7aandU9PhysicalExamChestLungRespiratoryTract
+    | CMR.V1_0_0.Profile.CMRDiagnosticReportU7aandU9PhysicalExamMusculoskeletalSystem
+    | CMR.V1_0_0.Profile.CMRDiagnosticReportU7aPhysicalExamMouthNose
+    | CMR.V1_0_0.Profile.CMRDiagnosticReportU7aU9PhysicalExamEyes
+    | CMR.V1_0_0.Profile.CMRDiagnosticReportU7PhysicalExamEyes
+    | CMR.V1_0_0.Profile.CMRDiagnosticReportU7PhysicalExamMouthNose
+    | CMR.V1_0_0.Profile.CMRDiagnosticReportU7PhysicalExamMusculoskeletalSystem
+    | CMR.V1_0_0.Profile.CMRDiagnosticReportU7U7aPhysicalExamAbdomenGenitals
+    | CMR.V1_0_0.Profile.CMRDiagnosticReportU7U9BodyMeasures
+    | CMR.V1_0_0.Profile.CMRDiagnosticReportU7U9PhysicalExamHeartBloodCirculation
     // U8
-    | CMR.V1_00_000.Profile.CMRDiagnosticReportU8PhysicalExamAbdomenGenitals
-    | CMR.V1_00_000.Profile.CMRDiagnosticReportU8PhysicalExamChestLungRespiratoryTract
-    | CMR.V1_00_000.Profile.CMRDiagnosticReportU8PhysicalExamEars
-    | CMR.V1_00_000.Profile.CMRDiagnosticReportU8PhysicalExamMusculoskeletalSystem
-    | CMR.V1_00_000.Profile.CMRDiagnosticReportU8U9PhysicalExamMouthNose
+    | CMR.V1_0_0.Profile.CMRDiagnosticReportU8PhysicalExamAbdomenGenitals
+    | CMR.V1_0_0.Profile.CMRDiagnosticReportU8PhysicalExamChestLungRespiratoryTract
+    | CMR.V1_0_0.Profile.CMRDiagnosticReportU8PhysicalExamEars
+    | CMR.V1_0_0.Profile.CMRDiagnosticReportU8PhysicalExamMusculoskeletalSystem
+    | CMR.V1_0_0.Profile.CMRDiagnosticReportU8U9PhysicalExamMouthNose
     // U9
-    | CMR.V1_00_000.Profile.CMRDiagnosticReportU9PhysicalExamAbdomenGenitals;
+    | CMR.V1_0_0.Profile.CMRDiagnosticReportU9PhysicalExamAbdomenGenitals;
 
 export default class DiagnosticReportModel extends BaseModel<DiagnosticReportType> {
     constructor(
         value: DiagnosticReportType,
         fullUrl: string,
-        parent: CMR.V1_00_000.Profile.CMRBundle,
+        parent: CMR.V1_0_0.Profile.CMRBundle,
         history?: History,
         codeConceptMaps?: ParserUtil.ConceptMap[],
         valueConceptMaps?: ParserUtil.ConceptMap[]
@@ -133,79 +133,79 @@ export default class DiagnosticReportModel extends BaseModel<DiagnosticReportTyp
 
         this.value.result?.map((result: { reference: string }) => {
             const ref = result.reference;
-            const PR = CMR.V1_00_000.Profile;
+            const PR = CMR.V1_0_0.Profile;
             const entry = ParserUtil.getEntryWithRef<
-                | CMR.V1_00_000.Profile.CMRObservationPercentileValues
+                | CMR.V1_0_0.Profile.CMRObservationPercentileValues
                 // U1
-                | CMR.V1_00_000.Profile.CMRObservationHeadCircumference
-                | CMR.V1_00_000.Profile.CMRObservationU1EdemaofNewborn
-                | CMR.V1_00_000.Profile.CMRObservationU1NeonatalJaundice
-                | CMR.V1_00_000.Profile.CMRObservationU1BirthTraumaOfFetus
-                | CMR.V1_00_000.Profile.CMRObservationU1CongenitalMalformation
-                | CMR.V1_00_000.Profile.CMRObservationU1TermInfant
-                | CMR.V1_00_000.Profile.CMRObservationU1ApgarScore
-                | CMR.V1_00_000.Profile.CMRObservationU1BirthLength
-                | CMR.V1_00_000.Profile.CMRObservationU1BirthWeight
-                | CMR.V1_00_000.Profile.CMRObservationU1U3PulseOxymetryMeasurement
-                | CMR.V1_00_000.Profile.CMRObservationU1U5NeonatalHearscreening
-                | CMR.V1_00_000.Profile.CMRObservationU1U5CounselingAboutHearscreening
-                | CMR.V1_00_000.Profile.CMRObservationU1U5PediatricDiagnosticAudiologyService
+                | CMR.V1_0_0.Profile.CMRObservationHeadCircumference
+                | CMR.V1_0_0.Profile.CMRObservationU1EdemaofNewborn
+                | CMR.V1_0_0.Profile.CMRObservationU1NeonatalJaundice
+                | CMR.V1_0_0.Profile.CMRObservationU1BirthTraumaOfFetus
+                | CMR.V1_0_0.Profile.CMRObservationU1CongenitalMalformation
+                | CMR.V1_0_0.Profile.CMRObservationU1TermInfant
+                | CMR.V1_0_0.Profile.CMRObservationU1ApgarScore
+                | CMR.V1_0_0.Profile.CMRObservationU1BirthLength
+                | CMR.V1_0_0.Profile.CMRObservationU1BirthWeight
+                | CMR.V1_0_0.Profile.CMRObservationU1U3PulseOxymetryMeasurement
+                | CMR.V1_0_0.Profile.CMRObservationU1U5NeonatalHearscreening
+                | CMR.V1_0_0.Profile.CMRObservationU1U5CounselingAboutHearscreening
+                | CMR.V1_0_0.Profile.CMRObservationU1U5PediatricDiagnosticAudiologyService
                 // U2
-                | CMR.V1_00_000.Profile.CMRObservationU2PhysicalExamSkin
-                | CMR.V1_00_000.Profile.CMRObservationU2PhysicalExamMusculoskeletalSystem
-                | CMR.V1_00_000.Profile.CMRObservationU2PhysicalExamHead
-                | CMR.V1_00_000.Profile.CMRObservationU2PhysicalExamMouthNose
-                | CMR.V1_00_000.Profile.CMRObservationU2U3PhysicalExamAbdomenGenitals
-                | CMR.V1_00_000.Profile.CMRObservationU2U3PhysicalExamEars
-                | CMR.V1_00_000.Profile.CMRObservationU2U3PhysicalExamEyes
-                | CMR.V1_00_000.Profile.CMRObservationU2U4PhysicalExamChestLungRespiratoryTract
-                | CMR.V1_00_000.Profile.CMRObservationU2U6PhysicalExamHeartBloodCirculation
-                | CMR.V1_00_000.Profile.CMRObservationU2U6BodyWeight
-                | CMR.V1_00_000.Profile.CMRObservationU2U9BodyHeightMeasure
+                | CMR.V1_0_0.Profile.CMRObservationU2PhysicalExamSkin
+                | CMR.V1_0_0.Profile.CMRObservationU2PhysicalExamMusculoskeletalSystem
+                | CMR.V1_0_0.Profile.CMRObservationU2PhysicalExamHead
+                | CMR.V1_0_0.Profile.CMRObservationU2PhysicalExamMouthNose
+                | CMR.V1_0_0.Profile.CMRObservationU2U3PhysicalExamAbdomenGenitals
+                | CMR.V1_0_0.Profile.CMRObservationU2U3PhysicalExamEars
+                | CMR.V1_0_0.Profile.CMRObservationU2U3PhysicalExamEyes
+                | CMR.V1_0_0.Profile.CMRObservationU2U4PhysicalExamChestLungRespiratoryTract
+                | CMR.V1_0_0.Profile.CMRObservationU2U6PhysicalExamHeartBloodCirculation
+                | CMR.V1_0_0.Profile.CMRObservationU2U6BodyWeight
+                | CMR.V1_0_0.Profile.CMRObservationU2U9BodyHeightMeasure
                 // U3
-                | CMR.V1_00_000.Profile.CMRObservationU3U4PhysicalExamSkin
-                | CMR.V1_00_000.Profile.CMRObservationU3PhysicalExamMusculoskeletalSystem
-                | CMR.V1_00_000.Profile.CMRObservationU3PhysicalExamHead
-                | CMR.V1_00_000.Profile.CMRObservationU3U4HipScreeningResult
-                | CMR.V1_00_000.Profile.CMRObservationU3U4PhysicalExamMouthNose
+                | CMR.V1_0_0.Profile.CMRObservationU3U4PhysicalExamSkin
+                | CMR.V1_0_0.Profile.CMRObservationU3PhysicalExamMusculoskeletalSystem
+                | CMR.V1_0_0.Profile.CMRObservationU3PhysicalExamHead
+                | CMR.V1_0_0.Profile.CMRObservationU3U4HipScreeningResult
+                | CMR.V1_0_0.Profile.CMRObservationU3U4PhysicalExamMouthNose
                 // U4
-                | CMR.V1_00_000.Profile.CMRObservationU4PhysicalExamAbdomenGenitals
-                | CMR.V1_00_000.Profile.CMRObservationU4PhysicalExamMusculoskeletalSystem
-                | CMR.V1_00_000.Profile.CMRObservationU4PhysicalExamHead
-                | CMR.V1_00_000.Profile.CMRObservationU4U5PhysicalExamEyes
+                | CMR.V1_0_0.Profile.CMRObservationU4PhysicalExamAbdomenGenitals
+                | CMR.V1_0_0.Profile.CMRObservationU4PhysicalExamMusculoskeletalSystem
+                | CMR.V1_0_0.Profile.CMRObservationU4PhysicalExamHead
+                | CMR.V1_0_0.Profile.CMRObservationU4U5PhysicalExamEyes
                 // U5
-                | CMR.V1_00_000.Profile.CMRObservationU5U9PhysicalExamSkin
-                | CMR.V1_00_000.Profile.CMRObservationU5PhysicalExamChestLungRespiratoryTract
-                | CMR.V1_00_000.Profile.CMRObservationU5U6PhysicalExamAbdomenGenitals
-                | CMR.V1_00_000.Profile.CMRObservationU5PhysicalExamMusculoskeletalSystem
-                | CMR.V1_00_000.Profile.CMRObservationU5U6PhysicalExamHead
-                | CMR.V1_00_000.Profile.CMRObservationU5PhysicalExamMouthNose
+                | CMR.V1_0_0.Profile.CMRObservationU5U9PhysicalExamSkin
+                | CMR.V1_0_0.Profile.CMRObservationU5PhysicalExamChestLungRespiratoryTract
+                | CMR.V1_0_0.Profile.CMRObservationU5U6PhysicalExamAbdomenGenitals
+                | CMR.V1_0_0.Profile.CMRObservationU5PhysicalExamMusculoskeletalSystem
+                | CMR.V1_0_0.Profile.CMRObservationU5U6PhysicalExamHead
+                | CMR.V1_0_0.Profile.CMRObservationU5PhysicalExamMouthNose
                 // U6
-                | CMR.V1_00_000.Profile.CMRObservationU6U7PhysicalExamChestLungRespiratoryTract
-                | CMR.V1_00_000.Profile.CMRObservationU6PhysicalExamMusculoskeletalSystem
-                | CMR.V1_00_000.Profile.CMRObservationU6PhysicalExamMouthNose
-                | CMR.V1_00_000.Profile.CMRObservationU6PhysicalExamEyes
+                | CMR.V1_0_0.Profile.CMRObservationU6U7PhysicalExamChestLungRespiratoryTract
+                | CMR.V1_0_0.Profile.CMRObservationU6PhysicalExamMusculoskeletalSystem
+                | CMR.V1_0_0.Profile.CMRObservationU6PhysicalExamMouthNose
+                | CMR.V1_0_0.Profile.CMRObservationU6PhysicalExamEyes
                 // U7
-                | CMR.V1_00_000.Profile.CMRObservationU7U7aPhysicalExamAbdomenGenitals
-                | CMR.V1_00_000.Profile.CMRObservationU7U9PhysicalExamHeartBloodCirculation
-                | CMR.V1_00_000.Profile.CMRObservationU7PhysicalExamMusculoskeletalSystem
-                | CMR.V1_00_000.Profile.CMRObservationU7PhysicalExamMouthNose
-                | CMR.V1_00_000.Profile.CMRObservationU7PhysicalExamEyes
-                | CMR.V1_00_000.Profile.CMRObservationU7U9BMI
-                | CMR.V1_00_000.Profile.CMRObservationU7U9BodyWeight
+                | CMR.V1_0_0.Profile.CMRObservationU7U7aPhysicalExamAbdomenGenitals
+                | CMR.V1_0_0.Profile.CMRObservationU7U9PhysicalExamHeartBloodCirculation
+                | CMR.V1_0_0.Profile.CMRObservationU7PhysicalExamMusculoskeletalSystem
+                | CMR.V1_0_0.Profile.CMRObservationU7PhysicalExamMouthNose
+                | CMR.V1_0_0.Profile.CMRObservationU7PhysicalExamEyes
+                | CMR.V1_0_0.Profile.CMRObservationU7U9BMI
+                | CMR.V1_0_0.Profile.CMRObservationU7U9BodyWeight
                 // U7a
-                | CMR.V1_00_000.Profile.CMRObservationU7aandU9PhysicalExamChestLungRespiratoryTract
-                | CMR.V1_00_000.Profile.CMRObservationU7aandU9PhysicalExamMusculoskeletalSystem
-                | CMR.V1_00_000.Profile.CMRObservationU7aPhysicalExamMouthNose
-                | CMR.V1_00_000.Profile.CMRObservationU7aU9PhysicalExamEyes
+                | CMR.V1_0_0.Profile.CMRObservationU7aandU9PhysicalExamChestLungRespiratoryTract
+                | CMR.V1_0_0.Profile.CMRObservationU7aandU9PhysicalExamMusculoskeletalSystem
+                | CMR.V1_0_0.Profile.CMRObservationU7aPhysicalExamMouthNose
+                | CMR.V1_0_0.Profile.CMRObservationU7aU9PhysicalExamEyes
                 // U8
-                | CMR.V1_00_000.Profile.CMRObservationU8PhysicalExamChestLungRespiratoryTract
-                | CMR.V1_00_000.Profile.CMRObservationU8PhysicalExamAbdomenGenitals
-                | CMR.V1_00_000.Profile.CMRObservationU8PhysicalExamEars
-                | CMR.V1_00_000.Profile.CMRObservationU8PhysicalExamMusculoskeletalSystem
-                | CMR.V1_00_000.Profile.CMRObservationU8U9PhysicalExamMouthNose
+                | CMR.V1_0_0.Profile.CMRObservationU8PhysicalExamChestLungRespiratoryTract
+                | CMR.V1_0_0.Profile.CMRObservationU8PhysicalExamAbdomenGenitals
+                | CMR.V1_0_0.Profile.CMRObservationU8PhysicalExamEars
+                | CMR.V1_0_0.Profile.CMRObservationU8PhysicalExamMusculoskeletalSystem
+                | CMR.V1_0_0.Profile.CMRObservationU8U9PhysicalExamMouthNose
                 // U9
-                | CMR.V1_00_000.Profile.CMRObservationU9PhysicalExamAbdomenGenitals
+                | CMR.V1_0_0.Profile.CMRObservationU9PhysicalExamAbdomenGenitals
             >(
                 this.parent,
                 [
@@ -288,7 +288,7 @@ export default class DiagnosticReportModel extends BaseModel<DiagnosticReportTyp
                 const model = new ObservationModel(
                     entry.resource,
                     entry.fullUrl,
-                    this.parent as CMR.V1_00_000.Profile.CMRBundle,
+                    this.parent as CMR.V1_0_0.Profile.CMRBundle,
                     this.history,
                     this.codeConceptMaps,
                     this.valueConceptMaps

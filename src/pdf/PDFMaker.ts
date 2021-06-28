@@ -44,27 +44,27 @@ export default class PDFMaker {
         let style = "";
         let exportHeader = "";
         let valueContent: Content = [];
-        if (Vaccination.V1_00_000.Profile.BundleEntry.is(value)) {
+        if (Vaccination.V1_1_0.Profile.BundleEntry.is(value)) {
             valueContent = new IMtoPDF(value).getContent();
             style = "vaccination";
             exportHeader = "Impfpass";
-        } else if (ZAEB.V1_00_000.Profile.Bundle.is(value)) {
+        } else if (ZAEB.V1_1_0.Profile.Bundle.is(value)) {
             valueContent = new ZBtoPDF(value).getContent();
             style = "zaeb";
             exportHeader = "Zahnärztliches Bonusheft";
-        } else if (MR.V1_00_000.Profile.Bundle.is(value)) {
+        } else if (MR.V1_0_0.Profile.Bundle.is(value)) {
             valueContent = new MRtoPDF(value).getContent();
             style = "mr";
             exportHeader = "Mutterpass";
-        } else if (CMR.V1_00_000.Profile.CMRBundle.is(value)) {
+        } else if (CMR.V1_0_0.Profile.CMRBundle.is(value)) {
             valueContent = new CMRtoPDF(value).getContent();
             style = "cmr";
             exportHeader = "Kinderuntersuchungsheft";
-        } else if (CMR.V1_00_000.Profile.PCBundle.is(value)) {
+        } else if (CMR.V1_0_0.Profile.PCBundle.is(value)) {
             valueContent = new PCtoPDF(value).getContent();
             style = "cmr";
             exportHeader = "Kinderuntersuchungsheft";
-        } else if (CMR.V1_00_000.Profile.PNBundle.is(value)) {
+        } else if (CMR.V1_0_0.Profile.PNBundle.is(value)) {
             valueContent = new PNtoPDF(value).getContent();
             style = "cmr";
             exportHeader = "Kinderuntersuchungsheft";

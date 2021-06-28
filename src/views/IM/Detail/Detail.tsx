@@ -19,72 +19,19 @@
 import { MIOConnector, SettingsConnector } from "../../../store";
 import { Util, UI } from "../../../components/";
 
-import * as Models from "../../../models";
 import DetailBase from "../../Comprehensive/Detail/DetailBase";
 import { DetailMapping } from "../../Comprehensive/Detail/Types";
 
 import { Vaccination } from "@kbv/mioparser";
+import Mappings from "../Mappings";
 
-class Detail extends DetailBase<Vaccination.V1_00_000.Profile.BundleEntry> {
+class Detail extends DetailBase<Vaccination.V1_1_0.Profile.BundleEntry> {
     protected getHeaderClass(): UI.MIOClassName {
         return "impfpass";
     }
 
-    static mappings = [
-        {
-            profile: Vaccination.V1_00_000.Profile.RecordPrime,
-            header: "Details zur Impfung",
-            models: [Models.IM.RecordPrimeModel]
-        },
-        {
-            profile: Vaccination.V1_00_000.Profile.RecordAddendum,
-            header: "Details zur Impfung",
-            models: [Models.IM.RecordAddendumModel]
-        },
-        {
-            profile: Vaccination.V1_00_000.Profile.Condition,
-            header: "Details zur Erkrankung",
-            models: [Models.IM.ConditionModel]
-        },
-        {
-            profile: Vaccination.V1_00_000.Profile.ObservationImmunizationStatus,
-            header: "Details zur Immunreaktion",
-            models: [Models.IM.ObservationModel]
-        },
-        {
-            profile: Vaccination.V1_00_000.Profile.Patient,
-            header: "Patient/-in",
-            models: [Models.IM.PatientModel]
-        },
-        {
-            profile: Vaccination.V1_00_000.Profile.Practitioner,
-            header: "Details zur Person",
-            models: [
-                Models.IM.PractitionerModel,
-                Models.TelecomModel,
-                Models.AdditionalCommentModel
-            ]
-        },
-        {
-            profile: Vaccination.V1_00_000.Profile.PractitionerAddendum,
-            header: "Details zur Person",
-            models: [
-                Models.IM.PractitionerModel,
-                Models.TelecomModel,
-                Models.AdditionalCommentModel
-            ]
-        },
-        {
-            profile: Vaccination.V1_00_000.Profile.Organization,
-            header: "Details zur Organisation",
-            models: [
-                Models.IM.OrganizationModel,
-                Models.AddressModel,
-                Models.TelecomModel,
-                Models.AdditionalCommentModel
-            ]
-        }
-    ];
+    static mappings = [...Mappings.Basic];
+
     protected getMappings(): DetailMapping[] {
         return Detail.mappings;
     }
@@ -93,12 +40,12 @@ class Detail extends DetailBase<Vaccination.V1_00_000.Profile.BundleEntry> {
         const { entry } = this.props;
         if (entry) {
             return (
-                Vaccination.V1_00_000.Profile.RecordPrime.is(entry.resource) ||
-                Vaccination.V1_00_000.Profile.RecordAddendum.is(entry.resource) ||
-                Vaccination.V1_00_000.Profile.ObservationImmunizationStatus.is(
+                Vaccination.V1_1_0.Profile.RecordPrime.is(entry.resource) ||
+                Vaccination.V1_1_0.Profile.RecordAddendum.is(entry.resource) ||
+                Vaccination.V1_1_0.Profile.ObservationImmunizationStatus.is(
                     entry.resource
                 ) ||
-                Vaccination.V1_00_000.Profile.Condition.is(entry.resource)
+                Vaccination.V1_1_0.Profile.Condition.is(entry.resource)
             );
         } else {
             return false;
@@ -107,7 +54,7 @@ class Detail extends DetailBase<Vaccination.V1_00_000.Profile.BundleEntry> {
 
     protected getPatient() {
         const { mio } = this.props;
-        return Util.IM.getPatient(mio as Vaccination.V1_00_000.Profile.BundleEntry);
+        return Util.IM.getPatient(mio as Vaccination.V1_1_0.Profile.BundleEntry);
     }
 }
 

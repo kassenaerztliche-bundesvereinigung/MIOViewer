@@ -1,5 +1,11 @@
 # Changelog MIO Viewer
 
+## 1.4.0
+
+-   Darstellung Impfpass, Version 1.1.0
+-   Darstellung Zahnärztliches Bonusheft, Version 1.1.0
+-   Die Versionen 1.0.0 dieser MIOs können nicht mehr dargestellt werden
+
 ## 1.3.0
 
 -   Darstellung Kinderuntersuchungsheft, Version 1.0.0

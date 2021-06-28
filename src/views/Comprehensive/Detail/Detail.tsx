@@ -36,7 +36,7 @@ class Detail extends React.Component<MIOConnectorType & RouteComponentProps> {
         let component = undefined;
 
         if (mio) {
-            if (Vaccination.V1_00_000.Profile.BundleEntry.is(mio)) {
+            if (Vaccination.V1_1_0.Profile.BundleEntry.is(mio)) {
                 component = (
                     <DetailIM
                         mio={mio}
@@ -45,7 +45,7 @@ class Detail extends React.Component<MIOConnectorType & RouteComponentProps> {
                         match={match}
                     />
                 );
-            } else if (ZAEB.V1_00_000.Profile.Bundle.is(mio)) {
+            } else if (ZAEB.V1_1_0.Profile.Bundle.is(mio)) {
                 component = (
                     <DetailZAEB
                         mio={mio}
@@ -54,7 +54,7 @@ class Detail extends React.Component<MIOConnectorType & RouteComponentProps> {
                         match={match}
                     />
                 );
-            } else if (MR.V1_00_000.Profile.Bundle.is(mio)) {
+            } else if (MR.V1_0_0.Profile.Bundle.is(mio)) {
                 component = (
                     <DetailMP
                         mio={mio}
@@ -64,9 +64,9 @@ class Detail extends React.Component<MIOConnectorType & RouteComponentProps> {
                     />
                 );
             } else if (
-                CMR.V1_00_000.Profile.CMRBundle.is(mio) ||
-                CMR.V1_00_000.Profile.PCBundle.is(mio) ||
-                CMR.V1_00_000.Profile.PNBundle.is(mio)
+                CMR.V1_0_0.Profile.CMRBundle.is(mio) ||
+                CMR.V1_0_0.Profile.PCBundle.is(mio) ||
+                CMR.V1_0_0.Profile.PNBundle.is(mio)
             ) {
                 component = (
                     <DetailUH
@@ -82,7 +82,10 @@ class Detail extends React.Component<MIOConnectorType & RouteComponentProps> {
         if (component) {
             return component;
         } else {
-            const profile: string = entry ? entry.resource.meta.profile[0] : "";
+            const profile: string = entry?.resource.meta
+                ? entry.resource.meta.profile[0]
+                : "";
+
             const errors = [
                 !mio ? "MIO nicht gefunden" : "",
                 !entry ? "Eintrag nicht gefunden" : "",

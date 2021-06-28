@@ -42,9 +42,9 @@ class OverviewSection extends React.Component<
     render(): JSX.Element {
         const { section, mio, history, location, match, makePDF, devMode } = this.props;
 
-        const composition = ParserUtil.getEntry<MR.V1_00_000.Profile.Composition>(
-            mio as MR.V1_00_000.Profile.Bundle,
-            [MR.V1_00_000.Profile.Composition]
+        const composition = ParserUtil.getEntry<MR.V1_0_0.Profile.Composition>(
+            mio as MR.V1_0_0.Profile.Bundle,
+            [MR.V1_0_0.Profile.Composition]
         );
 
         const sectionMap = [
@@ -126,7 +126,7 @@ class OverviewSection extends React.Component<
                     isExample={Util.Misc.isExample(mio)}
                 >
                     <Component
-                        mio={mio as MR.V1_00_000.Profile.Bundle}
+                        mio={mio as MR.V1_0_0.Profile.Bundle}
                         composition={composition.resource}
                         history={history}
                         location={location}

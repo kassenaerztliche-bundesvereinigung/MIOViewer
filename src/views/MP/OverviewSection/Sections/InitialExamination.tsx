@@ -25,7 +25,7 @@ import * as Models from "../../../../models";
 import Section, { SectionProps } from "../Section";
 import { UI } from "../../../../components";
 
-export default class InitialExamination extends Section<MR.V1_00_000.Profile.CompositionAnamneseUndAllgemeineBefunde> {
+export default class InitialExamination extends Section<MR.V1_0_0.Profile.CompositionAnamneseUndAllgemeineBefunde> {
     constructor(props: SectionProps) {
         super(props);
 
@@ -35,7 +35,7 @@ export default class InitialExamination extends Section<MR.V1_00_000.Profile.Com
         };
 
         this.section = this.getSection([
-            MR.V1_00_000.Profile.CompositionAnamneseUndAllgemeineBefunde
+            MR.V1_0_0.Profile.CompositionAnamneseUndAllgemeineBefunde
         ]);
     }
 
@@ -45,9 +45,9 @@ export default class InitialExamination extends Section<MR.V1_00_000.Profile.Com
         const details: JSX.Element[] = [];
         this.section?.entry.forEach((entry) => {
             const ref = entry.reference;
-            const res = ParserUtil.getEntryWithRef<MR.V1_00_000.Profile.ClinicalImpressionInitialExamination>(
+            const res = ParserUtil.getEntryWithRef<MR.V1_0_0.Profile.ClinicalImpressionInitialExamination>(
                 mio,
-                [MR.V1_00_000.Profile.ClinicalImpressionInitialExamination],
+                [MR.V1_0_0.Profile.ClinicalImpressionInitialExamination],
                 ref
             );
 

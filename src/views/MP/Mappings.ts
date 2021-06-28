@@ -23,13 +23,13 @@ import { DetailMapping } from "../Comprehensive/Detail/Types";
 export default class Mappings {
     static Basic: DetailMapping[] = [
         {
-            profile: MR.V1_00_000.Profile.PatientMother,
+            profile: MR.V1_0_0.Profile.PatientMother,
             header: "Patient/-in",
             models: [Models.MP.Basic.PatientMotherModel, Models.AddressModel]
         },
 
         {
-            profile: MR.V1_00_000.Profile.EncounterGeneral,
+            profile: MR.V1_0_0.Profile.EncounterGeneral,
             header: "Details",
             models: [Models.MP.EncounterGeneralModel]
         }
@@ -37,7 +37,7 @@ export default class Mappings {
 
     static StampInformation: DetailMapping[] = [
         {
-            profile: MR.V1_00_000.Profile.Practitioner,
+            profile: MR.V1_0_0.Profile.Practitioner,
             header: "Behandelnde Person",
             models: [
                 Models.MP.Basic.PractitionerModel,
@@ -47,7 +47,7 @@ export default class Mappings {
             ]
         },
         {
-            profile: MR.V1_00_000.Profile.Organization,
+            profile: MR.V1_0_0.Profile.Organization,
             header: "Details zur Einrichtung",
             models: [
                 Models.MP.Basic.OrganizationModel,
@@ -60,41 +60,41 @@ export default class Mappings {
 
     static Appointments: DetailMapping[] = [
         {
-            profile: MR.V1_00_000.Profile.AppointmentPregnancy,
+            profile: MR.V1_0_0.Profile.AppointmentPregnancy,
             models: [Models.MP.AppointmentPregnancyModel, Models.MP.ParticipantsModel]
         },
         {
-            profile: MR.V1_00_000.Profile.EncounterArrivalMaternityHospital,
+            profile: MR.V1_0_0.Profile.EncounterArrivalMaternityHospital,
             models: [Models.MP.EncounterArrivalMaternityHospitalModel]
         }
     ];
 
     static DateDetermination: DetailMapping[] = [
         {
-            profile: MR.V1_00_000.Profile.ObservationCalculatedDeliveryDate,
+            profile: MR.V1_0_0.Profile.ObservationCalculatedDeliveryDate,
             models: [Models.MP.Basic.ObservationModel],
             noHeadline: false
         },
         {
-            profile: MR.V1_00_000.Profile.ObservationDateDeterminationChildbirth,
+            profile: MR.V1_0_0.Profile.ObservationDateDeterminationChildbirth,
             models: [Models.MP.Basic.ObservationModel],
             noHeadline: false,
             customHeadline: "Ergänzende Angaben zur Terminbestimmung",
             noValue: true
         },
         {
-            profile: MR.V1_00_000.Profile.ObservationDateOfConception,
+            profile: MR.V1_0_0.Profile.ObservationDateOfConception,
             models: [Models.MP.Basic.ObservationModel],
             noHeadline: false
         },
         {
-            profile: MR.V1_00_000.Profile.ObservationDeterminationOfPregnancy,
+            profile: MR.V1_0_0.Profile.ObservationDeterminationOfPregnancy,
             models: [Models.MP.Basic.ObservationModel],
             noHeadline: false,
             customLabel: "Schwangerschaft liegt vor"
         },
         {
-            profile: MR.V1_00_000.Profile.ObservationMenstrualCycle,
+            profile: MR.V1_0_0.Profile.ObservationMenstrualCycle,
             models: [Models.MP.ObservationMenstrualCycleModel]
         }
     ];
@@ -107,16 +107,16 @@ export default class Mappings {
     } = {
         Basic: [
             {
-                profile: MR.V1_00_000.Profile.ClinicalImpressionInitialExamination,
+                profile: MR.V1_0_0.Profile.ClinicalImpressionInitialExamination,
                 header: "Erste Vorsorge-Untersuchung",
                 models: [Models.MP.Basic.ClinicalImpressionModel]
             },
             {
-                profile: MR.V1_00_000.Profile.ObservationPregnancyRisk,
+                profile: MR.V1_0_0.Profile.ObservationPregnancyRisk,
                 models: [Models.MP.Basic.ObservationModel]
             },
             {
-                profile: MR.V1_00_000.Profile.ObservationPreviousPregnancy,
+                profile: MR.V1_0_0.Profile.ObservationPreviousPregnancy,
                 models: [Models.MP.Basic.ObservationModel],
                 noHeadline: false,
                 customLabel: "Jahr"
@@ -124,31 +124,31 @@ export default class Mappings {
         ],
         Observations: [
             {
-                profile: MR.V1_00_000.Profile.ObservationAge,
+                profile: MR.V1_0_0.Profile.ObservationAge,
                 models: [Models.MP.Basic.ObservationModel]
             },
             {
-                profile: MR.V1_00_000.Profile.ObservationBaselineWeightMother,
+                profile: MR.V1_0_0.Profile.ObservationBaselineWeightMother,
                 models: [Models.MP.Basic.ObservationModel]
             },
             {
-                profile: MR.V1_00_000.Profile.ObservationHeight,
+                profile: MR.V1_0_0.Profile.ObservationHeight,
                 models: [Models.MP.Basic.ObservationModel]
             },
             {
-                profile: MR.V1_00_000.Profile.ObservationGravida,
+                profile: MR.V1_0_0.Profile.ObservationGravida,
                 models: [Models.MP.Basic.ObservationModel]
             },
             {
-                profile: MR.V1_00_000.Profile.ObservationPara,
+                profile: MR.V1_0_0.Profile.ObservationPara,
                 models: [Models.MP.Basic.ObservationModel]
             }
         ],
         CatalogueA: [
             {
-                profile: MR.V1_00_000.Profile.ObservationCatalogueA,
+                profile: MR.V1_0_0.Profile.ObservationCatalogueA,
                 models: [Models.MP.Basic.ObservationModel],
-                codeConceptMaps: [MR.V1_00_000.ConceptMap.CatalogueAGerman],
+                codeConceptMaps: [MR.V1_0_0.ConceptMap.CatalogueAGerman],
                 header: "Details",
                 customLabel: "Wert"
             }
@@ -158,38 +158,38 @@ export default class Mappings {
     static SpecialFindings: { Observation: DetailMapping[]; Tests: DetailMapping[] } = {
         Observation: [
             {
-                profile: MR.V1_00_000.Profile.ObservationSpecialFindings,
+                profile: MR.V1_0_0.Profile.ObservationSpecialFindings,
                 models: [Models.MP.Basic.ObservationModel],
                 customLabel: "Befund",
-                codeConceptMaps: [MR.V1_00_000.ConceptMap.SpecialFindingsGerman], // TODO: both the same???
-                valueConceptMaps: [MR.V1_00_000.ConceptMap.SpecialFindingsGerman]
+                codeConceptMaps: [MR.V1_0_0.ConceptMap.SpecialFindingsGerman], // TODO: both the same???
+                valueConceptMaps: [MR.V1_0_0.ConceptMap.SpecialFindingsGerman]
             }
         ],
         Tests: [
             {
-                profile: MR.V1_00_000.Profile.ObservationoGTTPretest,
+                profile: MR.V1_0_0.Profile.ObservationoGTTPretest,
                 models: [Models.MP.Basic.ObservationModel],
                 noHeadline: false,
                 customLabel: "Beurteilung",
-                valueConceptMaps: [MR.V1_00_000.ConceptMap.oGTTPretestGerman]
+                valueConceptMaps: [MR.V1_0_0.ConceptMap.oGTTPretestGerman]
             },
             {
-                profile: MR.V1_00_000.Profile.ObservationoGTTDiagnosistest,
+                profile: MR.V1_0_0.Profile.ObservationoGTTDiagnosistest,
                 models: [Models.MP.Basic.ObservationModel],
                 noHeadline: false,
                 customLabel: "Beurteilung",
-                valueConceptMaps: [MR.V1_00_000.ConceptMap.oGTTDiagnosistestGerman]
+                valueConceptMaps: [MR.V1_0_0.ConceptMap.oGTTDiagnosistestGerman]
             }
         ]
     };
 
     static Counselling: DetailMapping[] = [
         {
-            profile: MR.V1_00_000.Profile.ProcedureCounselling,
+            profile: MR.V1_0_0.Profile.ProcedureCounselling,
             models: [Models.MP.ProcedureCounsellingModel]
         },
         {
-            profile: MR.V1_00_000.Profile.ObservationHIVTestPerformed,
+            profile: MR.V1_0_0.Profile.ObservationHIVTestPerformed,
             models: [Models.MP.Basic.ObservationModel],
             noHeadline: false
         }
@@ -197,7 +197,7 @@ export default class Mappings {
 
     static AntiDProphylaxis: DetailMapping[] = [
         {
-            profile: MR.V1_00_000.Profile.ProcedureAntiDProphylaxis,
+            profile: MR.V1_0_0.Profile.ProcedureAntiDProphylaxis,
             models: [Models.MP.Basic.ProcedureBaseModel]
         }
     ];
@@ -209,37 +209,37 @@ export default class Mappings {
     } = {
         BloodGroups: [
             {
-                profile: MR.V1_00_000.Profile.ObservationBloodGroupSerology,
+                profile: MR.V1_0_0.Profile.ObservationBloodGroupSerology,
                 models: [Models.MP.ObservationBloodGroupSerologyModel]
             },
             {
-                profile: MR.V1_00_000.Profile.ObservationOtherBloodGroupSystems,
+                profile: MR.V1_0_0.Profile.ObservationOtherBloodGroupSystems,
                 models: [Models.MP.Basic.ObservationModel],
                 noHeadline: false
             }
         ],
         Observations: [
             {
-                profile: MR.V1_00_000.Profile.ObservationExamination,
+                profile: MR.V1_0_0.Profile.ObservationExamination,
                 models: [Models.MP.Basic.ObservationModel],
                 noHeadline: false,
                 codeConceptMaps: [
-                    MR.V1_00_000.ConceptMap.ExaminationInterpretationGerman,
-                    MR.V1_00_000.ConceptMap.ExaminationSnomedGerman,
-                    MR.V1_00_000.ConceptMap.ExaminationLoincGerman
+                    MR.V1_0_0.ConceptMap.ExaminationInterpretationGerman,
+                    MR.V1_0_0.ConceptMap.ExaminationSnomedGerman,
+                    MR.V1_0_0.ConceptMap.ExaminationLoincGerman
                 ],
                 valueConceptMaps: [
-                    MR.V1_00_000.ConceptMap.ExaminationResultQualitativeGerman
+                    MR.V1_0_0.ConceptMap.ExaminationResultQualitativeGerman
                 ]
             }
         ],
         ImmunizationStatus: [
             {
-                profile: MR.V1_00_000.Profile.ObservationImmunizationStatus,
+                profile: MR.V1_0_0.Profile.ObservationImmunizationStatus,
                 models: [Models.MP.Basic.ObservationModel],
                 noHeadline: false,
                 customLabel: "Immunität anzunehmen",
-                codeConceptMaps: [MR.V1_00_000.ConceptMap.ImmunizationStatusGerman]
+                codeConceptMaps: [MR.V1_0_0.ConceptMap.ImmunizationStatusGerman]
             }
         ]
     };
@@ -247,7 +247,7 @@ export default class Mappings {
     static Gravidogramm: { Basic: DetailMapping[]; Observations: DetailMapping[] } = {
         Basic: [
             {
-                profile: MR.V1_00_000.Profile.ClinicalImpressionPregnancyChartEntry,
+                profile: MR.V1_0_0.Profile.ClinicalImpressionPregnancyChartEntry,
                 models: [
                     Models.MP.Basic.ClinicalImpressionModel,
                     Models.MP.Basic.ClinicalImpressionInvestigationModel,
@@ -257,61 +257,61 @@ export default class Mappings {
         ],
         Observations: [
             {
-                profile: MR.V1_00_000.Profile.ObservationBloodPressure,
+                profile: MR.V1_0_0.Profile.ObservationBloodPressure,
                 models: [Models.MP.Basic.ObservationModel]
             },
             {
-                profile: MR.V1_00_000.Profile.ObservationWeightMother,
+                profile: MR.V1_0_0.Profile.ObservationWeightMother,
                 models: [Models.MP.Basic.ObservationModel]
             },
             {
-                profile: MR.V1_00_000.Profile.ObservationFundusHeight,
+                profile: MR.V1_0_0.Profile.ObservationFundusHeight,
                 models: [Models.MP.Basic.ObservationModel]
             },
             {
-                profile: MR.V1_00_000.Profile.ObservationVaricosis,
+                profile: MR.V1_0_0.Profile.ObservationVaricosis,
                 models: [Models.MP.Basic.ObservationModel]
             },
             {
-                profile: MR.V1_00_000.Profile.ObservationEdema,
+                profile: MR.V1_0_0.Profile.ObservationEdema,
                 models: [Models.MP.Basic.ObservationModel]
             },
             {
-                profile: MR.V1_00_000.Profile.ObservationUrine,
+                profile: MR.V1_0_0.Profile.ObservationUrine,
                 models: [Models.MP.Basic.ObservationModel]
             },
             {
-                profile: MR.V1_00_000.Profile.ObservationUrineSugar,
+                profile: MR.V1_0_0.Profile.ObservationUrineSugar,
                 models: [Models.MP.Basic.ObservationModel]
             },
             {
-                profile: MR.V1_00_000.Profile.ObservationUrineProtein,
+                profile: MR.V1_0_0.Profile.ObservationUrineProtein,
                 models: [Models.MP.Basic.ObservationModel]
             },
             {
-                profile: MR.V1_00_000.Profile.ObservationUrineNitrite,
+                profile: MR.V1_0_0.Profile.ObservationUrineNitrite,
                 models: [Models.MP.Basic.ObservationModel]
             },
             {
-                profile: MR.V1_00_000.Profile.ObservationUrineBlood,
+                profile: MR.V1_0_0.Profile.ObservationUrineBlood,
                 models: [Models.MP.Basic.ObservationModel]
             },
             {
-                profile: MR.V1_00_000.Profile.ObservationVaginalExamination,
+                profile: MR.V1_0_0.Profile.ObservationVaginalExamination,
                 models: [Models.MP.Basic.ObservationModel]
             },
             {
-                profile: MR.V1_00_000.Profile.ObservationHeartSoundsChild,
+                profile: MR.V1_0_0.Profile.ObservationHeartSoundsChild,
                 models: [Models.MP.Basic.ObservationModel],
-                codeConceptMaps: [MR.V1_00_000.ConceptMap.HeartSoundsChildGerman]
+                codeConceptMaps: [MR.V1_0_0.ConceptMap.HeartSoundsChildGerman]
             },
             {
-                profile: MR.V1_00_000.Profile.ObservationChildPosition,
+                profile: MR.V1_0_0.Profile.ObservationChildPosition,
                 models: [Models.MP.Basic.ObservationModel],
-                codeConceptMaps: [MR.V1_00_000.ConceptMap.ChildPositionGerman]
+                codeConceptMaps: [MR.V1_0_0.ConceptMap.ChildPositionGerman]
             },
             {
-                profile: MR.V1_00_000.Profile.ObservationChildMovement,
+                profile: MR.V1_0_0.Profile.ObservationChildMovement,
                 models: [Models.MP.Basic.ObservationModel]
             }
         ]
@@ -319,7 +319,7 @@ export default class Mappings {
 
     static Cardiotocography: DetailMapping[] = [
         {
-            profile: MR.V1_00_000.Profile.ObservationCardiotocography,
+            profile: MR.V1_0_0.Profile.ObservationCardiotocography,
             noHeadline: false,
             customLabel: "Beurteilung",
             models: [Models.MP.Basic.ObservationModel]
@@ -334,7 +334,7 @@ export default class Mappings {
     } = {
         Comment: [
             {
-                profile: MR.V1_00_000.Profile.ObservationUltrasound,
+                profile: MR.V1_0_0.Profile.ObservationUltrasound,
                 models: [Models.MP.Basic.ObservationModel],
                 header: "Bemerkungen",
                 noValue: true
@@ -342,7 +342,7 @@ export default class Mappings {
         ],
         DiagnosticReports: [
             {
-                profile: MR.V1_00_000.Profile.DiagnosticReportUltrasoundI,
+                profile: MR.V1_0_0.Profile.DiagnosticReportUltrasoundI,
                 header: "Ultraschall",
                 models: [
                     Models.MP.Basic.ObservationModel,
@@ -353,7 +353,7 @@ export default class Mappings {
                 noValue: true
             },
             {
-                profile: MR.V1_00_000.Profile.DiagnosticReportUltrasoundII,
+                profile: MR.V1_0_0.Profile.DiagnosticReportUltrasoundII,
                 header: "Ultraschall",
                 models: [
                     Models.MP.Basic.ObservationModel,
@@ -363,7 +363,7 @@ export default class Mappings {
                 noValue: true
             },
             {
-                profile: MR.V1_00_000.Profile.DiagnosticReportUltrasoundIII,
+                profile: MR.V1_0_0.Profile.DiagnosticReportUltrasoundIII,
                 header: "Ultraschall",
                 models: [
                     Models.MP.Basic.ObservationModel,
@@ -375,76 +375,76 @@ export default class Mappings {
         ],
         Others: [
             {
-                profile: MR.V1_00_000.Profile.ObservationOtherUltrasoundStudies,
+                profile: MR.V1_0_0.Profile.ObservationOtherUltrasoundStudies,
                 models: [Models.MP.Basic.ObservationModel],
                 header: "Weitere Ultraschall-Untersuchung",
-                codeConceptMaps: [MR.V1_00_000.ConceptMap.OtherUltrasoundStudiesGerman]
+                codeConceptMaps: [MR.V1_0_0.ConceptMap.OtherUltrasoundStudiesGerman]
             }
         ],
         Observations: [
             {
-                profile: MR.V1_00_000.Profile.ObservationGeneralInformation,
+                profile: MR.V1_0_0.Profile.ObservationGeneralInformation,
                 models: [Models.MP.Basic.ObservationModel],
-                codeConceptMaps: [MR.V1_00_000.ConceptMap.GeneralInformationGerman]
+                codeConceptMaps: [MR.V1_0_0.ConceptMap.GeneralInformationGerman]
             },
             {
-                profile: MR.V1_00_000.Profile.ObservationPregnancyInformation,
+                profile: MR.V1_0_0.Profile.ObservationPregnancyInformation,
                 models: [Models.MP.Basic.ObservationModel],
-                codeConceptMaps: [MR.V1_00_000.ConceptMap.PregnancyInformationGerman]
+                codeConceptMaps: [MR.V1_0_0.ConceptMap.PregnancyInformationGerman]
             },
             {
-                profile: MR.V1_00_000.Profile.ObservationSingletonPregnancy,
+                profile: MR.V1_0_0.Profile.ObservationSingletonPregnancy,
                 models: [Models.MP.Basic.ObservationModel]
             },
             {
-                profile: MR.V1_00_000.Profile.ObservationHeartAction,
+                profile: MR.V1_0_0.Profile.ObservationHeartAction,
                 models: [Models.MP.Basic.ObservationModel]
             },
             {
-                profile: MR.V1_00_000.Profile.ObservationLocalisationPlacenta,
+                profile: MR.V1_0_0.Profile.ObservationLocalisationPlacenta,
                 models: [Models.MP.Basic.ObservationModel],
-                valueConceptMaps: [MR.V1_00_000.ConceptMap.LocalisationPlacentaGerman]
+                valueConceptMaps: [MR.V1_0_0.ConceptMap.LocalisationPlacentaGerman]
             },
             {
-                profile: MR.V1_00_000.Profile.ObservationBiometricsI,
+                profile: MR.V1_0_0.Profile.ObservationBiometricsI,
                 models: [Models.MP.Basic.ObservationModel],
-                codeConceptMaps: [MR.V1_00_000.ConceptMap.BiometricsIGerman]
+                codeConceptMaps: [MR.V1_0_0.ConceptMap.BiometricsIGerman]
             },
             {
-                profile: MR.V1_00_000.Profile.ObservationBiometricsII,
+                profile: MR.V1_0_0.Profile.ObservationBiometricsII,
                 models: [Models.MP.Basic.ObservationModel],
-                codeConceptMaps: [MR.V1_00_000.ConceptMap.BiometricsIIIIIGerman]
+                codeConceptMaps: [MR.V1_0_0.ConceptMap.BiometricsIIIIIGerman]
             },
             {
-                profile: MR.V1_00_000.Profile.ObservationBiometricsIII,
+                profile: MR.V1_0_0.Profile.ObservationBiometricsIII,
                 models: [Models.MP.Basic.ObservationModel],
-                codeConceptMaps: [MR.V1_00_000.ConceptMap.BiometricsIIIIIGerman]
+                codeConceptMaps: [MR.V1_0_0.ConceptMap.BiometricsIIIIIGerman]
             },
             {
-                profile: MR.V1_00_000.Profile.ObservationPercentile,
+                profile: MR.V1_0_0.Profile.ObservationPercentile,
                 models: [Models.MP.Basic.ObservationModel]
             },
             {
-                profile: MR.V1_00_000.Profile.ObservationTimelyDevelopment,
+                profile: MR.V1_0_0.Profile.ObservationTimelyDevelopment,
                 models: [Models.MP.Basic.ObservationModel]
             },
             {
-                profile: MR.V1_00_000.Profile.ObservationFindingsRequiredControl,
+                profile: MR.V1_0_0.Profile.ObservationFindingsRequiredControl,
                 models: [Models.MP.Basic.ObservationModel],
-                codeConceptMaps: [MR.V1_00_000.ConceptMap.FindingsRequiredControlGerman]
+                codeConceptMaps: [MR.V1_0_0.ConceptMap.FindingsRequiredControlGerman]
             },
             {
-                profile: MR.V1_00_000.Profile.ObservationAbnormalities,
+                profile: MR.V1_0_0.Profile.ObservationAbnormalities,
                 models: [Models.MP.Basic.ObservationModel]
             },
             {
-                profile: MR.V1_00_000.Profile.ObservationConsultationInitiated,
+                profile: MR.V1_0_0.Profile.ObservationConsultationInitiated,
                 models: [Models.MP.Basic.ObservationModel]
             },
             {
-                profile: MR.V1_00_000.Profile.ObservationMorphology,
+                profile: MR.V1_0_0.Profile.ObservationMorphology,
                 models: [Models.MP.Basic.ObservationModel],
-                codeConceptMaps: [MR.V1_00_000.ConceptMap.MorphologyGerman]
+                codeConceptMaps: [MR.V1_0_0.ConceptMap.MorphologyGerman]
             }
         ]
     };
@@ -456,7 +456,7 @@ export default class Mappings {
         DischargeSummary: [
             {
                 profile:
-                    MR.V1_00_000.Profile
+                    MR.V1_0_0.Profile
                         .ClinicalImpressionPregnancyExaminationDischargeSummary,
                 header: "Schwangerschaft",
                 models: [
@@ -468,15 +468,15 @@ export default class Mappings {
         ],
         Observations: [
             {
-                profile: MR.V1_00_000.Profile.ObservationPresentationAtBirthClinic,
+                profile: MR.V1_0_0.Profile.ObservationPresentationAtBirthClinic,
                 models: [Models.MP.Basic.ObservationModel]
             },
             {
-                profile: MR.V1_00_000.Profile.ObservationInpatientStayDuringPregnancy,
+                profile: MR.V1_0_0.Profile.ObservationInpatientStayDuringPregnancy,
                 models: [Models.MP.Basic.ObservationModel]
             },
             {
-                profile: MR.V1_00_000.Profile.ObservationNumberOfCheckups,
+                profile: MR.V1_0_0.Profile.ObservationNumberOfCheckups,
                 models: [Models.MP.Basic.ObservationModel]
             }
         ]
@@ -489,7 +489,7 @@ export default class Mappings {
         DeliveryInformation: [
             {
                 profile:
-                    MR.V1_00_000.Profile
+                    MR.V1_0_0.Profile
                         .ClinicalImpressionBirthExaminationDeliveryInformation,
                 header: "Geburt",
                 models: [
@@ -501,48 +501,47 @@ export default class Mappings {
         Child: [
             {
                 profile:
-                    MR.V1_00_000.Profile
-                        .ClinicalImpressionBirthExaminationChildInformation,
+                    MR.V1_0_0.Profile.ClinicalImpressionBirthExaminationChildInformation,
                 models: [
                     Models.MP.Basic.ClinicalImpressionModel,
                     Models.MP.Basic.ClinicalImpressionInvestigationModel
                 ]
             },
             {
-                profile: MR.V1_00_000.Profile.ObservationLiveBirth,
+                profile: MR.V1_0_0.Profile.ObservationLiveBirth,
                 models: [Models.MP.Basic.ObservationModel]
             },
             {
-                profile: MR.V1_00_000.Profile.ObservationBirthMode,
+                profile: MR.V1_0_0.Profile.ObservationBirthMode,
                 models: [Models.MP.Basic.ObservationModel],
-                valueConceptMaps: [MR.V1_00_000.ConceptMap.BirthModeGerman]
+                valueConceptMaps: [MR.V1_0_0.ConceptMap.BirthModeGerman]
             },
             {
-                profile: MR.V1_00_000.Profile.ObservationWeightChild,
+                profile: MR.V1_0_0.Profile.ObservationWeightChild,
                 models: [Models.MP.Basic.ObservationModel]
             },
             {
-                profile: MR.V1_00_000.Profile.ObservationHeadCircumference,
+                profile: MR.V1_0_0.Profile.ObservationHeadCircumference,
                 models: [Models.MP.Basic.ObservationModel]
             },
             {
-                profile: MR.V1_00_000.Profile.ObservationBirthHeight,
+                profile: MR.V1_0_0.Profile.ObservationBirthHeight,
                 models: [Models.MP.Basic.ObservationModel]
             },
             {
-                profile: MR.V1_00_000.Profile.ObservationApgarScore,
+                profile: MR.V1_0_0.Profile.ObservationApgarScore,
                 models: [Models.MP.Basic.ObservationModel]
             },
             {
-                profile: MR.V1_00_000.Profile.ObservationpHValueUmbilicalArtery,
+                profile: MR.V1_0_0.Profile.ObservationpHValueUmbilicalArtery,
                 models: [Models.MP.Basic.ObservationModel]
             },
             {
-                profile: MR.V1_00_000.Profile.ObservationMalformation,
+                profile: MR.V1_0_0.Profile.ObservationMalformation,
                 models: [Models.MP.Basic.ObservationModel]
             },
             {
-                profile: MR.V1_00_000.Profile.ObservationExternalBirth,
+                profile: MR.V1_0_0.Profile.ObservationExternalBirth,
                 models: [Models.MP.Basic.ObservationModel]
             }
         ]
@@ -556,8 +555,7 @@ export default class Mappings {
         ClinicalImpression: [
             {
                 profile:
-                    MR.V1_00_000.Profile
-                        .ClinicalImpressionFirstExaminationAfterChildbirth,
+                    MR.V1_0_0.Profile.ClinicalImpressionFirstExaminationAfterChildbirth,
                 models: [
                     Models.MP.Basic.ClinicalImpressionModel,
                     Models.MP.InformationAboutMotherModel,
@@ -568,35 +566,35 @@ export default class Mappings {
         ],
         Mother: [
             {
-                profile: MR.V1_00_000.Profile.ObservationPuerperiumNormal,
+                profile: MR.V1_0_0.Profile.ObservationPuerperiumNormal,
                 models: [Models.MP.Basic.ObservationModel]
             },
             {
-                profile: MR.V1_00_000.Profile.ObservationGynecologicalFindingNormal,
+                profile: MR.V1_0_0.Profile.ObservationGynecologicalFindingNormal,
                 models: [Models.MP.Basic.ObservationModel]
             },
             {
-                profile: MR.V1_00_000.Profile.ObservationAntiDProphylaxisPostPartum,
+                profile: MR.V1_0_0.Profile.ObservationAntiDProphylaxisPostPartum,
                 models: [Models.MP.Basic.ObservationModel]
             },
             {
-                profile: MR.V1_00_000.Profile.ObservationAdviceOnIodineIntake,
+                profile: MR.V1_0_0.Profile.ObservationAdviceOnIodineIntake,
                 models: [Models.MP.Basic.ObservationModel]
             }
         ],
         Child: [
             {
                 header: "Angaben zum Kind",
-                profile: MR.V1_00_000.Profile.PatientChild,
+                profile: MR.V1_0_0.Profile.PatientChild,
                 models: [Models.MP.Basic.PatientChildModel, Models.AdditionalCommentModel]
             },
             {
-                profile: MR.V1_00_000.Profile.ObservationDirectCoombstest,
+                profile: MR.V1_0_0.Profile.ObservationDirectCoombstest,
                 models: [Models.MP.Basic.ObservationModel],
-                valueConceptMaps: [MR.V1_00_000.ConceptMap.DirectCoombstestGerman]
+                valueConceptMaps: [MR.V1_0_0.ConceptMap.DirectCoombstestGerman]
             },
             {
-                profile: MR.V1_00_000.Profile.ObservationBloodGroupSerologyChild,
+                profile: MR.V1_0_0.Profile.ObservationBloodGroupSerologyChild,
                 models: [Models.MP.Basic.ObservationModel]
             }
         ]
@@ -604,8 +602,7 @@ export default class Mappings {
 
     static EpicrisisSecondExamination: DetailMapping[] = [
         {
-            profile:
-                MR.V1_00_000.Profile.ClinicalImpressionSecondExaminationAfterChildbirth,
+            profile: MR.V1_0_0.Profile.ClinicalImpressionSecondExaminationAfterChildbirth,
             models: [
                 Models.MP.Basic.ClinicalImpressionModel,
                 Models.MP.InformationAboutMotherModel,
@@ -614,31 +611,31 @@ export default class Mappings {
             header: "Zweite Untersuchung nach Entbindung"
         },
         {
-            profile: MR.V1_00_000.Profile.ObservationBreastfeedingBehavior,
+            profile: MR.V1_0_0.Profile.ObservationBreastfeedingBehavior,
             models: [Models.MP.Basic.ObservationModel],
-            valueConceptMaps: [MR.V1_00_000.ConceptMap.BreastfeedingBehaviorGerman]
+            valueConceptMaps: [MR.V1_0_0.ConceptMap.BreastfeedingBehaviorGerman]
         },
         {
-            profile: MR.V1_00_000.Profile.ObservationUrineSediment,
+            profile: MR.V1_0_0.Profile.ObservationUrineSediment,
             models: [Models.MP.Basic.ObservationModel]
         },
         {
-            profile: MR.V1_00_000.Profile.ObservationU3Performed,
+            profile: MR.V1_0_0.Profile.ObservationU3Performed,
             models: [Models.MP.Basic.ObservationModel]
         },
         {
-            profile: MR.V1_00_000.Profile.ObservationChildIsHealthy,
+            profile: MR.V1_0_0.Profile.ObservationChildIsHealthy,
             models: [Models.MP.Basic.ObservationModel]
         },
         {
-            profile: MR.V1_00_000.Profile.ObservationNeedOfTreatmentU3,
+            profile: MR.V1_0_0.Profile.ObservationNeedOfTreatmentU3,
             models: [Models.MP.Basic.ObservationModel]
         }
     ];
 
     static InpatientTreatment: DetailMapping[] = [
         {
-            profile: MR.V1_00_000.Profile.EncounterInpatientTreatment,
+            profile: MR.V1_0_0.Profile.EncounterInpatientTreatment,
             models: [Models.MP.EncounterInpatientTreatmentModel]
         }
     ];

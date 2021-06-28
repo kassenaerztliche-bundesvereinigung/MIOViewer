@@ -32,43 +32,43 @@ import PatientCard from "../PatientCard";
 describe("<PatientCard />", () => {
     type CardValue = {
         bundleType:
-            | typeof Vaccination.V1_00_000.Profile.BundleEntry
-            | typeof ZAEB.V1_00_000.Profile.Bundle
-            | typeof MR.V1_00_000.Profile.Bundle
-            | typeof CMR.V1_00_000.Profile.CMRBundle
-            | typeof CMR.V1_00_000.Profile.PCBundle
-            | typeof CMR.V1_00_000.Profile.PNBundle;
+            | typeof Vaccination.V1_1_0.Profile.BundleEntry
+            | typeof ZAEB.V1_1_0.Profile.Bundle
+            | typeof MR.V1_0_0.Profile.Bundle
+            | typeof CMR.V1_0_0.Profile.CMRBundle
+            | typeof CMR.V1_0_0.Profile.PCBundle
+            | typeof CMR.V1_0_0.Profile.PNBundle;
         getFunction: any; // eslint-disable-line
     } & TestUtil.HasMioString;
     const cardList: CardValue[] = [
         {
             mioString: "IM",
-            bundleType: Vaccination.V1_00_000.Profile.BundleEntry,
+            bundleType: Vaccination.V1_1_0.Profile.BundleEntry,
             getFunction: Util.IM.getPatient
         },
         {
             mioString: "ZB",
-            bundleType: ZAEB.V1_00_000.Profile.Bundle,
+            bundleType: ZAEB.V1_1_0.Profile.Bundle,
             getFunction: Util.ZB.getPatient
         },
         {
             mioString: "MR",
-            bundleType: MR.V1_00_000.Profile.Bundle,
+            bundleType: MR.V1_0_0.Profile.Bundle,
             getFunction: Util.MP.getPatientMother
         },
         {
             mioString: "UH",
-            bundleType: CMR.V1_00_000.Profile.CMRBundle,
+            bundleType: CMR.V1_0_0.Profile.CMRBundle,
             getFunction: Util.UH.getPatient
         },
         {
             mioString: "UH",
-            bundleType: CMR.V1_00_000.Profile.PCBundle,
+            bundleType: CMR.V1_0_0.Profile.PCBundle,
             getFunction: Util.UH.getPatient
         },
         {
             mioString: "UH",
-            bundleType: CMR.V1_00_000.Profile.PNBundle,
+            bundleType: CMR.V1_0_0.Profile.PNBundle,
             getFunction: Util.UH.getPatient
         }
     ];
@@ -103,7 +103,7 @@ describe("<PatientCard />", () => {
     );
 
     it("Rendert trotz fehlerhaftem Patienten", (done) => {
-        const patient = {} as Vaccination.V1_00_000.Profile.Patient;
+        const patient = {} as Vaccination.V1_1_0.Profile.Patient;
         const { getByTestId } = render(<PatientCard patient={patient} />);
         expect(getByTestId("headline")).toHaveTextContent("-");
         done();

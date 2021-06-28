@@ -24,11 +24,11 @@ import { Util } from "../../components";
 import { ObservationModel } from "./Basic";
 import { ModelValue } from "../Types";
 
-export default class ObservationMenstrualCycleModel extends ObservationModel<MR.V1_00_000.Profile.ObservationMenstrualCycle> {
+export default class ObservationMenstrualCycleModel extends ObservationModel<MR.V1_0_0.Profile.ObservationMenstrualCycle> {
     constructor(
-        value: MR.V1_00_000.Profile.ObservationMenstrualCycle,
+        value: MR.V1_0_0.Profile.ObservationMenstrualCycle,
         fullUrl: string,
-        parent: MR.V1_00_000.Profile.Bundle,
+        parent: MR.V1_0_0.Profile.Bundle,
         history?: History
     ) {
         super(
@@ -47,8 +47,8 @@ export default class ObservationMenstrualCycleModel extends ObservationModel<MR.
         const components: ModelValue[] = this.value.component
             ? this.value.component.map((c) => {
                   if (
-                      MR.V1_00_000.Profile.ObservationMenstrualCycleZykluslaenge.is(c) ||
-                      MR.V1_00_000.Profile.ObservationMenstrualCycleBlutungsdauer.is(c)
+                      MR.V1_0_0.Profile.ObservationMenstrualCycleZykluslaenge.is(c) ||
+                      MR.V1_0_0.Profile.ObservationMenstrualCycleBlutungsdauer.is(c)
                   ) {
                       return {
                           value: c.valueQuantity.value + " " + c.valueQuantity.unit,

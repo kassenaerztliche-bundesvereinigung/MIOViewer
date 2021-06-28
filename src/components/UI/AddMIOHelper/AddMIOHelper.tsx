@@ -92,7 +92,7 @@ export default class AddMIOHelper {
             (accum, current): number => accum + current.size,
             0
         );
-        console.log(totalSize);
+
         return totalSize > thresholdSize;
     };
 
@@ -218,7 +218,7 @@ export default class AddMIOHelper {
                 } else {
                     if (results && results.length > 0) {
                         try {
-                            // results.forEach((r: MIOParserResult) => console.log(r));
+                            results.forEach((r: MIOParserResult) => console.log(r));
                             const last = results.pop();
                             results.forEach((result: MIOParserResult) =>
                                 this.handleResult(result, files[0].name)

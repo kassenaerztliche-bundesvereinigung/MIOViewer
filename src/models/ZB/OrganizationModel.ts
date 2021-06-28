@@ -23,9 +23,9 @@ import { ParserUtil, KBVBundleResource, ZAEB } from "@kbv/mioparser";
 import BaseModel from "../BaseModel";
 import { ModelValue } from "../Types";
 
-export default class OrganizationModel extends BaseModel<ZAEB.V1_00_000.Profile.Organization> {
+export default class OrganizationModel extends BaseModel<ZAEB.V1_1_0.Profile.Organization> {
     constructor(
-        value: ZAEB.V1_00_000.Profile.Organization,
+        value: ZAEB.V1_1_0.Profile.Organization,
         fullUrl: string,
         parent: KBVBundleResource,
         history?: History
@@ -38,8 +38,8 @@ export default class OrganizationModel extends BaseModel<ZAEB.V1_00_000.Profile.
 
     protected getIdentifier(): ModelValue {
         if (this.value.identifier) {
-            const iknr = ParserUtil.getSlice<ZAEB.V1_00_000.Profile.OrganizationInstitutionskennzeichen>(
-                ZAEB.V1_00_000.Profile.OrganizationInstitutionskennzeichen,
+            const iknr = ParserUtil.getSlice<ZAEB.V1_1_0.Profile.OrganizationInstitutionskennzeichen>(
+                ZAEB.V1_1_0.Profile.OrganizationInstitutionskennzeichen,
                 this.value.identifier
             );
 
@@ -49,8 +49,8 @@ export default class OrganizationModel extends BaseModel<ZAEB.V1_00_000.Profile.
                     label: "Institutionskennzeichen (IKNR)"
                 };
 
-            const bsnr = ParserUtil.getSlice<ZAEB.V1_00_000.Profile.OrganizationBetriebsstaettennummer>(
-                ZAEB.V1_00_000.Profile.OrganizationBetriebsstaettennummer,
+            const bsnr = ParserUtil.getSlice<ZAEB.V1_1_0.Profile.OrganizationBetriebsstaettennummer>(
+                ZAEB.V1_1_0.Profile.OrganizationBetriebsstaettennummer,
                 this.value.identifier
             );
 
@@ -61,15 +61,15 @@ export default class OrganizationModel extends BaseModel<ZAEB.V1_00_000.Profile.
                 };
             }
 
-            const kzva = ParserUtil.getSlice<ZAEB.V1_00_000.Profile.OrganizationKZVAbrechnungsnummer>(
-                ZAEB.V1_00_000.Profile.OrganizationKZVAbrechnungsnummer,
+            const kzva = ParserUtil.getSlice<ZAEB.V1_1_0.Profile.OrganizationKZVAbrechnungsnummer>(
+                ZAEB.V1_1_0.Profile.OrganizationKZVAbrechnungsnummer,
                 this.value.identifier
             );
 
             if (kzva) {
                 return {
                     value: kzva.value,
-                    label: "Lebenslange Zahnarztnummer (ZANR)"
+                    label: "KZV-Abrechnungsnummer (KZVA)"
                 };
             }
         }

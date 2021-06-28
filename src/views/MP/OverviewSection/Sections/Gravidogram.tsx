@@ -23,7 +23,7 @@ import * as Models from "../../../../models";
 
 import Section, { SectionProps } from "../Section";
 
-export default class Gravidogram extends Section<MR.V1_00_000.Profile.CompositionUntersuchungenGravidogramm> {
+export default class Gravidogram extends Section<MR.V1_0_0.Profile.CompositionUntersuchungenGravidogramm> {
     constructor(props: SectionProps) {
         super(props);
         this.state = {
@@ -32,8 +32,8 @@ export default class Gravidogram extends Section<MR.V1_00_000.Profile.Compositio
         };
 
         this.section = this.getSection([
-            MR.V1_00_000.Profile.CompositionUntersuchungen,
-            MR.V1_00_000.Profile.CompositionUntersuchungenGravidogramm
+            MR.V1_0_0.Profile.CompositionUntersuchungen,
+            MR.V1_0_0.Profile.CompositionUntersuchungenGravidogramm
         ]);
     }
 
@@ -47,9 +47,9 @@ export default class Gravidogram extends Section<MR.V1_00_000.Profile.Compositio
         const items: UI.ListItem.Props[] = [];
         this.section?.entry.forEach((entry) => {
             const ref = entry.reference;
-            const res = ParserUtil.getEntryWithRef<MR.V1_00_000.Profile.ClinicalImpressionPregnancyChartEntry>(
+            const res = ParserUtil.getEntryWithRef<MR.V1_0_0.Profile.ClinicalImpressionPregnancyChartEntry>(
                 mio,
-                [MR.V1_00_000.Profile.ClinicalImpressionPregnancyChartEntry],
+                [MR.V1_0_0.Profile.ClinicalImpressionPregnancyChartEntry],
                 ref
             );
 

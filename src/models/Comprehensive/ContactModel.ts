@@ -26,7 +26,7 @@ import { Content } from "pdfmake/interfaces";
 import { ModelValue } from "../Types";
 
 export default class ContactModel<
-    T extends CMR.V1_00_000.Profile.CMROrganizationScreeningLaboratory
+    T extends CMR.V1_0_0.Profile.CMROrganizationScreeningLaboratory
 > extends BaseModel<T> {
     constructor(value: T, fullUrl: string, parent: KBVBundleResource, history?: History) {
         super(value, fullUrl, parent, history);
@@ -61,7 +61,7 @@ export default class ContactModel<
     }
 
     public getTelecom(
-        contact: CMR.V1_00_000.Profile.CMROrganizationScreeningLaboratoryContact
+        contact: CMR.V1_0_0.Profile.CMROrganizationScreeningLaboratoryContact
     ): ModelValue[] {
         return Util.Misc.getTelecom(contact).map((t) => {
             return {

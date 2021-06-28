@@ -24,14 +24,14 @@ import BaseModel from "../BaseModel";
 import { ModelValue } from "../Types";
 
 export type AdditionalCommentType =
-    | Vaccination.V1_00_000.Profile.Practitioner
-    | Vaccination.V1_00_000.Profile.PractitionerAddendum
-    | Vaccination.V1_00_000.Profile.Organization
-    | MR.V1_00_000.Profile.Organization
-    | MR.V1_00_000.Profile.Practitioner
-    | MR.V1_00_000.Profile.PatientChild
-    | MR.V1_00_000.Profile.DiagnosticReportUltrasoundI
-    | CMR.V1_00_000.Profile.CMRPractitioner;
+    | Vaccination.V1_1_0.Profile.Practitioner
+    | Vaccination.V1_1_0.Profile.PractitionerAddendum
+    | Vaccination.V1_1_0.Profile.Organization
+    | MR.V1_0_0.Profile.Organization
+    | MR.V1_0_0.Profile.Practitioner
+    | MR.V1_0_0.Profile.PatientChild
+    | MR.V1_0_0.Profile.DiagnosticReportUltrasoundI
+    | CMR.V1_0_0.Profile.CMRPractitioner;
 
 export default class AdditionalCommentModel extends BaseModel<AdditionalCommentType> {
     constructor(
@@ -46,24 +46,22 @@ export default class AdditionalCommentModel extends BaseModel<AdditionalCommentT
         this.headline = "";
 
         const additionalComments = ParserUtil.getSlices<
-            | Vaccination.V1_00_000.Extension.AdditionalComment
-            | MR.V1_00_000.Profile.OrganizationErgaenzendeAngaben
-            | MR.V1_00_000.Profile.PractitionerErgaenzendeAngaben
-            | MR.V1_00_000.Profile.PatientChildErgaenzendeAngaben
-            | MR.V1_00_000.Profile.DiagnosticReportUltrasoundIErgaenzendeAngaben
+            | MR.V1_0_0.Profile.OrganizationErgaenzendeAngaben
+            | MR.V1_0_0.Profile.PractitionerErgaenzendeAngaben
+            | MR.V1_0_0.Profile.PatientChildErgaenzendeAngaben
+            | MR.V1_0_0.Profile.DiagnosticReportUltrasoundIErgaenzendeAngaben
         >(
             [
-                Vaccination.V1_00_000.Extension.AdditionalComment,
-                MR.V1_00_000.Profile.OrganizationErgaenzendeAngaben,
-                MR.V1_00_000.Profile.PractitionerErgaenzendeAngaben,
-                MR.V1_00_000.Profile.PatientChildErgaenzendeAngaben,
-                MR.V1_00_000.Profile.DiagnosticReportUltrasoundIErgaenzendeAngaben
+                MR.V1_0_0.Profile.OrganizationErgaenzendeAngaben,
+                MR.V1_0_0.Profile.PractitionerErgaenzendeAngaben,
+                MR.V1_0_0.Profile.PatientChildErgaenzendeAngaben,
+                MR.V1_0_0.Profile.DiagnosticReportUltrasoundIErgaenzendeAngaben
             ],
             this.value.extension
         );
 
         let label = customLabel ? customLabel : "Ergänzende Angaben";
-        if (MR.V1_00_000.Profile.DiagnosticReportUltrasoundI.is(value)) {
+        if (MR.V1_0_0.Profile.DiagnosticReportUltrasoundI.is(value)) {
             label = "Bemerkungen";
         }
 

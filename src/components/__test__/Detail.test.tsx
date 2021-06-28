@@ -43,10 +43,10 @@ describe("<Components.Detail />", () => {
 
     type DetailsValue = {
         bundle:
-            | typeof Vaccination.V1_00_000.Profile.BundleEntry
-            | typeof ZAEB.V1_00_000.Profile.Bundle
-            | typeof MR.V1_00_000.Profile.Bundle
-            | typeof CMR.V1_00_000.Profile.CMRBundle;
+            | typeof Vaccination.V1_1_0.Profile.BundleEntry
+            | typeof ZAEB.V1_1_0.Profile.Bundle
+            | typeof MR.V1_0_0.Profile.Bundle
+            | typeof CMR.V1_0_0.Profile.CMRBundle;
         definitions: {
             profile: AnyType;
             models?: (new (
@@ -65,10 +65,10 @@ describe("<Components.Detail />", () => {
     const detailList: DetailsValue[] = [
         {
             mioString: "IM",
-            bundle: Vaccination.V1_00_000.Profile.BundleEntry,
+            bundle: Vaccination.V1_1_0.Profile.BundleEntry,
             definitions: [
                 {
-                    profile: Vaccination.V1_00_000.Profile.RecordAddendum,
+                    profile: Vaccination.V1_1_0.Profile.RecordAddendum,
                     models: [Models.IM.RecordAddendumModel],
                     component: Detail,
                     required: [
@@ -87,7 +87,7 @@ describe("<Components.Detail />", () => {
                     ]
                 },
                 {
-                    profile: Vaccination.V1_00_000.Profile.RecordPrime,
+                    profile: Vaccination.V1_1_0.Profile.RecordPrime,
                     models: [Models.IM.RecordPrimeModel],
                     component: Detail,
                     required: [
@@ -106,7 +106,7 @@ describe("<Components.Detail />", () => {
                     ]
                 },
                 {
-                    profile: Vaccination.V1_00_000.Profile.Condition,
+                    profile: Vaccination.V1_1_0.Profile.Condition,
                     models: [Models.IM.ConditionModel],
                     component: Detail,
                     required: ["Dokumentiert am"],
@@ -117,14 +117,14 @@ describe("<Components.Detail />", () => {
                     ]
                 },
                 {
-                    profile: Vaccination.V1_00_000.Profile.ObservationImmunizationStatus,
+                    profile: Vaccination.V1_1_0.Profile.ObservationImmunizationStatus,
                     models: [Models.IM.ObservationModel],
                     component: Detail,
                     required: ["Datum des Tests", "Ergebnis"],
-                    contain: ["Anmerkungen zum durchgeführten Test", "Dokumentiert von"]
+                    contain: ["Anmerkungen zum durchgeführten Test"]
                 },
                 {
-                    profile: Vaccination.V1_00_000.Profile.Organization,
+                    profile: Vaccination.V1_1_0.Profile.Organization,
                     models: [
                         Models.IM.OrganizationModel,
                         Models.AddressModel,
@@ -140,7 +140,7 @@ describe("<Components.Detail />", () => {
                     ]
                 },
                 {
-                    profile: Vaccination.V1_00_000.Profile.Patient,
+                    profile: Vaccination.V1_1_0.Profile.Patient,
                     models: [Models.IM.PatientModel],
                     component: Detail,
                     required: ["Geburtsdatum"],
@@ -151,7 +151,7 @@ describe("<Components.Detail />", () => {
                     ]
                 },
                 {
-                    profile: Vaccination.V1_00_000.Profile.Practitioner,
+                    profile: Vaccination.V1_1_0.Profile.Practitioner,
                     models: [
                         Models.IM.PractitionerModel,
                         Models.TelecomModel,
@@ -166,7 +166,7 @@ describe("<Components.Detail />", () => {
                     ]
                 },
                 {
-                    profile: Vaccination.V1_00_000.Profile.PractitionerAddendum,
+                    profile: Vaccination.V1_1_0.Profile.PractitionerAddendum,
                     component: Detail,
                     models: [
                         Models.IM.PractitionerModel,
@@ -185,10 +185,10 @@ describe("<Components.Detail />", () => {
         },
         {
             mioString: "ZB",
-            bundle: ZAEB.V1_00_000.Profile.Bundle,
+            bundle: ZAEB.V1_1_0.Profile.Bundle,
             definitions: [
                 {
-                    profile: ZAEB.V1_00_000.Profile.GaplessDocumentation,
+                    profile: ZAEB.V1_1_0.Profile.ObservationGaplessDocumentation,
                     models: [Models.ZB.GaplessDocumentationModel],
                     component: Detail,
                     required: ["Datum", "Eintrag durch", "Datum des Eintrags"],
@@ -198,7 +198,7 @@ describe("<Components.Detail />", () => {
                     ]
                 },
                 {
-                    profile: ZAEB.V1_00_000.Profile.Observation,
+                    profile: ZAEB.V1_1_0.Profile.ObservationDentalCheckUp,
                     models: [Models.ZB.ObservationModel],
                     component: Detail,
                     required: [
@@ -209,7 +209,7 @@ describe("<Components.Detail />", () => {
                     contain: []
                 },
                 {
-                    profile: ZAEB.V1_00_000.Profile.Organization,
+                    profile: ZAEB.V1_1_0.Profile.Organization,
                     models: [
                         Models.ZB.OrganizationModel,
                         Models.AddressModel,
@@ -217,10 +217,10 @@ describe("<Components.Detail />", () => {
                     ],
                     component: Detail,
                     required: ["Postleitzahl"],
-                    contain: [/(IKNR)|(BSNR)|(ZANR)/, "Anschrift", "Kontaktinformationen"]
+                    contain: [/(IKNR)|(BSNR)|(KZVA)/, "Anschrift", "Kontaktinformationen"]
                 },
                 {
-                    profile: ZAEB.V1_00_000.Profile.Patient,
+                    profile: ZAEB.V1_1_0.Profile.Patient,
                     models: [Models.ZB.PatientModel, Models.AddressModel],
                     component: Detail,
                     required: ["Geburtsdatum"],
@@ -237,10 +237,10 @@ describe("<Components.Detail />", () => {
         },
         {
             mioString: "MR",
-            bundle: MR.V1_00_000.Profile.Bundle,
+            bundle: MR.V1_0_0.Profile.Bundle,
             definitions: [
                 {
-                    profile: MR.V1_00_000.Profile.PatientMother,
+                    profile: MR.V1_0_0.Profile.PatientMother,
                     models: [Models.MP.Basic.PatientMotherModel, Models.AddressModel],
                     component: Detail,
                     required: ["Geburtsdatum"],
@@ -257,10 +257,10 @@ describe("<Components.Detail />", () => {
         },
         {
             mioString: "UH",
-            bundle: CMR.V1_00_000.Profile.CMRBundle,
+            bundle: CMR.V1_0_0.Profile.CMRBundle,
             definitions: [
                 {
-                    profile: CMR.V1_00_000.Profile.CMRPatient,
+                    profile: CMR.V1_0_0.Profile.CMRPatient,
                     models: [Models.UH.Basic.PatientModel],
                     component: Detail,
                     required: ["Geburtsdatum"],

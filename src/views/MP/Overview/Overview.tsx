@@ -19,7 +19,7 @@
 import React from "react";
 import { History } from "history";
 
-import { ParserUtil, MRResource, MIOEntry, MR, AnyType } from "@kbv/mioparser";
+import { ParserUtil, MRResource, MIOEntry, AnyType, MR } from "@kbv/mioparser";
 
 import { UI, Util } from "../../../components/";
 import PatientCard from "../../../components/PatientCard";
@@ -36,7 +36,7 @@ type OverviewGroup = {
 };
 
 type OverviewProps = {
-    mio: MR.V1_00_000.Profile.Bundle;
+    mio: MR.V1_0_0.Profile.Bundle;
     history: History;
 };
 
@@ -59,14 +59,14 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
 
         const templateStampInformation = (
             values: UI.EntryGroupTemplateValues<
-                MR.V1_00_000.Profile.Organization | MR.V1_00_000.Profile.Practitioner
+                MR.V1_0_0.Profile.Organization | MR.V1_0_0.Profile.Practitioner
             >
         ): JSX.Element | undefined => {
             const resource = values.entry.resource;
             const onClick = Util.Misc.toEntry(history, mio, values.entry);
             const key = `item_${values.index}`;
 
-            if (MR.V1_00_000.Profile.Organization.is(resource)) {
+            if (MR.V1_0_0.Profile.Organization.is(resource)) {
                 return (
                     <UI.ListItem.Basic
                         value={resource.name}
@@ -75,7 +75,7 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
                         key={key}
                     />
                 );
-            } else if (MR.V1_00_000.Profile.Practitioner.is(resource)) {
+            } else if (MR.V1_0_0.Profile.Practitioner.is(resource)) {
                 return (
                     <UI.ListItem.Basic
                         value={Util.MP.getPractitionerName(resource)}
@@ -89,15 +89,15 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
 
         const templateAppointment = (
             values: UI.EntryGroupTemplateValues<
-                | MR.V1_00_000.Profile.AppointmentPregnancy
-                | MR.V1_00_000.Profile.EncounterArrivalMaternityHospital
+                | MR.V1_0_0.Profile.AppointmentPregnancy
+                | MR.V1_0_0.Profile.EncounterArrivalMaternityHospital
             >
         ): JSX.Element | undefined => {
             const entry = values.entry;
             const onClick = Util.Misc.toEntry(history, mio, values.entry);
             const key = `item_${values.index}`;
 
-            if (MR.V1_00_000.Profile.AppointmentPregnancy.is(entry.resource)) {
+            if (MR.V1_0_0.Profile.AppointmentPregnancy.is(entry.resource)) {
                 const model = new Models.MP.AppointmentPregnancyModel(
                     entry.resource,
                     entry.fullUrl,
@@ -114,7 +114,7 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
                     />
                 );
             } else if (
-                MR.V1_00_000.Profile.EncounterArrivalMaternityHospital.is(entry.resource)
+                MR.V1_0_0.Profile.EncounterArrivalMaternityHospital.is(entry.resource)
             ) {
                 const model = new Models.MP.EncounterArrivalMaternityHospitalModel(
                     entry.resource,
@@ -137,11 +137,11 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
 
         const templateTerminbestimmung = (
             values: UI.EntryGroupTemplateValues<
-                | MR.V1_00_000.Profile.ObservationCalculatedDeliveryDate
-                | MR.V1_00_000.Profile.ObservationDateDeterminationChildbirth
-                | MR.V1_00_000.Profile.ObservationDateOfConception
-                | MR.V1_00_000.Profile.ObservationDeterminationOfPregnancy
-                | MR.V1_00_000.Profile.ObservationMenstrualCycle
+                | MR.V1_0_0.Profile.ObservationCalculatedDeliveryDate
+                | MR.V1_0_0.Profile.ObservationDateDeterminationChildbirth
+                | MR.V1_0_0.Profile.ObservationDateOfConception
+                | MR.V1_0_0.Profile.ObservationDeterminationOfPregnancy
+                | MR.V1_0_0.Profile.ObservationMenstrualCycle
             >
         ): JSX.Element | undefined => {
             const entry = values.entry;
@@ -149,14 +149,12 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
             const key = `item_${values.index}`;
 
             if (
-                MR.V1_00_000.Profile.ObservationCalculatedDeliveryDate.is(
+                MR.V1_0_0.Profile.ObservationCalculatedDeliveryDate.is(entry.resource) ||
+                MR.V1_0_0.Profile.ObservationDeterminationOfPregnancy.is(
                     entry.resource
                 ) ||
-                MR.V1_00_000.Profile.ObservationDeterminationOfPregnancy.is(
-                    entry.resource
-                ) ||
-                MR.V1_00_000.Profile.ObservationDateOfConception.is(entry.resource) ||
-                MR.V1_00_000.Profile.ObservationMenstrualCycle.is(entry.resource)
+                MR.V1_0_0.Profile.ObservationDateOfConception.is(entry.resource) ||
+                MR.V1_0_0.Profile.ObservationMenstrualCycle.is(entry.resource)
             ) {
                 const model = new Models.MP.Basic.ObservationModel(
                     entry.resource,
@@ -176,7 +174,7 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
                     />
                 );
             } else if (
-                MR.V1_00_000.Profile.ObservationDateDeterminationChildbirth.is(
+                MR.V1_0_0.Profile.ObservationDateDeterminationChildbirth.is(
                     entry.resource
                 )
             ) {
@@ -212,15 +210,15 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
 
         const templateSpecialFindings = (
             values: UI.EntryGroupTemplateValues<
-                | MR.V1_00_000.Profile.Composition
-                | MR.V1_00_000.Profile.ObservationoGTTPretest
-                | MR.V1_00_000.Profile.ObservationoGTTDiagnosistest
+                | MR.V1_0_0.Profile.Composition
+                | MR.V1_0_0.Profile.ObservationoGTTPretest
+                | MR.V1_0_0.Profile.ObservationoGTTDiagnosistest
             >
         ): JSX.Element | undefined => {
             const resource = values.entry.resource;
             const mioId = ParserUtil.getUuid(mio.identifier.value);
 
-            if (MR.V1_00_000.Profile.Composition.is(resource)) {
+            if (MR.V1_0_0.Profile.Composition.is(resource)) {
                 const results: JSX.Element[] = [];
                 let hasSpecialFindings = false;
                 let hasOGTT = false;
@@ -233,7 +231,7 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
                                 if (
                                     ParserUtil.getEntryWithRef(
                                         mio,
-                                        [MR.V1_00_000.Profile.ObservationSpecialFindings],
+                                        [MR.V1_0_0.Profile.ObservationSpecialFindings],
                                         ref
                                     )
                                 ) {
@@ -251,9 +249,9 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
                                             ParserUtil.getEntryWithRef(
                                                 mio,
                                                 [
-                                                    MR.V1_00_000.Profile
+                                                    MR.V1_0_0.Profile
                                                         .ObservationoGTTPretest,
-                                                    MR.V1_00_000.Profile
+                                                    MR.V1_0_0.Profile
                                                         .ObservationoGTTDiagnosistest
                                                 ],
                                                 ref
@@ -302,15 +300,15 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
 
         const templateCounselling = (
             values: UI.EntryGroupTemplateValues<
-                | MR.V1_00_000.Profile.ProcedureCounselling
-                | MR.V1_00_000.Profile.ObservationHIVTestPerformed
+                | MR.V1_0_0.Profile.ProcedureCounselling
+                | MR.V1_0_0.Profile.ObservationHIVTestPerformed
             >
         ): JSX.Element | undefined => {
             const entry = values.entry;
             const onClick = Util.Misc.toEntry(history, mio, entry);
             const key = `item_${values.index}`;
 
-            if (MR.V1_00_000.Profile.ProcedureCounselling.is(entry.resource)) {
+            if (MR.V1_0_0.Profile.ProcedureCounselling.is(entry.resource)) {
                 const model = new Models.MP.ProcedureCounsellingModel(
                     entry.resource,
                     entry.fullUrl,
@@ -326,9 +324,7 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
                         key={key}
                     />
                 );
-            } else if (
-                MR.V1_00_000.Profile.ObservationHIVTestPerformed.is(entry.resource)
-            ) {
+            } else if (MR.V1_0_0.Profile.ObservationHIVTestPerformed.is(entry.resource)) {
                 const model = new Models.MP.Basic.ObservationModel(
                     entry.resource,
                     entry.fullUrl,
@@ -349,13 +345,13 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
         };
 
         const templateAntiDProphylaxis = (
-            values: UI.EntryGroupTemplateValues<MR.V1_00_000.Profile.ProcedureAntiDProphylaxis>
+            values: UI.EntryGroupTemplateValues<MR.V1_0_0.Profile.ProcedureAntiDProphylaxis>
         ): JSX.Element | undefined => {
             const entry = values.entry;
             const onClick = Util.Misc.toEntry(history, mio, entry);
             const key = `item_${values.index}`;
 
-            if (MR.V1_00_000.Profile.ProcedureAntiDProphylaxis.is(entry.resource)) {
+            if (MR.V1_0_0.Profile.ProcedureAntiDProphylaxis.is(entry.resource)) {
                 const model = new Models.MP.Basic.ProcedureBaseModel(
                     entry.resource,
                     entry.fullUrl,
@@ -376,13 +372,13 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
         };
 
         const templateTreatment = (
-            values: UI.EntryGroupTemplateValues<MR.V1_00_000.Profile.EncounterInpatientTreatment>
+            values: UI.EntryGroupTemplateValues<MR.V1_0_0.Profile.EncounterInpatientTreatment>
         ): JSX.Element | undefined => {
             const entry = values.entry;
             const onClick = Util.Misc.toEntry(history, mio, entry);
             const key = `item_${values.index}`;
 
-            if (MR.V1_00_000.Profile.EncounterInpatientTreatment.is(entry.resource)) {
+            if (MR.V1_0_0.Profile.EncounterInpatientTreatment.is(entry.resource)) {
                 const model = new Models.MP.EncounterInpatientTreatmentModel(
                     entry.resource,
                     entry.fullUrl,
@@ -402,7 +398,7 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
         };
 
         const templateComposition = (
-            values: UI.EntryGroupTemplateValues<MR.V1_00_000.Profile.Composition>
+            values: UI.EntryGroupTemplateValues<MR.V1_0_0.Profile.Composition>
         ): JSX.Element | undefined => {
             const resource = values.entry.resource;
             const mioId = ParserUtil.getUuid(mio.identifier.value);
@@ -445,7 +441,7 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
         };
 
         const templateCompositionAnamnese = (
-            values: UI.EntryGroupTemplateValues<MR.V1_00_000.Profile.Composition>
+            values: UI.EntryGroupTemplateValues<MR.V1_0_0.Profile.Composition>
         ): JSX.Element | undefined => {
             const resource = values.entry.resource;
             const mioId = ParserUtil.getUuid(mio.identifier.value);
@@ -464,12 +460,11 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
                                 ParserUtil.getEntryWithRef(
                                     mio,
                                     [
-                                        MR.V1_00_000.Profile.ObservationAge,
-                                        MR.V1_00_000.Profile
-                                            .ObservationBaselineWeightMother,
-                                        MR.V1_00_000.Profile.ObservationHeight,
-                                        MR.V1_00_000.Profile.ObservationGravida,
-                                        MR.V1_00_000.Profile.ObservationPara
+                                        MR.V1_0_0.Profile.ObservationAge,
+                                        MR.V1_0_0.Profile.ObservationBaselineWeightMother,
+                                        MR.V1_0_0.Profile.ObservationHeight,
+                                        MR.V1_0_0.Profile.ObservationGravida,
+                                        MR.V1_0_0.Profile.ObservationPara
                                     ],
                                     ref
                                 )
@@ -487,12 +482,12 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
                                     ParserUtil.getEntryWithRef(
                                         mio,
                                         [
-                                            MR.V1_00_000.Profile
+                                            MR.V1_0_0.Profile
                                                 .ClinicalImpressionInitialExamination,
-                                            MR.V1_00_000.Profile.ObservationPregnancyRisk,
-                                            MR.V1_00_000.Profile
+                                            MR.V1_0_0.Profile.ObservationPregnancyRisk,
+                                            MR.V1_0_0.Profile
                                                 .ObservationPreviousPregnancy,
-                                            MR.V1_00_000.Profile.ObservationCatalogueA
+                                            MR.V1_0_0.Profile.ObservationCatalogueA
                                         ],
                                         ref
                                     )
@@ -535,13 +530,13 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
         };
 
         const templateHints = (
-            values: UI.EntryGroupTemplateValues<MR.V1_00_000.Profile.Composition>
+            values: UI.EntryGroupTemplateValues<MR.V1_0_0.Profile.Composition>
         ): JSX.Element | undefined => {
             const resource = values.entry.resource;
 
-            if (MR.V1_00_000.Profile.Composition.is(resource)) {
-                const hints = ParserUtil.getSlice<MR.V1_00_000.Profile.CompositionHinweise>(
-                    MR.V1_00_000.Profile.CompositionHinweise,
+            if (MR.V1_0_0.Profile.Composition.is(resource)) {
+                const hints = ParserUtil.getSlice<MR.V1_0_0.Profile.CompositionHinweise>(
+                    MR.V1_0_0.Profile.CompositionHinweise,
                     resource.extension
                 );
 
@@ -584,8 +579,8 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
                 headline:
                     "Stempelinformationen des Arztes/der Klinik/der mitbetreuenden Hebamme",
                 baseValues: [
-                    MR.V1_00_000.Profile.Organization,
-                    MR.V1_00_000.Profile.Practitioner
+                    MR.V1_0_0.Profile.Organization,
+                    MR.V1_0_0.Profile.Practitioner
                 ],
                 template: templateStampInformation,
                 compare: Compare.StampInformation,
@@ -594,8 +589,8 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
             {
                 headline: "Termine",
                 baseValues: [
-                    MR.V1_00_000.Profile.AppointmentPregnancy,
-                    MR.V1_00_000.Profile.EncounterArrivalMaternityHospital
+                    MR.V1_0_0.Profile.AppointmentPregnancy,
+                    MR.V1_0_0.Profile.EncounterArrivalMaternityHospital
                 ],
                 template: templateAppointment,
                 compare: Compare.Appointment,
@@ -604,11 +599,11 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
             {
                 headline: "Terminbestimmung",
                 baseValues: [
-                    MR.V1_00_000.Profile.ObservationDateDeterminationChildbirth,
-                    MR.V1_00_000.Profile.ObservationMenstrualCycle,
-                    MR.V1_00_000.Profile.ObservationDateOfConception,
-                    MR.V1_00_000.Profile.ObservationCalculatedDeliveryDate,
-                    MR.V1_00_000.Profile.ObservationDeterminationOfPregnancy
+                    MR.V1_0_0.Profile.ObservationDateDeterminationChildbirth,
+                    MR.V1_0_0.Profile.ObservationMenstrualCycle,
+                    MR.V1_0_0.Profile.ObservationDateOfConception,
+                    MR.V1_0_0.Profile.ObservationCalculatedDeliveryDate,
+                    MR.V1_0_0.Profile.ObservationDeterminationOfPregnancy
                 ],
                 template: templateTerminbestimmung,
                 compare: Compare.DateDetermination,
@@ -616,16 +611,16 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
             },
             {
                 headline: "Anamnese und allgemeine Befunde",
-                baseValues: [MR.V1_00_000.Profile.Composition],
+                baseValues: [MR.V1_0_0.Profile.Composition],
                 template: templateCompositionAnamnese,
                 expandable: true
             },
             {
                 headline: "Besondere Befunde",
                 baseValues: [
-                    MR.V1_00_000.Profile.Composition,
-                    MR.V1_00_000.Profile.ObservationoGTTPretest,
-                    MR.V1_00_000.Profile.ObservationoGTTDiagnosistest
+                    MR.V1_0_0.Profile.Composition,
+                    MR.V1_0_0.Profile.ObservationoGTTPretest,
+                    MR.V1_0_0.Profile.ObservationoGTTDiagnosistest
                 ],
                 template: templateSpecialFindings,
                 expandable: true
@@ -633,33 +628,33 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
             {
                 headline: "Beratung",
                 baseValues: [
-                    MR.V1_00_000.Profile.ObservationHIVTestPerformed,
-                    MR.V1_00_000.Profile.ProcedureCounselling
+                    MR.V1_0_0.Profile.ObservationHIVTestPerformed,
+                    MR.V1_0_0.Profile.ProcedureCounselling
                 ],
                 template: templateCounselling,
                 expandable: true
             },
             {
                 headline: "Anti-D-Prophylaxe",
-                baseValues: [MR.V1_00_000.Profile.ProcedureAntiDProphylaxis],
+                baseValues: [MR.V1_0_0.Profile.ProcedureAntiDProphylaxis],
                 template: templateAntiDProphylaxis,
                 expandable: true
             },
             {
                 headline: "Untersuchungen",
-                baseValues: [MR.V1_00_000.Profile.Composition],
+                baseValues: [MR.V1_0_0.Profile.Composition],
                 template: templateComposition,
                 expandable: true
             },
             {
                 headline: "Stationäre Behandlung",
-                baseValues: [MR.V1_00_000.Profile.EncounterInpatientTreatment],
+                baseValues: [MR.V1_0_0.Profile.EncounterInpatientTreatment],
                 template: templateTreatment,
                 expandable: true
             },
             {
                 headline: "Hinweise",
-                baseValues: [MR.V1_00_000.Profile.Composition],
+                baseValues: [MR.V1_0_0.Profile.Composition],
                 template: templateHints
             }
         ];

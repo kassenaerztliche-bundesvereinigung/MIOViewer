@@ -24,24 +24,24 @@ import { Util } from "../../components";
 import { AddressModel, BaseModel, ModelValue, TelecomModel } from "../";
 import { OrganizationModel } from "./";
 
-export default class ObservationModel extends BaseModel<ZAEB.V1_00_000.Profile.Observation> {
+export default class ObservationModel extends BaseModel<ZAEB.V1_1_0.Profile.ObservationDentalCheckUp> {
     constructor(
-        value: ZAEB.V1_00_000.Profile.Observation,
+        value: ZAEB.V1_1_0.Profile.ObservationDentalCheckUp,
         fullUrl: string,
         parent: KBVBundleResource,
         history?: History
     ) {
         super(value, fullUrl, parent, history);
 
-        const composition = ParserUtil.getEntry<ZAEB.V1_00_000.Profile.Composition>(
+        const composition = ParserUtil.getEntry<ZAEB.V1_1_0.Profile.Composition>(
             this.parent,
-            [ZAEB.V1_00_000.Profile.Composition]
+            [ZAEB.V1_1_0.Profile.Composition]
         )?.resource;
 
         const authorRef = composition?.author[0].reference;
 
         const organization = Util.ZB.getOrganization(
-            this.parent as ZAEB.V1_00_000.Profile.Bundle,
+            this.parent as ZAEB.V1_1_0.Profile.Bundle,
             authorRef
         );
 

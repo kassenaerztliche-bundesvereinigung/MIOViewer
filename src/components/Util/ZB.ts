@@ -18,20 +18,21 @@
 
 import { ZAEB, MIOEntry, ParserUtil } from "@kbv/mioparser";
 import { Util } from "../index";
+import { FHIR } from "./index";
 
-type Bundle = ZAEB.V1_00_000.Profile.Bundle;
+type Bundle = ZAEB.V1_1_0.Profile.Bundle;
 
 export function getComposition(
     mio: Bundle
-): MIOEntry<ZAEB.V1_00_000.Profile.Composition> | undefined {
-    return ParserUtil.getEntry<ZAEB.V1_00_000.Profile.Composition>(mio, [
-        ZAEB.V1_00_000.Profile.Composition
+): MIOEntry<ZAEB.V1_1_0.Profile.Composition> | undefined {
+    return ParserUtil.getEntry<ZAEB.V1_1_0.Profile.Composition>(mio, [
+        ZAEB.V1_1_0.Profile.Composition
     ]);
 }
 
 export function getPatient(
     mio: Bundle
-): MIOEntry<ZAEB.V1_00_000.Profile.Patient> | undefined {
+): MIOEntry<ZAEB.V1_1_0.Profile.Patient> | undefined {
     const subject = Util.ZB.getComposition(mio)?.resource.subject.reference;
     return Util.ZB.getPatientByRef(mio, subject);
 }
@@ -39,11 +40,11 @@ export function getPatient(
 export function getPatientByRef(
     mio: Bundle,
     ref?: string
-): MIOEntry<ZAEB.V1_00_000.Profile.Patient> | undefined {
+): MIOEntry<ZAEB.V1_1_0.Profile.Patient> | undefined {
     if (!ref) return;
-    return ParserUtil.getEntryWithRef<ZAEB.V1_00_000.Profile.Patient>(
+    return ParserUtil.getEntryWithRef<ZAEB.V1_1_0.Profile.Patient>(
         mio,
-        [ZAEB.V1_00_000.Profile.Patient],
+        [ZAEB.V1_1_0.Profile.Patient],
         ref
     );
 }
@@ -51,10 +52,12 @@ export function getPatientByRef(
 export function getEntries(
     mio: Bundle
 ): MIOEntry<
-    ZAEB.V1_00_000.Profile.Observation | ZAEB.V1_00_000.Profile.GaplessDocumentation
+    | ZAEB.V1_1_0.Profile.ObservationDentalCheckUp
+    | ZAEB.V1_1_0.Profile.ObservationGaplessDocumentation
 >[] {
     const entries: MIOEntry<
-        ZAEB.V1_00_000.Profile.Observation | ZAEB.V1_00_000.Profile.GaplessDocumentation
+        | ZAEB.V1_1_0.Profile.ObservationDentalCheckUp
+        | ZAEB.V1_1_0.Profile.ObservationGaplessDocumentation
     >[] = [];
 
     const composition = Util.ZB.getComposition(mio)?.resource;
@@ -65,13 +68,13 @@ export function getEntries(
 
         refs.forEach((ref) => {
             const resource = ParserUtil.getEntryWithRef<
-                | ZAEB.V1_00_000.Profile.Observation
-                | ZAEB.V1_00_000.Profile.GaplessDocumentation
+                | ZAEB.V1_1_0.Profile.ObservationDentalCheckUp
+                | ZAEB.V1_1_0.Profile.ObservationGaplessDocumentation
             >(
                 mio,
                 [
-                    ZAEB.V1_00_000.Profile.Observation,
-                    ZAEB.V1_00_000.Profile.GaplessDocumentation
+                    ZAEB.V1_1_0.Profile.ObservationDentalCheckUp,
+                    ZAEB.V1_1_0.Profile.ObservationGaplessDocumentation
                 ],
                 ref
             );
@@ -82,35 +85,35 @@ export function getEntries(
     return entries;
 }
 
-export function getObservation(
+export function getObservationDentalCheckUp(
     mio: Bundle
-): MIOEntry<ZAEB.V1_00_000.Profile.Observation> | undefined {
-    return ParserUtil.getEntry<ZAEB.V1_00_000.Profile.Observation>(mio, [
-        ZAEB.V1_00_000.Profile.Observation
+): MIOEntry<ZAEB.V1_1_0.Profile.ObservationDentalCheckUp> | undefined {
+    return ParserUtil.getEntry<ZAEB.V1_1_0.Profile.ObservationDentalCheckUp>(mio, [
+        ZAEB.V1_1_0.Profile.ObservationDentalCheckUp
     ]);
 }
 
-export function getGaplessDocumentation(
+export function getObservationGaplessDocumentation(
     mio: Bundle
-): MIOEntry<ZAEB.V1_00_000.Profile.GaplessDocumentation> | undefined {
-    return ParserUtil.getEntry<ZAEB.V1_00_000.Profile.GaplessDocumentation>(mio, [
-        ZAEB.V1_00_000.Profile.GaplessDocumentation
+): MIOEntry<ZAEB.V1_1_0.Profile.ObservationGaplessDocumentation> | undefined {
+    return ParserUtil.getEntry<ZAEB.V1_1_0.Profile.ObservationGaplessDocumentation>(mio, [
+        ZAEB.V1_1_0.Profile.ObservationGaplessDocumentation
     ]);
 }
 
 export function getOrganization(
     mio: Bundle,
     ref?: string
-): MIOEntry<ZAEB.V1_00_000.Profile.Organization> | undefined {
+): MIOEntry<ZAEB.V1_1_0.Profile.Organization> | undefined {
     if (ref) {
-        return ParserUtil.getEntryWithRef<ZAEB.V1_00_000.Profile.Organization>(
+        return ParserUtil.getEntryWithRef<ZAEB.V1_1_0.Profile.Organization>(
             mio,
-            [ZAEB.V1_00_000.Profile.Organization],
+            [ZAEB.V1_1_0.Profile.Organization],
             ref
         );
     } else {
-        return ParserUtil.getEntry<ZAEB.V1_00_000.Profile.Organization>(mio, [
-            ZAEB.V1_00_000.Profile.Organization
+        return ParserUtil.getEntry<ZAEB.V1_1_0.Profile.Organization>(mio, [
+            ZAEB.V1_1_0.Profile.Organization
         ]);
     }
 }
@@ -119,11 +122,11 @@ export function getOrganization(
  *
  * @param patient
  */
-export function getPatientName(patient: ZAEB.V1_00_000.Profile.Patient): string {
+export function getPatientName(patient: ZAEB.V1_1_0.Profile.Patient): string {
     if (patient && patient.name) {
         let nameStr = "-";
-        const nameSlice = ParserUtil.getSlice<ZAEB.V1_00_000.Profile.PatientName>(
-            ZAEB.V1_00_000.Profile.PatientName,
+        const nameSlice = ParserUtil.getSlice<ZAEB.V1_1_0.Profile.PatientName>(
+            ZAEB.V1_1_0.Profile.PatientName,
             patient.name
         );
 
@@ -141,22 +144,22 @@ export function getPatientName(patient: ZAEB.V1_00_000.Profile.Patient): string 
             } else if (nameSlice._family) {
                 const partsFamily = [];
 
-                const addition = ParserUtil.getSlice<ZAEB.V1_00_000.Profile.PatientNameFamilyNamenszusatz>(
-                    ZAEB.V1_00_000.Profile.PatientNameFamilyNamenszusatz,
+                const addition = ParserUtil.getSlice<ZAEB.V1_1_0.Profile.PatientNameFamilyNamenszusatz>(
+                    ZAEB.V1_1_0.Profile.PatientNameFamilyNamenszusatz,
                     nameSlice._family.extension
                 )?.valueString;
 
                 if (addition) partsFamily.push(addition);
 
-                const pre = ParserUtil.getSlice<ZAEB.V1_00_000.Profile.PatientNameFamilyVorsatzwort>(
-                    ZAEB.V1_00_000.Profile.PatientNameFamilyVorsatzwort,
+                const pre = ParserUtil.getSlice<ZAEB.V1_1_0.Profile.PatientNameFamilyVorsatzwort>(
+                    ZAEB.V1_1_0.Profile.PatientNameFamilyVorsatzwort,
                     nameSlice._family.extension
                 )?.valueString;
 
                 if (pre) partsFamily.push(pre);
 
-                const family = ParserUtil.getSlice<ZAEB.V1_00_000.Profile.PatientNameFamilyNachname>(
-                    ZAEB.V1_00_000.Profile.PatientNameFamilyNachname,
+                const family = ParserUtil.getSlice<ZAEB.V1_1_0.Profile.PatientNameFamilyNachname>(
+                    ZAEB.V1_1_0.Profile.PatientNameFamilyNachname,
                     nameSlice._family.extension
                 )?.valueString;
 
@@ -174,21 +177,10 @@ export function getPatientName(patient: ZAEB.V1_00_000.Profile.Patient): string 
     return "-";
 }
 
-export function getObservationDisplay(entry: ZAEB.V1_00_000.Profile.Observation): string {
-    if (entry.code.text) {
-        return entry.code.text;
-    } else {
-        let result = "-";
-        entry.code.coding.forEach((c) => {
-            ZAEB.V1_00_000.ConceptMap.PreventiveCheckUpGerman.forEach((cm) => {
-                cm.element.forEach((el) => {
-                    if (el.code === c.code) {
-                        result = el.target.map((t) => t.display).join(", ");
-                    }
-                });
-            });
-        });
-
-        return result;
-    }
+export function getObservationDisplay(
+    entry: ZAEB.V1_1_0.Profile.ObservationDentalCheckUp
+): string {
+    return FHIR.handleCode(entry.code, [
+        ZAEB.V1_1_0.ConceptMap.PreventiveCheckUpGerman
+    ]).join(", ");
 }

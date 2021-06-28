@@ -28,7 +28,7 @@ export default abstract class MPBaseModel<T extends MRResource> extends BaseMode
     protected constructor(
         value: T,
         fullUrl: string,
-        parent: MR.V1_00_000.Profile.Bundle,
+        parent: MR.V1_0_0.Profile.Bundle,
         history?: History
     ) {
         super(value, fullUrl, parent, history);
@@ -52,30 +52,6 @@ export default abstract class MPBaseModel<T extends MRResource> extends BaseMode
 
     public toString(): string {
         return this.values.map((v) => v.label + ": " + v.value).join("\n");
-    }
-
-    public mainValueToPDFContent(): Content {
-        const mainValue = this.getMainValue();
-
-        if (mainValue) {
-            const content: Content[] = [
-                { text: mainValue.label + ":", bold: true },
-                { text: mainValue.value }
-            ];
-
-            return [
-                {
-                    layout: "noBorders",
-                    table: {
-                        headerRows: 0,
-                        widths: ["40%", "*"],
-                        body: [content]
-                    }
-                }
-            ];
-        } else {
-            return [];
-        }
     }
 
     protected pdfContentHint(topic: string, parent = "Mutterpass"): Content {

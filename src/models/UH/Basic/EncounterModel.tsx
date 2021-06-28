@@ -25,18 +25,18 @@ import * as Models from "../../";
 import BaseModel from "./CMRBaseModel";
 
 export type EncounterType =
-    | CMR.V1_00_000.Profile.CMREncounter
-    | CMR.V1_00_000.Profile.PCEncounter
-    | CMR.V1_00_000.Profile.PNEncounter;
+    | CMR.V1_0_0.Profile.CMREncounter
+    | CMR.V1_0_0.Profile.PCEncounter
+    | CMR.V1_0_0.Profile.PNEncounter;
 
 export default class EncounterModel extends BaseModel<EncounterType> {
     constructor(
         value: EncounterType,
         fullUrl: string,
         parent:
-            | CMR.V1_00_000.Profile.CMRBundle
-            | CMR.V1_00_000.Profile.PCBundle
-            | CMR.V1_00_000.Profile.PNBundle,
+            | CMR.V1_0_0.Profile.CMRBundle
+            | CMR.V1_0_0.Profile.PCBundle
+            | CMR.V1_0_0.Profile.PNBundle,
         history?: History
     ) {
         super(value, fullUrl, parent, history);
@@ -63,9 +63,9 @@ export default class EncounterModel extends BaseModel<EncounterType> {
     protected getParticipants(label = "Untersucht durch"): Models.ModelValue[] {
         return this.value.participant.map((p) => {
             const ref = p.individual.reference;
-            const practitioner = ParserUtil.getEntryWithRef<CMR.V1_00_000.Profile.CMRPractitioner>(
+            const practitioner = ParserUtil.getEntryWithRef<CMR.V1_0_0.Profile.CMRPractitioner>(
                 this.parent,
-                [CMR.V1_00_000.Profile.CMRPractitioner],
+                [CMR.V1_0_0.Profile.CMRPractitioner],
                 ref
             );
 
@@ -86,20 +86,19 @@ export default class EncounterModel extends BaseModel<EncounterType> {
 
     protected getServiceProvider(): Models.ModelValue | undefined {
         if (
-            CMR.V1_00_000.Profile.CMREncounter.is(this.value) ||
-            CMR.V1_00_000.Profile.PCEncounter.is(this.value)
+            CMR.V1_0_0.Profile.CMREncounter.is(this.value) ||
+            CMR.V1_0_0.Profile.PCEncounter.is(this.value)
         ) {
             const provider = this.value.serviceProvider;
             if (provider) {
                 const ref = provider.reference;
                 const organization = ParserUtil.getEntryWithRef<
-                    | CMR.V1_00_000.Profile.CMROrganization
-                    | CMR.V1_00_000.Profile.PCOrganization
+                    CMR.V1_0_0.Profile.CMROrganization | CMR.V1_0_0.Profile.PCOrganization
                 >(
                     this.parent,
                     [
-                        CMR.V1_00_000.Profile.CMROrganization,
-                        CMR.V1_00_000.Profile.PCOrganization
+                        CMR.V1_0_0.Profile.CMROrganization,
+                        CMR.V1_0_0.Profile.PCOrganization
                     ],
                     ref
                 );

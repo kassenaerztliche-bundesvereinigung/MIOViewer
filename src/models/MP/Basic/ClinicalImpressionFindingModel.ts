@@ -29,44 +29,44 @@ import { horizontalLine } from "../../../pdf/PDFHelper";
 import { ModelValue } from "../../Types";
 
 export type ClinicalImpressionFindingType =
-    | MR.V1_00_000.Profile.ClinicalImpressionInitialExamination
-    | MR.V1_00_000.Profile.ClinicalImpressionPregnancyChartEntry
-    | MR.V1_00_000.Profile.ClinicalImpressionPregnancyExaminationDischargeSummary;
+    | MR.V1_0_0.Profile.ClinicalImpressionInitialExamination
+    | MR.V1_0_0.Profile.ClinicalImpressionPregnancyChartEntry
+    | MR.V1_0_0.Profile.ClinicalImpressionPregnancyExaminationDischargeSummary;
 
 export default class ClinicalImpressionFindingModel extends MPBaseModel<ClinicalImpressionFindingType> {
     constructor(
         value: ClinicalImpressionFindingType,
         fullUrl: string,
-        parent: MR.V1_00_000.Profile.Bundle,
+        parent: MR.V1_0_0.Profile.Bundle,
         history?: History,
         protected findingConceptMap: ParserUtil.ConceptMap[] | undefined = undefined
     ) {
         super(value, fullUrl, parent, history);
 
         if (!findingConceptMap) {
-            if (MR.V1_00_000.Profile.ClinicalImpressionPregnancyChartEntry.is(value)) {
-                this.findingConceptMap = [MR.V1_00_000.ConceptMap.SpecialFindingsGerman];
+            if (MR.V1_0_0.Profile.ClinicalImpressionPregnancyChartEntry.is(value)) {
+                this.findingConceptMap = [MR.V1_0_0.ConceptMap.SpecialFindingsGerman];
             } else if (
-                MR.V1_00_000.Profile.ClinicalImpressionPregnancyExaminationDischargeSummary.is(
+                MR.V1_0_0.Profile.ClinicalImpressionPregnancyExaminationDischargeSummary.is(
                     value
                 )
             ) {
                 this.findingConceptMap = [
-                    MR.V1_00_000.ConceptMap.SpecialFindingsGerman,
-                    MR.V1_00_000.ConceptMap.CatalogueAGerman
+                    MR.V1_0_0.ConceptMap.SpecialFindingsGerman,
+                    MR.V1_0_0.ConceptMap.CatalogueAGerman
                 ];
             } else {
-                this.findingConceptMap = [MR.V1_00_000.ConceptMap.CatalogueAGerman];
+                this.findingConceptMap = [MR.V1_0_0.ConceptMap.CatalogueAGerman];
             }
         }
 
         if (
-            MR.V1_00_000.Profile.ClinicalImpressionPregnancyExaminationDischargeSummary.is(
+            MR.V1_0_0.Profile.ClinicalImpressionPregnancyExaminationDischargeSummary.is(
                 this.value
             )
         ) {
             this.headline = "Nach Katalog A/B dokumentierte wichtigste Risikonummern";
-        } else if (MR.V1_00_000.Profile.ClinicalImpressionInitialExamination.is(value)) {
+        } else if (MR.V1_0_0.Profile.ClinicalImpressionInitialExamination.is(value)) {
             this.headline = "Schwangerschaftsrisiko";
         } else {
             this.headline = "Risikofaktoren";
@@ -130,9 +130,9 @@ export default class ClinicalImpressionFindingModel extends MPBaseModel<Clinical
                             return aInt - bInt;
                         });
                     } else if (Object.prototype.hasOwnProperty.call(f, "itemReference")) {
-                        const res = ParserUtil.getEntryWithRef<MR.V1_00_000.Profile.ObservationPregnancyRisk>(
+                        const res = ParserUtil.getEntryWithRef<MR.V1_0_0.Profile.ObservationPregnancyRisk>(
                             this.parent,
-                            [MR.V1_00_000.Profile.ObservationPregnancyRisk],
+                            [MR.V1_0_0.Profile.ObservationPregnancyRisk],
                             f.itemReference?.reference ?? ""
                         );
 
@@ -140,7 +140,7 @@ export default class ClinicalImpressionFindingModel extends MPBaseModel<Clinical
                             const model = new Models.MP.Basic.ObservationModel(
                                 res.resource,
                                 res.fullUrl,
-                                this.parent as MR.V1_00_000.Profile.Bundle,
+                                this.parent as MR.V1_0_0.Profile.Bundle,
                                 this.history
                             );
 

@@ -134,11 +134,11 @@ describe("<Util/>", () => {
 
         const profiles = [
             {
-                patient: Vaccination.V1_00_000.Profile.Patient,
+                patient: Vaccination.V1_1_0.Profile.Patient,
                 getFunction: Util.IM.getPatientName
             },
             {
-                patient: ZAEB.V1_00_000.Profile.Patient,
+                patient: ZAEB.V1_1_0.Profile.Patient,
                 getFunction: Util.ZB.getPatientName
             }
         ];
@@ -171,7 +171,7 @@ describe("<Util/>", () => {
                     value: "1234567890"
                 }
             ]
-        } as Vaccination.V1_00_000.Profile.Patient)[0];
+        } as Vaccination.V1_1_0.Profile.Patient)[0];
         expect(id.label).toBe("Versichertennummer (GKV)");
         done();
     });

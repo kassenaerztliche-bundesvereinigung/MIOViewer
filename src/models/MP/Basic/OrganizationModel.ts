@@ -23,11 +23,11 @@ import { ParserUtil, MR } from "@kbv/mioparser";
 import MPBaseModel from "../MPBaseModel";
 import { ModelValue } from "../../Types";
 
-export default class OrganizationModel extends MPBaseModel<MR.V1_00_000.Profile.Organization> {
+export default class OrganizationModel extends MPBaseModel<MR.V1_0_0.Profile.Organization> {
     constructor(
-        value: MR.V1_00_000.Profile.Organization,
+        value: MR.V1_0_0.Profile.Organization,
         fullUrl: string,
-        parent: MR.V1_00_000.Profile.Bundle,
+        parent: MR.V1_0_0.Profile.Bundle,
         history?: History
     ) {
         super(value, fullUrl, parent, history);
@@ -38,8 +38,8 @@ export default class OrganizationModel extends MPBaseModel<MR.V1_00_000.Profile.
 
     protected getIdentifier(): ModelValue {
         if (this.value.identifier) {
-            const iknr = ParserUtil.getSlice<MR.V1_00_000.Profile.OrganizationInstitutionskennzeichen>(
-                MR.V1_00_000.Profile.OrganizationInstitutionskennzeichen,
+            const iknr = ParserUtil.getSlice<MR.V1_0_0.Profile.OrganizationInstitutionskennzeichen>(
+                MR.V1_0_0.Profile.OrganizationInstitutionskennzeichen,
                 this.value.identifier
             );
 
@@ -49,8 +49,8 @@ export default class OrganizationModel extends MPBaseModel<MR.V1_00_000.Profile.
                     label: "Institutionskennzeichen (IKNR)"
                 };
 
-            const bsnr = ParserUtil.getSlice<MR.V1_00_000.Profile.OrganizationBetriebsstaettennummer>(
-                MR.V1_00_000.Profile.OrganizationBetriebsstaettennummer,
+            const bsnr = ParserUtil.getSlice<MR.V1_0_0.Profile.OrganizationBetriebsstaettennummer>(
+                MR.V1_0_0.Profile.OrganizationBetriebsstaettennummer,
                 this.value.identifier
             );
 

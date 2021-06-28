@@ -25,12 +25,12 @@ import BaseModel from "../BaseModel";
 import { ModelValue } from "../Types";
 
 export type PatientType =
-    | Vaccination.V1_00_000.Profile.Patient
-    | ZAEB.V1_00_000.Profile.Patient
-    | MR.V1_00_000.Profile.PatientMother
-    | CMR.V1_00_000.Profile.CMRPatient
-    | CMR.V1_00_000.Profile.PCPatient
-    | CMR.V1_00_000.Profile.PNPatient;
+    | Vaccination.V1_1_0.Profile.Patient
+    | ZAEB.V1_1_0.Profile.Patient
+    | MR.V1_0_0.Profile.PatientMother
+    | CMR.V1_0_0.Profile.CMRPatient
+    | CMR.V1_0_0.Profile.PCPatient
+    | CMR.V1_0_0.Profile.PNPatient;
 
 export default class PatientSimpleModel extends BaseModel<PatientType> {
     constructor(
