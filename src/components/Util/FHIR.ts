@@ -24,11 +24,14 @@ type _Display = {
 };
 
 type Coding = {
+    resourceType?: "Coding";
+    id?: string;
     system: string;
     version: string;
     code: string;
     display?: string;
     _display?: _Display;
+    userSelected?: boolean;
 };
 
 type Code = {
@@ -37,19 +40,23 @@ type Code = {
 };
 
 type CodingEmpty = {
+    resourceType?: "Coding";
+    id?: string;
     system?: string;
     version?: string;
     code?: string;
     display?: string;
     _display?: _Display;
+    userSelected?: boolean;
 };
 
 type CodeEmpty = {
     coding?: CodingEmpty[];
     id?: string;
+    text?: string;
 };
 
-export type { Code, Coding, _Display };
+export type { Code, Coding, CodeEmpty, CodingEmpty, _Display };
 
 export function translateCode(
     code: string,
@@ -144,7 +151,8 @@ export function handleCodeVS(
     valueSets.forEach((valueSet) => {
         valueSet.forEach((include) => {
             const result = include.concept.filter((concept) => c.code === concept.code);
-
+            console.log(include.concept);
+            console.log(c.code);
             if (result.length) results.add(result[0].display ?? "-");
         });
     });

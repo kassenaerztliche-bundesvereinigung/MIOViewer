@@ -63,11 +63,12 @@ export default class EncounterModel extends BaseModel<EncounterType> {
     protected getParticipants(label = "Untersucht durch"): Models.ModelValue[] {
         return this.value.participant.map((p) => {
             const ref = p.individual.reference;
-            const practitioner = ParserUtil.getEntryWithRef<CMR.V1_0_0.Profile.CMRPractitioner>(
-                this.parent,
-                [CMR.V1_0_0.Profile.CMRPractitioner],
-                ref
-            );
+            const practitioner =
+                ParserUtil.getEntryWithRef<CMR.V1_0_0.Profile.CMRPractitioner>(
+                    this.parent,
+                    [CMR.V1_0_0.Profile.CMRPractitioner],
+                    ref
+                );
 
             return {
                 value: Util.UH.getPractitionerName(practitioner?.resource),
@@ -133,11 +134,7 @@ export default class EncounterModel extends BaseModel<EncounterType> {
         };
     }
 
-    getCoding(): string {
-        return ""; // Profile has no coding
-    }
-
-    public toString(): string {
-        throw new Error("Method not implemented.");
+    public getCoding(): string {
+        return "This profile has no coding";
     }
 }

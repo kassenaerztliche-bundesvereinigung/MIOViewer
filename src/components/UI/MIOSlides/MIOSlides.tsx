@@ -25,14 +25,7 @@ import { MIOConnectorType } from "../../../store";
 
 import { UI, Util } from "../../../components";
 
-import {
-    KBVBundleResource,
-    MR,
-    Vaccination,
-    ZAEB,
-    CMR,
-    ParserUtil
-} from "@kbv/mioparser";
+import { KBVBundleResource, MR, Vaccination, ZAEB, CMR, ParserUtil } from "@kbv/mioparser";
 
 import "./MIOSlides.scss";
 

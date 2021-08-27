@@ -52,35 +52,15 @@ export default class PractitionerModel extends BaseModel<PractitionerType> {
     }
 
     protected getQualification(): string {
-        if (!this.value.qualification) return "-";
-        return this.value.qualification
-            .map((q) => {
-                if (!q.code.coding || !q.code.coding.length) return "-";
-                return q.code.coding
-                    .map((coding) => {
-                        const translated = Util.FHIR.translateCode(coding.code ?? "", [
-                            KBVBase.V1_1_1.ConceptMap.PractitionerFunctionGerman
-                        ]);
-
-                        if (translated.length) {
-                            return translated.join(", ");
-                        } else {
-                            const VS = Vaccination.V1_1_0.ValueSet;
-
-                            const translatedVS = Util.FHIR.handleCodeVS(coding, [
-                                VS.IHEXDSAuthorSpecialityRestrictedValueSet,
-                                VS.PractitionerSpecialityValueSet,
-                                VS.PractitionerSpecialityAddendumValueSet
-                            ]);
-
-                            return translatedVS.length
-                                ? translatedVS.join(", ")
-                                : coding.code ?? q.code.text ?? "-";
-                        }
-                    })
-                    .join(", ");
-            })
-            .join(", ");
+        return Util.Misc.getQualification(
+            this.value.qualification,
+            [KBVBase.V1_1_1.ConceptMap.PractitionerFunctionGerman],
+            [
+                Vaccination.V1_1_0.ValueSet.IHEXDSAuthorSpecialityRestrictedValueSet,
+                Vaccination.V1_1_0.ValueSet.PractitionerSpecialityValueSet,
+                Vaccination.V1_1_0.ValueSet.PractitionerSpecialityAddendumValueSet
+            ]
+        );
     }
 
     protected getIdentifier(): ModelValue {
@@ -115,8 +95,7 @@ export default class PractitionerModel extends BaseModel<PractitionerType> {
             if (ID)
                 return {
                     value: ID.value,
-                    label:
-                        "Nicht näher spezifizierter Identifikator einer nicht ärztlichen, behandelnden Person"
+                    label: "Nicht näher spezifizierter Identifikator einer nicht ärztlichen, behandelnden Person"
                 };
         }
 

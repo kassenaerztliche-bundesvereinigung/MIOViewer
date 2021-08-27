@@ -19,7 +19,7 @@
 import { History } from "history";
 import { Content } from "pdfmake/interfaces";
 
-import { KBVBundleResource, Vaccination } from "@kbv/mioparser";
+import { KBVBundleResource, Vaccination, HL7DE } from "@kbv/mioparser";
 import { Util } from "../../components";
 
 import BaseModel from "../BaseModel";
@@ -53,16 +53,24 @@ export default class PatientModel extends BaseModel<Vaccination.V1_1_0.Profile.P
         const gender = this.value.gender ? this.value.gender : undefined;
         const _gender = this.value._gender?.extension
             ?.map((ex) => {
-                // TODO: should use display
-                if (ex.valueCoding && Array.isArray(ex.valueCoding)) {
+                if (!ex.valueCoding) {
+                    return "-";
+                } else if (Array.isArray(ex.valueCoding)) {
                     return ex.valueCoding.map((coding) => {
-                        if (coding.code === "X") return "unbestimmt";
-                        else if (coding.code === "D") return "divers";
-                        return "-";
+                        return Util.FHIR.handleCodeVS(coding, [
+                            HL7DE.V0_9_12.ValueSet.GenderamtlichdeValueSet
+                        ]).join(", ");
                     });
+                } else {
+                    return Util.FHIR.handleCodeVS(ex.valueCoding, [
+                        HL7DE.V0_9_12.ValueSet.GenderamtlichdeValueSet
+                    ]).join(", ");
                 }
             })
             .join(", ");
+
+        console.log(gender);
+        console.log(_gender);
 
         return {
             value: gender ? gender : _gender ? _gender : "-",

@@ -87,12 +87,11 @@ export default class SpecialCompositionModel extends BaseModel<SpecialCompositio
         return result;
     }
 
-    getCoding(): string {
-        return "";
+    public getCoding(): string {
+        return "This profile has no coding";
     }
 
-    // TODO:
     public getMainValue(): ModelValue {
-        throw new Error("Method not implemented.");
+        return this.values[0];
     }
 }

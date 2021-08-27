@@ -20,7 +20,7 @@ import React from "react";
 import fs from "fs";
 
 import * as ViewerTestUtil from "../../../test/TestUtil.test";
-import * as TestUtil from "miotestdata";
+import * as TestUtil from "@kbv/miotestdata";
 
 import MIOParser, {
     ParserUtil,
@@ -158,7 +158,8 @@ describe("<Detail-View />", () => {
                     it(file, async (done) => {
                         const blob = new Blob([fs.readFileSync(file)]);
                         const result = await mioParser.parseFile(blob);
-                        const bundle = result.value as Vaccination.V1_1_0.Profile.BundleEntry;
+                        const bundle =
+                            result.value as Vaccination.V1_1_0.Profile.BundleEntry;
                         const store = ViewerTestUtil.createStoreWithMios([bundle]);
                         const entryFound = detail.getFunction(bundle);
 
@@ -171,15 +172,13 @@ describe("<Detail-View />", () => {
                                 ? ParserUtil.getUuidFromEntry(entry)
                                 : "-";
 
-                            const {
-                                getAllByTestId,
-                                getByTestId
-                            } = ViewerTestUtil.renderReduxRoute(
-                                value.component,
-                                store,
-                                `/entry/${mioId}/${entryId}`,
-                                "/entry/:id/:entry"
-                            );
+                            const { getAllByTestId, getByTestId } =
+                                ViewerTestUtil.renderReduxRoute(
+                                    value.component,
+                                    store,
+                                    `/entry/${mioId}/${entryId}`,
+                                    "/entry/:id/:entry"
+                                );
 
                             if (entry) {
                                 if (arr) {

@@ -86,7 +86,7 @@ export default class PatientChildModel extends MPBaseModel<MR.V1_0_0.Profile.Pat
         };
     }
 
-    getCoding(): string {
+    public getCoding(): string {
         return "This profile has no coding";
     }
 

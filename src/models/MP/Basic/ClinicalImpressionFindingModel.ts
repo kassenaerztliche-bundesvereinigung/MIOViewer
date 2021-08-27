@@ -25,7 +25,6 @@ import * as Models from "../../../models";
 
 import { UI, Util } from "../../../components";
 import { Content } from "pdfmake/interfaces";
-import { horizontalLine } from "../../../pdf/PDFHelper";
 import { ModelValue } from "../../Types";
 
 export type ClinicalImpressionFindingType =
@@ -130,11 +129,12 @@ export default class ClinicalImpressionFindingModel extends MPBaseModel<Clinical
                             return aInt - bInt;
                         });
                     } else if (Object.prototype.hasOwnProperty.call(f, "itemReference")) {
-                        const res = ParserUtil.getEntryWithRef<MR.V1_0_0.Profile.ObservationPregnancyRisk>(
-                            this.parent,
-                            [MR.V1_0_0.Profile.ObservationPregnancyRisk],
-                            f.itemReference?.reference ?? ""
-                        );
+                        const res =
+                            ParserUtil.getEntryWithRef<MR.V1_0_0.Profile.ObservationPregnancyRisk>(
+                                this.parent,
+                                [MR.V1_0_0.Profile.ObservationPregnancyRisk],
+                                f.itemReference?.reference ?? ""
+                            );
 
                         if (res) {
                             const model = new Models.MP.Basic.ObservationModel(
@@ -155,7 +155,7 @@ export default class ClinicalImpressionFindingModel extends MPBaseModel<Clinical
         }
     }
 
-    getCoding(): string {
+    public getCoding(): string {
         return "This profile has no coding";
     }
 
@@ -214,25 +214,7 @@ export default class ClinicalImpressionFindingModel extends MPBaseModel<Clinical
                             value.subModels &&
                             value.subModels?.length
                         ) {
-                            const subContents: Content[] = [horizontalLine];
-                            value.subModels.forEach((model) => {
-                                const sub = new model(
-                                    value.subEntry?.resource,
-                                    value.subEntry?.fullUrl ?? "",
-                                    this.parent
-                                );
-                                const pdfContent = sub.toPDFContent(
-                                    ["subTable", ...styles],
-                                    true
-                                );
-                                const subContent = ["", pdfContent];
-                                subContents.push(subContent);
-                            });
-
-                            return [
-                                { text: value.label + ":", bold: true },
-                                ["", subContents]
-                            ];
+                            return this.toSubPDFContent(value, styles);
                         }
                         return content;
                     })

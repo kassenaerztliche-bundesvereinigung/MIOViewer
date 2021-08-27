@@ -99,7 +99,6 @@ export default class Mappings {
         }
     ];
 
-    // TODO: vielleicht anders strukturieren?
     static Anamnesis: {
         Basic: DetailMapping[];
         Observations: DetailMapping[];
@@ -161,7 +160,7 @@ export default class Mappings {
                 profile: MR.V1_0_0.Profile.ObservationSpecialFindings,
                 models: [Models.MP.Basic.ObservationModel],
                 customLabel: "Befund",
-                codeConceptMaps: [MR.V1_0_0.ConceptMap.SpecialFindingsGerman], // TODO: both the same???
+                codeConceptMaps: [MR.V1_0_0.ConceptMap.SpecialFindingsGerman],
                 valueConceptMaps: [MR.V1_0_0.ConceptMap.SpecialFindingsGerman]
             }
         ],

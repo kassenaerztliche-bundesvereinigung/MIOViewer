@@ -143,12 +143,13 @@ export default class ClinicalImpressionModel extends MPBaseModel<ClinicalImpress
                 value
             )
         ) {
-            const investigation = new Models.MP.Basic.ClinicalImpressionInvestigationModel(
-                value,
-                fullUrl,
-                parent,
-                history
-            );
+            const investigation =
+                new Models.MP.Basic.ClinicalImpressionInvestigationModel(
+                    value,
+                    fullUrl,
+                    parent,
+                    history
+                );
 
             this.values.push(...investigation.getInvestigations());
         }

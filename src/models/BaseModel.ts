@@ -153,6 +153,22 @@ export default abstract class BaseModel<
         ];
     }
 
+    protected toSubPDFContent(value: ModelValue, styles: string[] = []): Content[] {
+        const subContents: Content[] = [horizontalLine];
+        value.subModels?.forEach((model) => {
+            const sub = new model(
+                value.subEntry?.resource,
+                value.subEntry?.fullUrl ?? "",
+                this.parent
+            );
+            const pdfContent = sub.toPDFContent(["subTable", ...styles], true);
+            const subContent = ["", pdfContent];
+            subContents.push(subContent);
+        });
+
+        return [{ text: value.label + ":", bold: true }, ["", subContents]];
+    }
+
     protected pdfContentHint(topic: string, parent = "MIO"): Content {
         return {
             text: `Unter „${topic}“ sind in diesem ${parent} derzeit keine Einträge vorhanden.`

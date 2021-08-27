@@ -89,8 +89,8 @@ export default class ParentalNotesModel extends BaseModel<CMR.V1_0_0.Profile.PNC
         });
     }
 
-    getCoding(): string {
-        return ""; // Profile has no coding
+    public getCoding(): string {
+        return "This profile has no coding";
     }
 
     getMainValue(): ModelValue {

@@ -16,14 +16,7 @@
  * along with MIO Viewer. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import {
-    KBVResource,
-    KBVBundleResource,
-    Vaccination,
-    ZAEB,
-    MR,
-    CMR
-} from "@kbv/mioparser";
+import { KBVResource, KBVBundleResource, Vaccination, ZAEB, MR, CMR } from "@kbv/mioparser";
 import { Util } from "../components";
 import { TDocumentDefinitions, Content } from "pdfmake/interfaces";
 import * as pdfMake from "pdfmake/build/pdfmake";

@@ -64,16 +64,17 @@ export default class EncounterInpatientTreatmentModel extends EncounterModel<MR.
         return "-";
     }
 
-    getCoding(): string {
+    public getCoding(): string {
         return Array.from(
             new Set(
                 this.value.type.map((t) =>
                     t.coding.map((c) => {
-                        const slice = ParserUtil.getSlice<MR.V1_0_0.Profile.EncounterInpatientTreatmentTypeCodingDisplayAnzeigenameCodeSnomed>(
-                            MR.V1_0_0.Profile
-                                .EncounterInpatientTreatmentTypeCodingDisplayAnzeigenameCodeSnomed,
-                            c._display?.extension
-                        );
+                        const slice =
+                            ParserUtil.getSlice<MR.V1_0_0.Profile.EncounterInpatientTreatmentTypeCodingDisplayAnzeigenameCodeSnomed>(
+                                MR.V1_0_0.Profile
+                                    .EncounterInpatientTreatmentTypeCodingDisplayAnzeigenameCodeSnomed,
+                                c._display?.extension
+                            );
 
                         return slice?.extension?.map((e) => e.valueString).join(", ");
                     })

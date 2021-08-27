@@ -184,21 +184,23 @@ export default class ChildInformation extends Section<SectionType> {
         if (
             MR.V1_0_0.Profile.CompositionUntersuchungenEpikriseGeburtSection.is(section)
         ) {
-            const apgarSection = ParserUtil.getSlice<MR.V1_0_0.Profile.CompositionUntersuchungenEpikriseGeburtSectionSection>(
-                PR.CompositionUntersuchungenEpikriseGeburtSectionSection,
-                section?.section
-            );
+            const apgarSection =
+                ParserUtil.getSlice<MR.V1_0_0.Profile.CompositionUntersuchungenEpikriseGeburtSectionSection>(
+                    PR.CompositionUntersuchungenEpikriseGeburtSectionSection,
+                    section?.section
+                );
 
             const apgarItems: Models.ModelValue[] = [];
 
             if (apgarSection) {
                 apgarSection.entry?.forEach((entry) => {
                     const ref = entry.reference;
-                    const res = ParserUtil.getEntryWithRef<MR.V1_0_0.Profile.ObservationApgarScore>(
-                        mio,
-                        [PR.ObservationApgarScore],
-                        ref
-                    );
+                    const res =
+                        ParserUtil.getEntryWithRef<MR.V1_0_0.Profile.ObservationApgarScore>(
+                            mio,
+                            [PR.ObservationApgarScore],
+                            ref
+                        );
 
                     if (res) {
                         if (patientId) {

@@ -63,12 +63,10 @@ export default class ContactDetailsModel<
         throw new Error("Method not implemented.");
     }
 
-    // TODO:
     public getMainValue(): ModelValue {
-        const defaultValue = {
-            label: "-",
-            value: "-"
+        return {
+            value: this.values.length ? this.values.map((v) => v.value).join(", ") : "-",
+            label: this.headline
         };
-        return this.values.length ? this.values[0] : defaultValue;
     }
 }

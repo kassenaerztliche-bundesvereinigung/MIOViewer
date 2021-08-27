@@ -74,11 +74,12 @@ export default class QualificationModel<
 
     protected getQualificationIssuer(): ModelValue {
         const issuerRef = this.qualificationCoding?.issuer?.reference ?? "";
-        const organization = ParserUtil.getEntryWithRef<CMR.V1_0_0.Profile.CMROrganization>(
-            this.parent,
-            [CMR.V1_0_0.Profile.CMROrganization],
-            issuerRef
-        )?.resource;
+        const organization =
+            ParserUtil.getEntryWithRef<CMR.V1_0_0.Profile.CMROrganization>(
+                this.parent,
+                [CMR.V1_0_0.Profile.CMROrganization],
+                issuerRef
+            )?.resource;
 
         return {
             value: organization?.name ? organization.name : "-",
@@ -93,12 +94,10 @@ export default class QualificationModel<
         throw new Error("Method not implemented.");
     }
 
-    // TODO:
     public getMainValue(): ModelValue {
-        const defaultValue = {
-            label: "-",
-            value: "-"
+        return {
+            value: this.values.length ? this.values.map((v) => v.value).join(", ") : "-",
+            label: this.headline
         };
-        return this.values.length ? this.values[0] : defaultValue;
     }
 }

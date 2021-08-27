@@ -28,7 +28,7 @@ import "@testing-library/jest-dom/extend-expect";
 import "jest-canvas-mock";
 import { mockIonicReact } from "@ionic/react-test-utils";
 
-import { KBVBundleResource } from "mioparser";
+import { KBVBundleResource } from "@kbv/mioparser";
 import { combineReducers, createStore } from "redux";
 import { mioReducer, settingsReducer } from "../src/store/reducers";
 

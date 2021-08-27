@@ -20,11 +20,7 @@ import { Dispatch } from "redux";
 
 import { Actions, MIOActions } from "./";
 
-import MIOParser, {
-    KBVResource,
-    KBVBundleResource,
-    MIOParserResult
-} from "@kbv/mioparser";
+import MIOParser, { KBVResource, KBVBundleResource, MIOParserResult } from "@kbv/mioparser";
 
 import PDFMaker from "../pdf/PDFMaker";
 

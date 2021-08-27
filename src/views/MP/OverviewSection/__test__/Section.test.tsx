@@ -19,7 +19,7 @@
 import MIOParser, { ParserUtil, MR } from "@kbv/mioparser";
 
 import * as ViewerTestUtil from "../../../../../test/TestUtil.test";
-import * as TestUtil from "miotestdata";
+import * as TestUtil from "@kbv/miotestdata";
 
 import OverviewSection from "../../../Comprehensive/OverviewSection";
 import Detail from "../../../Comprehensive/Detail";

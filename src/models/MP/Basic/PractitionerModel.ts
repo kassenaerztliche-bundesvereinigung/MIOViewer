@@ -45,38 +45,14 @@ export default class PractitionerModel extends MPBaseModel<MR.V1_0_0.Profile.Pra
     }
 
     protected getQualification(): string {
-        // TODO: refactor
-        if (this.value.qualification) {
-            return this.value.qualification
-                .map((q) => {
-                    return q.code.coding
-                        .map((coding) => {
-                            const translated = Util.FHIR.translateCode(
-                                coding.code ?? "",
-                                [MR.V1_0_0.ConceptMap.PractitionerFunctionGerman]
-                            );
-
-                            if (translated.length) {
-                                return translated.join(", ");
-                            } else {
-                                const VS = MR.V1_0_0.ValueSet;
-
-                                const translatedVS = Util.FHIR.handleCodeVS(coding, [
-                                    VS.IHEXDSAuthorSpecialityRestrictedValueSet,
-                                    VS.PractitionerFunctionAddendumValueSet
-                                ]);
-
-                                return translatedVS.length
-                                    ? translatedVS.join(", ")
-                                    : coding.code;
-                            }
-                        })
-                        .join(", ");
-                })
-                .join(", ");
-        }
-
-        return "-";
+        return Util.Misc.getQualification(
+            this.value.qualification,
+            [MR.V1_0_0.ConceptMap.PractitionerFunctionGerman],
+            [
+                MR.V1_0_0.ValueSet.IHEXDSAuthorSpecialityRestrictedValueSet,
+                MR.V1_0_0.ValueSet.PractitionerFunctionAddendumValueSet
+            ]
+        );
     }
 
     protected getIdentifier(): ModelValue {

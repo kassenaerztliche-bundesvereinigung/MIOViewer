@@ -47,7 +47,7 @@ export default class AppointmentPregnancyModel extends MPBaseModel<MR.V1_0_0.Pro
         ];
     }
 
-    getCoding(): string {
+    public getCoding(): string {
         return "This profile has no coding";
     }
 

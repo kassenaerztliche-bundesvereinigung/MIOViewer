@@ -22,7 +22,7 @@ import { render } from "@testing-library/react";
 import { History } from "history";
 
 import * as ViewerTestUtil from "../../../test/TestUtil.test";
-import * as TestUtil from "miotestdata";
+import * as TestUtil from "@kbv/miotestdata";
 
 import Detail from "../Detail/Detail";
 

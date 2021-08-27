@@ -67,7 +67,7 @@ export default class EncounterArrivalMaternityHospitalModel extends MPBaseModel<
         ];
     }
 
-    getCoding(): string {
+    public getCoding(): string {
         return this.value.type
             .map((t) => {
                 return t.coding.map((c) => {

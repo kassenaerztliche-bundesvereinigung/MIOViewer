@@ -21,8 +21,7 @@
 
 .miov-modal {
     --backdrop-opacity: 0 !important;
-    // --background: transparent;
-    --background: $green-4; // TODO: Gradient would b kinda lit!
+    --background: $green-4; // Gradient would b kinda lit!
 
     .modal-wrapper {
         background: $green-4;

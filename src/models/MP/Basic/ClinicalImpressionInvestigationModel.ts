@@ -26,7 +26,6 @@ import MPBaseModel from "../MPBaseModel";
 import * as Models from "../../index";
 import { DetailMapping } from "../../../views/Comprehensive/Detail/Types";
 import { Content } from "pdfmake/interfaces";
-import { horizontalLine } from "../../../pdf/PDFHelper";
 import { ModelValue } from "../../index";
 
 const PR = MR.V1_0_0.Profile;
@@ -92,10 +91,11 @@ export default class ClinicalImpressionInvestigationModel extends MPBaseModel<Cl
         if (MR.V1_0_0.Profile.ClinicalImpressionPregnancyChartEntry.is(this.value)) {
             const encounterRef = this.value.encounter.reference;
 
-            const examinations = ParserUtil.getEntries<MR.V1_0_0.Profile.ObservationExamination>(
-                this.parent,
-                [MR.V1_0_0.Profile.ObservationExamination]
-            );
+            const examinations =
+                ParserUtil.getEntries<MR.V1_0_0.Profile.ObservationExamination>(
+                    this.parent,
+                    [MR.V1_0_0.Profile.ObservationExamination]
+                );
             if (examinations) {
                 examinations.forEach((res) => {
                     const ref = res.resource.encounter.reference;
@@ -350,11 +350,12 @@ export default class ClinicalImpressionInvestigationModel extends MPBaseModel<Cl
                         }
                     } else {
                         const res = result.resource as { subject: { reference: string } };
-                        const modelResult = ParserUtil.getEntryWithRef<MR.V1_0_0.Profile.PatientChild>(
-                            bundle,
-                            [MR.V1_0_0.Profile.PatientChild],
-                            res.subject.reference
-                        );
+                        const modelResult =
+                            ParserUtil.getEntryWithRef<MR.V1_0_0.Profile.PatientChild>(
+                                bundle,
+                                [MR.V1_0_0.Profile.PatientChild],
+                                res.subject.reference
+                            );
 
                         if (modelResult) {
                             if (
@@ -451,26 +452,9 @@ export default class ClinicalImpressionInvestigationModel extends MPBaseModel<Cl
                             value.subModels &&
                             value.subModels?.length
                         ) {
-                            const subContents: Content[] = [horizontalLine];
-                            value.subModels.forEach((model) => {
-                                const sub = new model(
-                                    value.subEntry?.resource,
-                                    value.subEntry?.fullUrl ?? "",
-                                    this.parent
-                                );
-                                const pdfContent = sub.toPDFContent(
-                                    ["subTable", ...styles],
-                                    true
-                                );
-                                const subContent = ["", pdfContent];
-                                subContents.push(subContent);
-                            });
-
-                            return [
-                                { text: value.label + ":", bold: true },
-                                ["", subContents]
-                            ];
+                            return this.toSubPDFContent(value, styles);
                         }
+
                         return content;
                     })
                 }

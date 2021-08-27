@@ -55,8 +55,8 @@ export default class CompositionModel extends BaseModel<CMR.V1_0_0.Profile.PNCom
         ];
     }
 
-    getCoding(): string {
-        return ""; // Profile has no coding
+    public getCoding(): string {
+        return "This profile has no coding";
     }
 
     getMainValue(): ModelValue {

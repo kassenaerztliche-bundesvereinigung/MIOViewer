@@ -20,7 +20,7 @@ import fs from "fs";
 import { fireEvent, waitFor } from "@testing-library/react";
 
 import * as ViewerTestUtil from "../../../../../test/TestUtil.test";
-import * as TestUtil from "miotestdata";
+import * as TestUtil from "@kbv/miotestdata";
 
 import Home from "../";
 

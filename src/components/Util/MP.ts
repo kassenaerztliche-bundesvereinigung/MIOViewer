@@ -55,24 +55,27 @@ export function getPatientMotherName(patient: MR.V1_0_0.Profile.PatientMother): 
             } else if (nameSlice._family) {
                 const partsFamily = [];
 
-                const addition = ParserUtil.getSlice<MR.V1_0_0.Profile.PatientMotherNameFamilyNamenszusatz>(
-                    MR.V1_0_0.Profile.PatientMotherNameFamilyNamenszusatz,
-                    nameSlice._family.extension
-                )?.valueString;
+                const addition =
+                    ParserUtil.getSlice<MR.V1_0_0.Profile.PatientMotherNameFamilyNamenszusatz>(
+                        MR.V1_0_0.Profile.PatientMotherNameFamilyNamenszusatz,
+                        nameSlice._family.extension
+                    )?.valueString;
 
                 if (addition) partsFamily.push(addition);
 
-                const pre = ParserUtil.getSlice<MR.V1_0_0.Profile.PatientMotherNameFamilyVorsatzwort>(
-                    MR.V1_0_0.Profile.PatientMotherNameFamilyVorsatzwort,
-                    nameSlice._family.extension
-                )?.valueString;
+                const pre =
+                    ParserUtil.getSlice<MR.V1_0_0.Profile.PatientMotherNameFamilyVorsatzwort>(
+                        MR.V1_0_0.Profile.PatientMotherNameFamilyVorsatzwort,
+                        nameSlice._family.extension
+                    )?.valueString;
 
                 if (pre) partsFamily.push(pre);
 
-                const family = ParserUtil.getSlice<MR.V1_0_0.Profile.PatientMotherNameFamilyNachname>(
-                    MR.V1_0_0.Profile.PatientMotherNameFamilyNachname,
-                    nameSlice._family.extension
-                )?.valueString;
+                const family =
+                    ParserUtil.getSlice<MR.V1_0_0.Profile.PatientMotherNameFamilyNachname>(
+                        MR.V1_0_0.Profile.PatientMotherNameFamilyNachname,
+                        nameSlice._family.extension
+                    )?.valueString;
 
                 if (family) partsFamily.push(family);
 
@@ -111,10 +114,11 @@ export function getPatientMotherMaidenName(
 ): string {
     if (patient && patient.name) {
         let maidenStr = "-";
-        const maidenSlice = ParserUtil.getSlice<MR.V1_0_0.Profile.PatientMotherGeburtsname>(
-            MR.V1_0_0.Profile.PatientMotherGeburtsname,
-            patient.name
-        );
+        const maidenSlice =
+            ParserUtil.getSlice<MR.V1_0_0.Profile.PatientMotherGeburtsname>(
+                MR.V1_0_0.Profile.PatientMotherGeburtsname,
+                patient.name
+            );
 
         if (maidenSlice) {
             if (maidenSlice.family) {
@@ -122,24 +126,27 @@ export function getPatientMotherMaidenName(
             } else if (maidenSlice._family) {
                 const parts = [];
 
-                const addition = ParserUtil.getSlice<MR.V1_0_0.Profile.PatientMotherGeburtsnameFamilyNamenszusatz>(
-                    MR.V1_0_0.Profile.PatientMotherGeburtsnameFamilyNamenszusatz,
-                    maidenSlice._family.extension
-                )?.valueString;
+                const addition =
+                    ParserUtil.getSlice<MR.V1_0_0.Profile.PatientMotherGeburtsnameFamilyNamenszusatz>(
+                        MR.V1_0_0.Profile.PatientMotherGeburtsnameFamilyNamenszusatz,
+                        maidenSlice._family.extension
+                    )?.valueString;
 
                 if (addition) parts.push(addition);
 
-                const pre = ParserUtil.getSlice<MR.V1_0_0.Profile.PatientMotherGeburtsnameFamilyVorsatzwort>(
-                    MR.V1_0_0.Profile.PatientMotherGeburtsnameFamilyVorsatzwort,
-                    maidenSlice._family.extension
-                )?.valueString;
+                const pre =
+                    ParserUtil.getSlice<MR.V1_0_0.Profile.PatientMotherGeburtsnameFamilyVorsatzwort>(
+                        MR.V1_0_0.Profile.PatientMotherGeburtsnameFamilyVorsatzwort,
+                        maidenSlice._family.extension
+                    )?.valueString;
 
                 if (pre) parts.push(pre);
 
-                const family = ParserUtil.getSlice<MR.V1_0_0.Profile.PatientMotherGeburtsnameFamilyNachname>(
-                    MR.V1_0_0.Profile.PatientMotherGeburtsnameFamilyNachname,
-                    maidenSlice._family.extension
-                )?.valueString;
+                const family =
+                    ParserUtil.getSlice<MR.V1_0_0.Profile.PatientMotherGeburtsnameFamilyNachname>(
+                        MR.V1_0_0.Profile.PatientMotherGeburtsnameFamilyNachname,
+                        maidenSlice._family.extension
+                    )?.valueString;
 
                 if (family) parts.push(family);
 
@@ -179,24 +186,27 @@ export function getPractitionerName(
             } else if (nameSlice._family) {
                 const partsFamily = [];
 
-                const addition = ParserUtil.getSlice<MR.V1_0_0.Profile.PractitionerNameFamilyNamenszusatz>(
-                    MR.V1_0_0.Profile.PractitionerNameFamilyNamenszusatz,
-                    nameSlice._family.extension
-                )?.valueString;
+                const addition =
+                    ParserUtil.getSlice<MR.V1_0_0.Profile.PractitionerNameFamilyNamenszusatz>(
+                        MR.V1_0_0.Profile.PractitionerNameFamilyNamenszusatz,
+                        nameSlice._family.extension
+                    )?.valueString;
 
                 if (addition) partsFamily.push(addition);
 
-                const pre = ParserUtil.getSlice<MR.V1_0_0.Profile.PractitionerNameFamilyVorsatzwort>(
-                    MR.V1_0_0.Profile.PractitionerNameFamilyVorsatzwort,
-                    nameSlice._family.extension
-                )?.valueString;
+                const pre =
+                    ParserUtil.getSlice<MR.V1_0_0.Profile.PractitionerNameFamilyVorsatzwort>(
+                        MR.V1_0_0.Profile.PractitionerNameFamilyVorsatzwort,
+                        nameSlice._family.extension
+                    )?.valueString;
 
                 if (pre) partsFamily.push(pre);
 
-                const family = ParserUtil.getSlice<MR.V1_0_0.Profile.PractitionerNameFamilyNachname>(
-                    MR.V1_0_0.Profile.PractitionerNameFamilyNachname,
-                    nameSlice._family.extension
-                )?.valueString;
+                const family =
+                    ParserUtil.getSlice<MR.V1_0_0.Profile.PractitionerNameFamilyNachname>(
+                        MR.V1_0_0.Profile.PractitionerNameFamilyNachname,
+                        nameSlice._family.extension
+                    )?.valueString;
 
                 if (family) partsFamily.push(family);
 
@@ -212,11 +222,10 @@ export function getPractitionerName(
     return "-";
 }
 
-// TODO: define Types
 // eslint-disable-next-line
-export function getPregnancyWeekValue(entry: any): ModelValue {
+export function getPregnancyWeekValue(resource: any): ModelValue {
     let value = "-";
-    const resource = entry;
+
     if (Object.prototype.hasOwnProperty.call(resource, "_effectiveDateTime")) {
         const pregnancyAndWeekdayExtension = resource._effectiveDateTime?.extension?.find(
             (e: { url: string }) =>
@@ -224,14 +233,16 @@ export function getPregnancyWeekValue(entry: any): ModelValue {
                 "https://fhir.kbv.de/StructureDefinition/KBV_EX_MIO_MR_Pregnancy_Week_And_Day"
         );
         if (pregnancyAndWeekdayExtension) {
-            const schwangerschaftswocheExtension = pregnancyAndWeekdayExtension.extension?.find(
-                (e: { url: string }) => e.url === "schwangerschaftszeitpunkt"
-            );
+            const schwangerschaftswocheExtension =
+                pregnancyAndWeekdayExtension.extension?.find(
+                    (e: { url: string }) => e.url === "schwangerschaftszeitpunkt"
+                );
 
             if (schwangerschaftswocheExtension) {
-                const schwangerschaftswoche = schwangerschaftswocheExtension.extension?.find(
-                    (e: { url: string }) => e.url === "schwangerschaftswoche"
-                );
+                const schwangerschaftswoche =
+                    schwangerschaftswocheExtension.extension?.find(
+                        (e: { url: string }) => e.url === "schwangerschaftswoche"
+                    );
                 const ergaenzendeTage = schwangerschaftswocheExtension.extension?.find(
                     (e: { url: string }) => e.url === "ergaenzendeTage"
                 );

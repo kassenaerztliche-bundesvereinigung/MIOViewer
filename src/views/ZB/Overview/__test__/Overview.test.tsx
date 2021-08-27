@@ -23,7 +23,7 @@ import { createMemoryHistory } from "history";
 import { render } from "@testing-library/react";
 
 import * as ViewerTestUtil from "../../../../../test/TestUtil.test";
-import * as TestUtil from "miotestdata";
+import * as TestUtil from "@kbv/miotestdata";
 
 import MIOParser, { ZAEB } from "@kbv/mioparser";
 

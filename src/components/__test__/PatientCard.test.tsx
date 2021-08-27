@@ -22,7 +22,7 @@ import fs from "fs";
 import { render } from "@testing-library/react";
 
 import * as ViewerTestUtil from "../../../test/TestUtil.test";
-import * as TestUtil from "miotestdata";
+import * as TestUtil from "@kbv/miotestdata";
 
 import MIOParser, { Vaccination, ZAEB, MR, CMR } from "@kbv/mioparser";
 

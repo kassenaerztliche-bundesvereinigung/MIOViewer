@@ -35,7 +35,7 @@ import {
 
 import { EXAMPLE_PREFIX } from "../../store/examples";
 
-import { UI } from "../index";
+import { UI, Util } from "../index";
 
 import * as IM from "./IM";
 import * as ZB from "./ZB";
@@ -155,7 +155,6 @@ export function humanNameToString(
     const suffix = name.suffix?.join(" ");
 
     const nameStr = [prefix, given, family, suffix].join(" ");
-    // TODO: period
 
     return nameStr ? nameStr : name.text ? name.text : "-";
 }
@@ -315,4 +314,41 @@ export function isExample(mio?: KBVBundleResource): boolean {
 
 export function isExamplePath(path: string): boolean {
     return path.startsWith("/example");
+}
+
+export function getQualification(
+    qualification:
+        | Vaccination.V1_1_0.Profile.PractitionerQualification[]
+        | Vaccination.V1_1_0.Profile.PractitionerAddendumPractitionerspeciality[]
+        | MR.V1_0_0.Profile.PractitionerPractitionerspeciality[]
+        | undefined,
+    conceptMaps: ParserUtil.ConceptMap[],
+    valueSets: ParserUtil.ValueSet[]
+): string {
+    if (!qualification) return "-";
+
+    return (qualification as { code: Util.FHIR.CodeEmpty }[])
+        .map((q) => {
+            const codings = q.code?.coding;
+            if (!codings || !codings.length) return "-";
+            return codings
+                .map((coding) => {
+                    const translated = Util.FHIR.translateCode(
+                        coding.code ?? "",
+                        conceptMaps
+                    );
+
+                    if (translated.length) {
+                        return translated.join(", ");
+                    } else {
+                        const translatedVS = Util.FHIR.handleCodeVS(coding, valueSets);
+
+                        return translatedVS.length
+                            ? translatedVS.join(", ")
+                            : coding.code ?? q.code.text ?? "-";
+                    }
+                })
+                .join(", ");
+        })
+        .join(", ");
 }

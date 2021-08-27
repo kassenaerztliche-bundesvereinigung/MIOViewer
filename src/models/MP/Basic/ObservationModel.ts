@@ -189,7 +189,7 @@ export default class ObservationModel<T extends ObservationType> extends MPBaseM
         const identifier = this.getIdentifier();
         if (identifier.value !== "-") this.values.push(identifier);
 
-        const pregnancyWeek = this.getPregnancyWeekValue();
+        const pregnancyWeek = Util.MP.getPregnancyWeekValue(this.value);
         if (pregnancyWeek.value !== "-") this.values.push(pregnancyWeek);
 
         if (!noValue) this.values.push(this.getObservationValue());
@@ -240,16 +240,6 @@ export default class ObservationModel<T extends ObservationType> extends MPBaseM
     public getCoding(resource?: { code?: Util.FHIR.Code }): string {
         if (!resource) resource = this.value;
         return getCoding(resource, this.codeConceptMaps);
-    }
-
-    public getPregnancyWeekValue(): ModelValue {
-        const returnValue = Util.MP.getPregnancyWeekValue(this.value);
-        const value = returnValue.value;
-
-        return {
-            value,
-            label: returnValue.label
-        };
     }
 
     public getIdentifier(): ModelValue {

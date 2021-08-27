@@ -84,11 +84,11 @@ export default class CompositionHintsModel extends BaseModel<CompositionHintsTyp
         });
     }
 
-    getCoding(): string {
-        return ""; // Profile has no coding
+    public getCoding(): string {
+        return "This profile has no coding";
     }
 
-    getMainValue(): ModelValue {
+    public getMainValue(): ModelValue {
         return {
             value: this.headline,
             label: "-"

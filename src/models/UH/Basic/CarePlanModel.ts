@@ -124,10 +124,6 @@ export default class CarePlanModel extends BaseModel<CarePlanType> {
     }
 
     public getCoding(): string {
-        throw new Error("Method not implemented.");
-    }
-
-    public toString(): string {
-        throw new Error("Method not implemented.");
+        return "This profile has no coding";
     }
 }

@@ -17,7 +17,7 @@
  */
 
 import * as ViewerTestUtil from "../../../../../test/TestUtil.test";
-import * as TestUtil from "miotestdata";
+import * as TestUtil from "@kbv/miotestdata";
 
 import * as Info from "../";
 
