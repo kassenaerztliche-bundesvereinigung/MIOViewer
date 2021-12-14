@@ -35,9 +35,9 @@ describe("<PatientCard />", () => {
             | typeof Vaccination.V1_1_0.Profile.BundleEntry
             | typeof ZAEB.V1_1_0.Profile.Bundle
             | typeof MR.V1_0_0.Profile.Bundle
-            | typeof CMR.V1_0_0.Profile.CMRBundle
-            | typeof CMR.V1_0_0.Profile.PCBundle
-            | typeof CMR.V1_0_0.Profile.PNBundle;
+            | typeof CMR.V1_0_1.Profile.CMRBundle
+            | typeof CMR.V1_0_1.Profile.PCBundle
+            | typeof CMR.V1_0_1.Profile.PNBundle;
         getFunction: any; // eslint-disable-line
     } & TestUtil.HasMioString;
     const cardList: CardValue[] = [
@@ -58,17 +58,17 @@ describe("<PatientCard />", () => {
         },
         {
             mioString: "UH",
-            bundleType: CMR.V1_0_0.Profile.CMRBundle,
+            bundleType: CMR.V1_0_1.Profile.CMRBundle,
             getFunction: Util.UH.getPatient
         },
         {
             mioString: "UH",
-            bundleType: CMR.V1_0_0.Profile.PCBundle,
+            bundleType: CMR.V1_0_1.Profile.PCBundle,
             getFunction: Util.UH.getPatient
         },
         {
             mioString: "UH",
-            bundleType: CMR.V1_0_0.Profile.PNBundle,
+            bundleType: CMR.V1_0_1.Profile.PNBundle,
             getFunction: Util.UH.getPatient
         }
     ];

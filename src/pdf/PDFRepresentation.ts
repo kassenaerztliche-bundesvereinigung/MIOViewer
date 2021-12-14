@@ -113,7 +113,7 @@ export default abstract class PDFRepresentation<T extends KBVBundleResource> {
                     section = ParserUtil.getSlice<any>(s, section.section);
                 }
             });
-            if (section) result = (section as unknown) as T;
+            if (section) result = section as unknown as T;
         }
         return result;
     }

@@ -22,27 +22,25 @@ import AnimateHeight from "react-animate-height";
 
 import { IonList } from "@ionic/react";
 
-import { KBVResource } from "@kbv/mioparser";
-
 import { UI } from "../../index";
 
 import { ListListSimpleProps } from "./DetailListSimple";
 import { isModelValue } from "../../../models/Types";
 
-export type ListGroupProps<T extends KBVResource> = {
+export type ListGroupProps = {
     expandable: boolean;
     expanded?: boolean;
-} & ListListSimpleProps<T>;
+} & ListListSimpleProps;
 
 export type DetailListCollapsibleState = {
     expanded: boolean;
 } & UI.DetailList.StickyHeaderState;
 
-export default class DetailListCollapsible<T extends KBVResource> extends React.Component<
-    ListGroupProps<T>,
+export default class DetailListCollapsible extends React.Component<
+    ListGroupProps,
     DetailListCollapsibleState
 > {
-    constructor(props: ListGroupProps<T>) {
+    constructor(props: ListGroupProps) {
         super(props);
 
         this.state = {

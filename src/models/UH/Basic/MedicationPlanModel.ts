@@ -24,13 +24,14 @@ import { Util } from "../../../components";
 import BaseModel from "./CMRBaseModel";
 import { ModelValue } from "../../Types";
 
-export type MedicationPlanType = CMR.V1_0_0.Profile.CMRMedicationStatementVitamineKProphylaxis;
+export type MedicationPlanType =
+    CMR.V1_0_1.Profile.CMRMedicationStatementVitamineKProphylaxis;
 
 export default class MedicationPlan extends BaseModel<MedicationPlanType> {
     constructor(
         value: MedicationPlanType,
         fullUrl: string,
-        parent: CMR.V1_0_0.Profile.CMRBundle,
+        parent: CMR.V1_0_1.Profile.CMRBundle,
         history?: History
     ) {
         super(value, fullUrl, parent, history);
@@ -46,7 +47,7 @@ export default class MedicationPlan extends BaseModel<MedicationPlanType> {
             {
                 value: ParserUtil.translateCode(
                     this.value.status,
-                    CMR.V1_0_0.ConceptMap.CMRMedicationStatementStatusGerman
+                    CMR.V1_0_1.ConceptMap.CMRMedicationStatementStatusGerman
                 ).join(", "),
                 label: "Status"
             },

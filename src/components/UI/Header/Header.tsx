@@ -42,14 +42,8 @@ export default class Header extends React.Component<HeaderProps> {
     };
 
     render(): JSX.Element {
-        const {
-            headline,
-            headerClass,
-            percent,
-            back,
-            pdfDownload,
-            isExample
-        } = this.props;
+        const { headline, headerClass, percent, back, pdfDownload, isExample } =
+            this.props;
 
         const p = 64 * percent;
         const divStyle = {

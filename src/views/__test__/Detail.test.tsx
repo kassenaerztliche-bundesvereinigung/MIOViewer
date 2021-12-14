@@ -143,8 +143,8 @@ describe("<Detail-View />", () => {
             details: [
                 {
                     getFunction: Util.UH.getPatient,
-                    testId: /(detail-CMRPatient)|(detail-PCPatient)|(detail-PNPatient)/,
-                    profile: CMR.V1_0_0.Profile.CMRPatient,
+                    testId: /(detail-CMRPatient)/,
+                    profile: CMR.V1_0_1.Profile.CMRPatient,
                     required: ["Geburtsdatum"]
                 }
             ]
@@ -155,7 +155,7 @@ describe("<Detail-View />", () => {
         value.details.forEach((detail) => {
             describe(`${detail.getFunction.name.replace("get", "")} Details`, () => {
                 bundles.forEach((file) => {
-                    it(file, async (done) => {
+                    it(file, async () => {
                         const blob = new Blob([fs.readFileSync(file)]);
                         const result = await mioParser.parseFile(blob);
                         const bundle =
@@ -221,8 +221,6 @@ describe("<Detail-View />", () => {
                         } else {
                             renderDetail(entryFound, false);
                         }
-
-                        done();
                     });
                 });
             });
@@ -238,7 +236,7 @@ describe("<Detail-View />", () => {
         ViewerTestUtil.mock
     );
 
-    it("Rendert unbekanntes Detail IM", async (done) => {
+    it("Rendert unbekanntes Detail IM", async () => {
         const file = TestUtil.getExample("/data/bundles/ZB/ZB_Ludger_Koenigsstein.xml");
         expect(file).toBeDefined();
         if (file) {
@@ -266,10 +264,9 @@ describe("<Detail-View />", () => {
             ).toBeDefined();
             expect(getByTestId("error-list")).toBeDefined();
         }
-        done();
     });
 
-    it("Rendert unbekanntes Detail ZB", async (done) => {
+    it("Rendert unbekanntes Detail ZB", async () => {
         const file = TestUtil.getExample("/data/bundles/IM/IM_Ludger_Koenigsstein.json");
         expect(file).toBeDefined();
         if (file) {
@@ -298,6 +295,5 @@ describe("<Detail-View />", () => {
             ).toBeDefined();
             expect(getByTestId("error-list")).toBeDefined();
         }
-        done();
     });
 });

@@ -26,21 +26,29 @@ import Mappings from "../../Mappings";
 import { ModelValue } from "../../../../models";
 import * as Models from "../../../../models";
 
+type SubSectionExtension = { url: string; valueString?: string }[];
+
+type Section = {
+    title: string;
+    extension?: SubSectionExtension;
+    section?: Section[];
+};
+
 type OverviewProps = {
-    mio: CMR.V1_0_0.Profile.CMRBundle;
+    mio: CMR.V1_0_1.Profile.CMRBundle;
 } & RouteComponentProps;
 
 type CompositionType =
-    | CMR.V1_0_0.Profile.CMRCompositionU1
-    | CMR.V1_0_0.Profile.CMRCompositionU2
-    | CMR.V1_0_0.Profile.CMRCompositionU3
-    | CMR.V1_0_0.Profile.CMRCompositionU4
-    | CMR.V1_0_0.Profile.CMRCompositionU5
-    | CMR.V1_0_0.Profile.CMRCompositionU6
-    | CMR.V1_0_0.Profile.CMRCompositionU7
-    | CMR.V1_0_0.Profile.CMRCompositionU7a
-    | CMR.V1_0_0.Profile.CMRCompositionU8
-    | CMR.V1_0_0.Profile.CMRCompositionU9;
+    | CMR.V1_0_1.Profile.CMRCompositionU1
+    | CMR.V1_0_1.Profile.CMRCompositionU2
+    | CMR.V1_0_1.Profile.CMRCompositionU3
+    | CMR.V1_0_1.Profile.CMRCompositionU4
+    | CMR.V1_0_1.Profile.CMRCompositionU5
+    | CMR.V1_0_1.Profile.CMRCompositionU6
+    | CMR.V1_0_1.Profile.CMRCompositionU7
+    | CMR.V1_0_1.Profile.CMRCompositionU7a
+    | CMR.V1_0_1.Profile.CMRCompositionU8
+    | CMR.V1_0_1.Profile.CMRCompositionU9;
 
 type OverviewGroup = {
     headline?: string;
@@ -135,7 +143,7 @@ export default class OverviewU extends React.Component<OverviewProps> {
                                             value = mv.value;
                                             label = subSection.title;
                                             if (
-                                                CMR.V1_0_0.Profile.CMRObservationU4U9StatusOfImmunization.is(
+                                                CMR.V1_0_1.Profile.CMRObservationU4U9StatusOfImmunization.is(
                                                     entry.resource
                                                 )
                                             ) {
@@ -175,15 +183,24 @@ export default class OverviewU extends React.Component<OverviewProps> {
         }
     }
 
-    static mapExtension(
-        section: {
-            title: string;
-            extension?: { url: string; valueString?: string }[];
-        },
-        hasContent: boolean
-    ): ModelValue[] {
+    static mapExtension(section: Section, hasContent: boolean): ModelValue[] {
         const minorHints: ModelValue[] = [];
-        const hintLabel = "Hinweis";
+        const hintLabel = section.title ?? "Hinweis";
+        const subSection = section.section;
+
+        if (subSection && subSection.length) {
+            subSection.forEach((s) => {
+                if (s.title && s.extension) {
+                    minorHints.push({
+                        value: " " + s.extension.map((ext) => ext.valueString).join(" "),
+                        label: s.title,
+                        renderAs: UI.ListItem.HintBox
+                    });
+                }
+            });
+
+            if (minorHints.length) return minorHints;
+        }
 
         section.extension?.forEach((ext: { url: string; valueString?: string }) => {
             const minorHintsLength = minorHints.length;
@@ -203,13 +220,6 @@ export default class OverviewU extends React.Component<OverviewProps> {
                 {
                     originalText: "Bei erweitertem Beratungsbedarf bitte ankreuzen!",
                     targetText: "Erweiterter Beratungsbedarf wird angezeigt!"
-                },
-                {
-                    includeText: "Veranlassung der Durchführung von:",
-                    targetText: ext.valueString?.split(":")[1],
-                    label:
-                        "Prüfung, Aufklärung und ggf. Veranlassung der Durchführung von:",
-                    renderAs: UI.ListItem.HintBox
                 },
                 {
                     includeText: "Beobachtung der Interaktion: ",
@@ -251,19 +261,6 @@ export default class OverviewU extends React.Component<OverviewProps> {
                     value: extensionMapItem.targetText ?? extensionMapItem.includeText,
                     label: extensionMapItem.label ?? hintLabel,
                     renderAs: extensionMapItem.renderAs
-                });
-            }
-
-            // Special Extension fixes for U4 and U5
-            if (
-                CMR.V1_0_0.Profile.CMRCompositionU4Ergebnisse.is(section) ||
-                CMR.V1_0_0.Profile.CMRCompositionU5Ergebnisse.is(section)
-            ) {
-                minorHints.push({
-                    value: " " + ext.valueString,
-                    label:
-                        "Prüfung, Aufklärung und ggf. Veranlassung der Durchführung von:",
-                    renderAs: UI.ListItem.HintBox
                 });
             }
 

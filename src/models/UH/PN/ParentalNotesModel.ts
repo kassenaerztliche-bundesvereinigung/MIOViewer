@@ -24,45 +24,48 @@ import { Util } from "../../../components";
 import BaseModel from "./../Basic/CMRBaseModel";
 import { ModelValue } from "../../Types";
 
-export default class ParentalNotesModel extends BaseModel<CMR.V1_0_0.Profile.PNCompositionParentalNotes> {
+export default class ParentalNotesModel extends BaseModel<CMR.V1_0_1.Profile.PNCompositionParentalNotes> {
     constructor(
-        value: CMR.V1_0_0.Profile.PNCompositionParentalNotes,
+        value: CMR.V1_0_1.Profile.PNCompositionParentalNotes,
         fullUrl: string,
-        parent: CMR.V1_0_0.Profile.PNBundle,
+        parent: CMR.V1_0_1.Profile.PNBundle,
         history?: History
     ) {
         super(value, fullUrl, parent, history);
 
         const entries = this.value.section.map((s) =>
             s.entry.map(
-                (e: CMR.V1_0_0.Profile.PNCompositionParentalNotesSectionEntry) =>
+                (e: CMR.V1_0_1.Profile.PNCompositionParentalNotesSectionEntry) =>
                     e.reference
             )
         );
 
         entries.flat().forEach((entry) => {
-            const parentalNote = ParserUtil.getEntryWithRef<CMR.V1_0_0.Profile.PNObservationParentalNotes>(
-                this.parent,
-                [CMR.V1_0_0.Profile.PNObservationParentalNotes],
-                entry
-            );
+            const parentalNote =
+                ParserUtil.getEntryWithRef<CMR.V1_0_1.Profile.PNObservationParentalNotes>(
+                    this.parent,
+                    [CMR.V1_0_1.Profile.PNObservationParentalNotes],
+                    entry
+                );
 
             if (parentalNote) {
                 const pn = parentalNote.resource;
                 this.headline = pn.code.coding
                     .map((c) => {
                         if (c._display?.extension) {
-                            const slice = ParserUtil.getSlice<CMR.V1_0_0.Profile.PNObservationParentalNotesCodeCodingDisplayAnzeigenameCodeSnomed>(
-                                CMR.V1_0_0.Profile
-                                    .PNObservationParentalNotesCodeCodingDisplayAnzeigenameCodeSnomed,
-                                c._display.extension
-                            );
+                            const slice =
+                                ParserUtil.getSlice<CMR.V1_0_1.Profile.PNObservationParentalNotesCodeCodingDisplayAnzeigenameCodeSnomed>(
+                                    CMR.V1_0_1.Profile
+                                        .PNObservationParentalNotesCodeCodingDisplayAnzeigenameCodeSnomed,
+                                    c._display.extension
+                                );
 
-                            const sliceContent = ParserUtil.getSlice<CMR.V1_0_0.Profile.PNObservationParentalNotesCodeCodingDisplayAnzeigenameCodeSnomedContent>(
-                                CMR.V1_0_0.Profile
-                                    .PNObservationParentalNotesCodeCodingDisplayAnzeigenameCodeSnomedContent,
-                                slice?.extension
-                            );
+                            const sliceContent =
+                                ParserUtil.getSlice<CMR.V1_0_1.Profile.PNObservationParentalNotesCodeCodingDisplayAnzeigenameCodeSnomedContent>(
+                                    CMR.V1_0_1.Profile
+                                        .PNObservationParentalNotesCodeCodingDisplayAnzeigenameCodeSnomedContent,
+                                    slice?.extension
+                                );
 
                             if (sliceContent) return sliceContent.valueString;
                             else return c.display;

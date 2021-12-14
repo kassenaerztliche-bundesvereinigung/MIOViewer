@@ -25,18 +25,18 @@ import BaseModel from "./CMRBaseModel";
 import { ModelValue } from "../../Types";
 
 export type SpecialCompositionType =
-    | CMR.V1_0_0.Profile.CMRCompositionCysticFibrosisScreening
-    | CMR.V1_0_0.Profile.CMRCompositionExtendedNewbornScreening
-    | CMR.V1_0_0.Profile.CMRCompositionHipScreening
-    | CMR.V1_0_0.Profile.CMRCompositionNeonatalHearscreening
-    | CMR.V1_0_0.Profile.CMRCompositionPulseOxymetryScreening
-    | CMR.V1_0_0.Profile.CMRCompositionPercentileCurve;
+    | CMR.V1_0_1.Profile.CMRCompositionCysticFibrosisScreening
+    | CMR.V1_0_1.Profile.CMRCompositionExtendedNewbornScreening
+    | CMR.V1_0_1.Profile.CMRCompositionHipScreening
+    | CMR.V1_0_1.Profile.CMRCompositionNeonatalHearscreening
+    | CMR.V1_0_1.Profile.CMRCompositionPulseOxymetryScreening
+    | CMR.V1_0_1.Profile.CMRCompositionPercentileCurve;
 
 export default class SpecialCompositionModel extends BaseModel<SpecialCompositionType> {
     constructor(
         value: SpecialCompositionType,
         fullUrl: string,
-        parent: CMR.V1_0_0.Profile.CMRBundle,
+        parent: CMR.V1_0_1.Profile.CMRBundle,
         history?: History
     ) {
         super(value, fullUrl, parent, history);
@@ -61,16 +61,16 @@ export default class SpecialCompositionModel extends BaseModel<SpecialCompositio
 
         refs.forEach((ref) => {
             const author = ParserUtil.getEntryWithRef<
-                CMR.V1_0_0.Profile.CMRPractitioner | CMR.V1_0_0.Profile.CMROrganization
+                CMR.V1_0_1.Profile.CMRPractitioner | CMR.V1_0_1.Profile.CMROrganization
             >(
                 this.parent,
-                [CMR.V1_0_0.Profile.CMRPractitioner, CMR.V1_0_0.Profile.CMROrganization],
+                [CMR.V1_0_1.Profile.CMRPractitioner, CMR.V1_0_1.Profile.CMROrganization],
                 ref
             )?.resource;
 
             if (author) {
                 let name = "-";
-                if (CMR.V1_0_0.Profile.CMRPractitioner.is(author)) {
+                if (CMR.V1_0_1.Profile.CMRPractitioner.is(author)) {
                     name = Util.UH.getPractitionerName(author);
                 } else if (author.name) {
                     name = author.name;

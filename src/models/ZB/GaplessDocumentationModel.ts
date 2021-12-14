@@ -47,10 +47,11 @@ export default class GaplessDocumentationModel extends BaseModel<ZAEB.V1_1_0.Pro
             authorRef
         );
 
-        const disclaimer = ParserUtil.getSlice<ZAEB.V1_1_0.Profile.ObservationGaplessDocumentationDisclaimer>(
-            ZAEB.V1_1_0.Profile.ObservationGaplessDocumentationDisclaimer,
-            value.extension
-        )?.valueString;
+        const disclaimer =
+            ParserUtil.getSlice<ZAEB.V1_1_0.Profile.ObservationGaplessDocumentationDisclaimer>(
+                ZAEB.V1_1_0.Profile.ObservationGaplessDocumentationDisclaimer,
+                value.extension
+            )?.valueString;
 
         this.values = [
             {

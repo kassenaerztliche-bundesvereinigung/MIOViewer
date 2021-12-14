@@ -39,15 +39,8 @@ export default class ButtonIcon extends React.Component<ButtonIconProps> {
     };
 
     render(): JSX.Element {
-        const {
-            icon,
-            className,
-            onClick,
-            disabled,
-            dataTestId,
-            text,
-            rightToLeft
-        } = this.props;
+        const { icon, className, onClick, disabled, dataTestId, text, rightToLeft } =
+            this.props;
 
         const Icon = icon;
         const classes = ["icon", className, rightToLeft ? "rtl" : ""];

@@ -277,7 +277,7 @@ describe("Detail Coverage", () => {
         "CMRObservationU1BirthTraumaOfFetus",
         "CMRObservationU1BirthWeight",
         "CMRObservationU1CongenitalMalformation",
-        "CMRObservationU1EdemaofNewborn",
+        "CMRObservationU1EdemaOfNewborn",
         "CMRObservationU1FamilyHistory",
         "CMRObservationU1NeonatalJaundice",
         "CMRObservationU1TermInfant",
@@ -394,14 +394,10 @@ describe("Detail Coverage", () => {
         "PNCompositionParentalNotes",
         "PNEncounter",
         "PNObservationParentalNotes",
-        "PNPatient",
         // PC
         "PCBundle",
         "PCCompositionExaminationParticipation",
-        "PCEncounter",
-        "PCOrganization",
-        "PCPatient",
-        "PCPractitioner"
+        "PCEncounter"
     ];
 
     const unusedDetailsUH: string[] = [

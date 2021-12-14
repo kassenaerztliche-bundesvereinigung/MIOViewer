@@ -25,7 +25,7 @@ describe("<Examples />", () => {
     ViewerTestUtil.mock();
 
     const renderTest = (file: string) => {
-        it(file, async (done) => {
+        it(file, async () => {
             const store = ViewerTestUtil.createStoreWithMios([]);
             const { getAllByText } = ViewerTestUtil.renderReduxRoute(
                 Examples,
@@ -34,7 +34,6 @@ describe("<Examples />", () => {
                 "/examples"
             );
             expect(getAllByText("MIO Beispiele")).toBeDefined();
-            done();
         });
     };
 

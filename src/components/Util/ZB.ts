@@ -144,24 +144,27 @@ export function getPatientName(patient: ZAEB.V1_1_0.Profile.Patient): string {
             } else if (nameSlice._family) {
                 const partsFamily = [];
 
-                const addition = ParserUtil.getSlice<ZAEB.V1_1_0.Profile.PatientNameFamilyNamenszusatz>(
-                    ZAEB.V1_1_0.Profile.PatientNameFamilyNamenszusatz,
-                    nameSlice._family.extension
-                )?.valueString;
+                const addition =
+                    ParserUtil.getSlice<ZAEB.V1_1_0.Profile.PatientNameFamilyNamenszusatz>(
+                        ZAEB.V1_1_0.Profile.PatientNameFamilyNamenszusatz,
+                        nameSlice._family.extension
+                    )?.valueString;
 
                 if (addition) partsFamily.push(addition);
 
-                const pre = ParserUtil.getSlice<ZAEB.V1_1_0.Profile.PatientNameFamilyVorsatzwort>(
-                    ZAEB.V1_1_0.Profile.PatientNameFamilyVorsatzwort,
-                    nameSlice._family.extension
-                )?.valueString;
+                const pre =
+                    ParserUtil.getSlice<ZAEB.V1_1_0.Profile.PatientNameFamilyVorsatzwort>(
+                        ZAEB.V1_1_0.Profile.PatientNameFamilyVorsatzwort,
+                        nameSlice._family.extension
+                    )?.valueString;
 
                 if (pre) partsFamily.push(pre);
 
-                const family = ParserUtil.getSlice<ZAEB.V1_1_0.Profile.PatientNameFamilyNachname>(
-                    ZAEB.V1_1_0.Profile.PatientNameFamilyNachname,
-                    nameSlice._family.extension
-                )?.valueString;
+                const family =
+                    ParserUtil.getSlice<ZAEB.V1_1_0.Profile.PatientNameFamilyNachname>(
+                        ZAEB.V1_1_0.Profile.PatientNameFamilyNachname,
+                        nameSlice._family.extension
+                    )?.valueString;
 
                 if (family) partsFamily.push(family);
 

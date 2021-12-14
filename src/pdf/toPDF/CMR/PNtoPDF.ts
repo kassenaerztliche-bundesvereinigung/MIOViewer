@@ -27,16 +27,17 @@ import { horizontalLine } from "../../PDFHelper";
 import Base from "./CMRtoPDFBase";
 
 export default class PNtoPDF extends Base<
-    CMR.V1_0_0.Profile.PNCompositionParentalNotes,
-    CMR.V1_0_0.Profile.PNBundle
+    CMR.V1_0_1.Profile.PNCompositionParentalNotes,
+    CMR.V1_0_1.Profile.PNBundle
 > {
-    constructor(value: CMR.V1_0_0.Profile.PNBundle) {
+    constructor(value: CMR.V1_0_1.Profile.PNBundle) {
         super(value);
 
-        this.composition = ParserUtil.getEntry<CMR.V1_0_0.Profile.PNCompositionParentalNotes>(
-            this.value,
-            [CMR.V1_0_0.Profile.PNCompositionParentalNotes]
-        );
+        this.composition =
+            ParserUtil.getEntry<CMR.V1_0_1.Profile.PNCompositionParentalNotes>(
+                this.value,
+                [CMR.V1_0_1.Profile.PNCompositionParentalNotes]
+            );
     }
 
     public getContent(): Content {

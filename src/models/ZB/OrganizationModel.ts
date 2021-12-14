@@ -38,10 +38,11 @@ export default class OrganizationModel extends BaseModel<ZAEB.V1_1_0.Profile.Org
 
     protected getIdentifier(): ModelValue {
         if (this.value.identifier) {
-            const iknr = ParserUtil.getSlice<ZAEB.V1_1_0.Profile.OrganizationInstitutionskennzeichen>(
-                ZAEB.V1_1_0.Profile.OrganizationInstitutionskennzeichen,
-                this.value.identifier
-            );
+            const iknr =
+                ParserUtil.getSlice<ZAEB.V1_1_0.Profile.OrganizationInstitutionskennzeichen>(
+                    ZAEB.V1_1_0.Profile.OrganizationInstitutionskennzeichen,
+                    this.value.identifier
+                );
 
             if (iknr)
                 return {
@@ -49,10 +50,11 @@ export default class OrganizationModel extends BaseModel<ZAEB.V1_1_0.Profile.Org
                     label: "Institutionskennzeichen (IKNR)"
                 };
 
-            const bsnr = ParserUtil.getSlice<ZAEB.V1_1_0.Profile.OrganizationBetriebsstaettennummer>(
-                ZAEB.V1_1_0.Profile.OrganizationBetriebsstaettennummer,
-                this.value.identifier
-            );
+            const bsnr =
+                ParserUtil.getSlice<ZAEB.V1_1_0.Profile.OrganizationBetriebsstaettennummer>(
+                    ZAEB.V1_1_0.Profile.OrganizationBetriebsstaettennummer,
+                    this.value.identifier
+                );
 
             if (bsnr) {
                 return {
@@ -61,10 +63,11 @@ export default class OrganizationModel extends BaseModel<ZAEB.V1_1_0.Profile.Org
                 };
             }
 
-            const kzva = ParserUtil.getSlice<ZAEB.V1_1_0.Profile.OrganizationKZVAbrechnungsnummer>(
-                ZAEB.V1_1_0.Profile.OrganizationKZVAbrechnungsnummer,
-                this.value.identifier
-            );
+            const kzva =
+                ParserUtil.getSlice<ZAEB.V1_1_0.Profile.OrganizationKZVAbrechnungsnummer>(
+                    ZAEB.V1_1_0.Profile.OrganizationKZVAbrechnungsnummer,
+                    this.value.identifier
+                );
 
             if (kzva) {
                 return {

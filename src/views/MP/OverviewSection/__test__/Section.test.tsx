@@ -31,14 +31,13 @@ describe("Mutterpass Section Tests", () => {
     let bundle: MR.V1_0_0.Profile.Bundle | undefined = undefined;
     let store: any = undefined; // eslint-disable-line
 
-    it("Loads max example", async (done) => {
+    it("Loads max example", async () => {
         const file = TestUtil.getExample("/data/bundles/MR/Bundle-example_max.json");
         expect(file).toBeDefined();
         if (file) {
             const result = await mioParser.parseString(file);
             bundle = result.value as MR.V1_0_0.Profile.Bundle;
             store = ViewerTestUtil.createStoreWithMios([bundle]);
-            done();
         }
     });
 
@@ -54,7 +53,7 @@ describe("Mutterpass Section Tests", () => {
         return container;
     };
 
-    it("Renders Section Epicrisis", async (done) => {
+    it("Renders Section Epicrisis", async () => {
         if (bundle) {
             const mioId = ParserUtil.getUuidFromBundle(bundle);
 
@@ -93,6 +92,5 @@ describe("Mutterpass Section Tests", () => {
                 "MRClinicalImpressionSecondExaminationAfterChildbirth"
             );
         }
-        done();
     });
 });

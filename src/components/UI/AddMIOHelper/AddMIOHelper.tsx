@@ -86,8 +86,7 @@ export default class AddMIOHelper {
         this.onStateChange();
     };
 
-    bigFile = (files: File[]): boolean => {
-        const thresholdSize = 1048576.0;
+    exceedFileSize = (files: File[], thresholdSize: number): boolean => {
         const totalSize = files.reduce(
             (accum, current): number => accum + current.size,
             0
@@ -96,14 +95,8 @@ export default class AddMIOHelper {
         return totalSize > thresholdSize;
     };
 
-    tooBig = (files: File[]): boolean => {
-        const thresholdSize = 10485760.0;
-        const totalSize = files.reduce(
-            (accum, current): number => accum + current.size,
-            0
-        );
-        return totalSize > thresholdSize;
-    };
+    bigFile = (files: File[]): boolean => this.exceedFileSize(files, 1048576.0);
+    tooBig = (files: File[]): boolean => this.exceedFileSize(files, 10485760.0);
 
     onSelect = (files: File[]): void => {
         const bigFile = this.bigFile(files);
@@ -277,12 +270,8 @@ export default class AddMIOHelper {
     };
 
     protected renderErrorBox(): JSX.Element {
-        const {
-            errorMessage,
-            errorDetailMessage,
-            errorDetailMessageToCopy,
-            numErrors
-        } = this._state;
+        const { errorMessage, errorDetailMessage, errorDetailMessageToCopy, numErrors } =
+            this._state;
 
         return (
             <div className={"error-content"}>

@@ -30,20 +30,20 @@ export default class IMtoPDF extends PDFRepresentation<Vaccination.V1_1_0.Profil
     }
 
     public getContent(): Content {
-        const recordsAddendum = ParserUtil.getEntries<Vaccination.V1_1_0.Profile.RecordAddendum>(
-            this.value,
-            [Vaccination.V1_1_0.Profile.RecordAddendum]
-        );
+        const recordsAddendum =
+            ParserUtil.getEntries<Vaccination.V1_1_0.Profile.RecordAddendum>(this.value, [
+                Vaccination.V1_1_0.Profile.RecordAddendum
+            ]);
 
         let recordContent = recordsAddendum.map((r) => {
             const model = new IM.RecordAddendumModel(r.resource, r.fullUrl, this.value);
             return model.toPDFContent();
         });
 
-        const recordsPrime = ParserUtil.getEntries<Vaccination.V1_1_0.Profile.RecordPrime>(
-            this.value,
-            [Vaccination.V1_1_0.Profile.RecordPrime]
-        );
+        const recordsPrime =
+            ParserUtil.getEntries<Vaccination.V1_1_0.Profile.RecordPrime>(this.value, [
+                Vaccination.V1_1_0.Profile.RecordPrime
+            ]);
 
         recordContent = [
             ...recordContent,
@@ -57,10 +57,11 @@ export default class IMtoPDF extends PDFRepresentation<Vaccination.V1_1_0.Profil
             recordContent = [this.pdfContentHint("Impfungen", "Impfpass")];
         }
 
-        const observations = ParserUtil.getEntries<Vaccination.V1_1_0.Profile.ObservationImmunizationStatus>(
-            this.value,
-            [Vaccination.V1_1_0.Profile.ObservationImmunizationStatus]
-        );
+        const observations =
+            ParserUtil.getEntries<Vaccination.V1_1_0.Profile.ObservationImmunizationStatus>(
+                this.value,
+                [Vaccination.V1_1_0.Profile.ObservationImmunizationStatus]
+            );
 
         let observationsContent = observations.map((o) => {
             const model = new IM.ObservationModel(o.resource, o.fullUrl, this.value);

@@ -21,8 +21,8 @@ import { KBVBundleResource, MIOEntry, CMR } from "@kbv/mioparser";
 import * as Models from "../../models";
 import { DetailMapping } from "../Comprehensive/Detail/Types";
 
-const PR = CMR.V1_0_0.Profile;
-const CM = CMR.V1_0_0.ConceptMap;
+const PR = CMR.V1_0_1.Profile;
+const CM = CMR.V1_0_1.ConceptMap;
 
 export default class Mappings {
     static Basic: DetailMapping[] = [
@@ -32,27 +32,7 @@ export default class Mappings {
             models: [Models.UH.Basic.PatientModel]
         },
         {
-            profile: PR.PCPatient,
-            header: "Patient/-in",
-            models: [Models.UH.Basic.PatientModel]
-        },
-        {
-            profile: PR.PNPatient,
-            header: "Patient/-in",
-            models: [Models.UH.Basic.PatientModel]
-        },
-        {
             profile: PR.CMRPractitioner,
-            header: "Behandelnde Person",
-            models: [
-                Models.UH.Basic.PractitionerModel,
-                Models.AddressModel,
-                Models.TelecomModel,
-                Models.AdditionalCommentModel
-            ]
-        },
-        {
-            profile: PR.PCPractitioner,
             header: "Behandelnde Person",
             models: [
                 Models.UH.Basic.PractitionerModel,
@@ -78,16 +58,6 @@ export default class Mappings {
                 Models.UH.Basic.OrganizationModel,
                 Models.AddressModel,
                 Models.ContactModel
-            ]
-        },
-        {
-            profile: PR.PCOrganization,
-            header: "Details zur Einrichtung",
-            models: [
-                Models.UH.Basic.OrganizationModel,
-                Models.AddressModel,
-                Models.TelecomModel,
-                Models.AdditionalCommentModel
             ]
         },
         {
@@ -196,7 +166,7 @@ export default class Mappings {
             noValue: true
         },
         {
-            profile: PR.CMRObservationU1EdemaofNewborn,
+            profile: PR.CMRObservationU1EdemaOfNewborn,
             models: [Models.UH.Basic.ObservationModel]
         },
         {
@@ -250,7 +220,8 @@ export default class Mappings {
         },
         {
             profile: PR.CMRObservationU1U5PediatricDiagnosticAudiologyService,
-            models: [Models.UH.Basic.ObservationModel]
+            models: [Models.UH.Basic.ObservationModel],
+            valueConceptMaps: [CM.CMRHearscreeningResultGerman]
         },
         // U2
         {
@@ -629,7 +600,8 @@ export default class Mappings {
         },
         {
             profile: PR.CMRDiagnosticReportU1U5PediatricDiagnosticAudiologyService,
-            models: [Models.UH.Basic.DiagnosticReportModel]
+            models: [Models.UH.Basic.DiagnosticReportModel],
+            valueConceptMaps: [CM.CMRHearscreeningResultGerman]
         },
         {
             profile: PR.CMRDiagnosticReportU1U3PulseOxymetry,

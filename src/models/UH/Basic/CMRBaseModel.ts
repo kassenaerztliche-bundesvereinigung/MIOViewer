@@ -31,9 +31,9 @@ export default abstract class CMRBaseModel<
         value: T,
         fullUrl: string,
         parent:
-            | CMR.V1_0_0.Profile.CMRBundle
-            | CMR.V1_0_0.Profile.PCBundle
-            | CMR.V1_0_0.Profile.PNBundle,
+            | CMR.V1_0_1.Profile.CMRBundle
+            | CMR.V1_0_1.Profile.PCBundle
+            | CMR.V1_0_1.Profile.PNBundle,
         history?: History,
         protected codeConceptMaps?: ParserUtil.ConceptMap[],
         protected valueConceptMaps?: ParserUtil.ConceptMap[]

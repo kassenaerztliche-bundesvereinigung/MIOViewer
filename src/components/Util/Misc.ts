@@ -45,9 +45,7 @@ type patientType =
     | Vaccination.V1_1_0.Profile.Patient
     | ZAEB.V1_1_0.Profile.Patient
     | MR.V1_0_0.Profile.PatientMother
-    | CMR.V1_0_0.Profile.CMRPatient
-    | CMR.V1_0_0.Profile.PCPatient
-    | CMR.V1_0_0.Profile.PNPatient;
+    | CMR.V1_0_1.Profile.CMRPatient;
 
 export function checkIfVaccinationPatient(
     patient: patientType
@@ -160,7 +158,7 @@ export function humanNameToString(
 }
 
 export function getNameFromContact(
-    contact?: CMR.V1_0_0.Profile.CMROrganizationScreeningLaboratoryContact
+    contact?: CMR.V1_0_1.Profile.CMROrganizationScreeningLaboratoryContact
 ): string {
     if (contact) {
         if (contact.id) return contact.id;
@@ -179,9 +177,9 @@ export function getTelecom(
         | ZAEB.V1_1_0.Profile.Organization
         | MR.V1_0_0.Profile.Organization
         | MR.V1_0_0.Profile.Practitioner
-        | CMR.V1_0_0.Profile.CMRPractitioner
-        | CMR.V1_0_0.Profile.CMROrganization
-        | CMR.V1_0_0.Profile.CMROrganizationScreeningLaboratoryContact
+        | CMR.V1_0_1.Profile.CMRPractitioner
+        | CMR.V1_0_1.Profile.CMROrganization
+        | CMR.V1_0_1.Profile.CMROrganizationScreeningLaboratoryContact
 ): UI.ListItem.Props[] {
     if (entry.telecom && entry.telecom.length) {
         const mapLabel = (v: string): string => {
@@ -279,31 +277,23 @@ export function getPatientIdentifier(
         | Vaccination.V1_1_0.Profile.Patient
         | ZAEB.V1_1_0.Profile.Patient
         | MR.V1_0_0.Profile.PatientMother
-        | CMR.V1_0_0.Profile.CMRPatient
-        | CMR.V1_0_0.Profile.PCPatient
-        | CMR.V1_0_0.Profile.PNPatient
+        | CMR.V1_0_1.Profile.CMRPatient
 ): UI.ListItem.Props[] {
     const identifier: UI.ListItem.Props[] = [];
 
-    patient.identifier?.forEach(
-        (i: {
-            type?: { coding?: { code: string }[] };
-            value?: string;
-            system?: string;
-        }) => {
-            const coding = i.type?.coding;
-            if (coding) {
-                const codingString = coding
-                    .map((c: { code: string }) => c.code)
-                    .join(", ");
-                identifier.push({ value: i.value, label: codingString });
-            } else {
-                if (i.system === "http://fhir.de/NamingSystem/gkv/kvid-10") {
-                    identifier.push({ value: i.value, label: "GKV" });
-                }
+    // TODO
+    // eslint-disable-next-line
+    patient.identifier?.forEach((i: any) => {
+        const coding = i.type?.coding;
+        if (coding) {
+            const codingString = coding.map((c: { code: string }) => c.code).join(", ");
+            identifier.push({ value: i.value, label: codingString });
+        } else {
+            if (i.system === "http://fhir.de/NamingSystem/gkv/kvid-10") {
+                identifier.push({ value: i.value, label: "GKV" });
             }
         }
-    );
+    });
 
     return identifier.map((i) => mapIdentifier(i));
 }

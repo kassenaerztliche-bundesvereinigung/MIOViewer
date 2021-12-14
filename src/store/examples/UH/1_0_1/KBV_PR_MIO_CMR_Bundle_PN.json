@@ -1,0 +1,313 @@
+{
+    "resourceType": "Bundle",
+    "id": "e5b6b3eb-3acd-48cc-a094-6138341d82be",
+    "meta": {
+        "profile": ["https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_PN_Bundle|1.0.1"]
+    },
+    "identifier": {
+        "system": "urn:ietf:rfc:3938",
+        "value": "urn:uuid:e5b6b3eb-3acd-48cc-a094-6138341d82be"
+    },
+    "type": "document",
+    "timestamp": "2019-12-23T12:30:02Z",
+    "entry": [
+        {
+            "fullUrl": "urn:uuid:383e2d0f-5e3b-4d67-b069-f33b40f2c730",
+            "resource": {
+                "resourceType": "Composition",
+                "id": "383e2d0f-5e3b-4d67-b069-f33b40f2c730",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_PN_Composition_Parental_Notes|1.0.1"
+                    ]
+                },
+                "extension": [
+                    {
+                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Additional_Comment",
+                        "valueString": "Tipp: Ist Ihnen bei Ihrem Baby etwas aufgefallen, das Sie ungewöhnlich finden? Am besten notieren Sie sich vor der Untersuchung, was Sie beobachtet haben und worüber Sie mit Ihrer Ärztin oder Ihrem Arzt sprechen möchten."
+                    }
+                ],
+                "status": "final",
+                "type": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "version": "http://snomed.info/sct/900000000000207008/version/20210131",
+                            "code": "401141001",
+                            "display": "Parental concern about child (finding)"
+                        }
+                    ]
+                },
+                "category": [
+                    {
+                        "coding": [
+                            {
+                                "system": "http://snomed.info/sct",
+                                "version": "http://snomed.info/sct/900000000000207008/version/20210131",
+                                "code": "243788004",
+                                "display": "Child examination (procedure)"
+                            }
+                        ]
+                    }
+                ],
+                "subject": {
+                    "reference": "urn:uuid:04ad3612-60a7-4303-aa8a-82860106a1ab"
+                },
+                "encounter": {
+                    "reference": "urn:uuid:a6e05952-ad7a-4950-9eee-9755896dc6de"
+                },
+                "date": "2020-01-02",
+                "author": [
+                    {
+                        "display": "Mutter des Kindes"
+                    }
+                ],
+                "title": "Hier können Sie Ihre Notizen eintragen:",
+                "section": [
+                    {
+                        "entry": [
+                            {
+                                "reference": "urn:uuid:3ff70bbc-0df6-400b-aa9c-4b19000a27f7"
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:a6e05952-ad7a-4950-9eee-9755896dc6de",
+            "resource": {
+                "resourceType": "Encounter",
+                "id": "a6e05952-ad7a-4950-9eee-9755896dc6de",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_PN_Encounter|1.0.1"
+                    ]
+                },
+                "status": "finished",
+                "class": {
+                    "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+                    "version": "2.0.0",
+                    "code": "AMB",
+                    "display": "ambulatory"
+                },
+                "type": [
+                    {
+                        "coding": [
+                            {
+                                "system": "http://snomed.info/sct",
+                                "version": "http://snomed.info/sct/900000000000207008/version/20200731",
+                                "code": "170107008",
+                                "_display": {
+                                    "extension": [
+                                        {
+                                            "extension": [
+                                                {
+                                                    "url": "content",
+                                                    "valueString": "U2 3.-10. Lebenstag"
+                                                }
+                                            ],
+                                            "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+                                        }
+                                    ]
+                                },
+                                "display": "Child examination - 10 days (procedure)"
+                            }
+                        ]
+                    }
+                ],
+                "subject": {
+                    "reference": "urn:uuid:04ad3612-60a7-4303-aa8a-82860106a1ac"
+                },
+                "period": {
+                    "start": "2020-01-02"
+                }
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:3ff70bbc-0df6-400b-aa9c-4b19000a27f7",
+            "resource": {
+                "resourceType": "Observation",
+                "id": "3ff70bbc-0df6-400b-aa9c-4b19000a27f7",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_PN_Observation_Parental_Notes|1.0.1"
+                    ]
+                },
+                "status": "final",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "version": "http://snomed.info/sct/900000000000207008/version/20210131",
+                            "code": "401141001",
+                            "_display": {
+                                "extension": [
+                                    {
+                                        "extension": [
+                                            {
+                                                "url": "content",
+                                                "valueString": "Hier können Sie Ihre Notizen eintragen:"
+                                            }
+                                        ],
+                                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+                                    }
+                                ]
+                            },
+                            "display": "Parental concern about child (finding)"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "urn:uuid:04ad3612-60a7-4303-aa8a-82860106a1ab"
+                },
+                "encounter": {
+                    "reference": "urn:uuid:a6e05952-ad7a-4950-9eee-9755896dc6de"
+                },
+                "effectiveDateTime": "2020-01-02",
+                "valueString": "Das Kind fällt ständig hin."
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:04ad3612-60a7-4303-aa8a-82860106a1ab",
+            "resource": {
+                "resourceType": "Patient",
+                "id": "04ad3612-60a7-4303-aa8a-82860106a1ab",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_CMR_Patient|1.0.1"
+                    ]
+                },
+                "identifier": [
+                    {
+                        "type": {
+                            "coding": [
+                                {
+                                    "system": "https://fhir.kbv.de/CodeSystem/KBV_CS_Base_identifier_type",
+                                    "code": "kvk",
+                                    "display": "Krankenversichertenkarte"
+                                }
+                            ]
+                        },
+                        "system": "http://fhir.de/NamingSystem/gkv/kvk-versichertennummer",
+                        "value": "F123456784"
+                    }
+                ],
+                "name": [
+                    {
+                        "use": "official",
+                        "text": "Peter Rot",
+                        "_family": {
+                            "extension": [
+                                {
+                                    "url": "http://hl7.org/fhir/StructureDefinition/humanname-own-name",
+                                    "valueString": "Rot"
+                                }
+                            ]
+                        },
+                        "family": "Rot",
+                        "given": ["Peter"]
+                    }
+                ],
+                "birthDate": "1935-06-22"
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:04ad3612-60a7-4303-aa8a-82860106a1ac",
+            "resource": {
+                "resourceType": "Patient",
+                "id": "04ad3612-60a7-4303-aa8a-82860106a1ac",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_CMR_Patient|1.0.1"
+                    ]
+                },
+                "identifier": [
+                    {
+                        "type": {
+                            "coding": [
+                                {
+                                    "system": "https://fhir.kbv.de/CodeSystem/KBV_CS_Base_identifier_type",
+                                    "code": "kvk",
+                                    "display": "Krankenversichertenkarte"
+                                }
+                            ]
+                        },
+                        "system": "http://fhir.de/NamingSystem/gkv/kvk-versichertennummer",
+                        "value": "F123456784"
+                    }
+                ],
+                "name": [
+                    {
+                        "use": "official",
+                        "text": "Peter Rot",
+                        "_family": {
+                            "extension": [
+                                {
+                                    "url": "http://hl7.org/fhir/StructureDefinition/humanname-own-name",
+                                    "valueString": "Rot"
+                                }
+                            ]
+                        },
+                        "family": "Rot",
+                        "given": ["Peter"]
+                    }
+                ],
+                "birthDate": "1935-06-22"
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:e27f5ba9-7b10-4055-a355-c9fd27da69b1",
+            "resource": {
+                "resourceType": "Practitioner",
+                "id": "e27f5ba9-7b10-4055-a355-c9fd27da69b1",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_CMR_Practitioner|1.0.1"
+                    ]
+                },
+                "identifier": [
+                    {
+                        "type": {
+                            "coding": [
+                                {
+                                    "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                                    "code": "LANR"
+                                }
+                            ]
+                        },
+                        "system": "https://fhir.kbv.de/NamingSystem/KBV_NS_Base_ANR",
+                        "value": "123456789"
+                    }
+                ],
+                "name": [
+                    {
+                        "use": "official",
+                        "text": "Dr. med. Till Früherkenner",
+                        "_family": {
+                            "extension": [
+                                {
+                                    "url": "http://hl7.org/fhir/StructureDefinition/humanname-own-name",
+                                    "valueString": "Früherkenner"
+                                }
+                            ]
+                        },
+                        "family": "Früherkenner",
+                        "given": ["Till"],
+                        "prefix": ["Dr. med."],
+                        "_prefix": [
+                            {
+                                "extension": [
+                                    {
+                                        "url": "http://hl7.org/fhir/StructureDefinition/iso21090-EN-qualifier",
+                                        "valueCode": "AC"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    ]
+}

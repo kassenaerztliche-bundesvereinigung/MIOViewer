@@ -25,9 +25,7 @@ import { Util } from "../../../components";
 import BaseModel from "./CMRBaseModel";
 import { ModelValue } from "../../Types";
 
-export type PractitionerType =
-    | CMR.V1_0_0.Profile.CMRPractitioner
-    | CMR.V1_0_0.Profile.PCPractitioner;
+export type PractitionerType = CMR.V1_0_1.Profile.CMRPractitioner;
 
 export default class PractitionerModel extends BaseModel<PractitionerType> {
     constructor(
@@ -36,7 +34,7 @@ export default class PractitionerModel extends BaseModel<PractitionerType> {
         parent: KBVBundleResource,
         history?: History
     ) {
-        super(value, fullUrl, parent as CMR.V1_0_0.Profile.CMRBundle, history);
+        super(value, fullUrl, parent as CMR.V1_0_1.Profile.CMRBundle, history);
         this.headline = Util.UH.getPractitionerName(this.value);
         this.values = [...this.getQualification(), this.getIdentifier()];
     }
@@ -69,8 +67,8 @@ export default class PractitionerModel extends BaseModel<PractitionerType> {
 
     protected getIdentifier(): ModelValue {
         if (this.value.identifier) {
-            const ANR = ParserUtil.getSlice<CMR.V1_0_0.Profile.CMRPractitionerANR>(
-                CMR.V1_0_0.Profile.CMRPractitionerANR,
+            const ANR = ParserUtil.getSlice<CMR.V1_0_1.Profile.CMRPractitionerANR>(
+                CMR.V1_0_1.Profile.CMRPractitionerANR,
                 this.value.identifier
             );
 
@@ -80,8 +78,8 @@ export default class PractitionerModel extends BaseModel<PractitionerType> {
                     label: "Lebenslange Arztnummer (LANR)"
                 };
 
-            const EFN = ParserUtil.getSlice<CMR.V1_0_0.Profile.CMRPractitionerEFN>(
-                CMR.V1_0_0.Profile.CMRPractitionerEFN,
+            const EFN = ParserUtil.getSlice<CMR.V1_0_1.Profile.CMRPractitionerEFN>(
+                CMR.V1_0_1.Profile.CMRPractitionerEFN,
                 this.value.identifier
             );
 
@@ -91,8 +89,8 @@ export default class PractitionerModel extends BaseModel<PractitionerType> {
                     label: "Einheitliche Fortbildungsnummer (EFN)"
                 };
 
-            const IK = ParserUtil.getSlice<CMR.V1_0_0.Profile.CMRPractitionerHebammenIK>(
-                CMR.V1_0_0.Profile.CMRPractitionerHebammenIK,
+            const IK = ParserUtil.getSlice<CMR.V1_0_1.Profile.CMRPractitionerHebammenIK>(
+                CMR.V1_0_1.Profile.CMRPractitionerHebammenIK,
                 this.value.identifier
             );
 

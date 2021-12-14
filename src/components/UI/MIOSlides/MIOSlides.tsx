@@ -25,7 +25,14 @@ import { MIOConnectorType } from "../../../store";
 
 import { UI, Util } from "../../../components";
 
-import { KBVBundleResource, MR, Vaccination, ZAEB, CMR, ParserUtil } from "@kbv/mioparser";
+import {
+    KBVBundleResource,
+    MR,
+    Vaccination,
+    ZAEB,
+    CMR,
+    ParserUtil
+} from "@kbv/mioparser";
 
 import "./MIOSlides.scss";
 
@@ -166,7 +173,7 @@ abstract class MIOSlides<
                         }
                     />
                 );
-            } else if (CMR.V1_0_0.Profile.CMRBundle.is(mio) && ungroup) {
+            } else if (CMR.V1_0_1.Profile.CMRBundle.is(mio) && ungroup) {
                 const type = Util.UH.getTypeFromBundle(mio);
                 const patient = Util.UH.getPatient(mio);
 
@@ -180,7 +187,7 @@ abstract class MIOSlides<
                         labelBG={true}
                     />
                 );
-            } else if (CMR.V1_0_0.Profile.PCBundle.is(mio) && ungroup) {
+            } else if (CMR.V1_0_1.Profile.PCBundle.is(mio) && ungroup) {
                 const type = Util.UH.getEncounterTypeFromBundle(mio);
                 const patient = Util.UH.getPatient(mio);
 
@@ -194,7 +201,7 @@ abstract class MIOSlides<
                         labelBG={true}
                     />
                 );
-            } else if (CMR.V1_0_0.Profile.PNBundle.is(mio) && ungroup) {
+            } else if (CMR.V1_0_1.Profile.PNBundle.is(mio) && ungroup) {
                 const type = Util.UH.getEncounterTypeFromBundle(mio);
                 const patient = Util.UH.getPatient(mio);
 

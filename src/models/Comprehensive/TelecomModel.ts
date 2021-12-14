@@ -33,8 +33,8 @@ export default class TelecomModel<
         | ZAEB.V1_1_0.Profile.Organization
         | MR.V1_0_0.Profile.Organization
         | MR.V1_0_0.Profile.Practitioner
-        | CMR.V1_0_0.Profile.CMRPractitioner
-        | CMR.V1_0_0.Profile.CMROrganization
+        | CMR.V1_0_1.Profile.CMRPractitioner
+        | CMR.V1_0_1.Profile.CMROrganization
 > extends BaseModel<T> {
     constructor(value: T, fullUrl: string, parent: KBVBundleResource, history?: History) {
         super(value, fullUrl, parent, history);

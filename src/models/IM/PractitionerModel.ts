@@ -18,7 +18,7 @@
 
 import { History } from "history";
 
-import { KBVBundleResource, ParserUtil, Vaccination, KBVBase } from "@kbv/mioparser";
+import { KBVBundleResource, ParserUtil, Vaccination } from "@kbv/mioparser";
 import { Util } from "../../components";
 
 import BaseModel from "../BaseModel";
@@ -54,7 +54,7 @@ export default class PractitionerModel extends BaseModel<PractitionerType> {
     protected getQualification(): string {
         return Util.Misc.getQualification(
             this.value.qualification,
-            [KBVBase.V1_1_1.ConceptMap.PractitionerFunctionGerman],
+            [Vaccination.V1_1_0.ConceptMap.IHEXDSAuthorSpecialityRestrictedGerman],
             [
                 Vaccination.V1_1_0.ValueSet.IHEXDSAuthorSpecialityRestrictedValueSet,
                 Vaccination.V1_1_0.ValueSet.PractitionerSpecialityValueSet,

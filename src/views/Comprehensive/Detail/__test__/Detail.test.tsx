@@ -86,7 +86,7 @@ describe("<Detail />", () => {
         detail.values.forEach((value) => {
             describe(value.getFunction.name, () => {
                 bundles.forEach((file) => {
-                    it(file, async (done) => {
+                    it(file, async () => {
                         const blob = new Blob([fs.readFileSync(file)]);
                         const result = await mioParser.parseFile(blob);
                         const bundle = result.value as KBVBundleResource;
@@ -103,15 +103,13 @@ describe("<Detail />", () => {
                                 ? ParserUtil.getUuidFromEntry(entry)
                                 : "-";
 
-                            const {
-                                getByTestId,
-                                getAllByTestId
-                            } = ViewerTestUtil.renderReduxRoute(
-                                Detail,
-                                store,
-                                `/entry/${mioId}/${entryId}`,
-                                "/entry/:id/:entry"
-                            );
+                            const { getByTestId, getAllByTestId } =
+                                ViewerTestUtil.renderReduxRoute(
+                                    Detail,
+                                    store,
+                                    `/entry/${mioId}/${entryId}`,
+                                    "/entry/:id/:entry"
+                                );
 
                             if (entry) {
                                 if (arr) {
@@ -131,8 +129,6 @@ describe("<Detail />", () => {
                         } else {
                             renderDetail(entryFound, false);
                         }
-
-                        done();
                     });
                 });
             });

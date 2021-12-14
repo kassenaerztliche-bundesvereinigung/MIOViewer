@@ -49,11 +49,12 @@ export default class DiagnosticReportResultRequireControlModel extends MPBaseMod
             this.value.result.forEach((valueResult) => {
                 const ref = valueResult.reference;
 
-                const result = ParserUtil.getEntryWithRef<MR.V1_0_0.Profile.ObservationFindingsRequiredControl>(
-                    parent,
-                    [PR.ObservationFindingsRequiredControl],
-                    ref
-                );
+                const result =
+                    ParserUtil.getEntryWithRef<MR.V1_0_0.Profile.ObservationFindingsRequiredControl>(
+                        parent,
+                        [PR.ObservationFindingsRequiredControl],
+                        ref
+                    );
 
                 if (result) {
                     const CM = MR.V1_0_0.ConceptMap;

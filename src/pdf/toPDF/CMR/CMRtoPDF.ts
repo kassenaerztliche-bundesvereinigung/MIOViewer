@@ -30,24 +30,24 @@ import OverviewU from "../../../views/UH/Overview/CMR/OverviewU";
 import Base from "./CMRtoPDFBase";
 
 type SpecialCompositionType =
-    | CMR.V1_0_0.Profile.CMRCompositionCysticFibrosisScreening
-    | CMR.V1_0_0.Profile.CMRCompositionExtendedNewbornScreening
-    | CMR.V1_0_0.Profile.CMRCompositionHipScreening
-    | CMR.V1_0_0.Profile.CMRCompositionNeonatalHearscreening
-    | CMR.V1_0_0.Profile.CMRCompositionPulseOxymetryScreening
-    | CMR.V1_0_0.Profile.CMRCompositionPercentileCurve;
+    | CMR.V1_0_1.Profile.CMRCompositionCysticFibrosisScreening
+    | CMR.V1_0_1.Profile.CMRCompositionExtendedNewbornScreening
+    | CMR.V1_0_1.Profile.CMRCompositionHipScreening
+    | CMR.V1_0_1.Profile.CMRCompositionNeonatalHearscreening
+    | CMR.V1_0_1.Profile.CMRCompositionPulseOxymetryScreening
+    | CMR.V1_0_1.Profile.CMRCompositionPercentileCurve;
 
 type UCompositionType =
-    | CMR.V1_0_0.Profile.CMRCompositionU1
-    | CMR.V1_0_0.Profile.CMRCompositionU2
-    | CMR.V1_0_0.Profile.CMRCompositionU3
-    | CMR.V1_0_0.Profile.CMRCompositionU4
-    | CMR.V1_0_0.Profile.CMRCompositionU5
-    | CMR.V1_0_0.Profile.CMRCompositionU6
-    | CMR.V1_0_0.Profile.CMRCompositionU7
-    | CMR.V1_0_0.Profile.CMRCompositionU7a
-    | CMR.V1_0_0.Profile.CMRCompositionU8
-    | CMR.V1_0_0.Profile.CMRCompositionU9;
+    | CMR.V1_0_1.Profile.CMRCompositionU1
+    | CMR.V1_0_1.Profile.CMRCompositionU2
+    | CMR.V1_0_1.Profile.CMRCompositionU3
+    | CMR.V1_0_1.Profile.CMRCompositionU4
+    | CMR.V1_0_1.Profile.CMRCompositionU5
+    | CMR.V1_0_1.Profile.CMRCompositionU6
+    | CMR.V1_0_1.Profile.CMRCompositionU7
+    | CMR.V1_0_1.Profile.CMRCompositionU7a
+    | CMR.V1_0_1.Profile.CMRCompositionU8
+    | CMR.V1_0_1.Profile.CMRCompositionU9;
 
 type OverviewGroup = {
     headline?: string;
@@ -58,14 +58,14 @@ type OverviewGroup = {
 
 export default class CMRtoPDF extends Base<
     UCompositionType,
-    CMR.V1_0_0.Profile.CMRBundle
+    CMR.V1_0_1.Profile.CMRBundle
 > {
     protected compositionSpecial?: MIOEntry<SpecialCompositionType>;
     protected compositionPercentile?: MIOEntry<SpecialCompositionType>;
     protected groups: OverviewGroup[] = [];
     protected sectionTitle = "";
 
-    constructor(value: CMR.V1_0_0.Profile.CMRBundle) {
+    constructor(value: CMR.V1_0_1.Profile.CMRBundle) {
         super(value);
 
         this.compositionSpecial = Util.UH.getSpecialComposition(value);
@@ -258,13 +258,13 @@ export default class CMRtoPDF extends Base<
         if (refs.length) {
             refs.forEach((ref) => {
                 const author = ParserUtil.getEntryWithRef<
-                    | CMR.V1_0_0.Profile.CMRPractitioner
-                    | CMR.V1_0_0.Profile.CMROrganization
+                    | CMR.V1_0_1.Profile.CMRPractitioner
+                    | CMR.V1_0_1.Profile.CMROrganization
                 >(
                     this.value,
                     [
-                        CMR.V1_0_0.Profile.CMRPractitioner,
-                        CMR.V1_0_0.Profile.CMROrganization
+                        CMR.V1_0_1.Profile.CMRPractitioner,
+                        CMR.V1_0_1.Profile.CMROrganization
                     ],
                     ref
                 );
@@ -273,7 +273,7 @@ export default class CMRtoPDF extends Base<
                     let authorModel;
                     let additionalComment = undefined;
 
-                    if (CMR.V1_0_0.Profile.CMROrganization.is(author.resource)) {
+                    if (CMR.V1_0_1.Profile.CMROrganization.is(author.resource)) {
                         authorModel = new Models.UH.Basic.OrganizationModel(
                             author.resource,
                             author.fullUrl,
@@ -339,11 +339,16 @@ export default class CMRtoPDF extends Base<
     }
 
     protected getHeadline(): string {
-        if (this.composition) return Util.UH.getType(this.composition.resource, true);
-        else if (this.compositionSpecial) return "Spezielle Früherkennungsuntersuchung";
-        else if (this.compositionPercentile) return "Perzentilkurven";
-        else if (CMR.V1_0_0.Profile.PCBundle.is(this.value)) return "Teilnahmekarte";
-        else if (CMR.V1_0_0.Profile.PNBundle.is(this.value)) return "Elternnotiz";
-        return "-";
+        if (this.composition) {
+            return Util.UH.getType(this.composition.resource, true);
+        } else if (this.compositionSpecial) {
+            return this.compositionSpecial.resource.title;
+        } else if (this.compositionPercentile) {
+            return this.compositionPercentile.resource.title;
+        } else if (CMR.V1_0_1.Profile.PCBundle.is(this.value)) {
+            return "Teilnahmekarte";
+        } else if (CMR.V1_0_1.Profile.PNBundle.is(this.value)) {
+            return "Elternnotiz";
+        } else return "-";
     }
 }

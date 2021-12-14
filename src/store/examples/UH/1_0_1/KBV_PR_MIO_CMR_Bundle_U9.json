@@ -1,0 +1,1418 @@
+{
+    "resourceType": "Bundle",
+    "id": "365c5433-7013-49bc-ad9e-ab6a10ec6cbe",
+    "meta": {
+        "profile": ["https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_CMR_Bundle|1.0.1"]
+    },
+    "identifier": {
+        "system": "urn:ietf:rfc:3936",
+        "value": "365c5433-7013-49bc-ad9e-ab6a10ec6cbe"
+    },
+    "type": "document",
+    "timestamp": "2020-07-13T10:54:00Z",
+    "entry": [
+        {
+            "fullUrl": "urn:uuid:f5f9a659-ac59-4c07-b041-58203081cdf6",
+            "resource": {
+                "resourceType": "Composition",
+                "id": "f5f9a659-ac59-4c07-b041-58203081cdf6",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_CMR_Composition_U9|1.0.1"
+                    ]
+                },
+                "extension": [
+                    {
+                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_MIO_CMR_Note",
+                        "valueString": "U9 Elterninformation zur Untersuchung vom 60. bis zum 64. Lebensmonat Ihr Kind ist jetzt etwa fünf Jahre alt. Viele Kinder haben in diesem Alter einen großen Bewegungsdrang, klettern gern und stellen viele Fragen. In der Regel entwickeln die Kinder in Rollenspielen mit anderen viel Fantasie und haben Freude am Malen mit Buntstiften oder am Schneiden mit einer Schere. Sollte Ihr Kind noch nicht alle Laute fehlerfrei aussprechen, bitten Sie Ihre Ärztin oder Ihren Arzt, darauf besonders zu achten und Sie dazu zu beraten. Die Ärztin oder der Arzt achtet bei der U9 wieder besonders auf Entwicklungsauffälligkeiten. Ihr Kind wird körperlich untersucht. Zum Erkennen von Sehstörungen werden wieder Sehtests durchgeführt. Die Ärztin oder der Arzt testet, wie beweglich und wie geschickt Ihr Kind ist und wie gut es spricht. Außerdem möchte die Ärztin oder der Arzt wissen, woran Ihr Kind Interesse und Freude hat oder wovor es sich möglicherweise ängstigt. Ihr Kind kommt bald in die Schule. Damit die Ärztin oder der Arzt Sie gegebenenfalls rechtzeitig unterstützen kann, sind diese Informationen wichtig. Außerdem interessiert sich Ihre Ärztin oder Ihr Arzt für den Kontakt zwischen Ihnen und Ihrem Kind. Ihre Ärztin oder Ihr Arzt berät Sie zu den laut Impfkalender empfohlenen Schutzimpfungen. Zudem spricht die Ärztin oder der Arzt mit Ihnen über Themen wie die Ernährung und Bewegung Ihres Kindes, Maßnahmen zur Unfallverhütung, die Förderung der Sprachentwicklung und den verantwortungsbewussten Gebrauch von Medien (z. B. TV, Spielekonsolen, Internet und Ähnlichem) im Alltag Ihres Kindes. Sie werden nochmals auf eine Kariesprophylaxe mittels Fluorid aufmerksam gemacht. Ihre Ärztin oder Ihr Arzt verweist Sie zur zahnärztlichen Früherkennungsuntersuchung."
+                    }
+                ],
+                "status": "final",
+                "type": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "version": "http://snomed.info/sct/900000000000207008/version/20210131",
+                            "code": "243788004:370131001=410602000",
+                            "display": "Child examination (procedure) : Recipient category (attribute) = Preschool child (person)"
+                        }
+                    ]
+                },
+                "category": [
+                    {
+                        "coding": [
+                            {
+                                "system": "http://snomed.info/sct",
+                                "version": "http://snomed.info/sct/900000000000207008/version/20210131",
+                                "code": "243788004",
+                                "display": "Child examination (procedure)"
+                            }
+                        ]
+                    }
+                ],
+                "subject": {
+                    "reference": "urn:uuid:3e6825d8-a88e-48d8-8a4b-97014beae651"
+                },
+                "encounter": {
+                    "reference": "urn:uuid:8c4a5fe1-a88c-4aa0-9bdf-6bde932ce1dd"
+                },
+                "date": "2020-07-07",
+                "author": [
+                    {
+                        "reference": "urn:uuid:e27f5ba9-7b10-4055-a355-c9fd27da69b1"
+                    }
+                ],
+                "title": "U9",
+                "section": [
+                    {
+                        "extension": [
+                            {
+                                "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_MIO_CMR_Instruction",
+                                "valueString": "Zutreffendes bitte ankreuzen!"
+                            }
+                        ],
+                        "title": "Aktuelle Anamnese des Kindes",
+                        "code": {
+                            "coding": [
+                                {
+                                    "system": "http://snomed.info/sct",
+                                    "version": "http://snomed.info/sct/900000000000207008/version/20210131",
+                                    "code": "423374008",
+                                    "display": "Review of systems section (record artifact)"
+                                }
+                            ]
+                        },
+                        "text": {
+                            "status": "generated",
+                            "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>Aktuelle Anamnese des Kindes</p></div>"
+                        }
+                    },
+                    {
+                        "extension": [
+                            {
+                                "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_MIO_CMR_Instruction",
+                                "valueString": "Zutreffendes bitte ankreuzen!"
+                            }
+                        ],
+                        "title": "Sozialanamnese",
+                        "code": {
+                            "coding": [
+                                {
+                                    "system": "http://snomed.info/sct",
+                                    "version": "http://snomed.info/sct/900000000000207008/version/20210131",
+                                    "code": "281575007",
+                                    "display": "Family social history (situation)"
+                                }
+                            ]
+                        },
+                        "text": {
+                            "status": "generated",
+                            "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>Sozialanamnese</p></div>"
+                        }
+                    },
+                    {
+                        "extension": [
+                            {
+                                "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_MIO_CMR_Instruction",
+                                "valueString": "Nur Auffälligkeiten ankreuzen!"
+                            }
+                        ],
+                        "title": "Körperliche Untersuchung",
+                        "code": {
+                            "coding": [
+                                {
+                                    "system": "http://snomed.info/sct",
+                                    "version": "http://snomed.info/sct/900000000000207008/version/20210131",
+                                    "code": "425044008",
+                                    "display": "Physical exam section (record artifact)"
+                                }
+                            ]
+                        },
+                        "text": {
+                            "status": "generated",
+                            "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>Körperliche Untersuchung</p></div>"
+                        },
+                        "entry": [
+                            {
+                                "reference": "urn:uuid:ecc113b6-b496-4011-a811-38976523be38"
+                            }
+                        ]
+                    },
+                    {
+                        "extension": [
+                            {
+                                "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_MIO_CMR_Instruction",
+                                "valueString": "Bei erweitertem Beratungsbedarf bitte ankreuzen!"
+                            },
+                            {
+                                "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_MIO_CMR_Note",
+                                "valueString": "Beratung vor allem zu folgenden Themen:"
+                            }
+                        ],
+                        "title": "Beratung",
+                        "code": {
+                            "coding": [
+                                {
+                                    "system": "http://snomed.info/sct",
+                                    "version": "http://snomed.info/sct/900000000000207008/version/20210131",
+                                    "code": "409066002",
+                                    "display": "Education, guidance and counseling (procedure)"
+                                }
+                            ]
+                        },
+                        "text": {
+                            "status": "generated",
+                            "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>Beratung</p></div>"
+                        },
+                        "entry": [
+                            {
+                                "reference": "urn:uuid:0d7c59cc-f618-4665-a6e6-c6d43892481b"
+                            },
+                            {
+                                "reference": "urn:uuid:83db1a03-dc34-46de-a095-ab8751029842"
+                            },
+                            {
+                                "reference": "urn:uuid:3d22dd12-37b9-4852-a4cd-f11392429be1"
+                            },
+                            {
+                                "reference": "urn:uuid:92122018-fbf2-4106-a71b-11a9b22c7719"
+                            }
+                        ]
+                    },
+                    {
+                        "title": "Ergebnisse",
+                        "code": {
+                            "coding": [
+                                {
+                                    "system": "http://snomed.info/sct",
+                                    "version": "http://snomed.info/sct/900000000000207008/version/20210131",
+                                    "code": "423100009",
+                                    "display": "Results section (record artifact)"
+                                }
+                            ]
+                        },
+                        "text": {
+                            "status": "generated",
+                            "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>Ergebnisse</p></div>"
+                        },
+                        "entry": [
+                            {
+                                "reference": "urn:uuid:b0e9ca94-2eda-42ac-bf63-c6a5c5adc5d2"
+                            },
+                            {
+                                "reference": "urn:uuid:1623a07b-69ce-4128-8314-3756cbeb9b18"
+                            },
+                            {
+                                "reference": "urn:uuid:c6355471-8fc8-4505-a540-840cd0ad5237"
+                            },
+                            {
+                                "reference": "urn:uuid:4fdec8d5-f064-4f07-84a6-fb1fe782add5"
+                            },
+                            {
+                                "reference": "urn:uuid:337e75a4-f32c-4730-8839-ac3f79a3ffff"
+                            },
+                            {
+                                "reference": "urn:uuid:18865878-8b13-4f06-8a31-ee55f5ce36de"
+                            },
+                            {
+                                "reference": "urn:uuid:5e888a54-c7df-4e76-8cc4-e1c3eecb15a2"
+                            }
+                        ],
+                        "section": [
+                            {
+                                "title": "Prüfung, Aufklärung und ggf. Veranlassung der Durchführung von:",
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://snomed.info/sct",
+                                            "version": "http://snomed.info/sct/900000000000207008/version/20210131",
+                                            "code": "722448004",
+                                            "display": "Treatment plan report (record artifact)"
+                                        }
+                                    ]
+                                },
+                                "entry": [
+                                    {
+                                        "reference": "urn:uuid:60548512-c957-4a47-b832-578ea8938975"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "extension": [
+                            {
+                                "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_MIO_CMR_Instruction",
+                                "valueString": "Nur ankreuzen, wenn die Items NICHT erfüllt werden!"
+                            },
+                            {
+                                "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_MIO_CMR_Note",
+                                "valueString": "Beobachtung der Interaktion: Insbersondere die folgenden Reaktionen des Kindes können der Ärztin oder dem Arzt als Hinweis zur Einschätzung von Stimmung, Kommunikations- Regulationsmöglichkeiten des Kindes im Kontak mit seiner primären Bezugsperson und als weitere Grundlage für das Ärztin oder Arzt-Elterngespräch dienen:"
+                            }
+                        ],
+                        "title": "Orientierende Beurteilung der Entwicklung",
+                        "code": {
+                            "coding": [
+                                {
+                                    "system": "http://snomed.info/sct",
+                                    "version": "http://snomed.info/sct/900000000000207008/version/20210131",
+                                    "code": "406207000",
+                                    "display": "Child development by age (observable entity)"
+                                }
+                            ]
+                        },
+                        "text": {
+                            "status": "generated",
+                            "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>Orientierende Beurteilung der Entwicklung</p></div>"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:5e888a54-c7df-4e76-8cc4-e1c3eecb15a2",
+            "resource": {
+                "resourceType": "Appointment",
+                "id": "5e888a54-c7df-4e76-8cc4-e1c3eecb15a2",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_CMR_Appointment_Next_Immunization_Appointment|1.0.1"
+                    ]
+                },
+                "status": "proposed",
+                "serviceType": [
+                    {
+                        "coding": [
+                            {
+                                "system": "http://snomed.info/sct",
+                                "version": "http://snomed.info/sct/900000000000207008/version/20210131",
+                                "code": "390840006:42752001=127785005",
+                                "_display": {
+                                    "extension": [
+                                        {
+                                            "extension": [
+                                                {
+                                                    "url": "content",
+                                                    "valueString": "nächster Impftermin am:"
+                                                }
+                                            ],
+                                            "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+                                        }
+                                    ]
+                                },
+                                "display": "Next appointment (finding) : Due to (attribute) = Administration of substance to produce immunity, either active or passive (procedure)"
+                            }
+                        ]
+                    }
+                ],
+                "participant": [
+                    {
+                        "actor": {
+                            "reference": "urn:uuid:3e6825d8-a88e-48d8-8a4b-97014beae651"
+                        },
+                        "status": "accepted"
+                    },
+                    {
+                        "actor": {
+                            "reference": "urn:uuid:e27f5ba9-7b10-4055-a355-c9fd27da69b1"
+                        },
+                        "status": "accepted"
+                    }
+                ],
+                "requestedPeriod": [
+                    {
+                        "start": "2020-07-14"
+                    }
+                ]
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:4fdec8d5-f064-4f07-84a6-fb1fe782add5",
+            "resource": {
+                "resourceType": "CarePlan",
+                "id": "4fdec8d5-f064-4f07-84a6-fb1fe782add5",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_CMR_Care_Plan_U2_U9_Result|1.0.1"
+                    ]
+                },
+                "status": "completed",
+                "intent": "proposal",
+                "subject": {
+                    "reference": "urn:uuid:3e6825d8-a88e-48d8-8a4b-97014beae651"
+                },
+                "encounter": {
+                    "reference": "urn:uuid:8c4a5fe1-a88c-4aa0-9bdf-6bde932ce1dd"
+                },
+                "created": "2020-07-07",
+                "author": {
+                    "reference": "urn:uuid:e27f5ba9-7b10-4055-a355-c9fd27da69b1"
+                },
+                "activity": [
+                    {
+                        "detail": {
+                            "code": {
+                                "coding": [
+                                    {
+                                        "system": "http://snomed.info/sct",
+                                        "version": "http://snomed.info/sct/900000000000207008/version/20210131",
+                                        "code": "271906008",
+                                        "_display": {
+                                            "extension": [
+                                                {
+                                                    "extension": [
+                                                        {
+                                                            "url": "content",
+                                                            "valueString": "Auffälligkeiten zur Beobachtung:"
+                                                        }
+                                                    ],
+                                                    "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+                                                }
+                                            ]
+                                        },
+                                        "display": "Examination finding (observable entity)"
+                                    }
+                                ]
+                            },
+                            "status": "scheduled",
+                            "description": "Auffälligkeiten zur Beobachtung"
+                        }
+                    },
+                    {
+                        "detail": {
+                            "code": {
+                                "coding": [
+                                    {
+                                        "system": "http://snomed.info/sct",
+                                        "version": "http://snomed.info/sct/900000000000207008/version/20210131",
+                                        "code": "722448004",
+                                        "_display": {
+                                            "extension": [
+                                                {
+                                                    "extension": [
+                                                        {
+                                                            "url": "content",
+                                                            "valueString": "weitere Maßnahmen vereinbart:"
+                                                        }
+                                                    ],
+                                                    "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+                                                }
+                                            ]
+                                        },
+                                        "display": "Treatment plan report (record artifact)"
+                                    }
+                                ]
+                            },
+                            "status": "scheduled",
+                            "description": "weitere Maßnahmen vereinbart"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:c6355471-8fc8-4505-a540-840cd0ad5237",
+            "resource": {
+                "resourceType": "DiagnosticReport",
+                "id": "c6355471-8fc8-4505-a540-840cd0ad5237",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_CMR_Diagnostic_Report_U7_U9_Body_Measures|1.0.1"
+                    ]
+                },
+                "status": "final",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "version": "http://snomed.info/sct/900000000000207008/version/20210131",
+                            "code": "248326004",
+                            "_display": {
+                                "extension": [
+                                    {
+                                        "extension": [
+                                            {
+                                                "url": "content",
+                                                "valueString": "Körpermaße:"
+                                            }
+                                        ],
+                                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+                                    }
+                                ]
+                            },
+                            "display": "Body measure (observable entity)"
+                        },
+                        {
+                            "system": "http://loinc.org",
+                            "version": "2.69",
+                            "code": "29275-5",
+                            "_display": {
+                                "extension": [
+                                    {
+                                        "extension": [
+                                            {
+                                                "url": "content",
+                                                "valueString": "Körpermaße:"
+                                            }
+                                        ],
+                                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+                                    }
+                                ]
+                            },
+                            "display": "Body measurements"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "urn:uuid:3e6825d8-a88e-48d8-8a4b-97014beae651"
+                },
+                "encounter": {
+                    "reference": "urn:uuid:8c4a5fe1-a88c-4aa0-9bdf-6bde932ce1dd"
+                },
+                "effectiveDateTime": "2020-07-07",
+                "performer": [
+                    {
+                        "reference": "urn:uuid:e27f5ba9-7b10-4055-a355-c9fd27da69b1"
+                    }
+                ],
+                "result": [
+                    {
+                        "reference": "urn:uuid:e2f36313-bfc2-47d5-8145-ffff53a1ec95"
+                    },
+                    {
+                        "reference": "urn:uuid:5a912ac0-00a2-42e5-ac6f-1f2e245e738b"
+                    }
+                ]
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:ecc113b6-b496-4011-a811-38976523be38",
+            "resource": {
+                "resourceType": "DiagnosticReport",
+                "id": "ecc113b6-b496-4011-a811-38976523be38",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_CMR_Diagnostic_Report_U8_U9_Physical_Exam_Mouth_Nose|1.0.1"
+                    ]
+                },
+                "status": "final",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "version": "http://snomed.info/sct/900000000000207008/version/20210131",
+                            "code": "271914002+364111005",
+                            "_display": {
+                                "extension": [
+                                    {
+                                        "extension": [
+                                            {
+                                                "url": "content",
+                                                "valueString": "Mundhöhle, Kiefer, Nase"
+                                            }
+                                        ],
+                                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+                                    }
+                                ]
+                            },
+                            "display": "Ear, nose and throat examination finding (observable entity) + Oral cavity observable (observable entity)"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "urn:uuid:3e6825d8-a88e-48d8-8a4b-97014beae651"
+                },
+                "encounter": {
+                    "reference": "urn:uuid:8c4a5fe1-a88c-4aa0-9bdf-6bde932ce1dd"
+                },
+                "effectiveDateTime": "2020-07-07",
+                "performer": [
+                    {
+                        "reference": "urn:uuid:e27f5ba9-7b10-4055-a355-c9fd27da69b1"
+                    }
+                ],
+                "result": [
+                    {
+                        "reference": "urn:uuid:2015c80d-47d2-470a-9356-e6a895ab5c97"
+                    }
+                ]
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:8c4a5fe1-a88c-4aa0-9bdf-6bde932ce1dd",
+            "resource": {
+                "resourceType": "Encounter",
+                "id": "8c4a5fe1-a88c-4aa0-9bdf-6bde932ce1dd",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_CMR_Encounter|1.0.1"
+                    ]
+                },
+                "status": "finished",
+                "class": {
+                    "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+                    "version": "2.0.0",
+                    "code": "AMB",
+                    "display": "ambulatory"
+                },
+                "type": [
+                    {
+                        "coding": [
+                            {
+                                "system": "http://snomed.info/sct",
+                                "version": "http://snomed.info/sct/900000000000207008/version/20210131",
+                                "code": "243788004:370131001=410602000",
+                                "_display": {
+                                    "extension": [
+                                        {
+                                            "extension": [
+                                                {
+                                                    "url": "content",
+                                                    "valueString": "U9"
+                                                }
+                                            ],
+                                            "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+                                        }
+                                    ]
+                                },
+                                "display": "Child examination (procedure) : Recipient category (attribute) = Preschool child (person)"
+                            }
+                        ]
+                    }
+                ],
+                "subject": {
+                    "reference": "urn:uuid:3e6825d8-a88e-48d8-8a4b-97014beae651"
+                },
+                "participant": [
+                    {
+                        "type": [
+                            {
+                                "coding": [
+                                    {
+                                        "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+                                        "version": "2.0.0",
+                                        "code": "PPRF",
+                                        "display": "primary performer"
+                                    }
+                                ]
+                            }
+                        ],
+                        "individual": {
+                            "reference": "urn:uuid:e27f5ba9-7b10-4055-a355-c9fd27da69b1"
+                        }
+                    }
+                ],
+                "period": {
+                    "start": "2020-07-07"
+                }
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:18865878-8b13-4f06-8a31-ee55f5ce36de",
+            "resource": {
+                "resourceType": "Observation",
+                "id": "18865878-8b13-4f06-8a31-ee55f5ce36de",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_CMR_Observation_Comments|1.0.1"
+                    ]
+                },
+                "status": "final",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "version": "http://snomed.info/sct/900000000000207008/version/20210131",
+                            "code": "703852005",
+                            "_display": {
+                                "extension": [
+                                    {
+                                        "extension": [
+                                            {
+                                                "url": "content",
+                                                "valueString": "Bemerkungen:"
+                                            }
+                                        ],
+                                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+                                    }
+                                ]
+                            },
+                            "display": "Narrative comment section (record artifact)"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "urn:uuid:3e6825d8-a88e-48d8-8a4b-97014beae651"
+                },
+                "encounter": {
+                    "reference": "urn:uuid:8c4a5fe1-a88c-4aa0-9bdf-6bde932ce1dd"
+                },
+                "effectiveDateTime": "2020-07-07",
+                "performer": [
+                    {
+                        "reference": "urn:uuid:e27f5ba9-7b10-4055-a355-c9fd27da69b1"
+                    }
+                ],
+                "valueString": "Auffrischung für nächste Woche vereinbart"
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:e2f36313-bfc2-47d5-8145-ffff53a1ec95",
+            "resource": {
+                "resourceType": "Observation",
+                "id": "e2f36313-bfc2-47d5-8145-ffff53a1ec95",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_CMR_Observation_U2_U9_Body_Height_Measure|1.0.1"
+                    ]
+                },
+                "status": "final",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "version": "http://snomed.info/sct/900000000000207008/version/20210131",
+                            "code": "248334005",
+                            "_display": {
+                                "extension": [
+                                    {
+                                        "extension": [
+                                            {
+                                                "url": "content",
+                                                "valueString": "Körperlänge in cm"
+                                            }
+                                        ],
+                                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+                                    }
+                                ]
+                            },
+                            "display": "Length of body (observable entity)"
+                        },
+                        {
+                            "system": "http://loinc.org",
+                            "version": "2.69",
+                            "code": "8302-2",
+                            "_display": {
+                                "extension": [
+                                    {
+                                        "extension": [
+                                            {
+                                                "url": "content",
+                                                "valueString": "Körperlänge in cm"
+                                            }
+                                        ],
+                                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+                                    }
+                                ]
+                            },
+                            "display": "Body height"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "urn:uuid:3e6825d8-a88e-48d8-8a4b-97014beae651"
+                },
+                "encounter": {
+                    "reference": "urn:uuid:8c4a5fe1-a88c-4aa0-9bdf-6bde932ce1dd"
+                },
+                "effectiveDateTime": "2020-07-07",
+                "performer": [
+                    {
+                        "reference": "urn:uuid:e27f5ba9-7b10-4055-a355-c9fd27da69b1"
+                    }
+                ],
+                "valueQuantity": {
+                    "value": 110,
+                    "unit": "cm",
+                    "system": "http://unitsofmeasure.org",
+                    "code": "cm"
+                }
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:b0e9ca94-2eda-42ac-bf63-c6a5c5adc5d2",
+            "resource": {
+                "resourceType": "Observation",
+                "id": "b0e9ca94-2eda-42ac-bf63-c6a5c5adc5d2",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_CMR_Observation_U2_U9_No_Abnormality_Detected|1.0.1"
+                    ]
+                },
+                "status": "final",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "version": "http://snomed.info/sct/900000000000207008/version/20210131",
+                            "code": "281900007",
+                            "_display": {
+                                "extension": [
+                                    {
+                                        "extension": [
+                                            {
+                                                "url": "content",
+                                                "valueString": "keine Auffälligkeiten"
+                                            }
+                                        ],
+                                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+                                    }
+                                ]
+                            },
+                            "display": "No abnormality detected (finding)"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "urn:uuid:3e6825d8-a88e-48d8-8a4b-97014beae651"
+                },
+                "encounter": {
+                    "reference": "urn:uuid:8c4a5fe1-a88c-4aa0-9bdf-6bde932ce1dd"
+                },
+                "effectiveDateTime": "2020-07-07",
+                "performer": [
+                    {
+                        "reference": "urn:uuid:e27f5ba9-7b10-4055-a355-c9fd27da69b1"
+                    }
+                ],
+                "valueBoolean": true
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:1623a07b-69ce-4128-8314-3756cbeb9b18",
+            "resource": {
+                "resourceType": "Observation",
+                "id": "1623a07b-69ce-4128-8314-3756cbeb9b18",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_CMR_Observation_U3_U9_Age_Appropriate_Development|1.0.1"
+                    ]
+                },
+                "status": "final",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "version": "http://snomed.info/sct/900000000000207008/version/20210131",
+                            "code": "406207000",
+                            "_display": {
+                                "extension": [
+                                    {
+                                        "extension": [
+                                            {
+                                                "url": "content",
+                                                "valueString": "Orientierende Beurteilung der Entwicklung altersgemäß:"
+                                            }
+                                        ],
+                                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+                                    }
+                                ]
+                            },
+                            "display": "Child development by age (observable entity)"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "urn:uuid:3e6825d8-a88e-48d8-8a4b-97014beae651"
+                },
+                "encounter": {
+                    "reference": "urn:uuid:8c4a5fe1-a88c-4aa0-9bdf-6bde932ce1dd"
+                },
+                "effectiveDateTime": "2020-07-07",
+                "performer": [
+                    {
+                        "reference": "urn:uuid:e27f5ba9-7b10-4055-a355-c9fd27da69b1"
+                    }
+                ],
+                "valueCodeableConcept": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "version": "http://snomed.info/sct/900000000000207008/version/20210131",
+                            "code": "23397005",
+                            "_display": {
+                                "extension": [
+                                    {
+                                        "extension": [
+                                            {
+                                                "url": "content",
+                                                "valueString": "Orientierende Beurteilung der Entwicklung altersgemäß:"
+                                            }
+                                        ],
+                                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+                                    }
+                                ]
+                            },
+                            "display": "Normal growth and development for age (finding)"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:60548512-c957-4a47-b832-578ea8938975",
+            "resource": {
+                "resourceType": "Observation",
+                "id": "60548512-c957-4a47-b832-578ea8938975",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_CMR_Observation_U4_U9_Status_Of_Immunization|1.0.1"
+                    ]
+                },
+                "status": "final",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "version": "http://snomed.info/sct/900000000000207008/version/20210131",
+                            "code": "171258008",
+                            "_display": {
+                                "extension": [
+                                    {
+                                        "extension": [
+                                            {
+                                                "url": "content",
+                                                "valueString": "Impfstatus beim Verlassen der Praxis vollständig:"
+                                            }
+                                        ],
+                                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+                                    }
+                                ]
+                            },
+                            "display": "Up-to-date with immunizations (finding)"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "urn:uuid:3e6825d8-a88e-48d8-8a4b-97014beae651"
+                },
+                "encounter": {
+                    "reference": "urn:uuid:8c4a5fe1-a88c-4aa0-9bdf-6bde932ce1dd"
+                },
+                "effectiveDateTime": "2020-07-07",
+                "performer": [
+                    {
+                        "reference": "urn:uuid:e27f5ba9-7b10-4055-a355-c9fd27da69b1"
+                    }
+                ],
+                "valueBoolean": false,
+                "component": [
+                    {
+                        "code": {
+                            "coding": [
+                                {
+                                    "system": "http://snomed.info/sct",
+                                    "version": "http://snomed.info/sct/900000000000207008/version/20210131",
+                                    "code": "171279008",
+                                    "_display": {
+                                        "extension": [
+                                            {
+                                                "extension": [
+                                                    {
+                                                        "url": "content",
+                                                        "valueString": "fehlende Impfungen"
+                                                    }
+                                                ],
+                                                "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+                                            }
+                                        ]
+                                    },
+                                    "display": "Immunization due (finding)"
+                                }
+                            ]
+                        },
+                        "valueString": "Auffrischung Tetanus Diphtherie Pertussis"
+                    }
+                ]
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:5a912ac0-00a2-42e5-ac6f-1f2e245e738b",
+            "resource": {
+                "resourceType": "Observation",
+                "id": "5a912ac0-00a2-42e5-ac6f-1f2e245e738b",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_CMR_Observation_U7_U9_Body_Weight|1.0.1"
+                    ]
+                },
+                "status": "final",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "version": "http://snomed.info/sct/900000000000207008/version/20210131",
+                            "code": "27113001",
+                            "_display": {
+                                "extension": [
+                                    {
+                                        "extension": [
+                                            {
+                                                "url": "content",
+                                                "valueString": "Körpergewicht in kg"
+                                            }
+                                        ],
+                                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+                                    }
+                                ]
+                            },
+                            "display": "Body weight (observable entity)"
+                        },
+                        {
+                            "system": "http://loinc.org",
+                            "version": "2.69",
+                            "code": "29463-7",
+                            "_display": {
+                                "extension": [
+                                    {
+                                        "extension": [
+                                            {
+                                                "url": "content",
+                                                "valueString": "Körpergewicht in kg"
+                                            }
+                                        ],
+                                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+                                    }
+                                ]
+                            },
+                            "display": "Body weight"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "urn:uuid:3e6825d8-a88e-48d8-8a4b-97014beae651"
+                },
+                "encounter": {
+                    "reference": "urn:uuid:8c4a5fe1-a88c-4aa0-9bdf-6bde932ce1dd"
+                },
+                "effectiveDateTime": "2020-07-07",
+                "performer": [
+                    {
+                        "reference": "urn:uuid:e27f5ba9-7b10-4055-a355-c9fd27da69b1"
+                    }
+                ],
+                "valueQuantity": {
+                    "value": 23,
+                    "unit": "kg",
+                    "system": "http://unitsofmeasure.org",
+                    "code": "kg"
+                }
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:2015c80d-47d2-470a-9356-e6a895ab5c97",
+            "resource": {
+                "resourceType": "Observation",
+                "id": "2015c80d-47d2-470a-9356-e6a895ab5c97",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_CMR_Observation_U8_U9_Physical_Exam_Mouth_Nose|1.0.1"
+                    ]
+                },
+                "status": "final",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "version": "http://snomed.info/sct/900000000000207008/version/20210131",
+                            "code": "300255008",
+                            "_display": {
+                                "extension": [
+                                    {
+                                        "extension": [
+                                            {
+                                                "url": "content",
+                                                "valueString": "Auffälligkeiten an Zähnen und Schleimhaut"
+                                            }
+                                        ],
+                                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+                                    }
+                                ]
+                            },
+                            "display": "Oral cavity problem (finding)"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "urn:uuid:3e6825d8-a88e-48d8-8a4b-97014beae651"
+                },
+                "encounter": {
+                    "reference": "urn:uuid:8c4a5fe1-a88c-4aa0-9bdf-6bde932ce1dd"
+                },
+                "effectiveDateTime": "2020-07-07",
+                "performer": [
+                    {
+                        "reference": "urn:uuid:e27f5ba9-7b10-4055-a355-c9fd27da69b1"
+                    }
+                ],
+                "valueBoolean": true
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:8577978c-c942-44de-ac8b-4170c7c67484",
+            "resource": {
+                "resourceType": "Organization",
+                "id": "8577978c-c942-44de-ac8b-4170c7c67484",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_CMR_Organization|1.0.1"
+                    ]
+                },
+                "identifier": [
+                    {
+                        "type": {
+                            "coding": [
+                                {
+                                    "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                                    "code": "BSNR"
+                                }
+                            ]
+                        },
+                        "system": "https://fhir.kbv.de/NamingSystem/KBV_NS_Base_BSNR",
+                        "value": "123456789"
+                    }
+                ],
+                "name": "Praxis für Kinderheilkunde",
+                "telecom": [
+                    {
+                        "system": "phone",
+                        "value": "01234/56789"
+                    }
+                ]
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:3e6825d8-a88e-48d8-8a4b-97014beae651",
+            "resource": {
+                "resourceType": "Patient",
+                "id": "3e6825d8-a88e-48d8-8a4b-97014beae651",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_CMR_Patient|1.0.1"
+                    ]
+                },
+                "identifier": [
+                    {
+                        "type": {
+                            "coding": [
+                                {
+                                    "system": "https://fhir.kbv.de/CodeSystem/KBV_CS_Base_identifier_type",
+                                    "code": "kvk",
+                                    "display": "Krankenversichertenkarte"
+                                }
+                            ]
+                        },
+                        "system": "http://fhir.de/NamingSystem/gkv/kvk-versichertennummer",
+                        "value": "M123456789"
+                    }
+                ],
+                "name": [
+                    {
+                        "use": "official",
+                        "text": "Egon Glücklich",
+                        "_family": {
+                            "extension": [
+                                {
+                                    "url": "http://hl7.org/fhir/StructureDefinition/humanname-own-name",
+                                    "valueString": "Glücklich"
+                                }
+                            ]
+                        },
+                        "family": "Glücklich",
+                        "given": ["Egon"]
+                    }
+                ],
+                "birthDate": "2015-07-05"
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:e27f5ba9-7b10-4055-a355-c9fd27da69b1",
+            "resource": {
+                "resourceType": "Practitioner",
+                "id": "e27f5ba9-7b10-4055-a355-c9fd27da69b1",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_CMR_Practitioner|1.0.1"
+                    ]
+                },
+                "identifier": [
+                    {
+                        "type": {
+                            "coding": [
+                                {
+                                    "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                                    "code": "LANR"
+                                }
+                            ]
+                        },
+                        "system": "https://fhir.kbv.de/NamingSystem/KBV_NS_Base_ANR",
+                        "value": "123456789"
+                    }
+                ],
+                "name": [
+                    {
+                        "use": "official",
+                        "text": "Dr. med. Till Früherkenner",
+                        "_family": {
+                            "extension": [
+                                {
+                                    "url": "http://hl7.org/fhir/StructureDefinition/humanname-own-name",
+                                    "valueString": "Früherkenner"
+                                }
+                            ]
+                        },
+                        "family": "Früherkenner",
+                        "given": ["Till"],
+                        "prefix": ["Dr. med."],
+                        "_prefix": [
+                            {
+                                "extension": [
+                                    {
+                                        "url": "http://hl7.org/fhir/StructureDefinition/iso21090-EN-qualifier",
+                                        "valueCode": "AC"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:92122018-fbf2-4106-a71b-11a9b22c7719",
+            "resource": {
+                "resourceType": "Procedure",
+                "id": "92122018-fbf2-4106-a71b-11a9b22c7719",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_CMR_Procedure_Consultation_Annotation|1.0.1"
+                    ]
+                },
+                "status": "completed",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "version": "http://snomed.info/sct/900000000000207008/version/20210131",
+                            "code": "408991007",
+                            "_display": {
+                                "extension": [
+                                    {
+                                        "extension": [
+                                            {
+                                                "url": "content",
+                                                "valueString": "Bemerkung"
+                                            }
+                                        ],
+                                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+                                    }
+                                ]
+                            },
+                            "display": "Child care education (procedure)"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "urn:uuid:3e6825d8-a88e-48d8-8a4b-97014beae651"
+                },
+                "encounter": {
+                    "reference": "urn:uuid:8c4a5fe1-a88c-4aa0-9bdf-6bde932ce1dd"
+                },
+                "performedDateTime": "2020-07-07",
+                "asserter": {
+                    "reference": "urn:uuid:e27f5ba9-7b10-4055-a355-c9fd27da69b1"
+                },
+                "note": [
+                    {
+                        "text": "Testnotiz"
+                    }
+                ]
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:3d22dd12-37b9-4852-a4cd-f11392429be1",
+            "resource": {
+                "resourceType": "Procedure",
+                "id": "3d22dd12-37b9-4852-a4cd-f11392429be1",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_CMR_Procedure_U9_Consultation|1.0.1"
+                    ]
+                },
+                "status": "completed",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "version": "http://snomed.info/sct/900000000000207008/version/20210131",
+                            "code": "284352003+304507003",
+                            "_display": {
+                                "extension": [
+                                    {
+                                        "extension": [
+                                            {
+                                                "url": "content",
+                                                "valueString": "Bewegung und Adipositasprävention"
+                                            }
+                                        ],
+                                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+                                    }
+                                ]
+                            },
+                            "display": "Obesity diet education (procedure) + Exercise education (procedure)"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "urn:uuid:3e6825d8-a88e-48d8-8a4b-97014beae651"
+                },
+                "encounter": {
+                    "reference": "urn:uuid:8c4a5fe1-a88c-4aa0-9bdf-6bde932ce1dd"
+                },
+                "performedDateTime": "2020-07-07",
+                "asserter": {
+                    "reference": "urn:uuid:e27f5ba9-7b10-4055-a355-c9fd27da69b1"
+                }
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:83db1a03-dc34-46de-a095-ab8751029842",
+            "resource": {
+                "resourceType": "Procedure",
+                "id": "83db1a03-dc34-46de-a095-ab8751029842",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_CMR_Procedure_U9_Consultation|1.0.1"
+                    ]
+                },
+                "status": "completed",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "version": "http://snomed.info/sct/900000000000207008/version/20210131",
+                            "code": "11816003",
+                            "_display": {
+                                "extension": [
+                                    {
+                                        "extension": [
+                                            {
+                                                "url": "content",
+                                                "valueString": "Ernährung"
+                                            }
+                                        ],
+                                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+                                    }
+                                ]
+                            },
+                            "display": "Diet education (procedure)"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "urn:uuid:3e6825d8-a88e-48d8-8a4b-97014beae651"
+                },
+                "encounter": {
+                    "reference": "urn:uuid:8c4a5fe1-a88c-4aa0-9bdf-6bde932ce1dd"
+                },
+                "performedDateTime": "2020-07-07",
+                "asserter": {
+                    "reference": "urn:uuid:e27f5ba9-7b10-4055-a355-c9fd27da69b1"
+                }
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:0d7c59cc-f618-4665-a6e6-c6d43892481b",
+            "resource": {
+                "resourceType": "Procedure",
+                "id": "0d7c59cc-f618-4665-a6e6-c6d43892481b",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_CMR_Procedure_U9_Consultation|1.0.1"
+                    ]
+                },
+                "status": "completed",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "version": "http://snomed.info/sct/900000000000207008/version/20210131",
+                            "code": "709135003",
+                            "_display": {
+                                "extension": [
+                                    {
+                                        "extension": [
+                                            {
+                                                "url": "content",
+                                                "valueString": "Medien (z. B. Medienkonsum, TV, Spielekonsolen, Dauerbeschallung)"
+                                            }
+                                        ],
+                                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+                                    }
+                                ]
+                            },
+                            "display": "Video screen time education (procedure)"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "urn:uuid:3e6825d8-a88e-48d8-8a4b-97014beae651"
+                },
+                "encounter": {
+                    "reference": "urn:uuid:8c4a5fe1-a88c-4aa0-9bdf-6bde932ce1dd"
+                },
+                "performedDateTime": "2020-07-07",
+                "asserter": {
+                    "reference": "urn:uuid:e27f5ba9-7b10-4055-a355-c9fd27da69b1"
+                }
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:337e75a4-f32c-4730-8839-ac3f79a3ffff",
+            "resource": {
+                "resourceType": "ServiceRequest",
+                "id": "337e75a4-f32c-4730-8839-ac3f79a3ffff",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_CMR_Service_Request_Dental_Referral|1.0.1"
+                    ]
+                },
+                "status": "active",
+                "intent": "order",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "version": "http://snomed.info/sct/900000000000207008/version/20210131",
+                            "code": "274410002",
+                            "_display": {
+                                "extension": [
+                                    {
+                                        "extension": [
+                                            {
+                                                "url": "content",
+                                                "valueString": "Verweis zur Zahnärztin oder zum Zahnarzt"
+                                            }
+                                        ],
+                                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German"
+                                    }
+                                ]
+                            },
+                            "display": "Dental referral - child (procedure)"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "urn:uuid:3e6825d8-a88e-48d8-8a4b-97014beae651"
+                },
+                "encounter": {
+                    "reference": "urn:uuid:8c4a5fe1-a88c-4aa0-9bdf-6bde932ce1dd"
+                },
+                "authoredOn": "2020-07-07",
+                "requester": {
+                    "reference": "urn:uuid:e27f5ba9-7b10-4055-a355-c9fd27da69b1"
+                }
+            }
+        }
+    ]
+}

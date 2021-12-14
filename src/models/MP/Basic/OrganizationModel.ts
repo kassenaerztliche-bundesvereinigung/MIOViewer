@@ -38,10 +38,11 @@ export default class OrganizationModel extends MPBaseModel<MR.V1_0_0.Profile.Org
 
     protected getIdentifier(): ModelValue {
         if (this.value.identifier) {
-            const iknr = ParserUtil.getSlice<MR.V1_0_0.Profile.OrganizationInstitutionskennzeichen>(
-                MR.V1_0_0.Profile.OrganizationInstitutionskennzeichen,
-                this.value.identifier
-            );
+            const iknr =
+                ParserUtil.getSlice<MR.V1_0_0.Profile.OrganizationInstitutionskennzeichen>(
+                    MR.V1_0_0.Profile.OrganizationInstitutionskennzeichen,
+                    this.value.identifier
+                );
 
             if (iknr)
                 return {
@@ -49,10 +50,11 @@ export default class OrganizationModel extends MPBaseModel<MR.V1_0_0.Profile.Org
                     label: "Institutionskennzeichen (IKNR)"
                 };
 
-            const bsnr = ParserUtil.getSlice<MR.V1_0_0.Profile.OrganizationBetriebsstaettennummer>(
-                MR.V1_0_0.Profile.OrganizationBetriebsstaettennummer,
-                this.value.identifier
-            );
+            const bsnr =
+                ParserUtil.getSlice<MR.V1_0_0.Profile.OrganizationBetriebsstaettennummer>(
+                    MR.V1_0_0.Profile.OrganizationBetriebsstaettennummer,
+                    this.value.identifier
+                );
 
             if (bsnr) {
                 return {

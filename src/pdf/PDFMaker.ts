@@ -16,7 +16,14 @@
  * along with MIO Viewer. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { KBVResource, KBVBundleResource, Vaccination, ZAEB, MR, CMR } from "@kbv/mioparser";
+import {
+    KBVResource,
+    KBVBundleResource,
+    Vaccination,
+    ZAEB,
+    MR,
+    CMR
+} from "@kbv/mioparser";
 import { Util } from "../components";
 import { TDocumentDefinitions, Content } from "pdfmake/interfaces";
 import * as pdfMake from "pdfmake/build/pdfmake";
@@ -49,15 +56,15 @@ export default class PDFMaker {
             valueContent = new MRtoPDF(value).getContent();
             style = "mr";
             exportHeader = "Mutterpass";
-        } else if (CMR.V1_0_0.Profile.CMRBundle.is(value)) {
+        } else if (CMR.V1_0_1.Profile.CMRBundle.is(value)) {
             valueContent = new CMRtoPDF(value).getContent();
             style = "cmr";
             exportHeader = "Kinderuntersuchungsheft";
-        } else if (CMR.V1_0_0.Profile.PCBundle.is(value)) {
+        } else if (CMR.V1_0_1.Profile.PCBundle.is(value)) {
             valueContent = new PCtoPDF(value).getContent();
             style = "cmr";
             exportHeader = "Kinderuntersuchungsheft";
-        } else if (CMR.V1_0_0.Profile.PNBundle.is(value)) {
+        } else if (CMR.V1_0_1.Profile.PNBundle.is(value)) {
             valueContent = new PNtoPDF(value).getContent();
             style = "cmr";
             exportHeader = "Kinderuntersuchungsheft";

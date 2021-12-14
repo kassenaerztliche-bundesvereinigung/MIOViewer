@@ -60,7 +60,7 @@ class Overview extends React.Component<MIOConnectorType & RouteComponentProps> {
                     headline = "Mutterpass";
                     mioClass = "mutterpass";
                     component = <OverviewMP mio={mio} history={history} />;
-                } else if (CMR.V1_0_0.Profile.CMRBundle.is(mio)) {
+                } else if (CMR.V1_0_1.Profile.CMRBundle.is(mio)) {
                     const composition = Util.UH.getUComposition(mio)?.resource;
                     headline = composition
                         ? Util.UH.getType(composition)
@@ -79,11 +79,12 @@ class Overview extends React.Component<MIOConnectorType & RouteComponentProps> {
                             match={match}
                         />
                     );
-                } else if (CMR.V1_0_0.Profile.PCBundle.is(mio)) {
-                    const composition = ParserUtil.getEntry<CMR.V1_0_0.Profile.PCCompositionExaminationParticipation>(
-                        mio,
-                        [CMR.V1_0_0.Profile.PCCompositionExaminationParticipation]
-                    );
+                } else if (CMR.V1_0_1.Profile.PCBundle.is(mio)) {
+                    const composition =
+                        ParserUtil.getEntry<CMR.V1_0_1.Profile.PCCompositionExaminationParticipation>(
+                            mio,
+                            [CMR.V1_0_1.Profile.PCCompositionExaminationParticipation]
+                        );
 
                     headline = composition
                         ? composition.resource.title
@@ -97,7 +98,7 @@ class Overview extends React.Component<MIOConnectorType & RouteComponentProps> {
                             match={match}
                         />
                     );
-                } else if (CMR.V1_0_0.Profile.PNBundle.is(mio)) {
+                } else if (CMR.V1_0_1.Profile.PNBundle.is(mio)) {
                     headline = "Elternnotiz";
                     mioClass = "uheft";
                     component = (

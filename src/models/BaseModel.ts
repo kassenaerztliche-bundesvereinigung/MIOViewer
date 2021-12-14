@@ -26,7 +26,7 @@ import { ModelValue } from "./Types";
 import { UI } from "../components";
 
 export default abstract class BaseModel<
-    T extends KBVResource | CMR.V1_0_0.Profile.CMROrganizationScreeningLaboratoryContact
+    T extends KBVResource | CMR.V1_0_1.Profile.CMROrganizationScreeningLaboratoryContact // TODO: remove is now a KBVResource?
 > {
     protected headline = "";
     protected noHeadline = false;

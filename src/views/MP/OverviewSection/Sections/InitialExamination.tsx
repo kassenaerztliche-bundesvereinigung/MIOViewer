@@ -45,11 +45,12 @@ export default class InitialExamination extends Section<MR.V1_0_0.Profile.Compos
         const details: JSX.Element[] = [];
         this.section?.entry.forEach((entry) => {
             const ref = entry.reference;
-            const res = ParserUtil.getEntryWithRef<MR.V1_0_0.Profile.ClinicalImpressionInitialExamination>(
-                mio,
-                [MR.V1_0_0.Profile.ClinicalImpressionInitialExamination],
-                ref
-            );
+            const res =
+                ParserUtil.getEntryWithRef<MR.V1_0_0.Profile.ClinicalImpressionInitialExamination>(
+                    mio,
+                    [MR.V1_0_0.Profile.ClinicalImpressionInitialExamination],
+                    ref
+                );
 
             if (res) {
                 const model = new Models.MP.Basic.ClinicalImpressionModel(
@@ -68,12 +69,13 @@ export default class InitialExamination extends Section<MR.V1_0_0.Profile.Compos
                     undefined
                 );
 
-                const investigationModel = new Models.MP.Basic.ClinicalImpressionInvestigationModel(
-                    res.resource,
-                    res.fullUrl,
-                    mio,
-                    history
-                );
+                const investigationModel =
+                    new Models.MP.Basic.ClinicalImpressionInvestigationModel(
+                        res.resource,
+                        res.fullUrl,
+                        mio,
+                        history
+                    );
 
                 const component = (
                     <DetailComponent

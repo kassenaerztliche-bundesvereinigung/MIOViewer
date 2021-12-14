@@ -25,15 +25,15 @@ import { EncounterModel } from "../Basic/";
 
 export default class ParticipationCardModel extends EncounterModel {
     constructor(
-        value: CMR.V1_0_0.Profile.PCEncounter,
+        value: CMR.V1_0_1.Profile.PCEncounter,
         fullUrl: string,
-        parent: CMR.V1_0_0.Profile.PCBundle,
+        parent: CMR.V1_0_1.Profile.PCBundle,
         history?: History
     ) {
         super(value, fullUrl, parent, history);
 
         const encounterType = Util.UH.getEncounterTypeFromBundle(
-            this.parent as CMR.V1_0_0.Profile.PCBundle,
+            this.parent as CMR.V1_0_1.Profile.PCBundle,
             true
         );
 

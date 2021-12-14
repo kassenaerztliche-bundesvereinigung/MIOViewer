@@ -29,15 +29,11 @@ import OverviewU from "./OverviewU";
 import OverviewPercentileCurve from "./OverviewPercentileCurve";
 
 type OverviewProps = {
-    mio: CMR.V1_0_0.Profile.CMRBundle;
+    mio: CMR.V1_0_1.Profile.CMRBundle;
 } & RouteComponentProps;
 
 export default class Overview extends React.Component<OverviewProps> {
-    protected patient?: MIOEntry<
-        | CMR.V1_0_0.Profile.CMRPatient
-        | CMR.V1_0_0.Profile.PCPatient
-        | CMR.V1_0_0.Profile.PNPatient
-    >;
+    protected patient?: MIOEntry<CMR.V1_0_1.Profile.CMRPatient>;
 
     constructor(props: OverviewProps) {
         super(props);

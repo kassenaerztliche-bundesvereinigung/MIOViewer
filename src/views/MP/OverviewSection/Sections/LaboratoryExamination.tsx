@@ -106,11 +106,12 @@ export default class LaboratoryExamination extends Section<MR.V1_0_0.Profile.Com
         slices.forEach((section) => {
             section.entry.forEach((entry) => {
                 const ref = entry.reference;
-                const res = ParserUtil.getEntryWithRef<MR.V1_0_0.Profile.ObservationExamination>(
-                    mio,
-                    [MR.V1_0_0.Profile.ObservationExamination],
-                    ref
-                );
+                const res =
+                    ParserUtil.getEntryWithRef<MR.V1_0_0.Profile.ObservationExamination>(
+                        mio,
+                        [MR.V1_0_0.Profile.ObservationExamination],
+                        ref
+                    );
 
                 if (res) {
                     const model = new Models.MP.Basic.ObservationModel(
@@ -139,11 +140,12 @@ export default class LaboratoryExamination extends Section<MR.V1_0_0.Profile.Com
         const vaccinationItems: UI.ListItem.Props[] = [];
         this.section?.entry?.forEach((entry) => {
             const ref = entry.reference;
-            const res = ParserUtil.getEntryWithRef<MR.V1_0_0.Profile.ObservationImmunizationStatus>(
-                mio,
-                [MR.V1_0_0.Profile.ObservationImmunizationStatus],
-                ref
-            );
+            const res =
+                ParserUtil.getEntryWithRef<MR.V1_0_0.Profile.ObservationImmunizationStatus>(
+                    mio,
+                    [MR.V1_0_0.Profile.ObservationImmunizationStatus],
+                    ref
+                );
 
             if (res) {
                 const model = new Models.MP.Basic.ObservationModel(

@@ -64,9 +64,9 @@ class Detail extends React.Component<MIOConnectorType & RouteComponentProps> {
                     />
                 );
             } else if (
-                CMR.V1_0_0.Profile.CMRBundle.is(mio) ||
-                CMR.V1_0_0.Profile.PCBundle.is(mio) ||
-                CMR.V1_0_0.Profile.PNBundle.is(mio)
+                CMR.V1_0_1.Profile.CMRBundle.is(mio) ||
+                CMR.V1_0_1.Profile.PCBundle.is(mio) ||
+                CMR.V1_0_1.Profile.PNBundle.is(mio)
             ) {
                 component = (
                     <DetailUH

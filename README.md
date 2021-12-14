@@ -61,6 +61,12 @@ Nach erfolgreichem Start der Anwendung kann der Browser auf http://localhost:300
 
 Beispiel Dateien können im Repository `https://github.com/kassenaerztliche-bundesvereinigung/miotestdata/` unter `/examples` gefunden werden.
 
+#### Tests
+
+```shell script
+$ npm run test
+```
+
 ### Mitwirken
 
 Derzeit ist keine Mitwirkung von externen Entwicklern vorgesehen. Dies kann sich aber ändern. #stayTuned

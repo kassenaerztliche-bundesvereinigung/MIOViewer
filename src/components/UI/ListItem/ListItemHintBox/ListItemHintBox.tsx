@@ -37,25 +37,7 @@ export default class ListItemHintBox extends ListItem<ListItemProps, unknown> {
     };
 
     static getBulletStrings(value?: string): string[] {
-        const possibilities = [
-            "Pulsoxymetrie-Screening",
-            "Erweitertes Neugeborenen-Screening",
-            "Screening auf Mukoviszidose",
-            "Screening auf Hüftgelenksdysplasie und -luxation (nur bei Risikofaktoren)",
-            "Neugeborenen-Hörscreening"
-        ];
-
-        const a = "Screening auf Hüftgelenksdysplasie und -luxation";
-
-        const result = possibilities.filter(
-            (p) => value?.includes("-") && value?.includes(p)
-        );
-
-        if (value?.includes(a) && !value?.includes("(nur bei Risikofaktoren)")) {
-            result.push(a);
-        }
-
-        return result;
+        return value?.split(" - ").filter((s) => s) ?? [];
     }
 
     render(): JSX.Element {

@@ -29,7 +29,7 @@ describe("<Main />", () => {
     ViewerTestUtil.mock();
     const mioParser = new MIOParser();
 
-    it("Rendert", async (done) => {
+    it("Rendert", async () => {
         const file = TestUtil.getExample("/data/bundles/IM/IM_Ludger_Koenigsstein.json");
         expect(file).toBeDefined();
         if (file) {
@@ -51,12 +51,10 @@ describe("<Main />", () => {
 
             expect(getAllByText("Impfpass").length).toBe(1);
         }
-
-        done();
     });
 
     const renderTest = (bundles: string[], value: TestUtil.HasMioString) => {
-        it("mehrere Slider-Seiten", async (done) => {
+        it("mehrere Slider-Seiten", async () => {
             const mios: KBVBundleResource[] = [];
             for (let i = 0; i < bundles.length; i++) {
                 const file = bundles[i];
@@ -98,8 +96,6 @@ describe("<Main />", () => {
             if (text) {
                 expect(container.getAllByText(text).length).toBeGreaterThan(0);
             }
-
-            done();
         }, 50000);
     };
 

@@ -48,11 +48,12 @@ export default class Ultrasound extends Section<MR.V1_0_0.Profile.CompositionUnt
 
         this.section?.entry?.forEach((entry) => {
             const ref = entry.reference;
-            const res = ParserUtil.getEntryWithRef<MR.V1_0_0.Profile.ObservationUltrasound>(
-                mio,
-                [MR.V1_0_0.Profile.ObservationUltrasound],
-                ref
-            )?.resource;
+            const res =
+                ParserUtil.getEntryWithRef<MR.V1_0_0.Profile.ObservationUltrasound>(
+                    mio,
+                    [MR.V1_0_0.Profile.ObservationUltrasound],
+                    ref
+                )?.resource;
 
             if (res) {
                 items.push({
@@ -112,24 +113,26 @@ export default class Ultrasound extends Section<MR.V1_0_0.Profile.CompositionUnt
 
         const others: UI.ListItem.Props[] = [];
 
-        const otherSlices = ParserUtil.getSlices<MR.V1_0_0.Profile.CompositionUntersuchungenUltraschallWeitereUltraschallUntersuchungen>(
-            [
-                MR.V1_0_0.Profile
-                    .CompositionUntersuchungenUltraschallWeitereUltraschallUntersuchungen
-            ],
-            this.section?.section
-        );
+        const otherSlices =
+            ParserUtil.getSlices<MR.V1_0_0.Profile.CompositionUntersuchungenUltraschallWeitereUltraschallUntersuchungen>(
+                [
+                    MR.V1_0_0.Profile
+                        .CompositionUntersuchungenUltraschallWeitereUltraschallUntersuchungen
+                ],
+                this.section?.section
+            );
 
         otherSlices.forEach((section) => {
             let toEntry = undefined;
             let label = "-";
             section.entry.forEach((entry) => {
                 const ref = entry.reference;
-                const res = ParserUtil.getEntryWithRef<MR.V1_0_0.Profile.ObservationOtherUltrasoundStudies>(
-                    mio,
-                    [MR.V1_0_0.Profile.ObservationOtherUltrasoundStudies],
-                    ref
-                )?.resource;
+                const res =
+                    ParserUtil.getEntryWithRef<MR.V1_0_0.Profile.ObservationOtherUltrasoundStudies>(
+                        mio,
+                        [MR.V1_0_0.Profile.ObservationOtherUltrasoundStudies],
+                        ref
+                    )?.resource;
 
                 if (res) {
                     label = Util.Misc.formatDate(res.effectiveDateTime);

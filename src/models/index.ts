@@ -100,7 +100,7 @@ type Model =
           | MR.V1_0_0.Profile.PatientMother
           | MR.V1_0_0.Profile.Practitioner
       >
-    | ContactModel<CMR.V1_0_0.Profile.CMROrganizationScreeningLaboratory>
+    | ContactModel<CMR.V1_0_1.Profile.CMROrganizationScreeningLaboratory>
     | PatientSimpleModel
     | TelecomModel<
           | Vaccination.V1_1_0.Profile.Practitioner
@@ -109,8 +109,8 @@ type Model =
           | ZAEB.V1_1_0.Profile.Organization
           | MR.V1_0_0.Profile.Practitioner
       >
-    | QualificationModel<CMR.V1_0_0.Profile.CMRPractitioner>
-    | ContactDetailsModel<CMR.V1_0_0.Profile.CMROrganizationScreeningLaboratory>;
+    | QualificationModel<CMR.V1_0_1.Profile.CMRPractitioner>
+    | ContactDetailsModel<CMR.V1_0_1.Profile.CMROrganizationScreeningLaboratory>;
 
 type ModelType =
     | typeof IM.ConditionModel

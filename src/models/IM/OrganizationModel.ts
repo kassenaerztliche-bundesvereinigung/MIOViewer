@@ -43,10 +43,11 @@ export default class OrganizationModel extends BaseModel<
 
     protected getIdentifier(): ModelValue {
         if (this.value.identifier) {
-            const iknr = ParserUtil.getSlice<Vaccination.V1_1_0.Profile.OrganizationInstitutionskennzeichen>(
-                Vaccination.V1_1_0.Profile.OrganizationInstitutionskennzeichen,
-                this.value.identifier
-            );
+            const iknr =
+                ParserUtil.getSlice<Vaccination.V1_1_0.Profile.OrganizationInstitutionskennzeichen>(
+                    Vaccination.V1_1_0.Profile.OrganizationInstitutionskennzeichen,
+                    this.value.identifier
+                );
 
             if (iknr)
                 return {
@@ -54,10 +55,11 @@ export default class OrganizationModel extends BaseModel<
                     label: "Institutionskennzeichen (IKNR)"
                 };
 
-            const bsnr = ParserUtil.getSlice<Vaccination.V1_1_0.Profile.OrganizationBetriebsstaettennummer>(
-                Vaccination.V1_1_0.Profile.OrganizationBetriebsstaettennummer,
-                this.value.identifier
-            );
+            const bsnr =
+                ParserUtil.getSlice<Vaccination.V1_1_0.Profile.OrganizationBetriebsstaettennummer>(
+                    Vaccination.V1_1_0.Profile.OrganizationBetriebsstaettennummer,
+                    this.value.identifier
+                );
 
             if (bsnr)
                 return {

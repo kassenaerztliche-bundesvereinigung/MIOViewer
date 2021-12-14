@@ -33,7 +33,7 @@ describe("<ZB.Overview />", () => {
     const mioParser = new MIOParser();
 
     const detailTest = (file: string) => {
-        it(file, async (done) => {
+        it(file, async () => {
             const blob = new Blob([fs.readFileSync(file)]);
             const result = await mioParser.parseFile(blob);
             const mio = result.value as ZAEB.V1_1_0.Profile.Bundle;
@@ -55,7 +55,7 @@ describe("<ZB.Overview />", () => {
             const listItems = detailList.getElementsByClassName("list-item");
             expect(listItems.length).toBeGreaterThan(0);
 
-            done();
+            // done();
         });
     };
 

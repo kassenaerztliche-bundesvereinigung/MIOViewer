@@ -22,11 +22,11 @@ import { KBVBundleResource, ParserUtil } from "@kbv/mioparser";
 import IMExample_1_1_0 from "./IM/Example_IM_1_1_0.json";
 import ZBExample_1_1_0 from "./ZB/Example_ZB_1_1_0.json";
 import MPExample_1_0_0 from "./MP/Example_MR_1_0_0.json";
-import UHExample_1_0_0_U2 from "./UH/1_0_0/KBV_PR_MIO_CMR_Bundle_U2.json";
-import UHExample_1_0_0_U3 from "./UH/1_0_0/KBV_PR_MIO_CMR_Bundle_U3.json";
-import UHExample_1_0_0_U9 from "./UH/1_0_0/KBV_PR_MIO_CMR_Bundle_U9.json";
-import UHExample_1_0_0_PC from "./UH/1_0_0/KBV_PR_MIO_CMR_Bundle_PC.json";
-import UHExample_1_0_0_PN from "./UH/1_0_0/KBV_PR_MIO_CMR_Bundle_PN.json";
+import UHExample_1_0_1_U2 from "./UH/1_0_1/KBV_PR_MIO_CMR_Bundle_U2.json";
+import UHExample_1_0_1_U3 from "./UH/1_0_1/KBV_PR_MIO_CMR_Bundle_U3.json";
+import UHExample_1_0_1_U9 from "./UH/1_0_1/KBV_PR_MIO_CMR_Bundle_U9.json";
+import UHExample_1_0_1_PC from "./UH/1_0_1/KBV_PR_MIO_CMR_Bundle_PC.json";
+import UHExample_1_0_1_PN from "./UH/1_0_1/KBV_PR_MIO_CMR_Bundle_PN.json";
 
 // A bundle uuid starts with 8 chars 'example' has 7 - should be unique
 const EXAMPLE_PREFIX = "example-";
@@ -35,11 +35,11 @@ const exampleFiles = [
     IMExample_1_1_0,
     ZBExample_1_1_0,
     MPExample_1_0_0,
-    UHExample_1_0_0_U2,
-    UHExample_1_0_0_U3,
-    UHExample_1_0_0_U9,
-    UHExample_1_0_0_PC,
-    UHExample_1_0_0_PN
+    UHExample_1_0_1_U2,
+    UHExample_1_0_1_U3,
+    UHExample_1_0_1_U9,
+    UHExample_1_0_1_PC,
+    UHExample_1_0_1_PN
 ];
 
 const Examples = exampleFiles.map((e) => {

@@ -62,14 +62,13 @@ describe("<Util/>", () => {
         value.functions.forEach((func) => {
             describe(func.name, () => {
                 bundles.forEach((file) => {
-                    it(`${file}`, async (done) => {
+                    it(`${file}`, async () => {
                         const blob = new Blob([fs.readFileSync(file)]);
                         const result = await mioParser.parseFile(blob);
                         const bundle = result.value;
 
                         const entry = func(bundle);
                         expect(entry).toBeDefined();
-                        done();
                     });
                 });
             });

@@ -34,9 +34,9 @@ import Mappings from "../Mappings";
 type ListItemType = { header: string; testIdSuffix?: string; component: JSX.Element };
 
 class Detail extends DetailBase<
-    | CMR.V1_0_0.Profile.CMRBundle
-    | CMR.V1_0_0.Profile.PCBundle
-    | CMR.V1_0_0.Profile.PNBundle
+    | CMR.V1_0_1.Profile.CMRBundle
+    | CMR.V1_0_1.Profile.PCBundle
+    | CMR.V1_0_1.Profile.PNBundle
 > {
     protected getHeaderClass(): UI.MIOClassName {
         return "uheft";
@@ -99,7 +99,7 @@ class Detail extends DetailBase<
                         const model = new Models.UH.Basic.ObservationModel(
                             res.resource as Models.UH.Basic.ObservationType,
                             res.fullUrl,
-                            bundle as CMR.V1_0_0.Profile.CMRBundle,
+                            bundle as CMR.V1_0_1.Profile.CMRBundle,
                             history,
                             mapping.codeConceptMaps,
                             mapping.valueConceptMaps,
@@ -120,13 +120,7 @@ class Detail extends DetailBase<
         }
     };
 
-    protected getPatient():
-        | MIOEntry<
-              | CMR.V1_0_0.Profile.CMRPatient
-              | CMR.V1_0_0.Profile.PCPatient
-              | CMR.V1_0_0.Profile.PNPatient
-          >
-        | undefined {
+    protected getPatient(): MIOEntry<CMR.V1_0_1.Profile.CMRPatient> | undefined {
         return undefined;
     }
 

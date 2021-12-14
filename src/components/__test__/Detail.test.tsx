@@ -46,7 +46,7 @@ describe("<Components.Detail />", () => {
             | typeof Vaccination.V1_1_0.Profile.BundleEntry
             | typeof ZAEB.V1_1_0.Profile.Bundle
             | typeof MR.V1_0_0.Profile.Bundle
-            | typeof CMR.V1_0_0.Profile.CMRBundle;
+            | typeof CMR.V1_0_1.Profile.CMRBundle;
         definitions: {
             profile: AnyType;
             models?: (new (
@@ -257,10 +257,10 @@ describe("<Components.Detail />", () => {
         },
         {
             mioString: "UH",
-            bundle: CMR.V1_0_0.Profile.CMRBundle,
+            bundle: CMR.V1_0_1.Profile.CMRBundle,
             definitions: [
                 {
-                    profile: CMR.V1_0_0.Profile.CMRPatient,
+                    profile: CMR.V1_0_1.Profile.CMRPatient,
                     models: [Models.UH.Basic.PatientModel],
                     component: Detail,
                     required: ["Geburtsdatum"],
@@ -279,7 +279,7 @@ describe("<Components.Detail />", () => {
                 const models = definition.models;
 
                 bundles.forEach((file) => {
-                    it(file, async (done) => {
+                    it(file, async () => {
                         const blob = new Blob([fs.readFileSync(file)]);
                         const result = await mioParser.parseFile(blob);
                         const bundle = result.value as BundleType;
@@ -341,7 +341,6 @@ describe("<Components.Detail />", () => {
                         } else {
                             console.warn(`skipped: ${file}`);
                         }
-                        done();
                     });
                 });
             });

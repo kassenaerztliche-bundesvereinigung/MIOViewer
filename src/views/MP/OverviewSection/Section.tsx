@@ -72,7 +72,7 @@ export default abstract class Section<T> extends React.Component<
         sectionStack.forEach(
             (s) => (section = ParserUtil.getSlice<any>(s, section.section)) // eslint-disable-line
         );
-        if (section) result = (section as unknown) as T;
+        if (section) result = section as unknown as T;
 
         return result;
     }

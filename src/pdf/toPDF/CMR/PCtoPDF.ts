@@ -26,16 +26,17 @@ import * as Models from "../../../models";
 import { Util } from "../../../components";
 
 export default class PCtoPDF extends PDFRepresentation<
-    CMR.V1_0_0.Profile.PCCompositionExaminationParticipation,
-    CMR.V1_0_0.Profile.PCBundle
+    CMR.V1_0_1.Profile.PCCompositionExaminationParticipation,
+    CMR.V1_0_1.Profile.PCBundle
 > {
-    constructor(value: CMR.V1_0_0.Profile.PCBundle) {
+    constructor(value: CMR.V1_0_1.Profile.PCBundle) {
         super(value);
 
-        this.composition = ParserUtil.getEntry<CMR.V1_0_0.Profile.PCCompositionExaminationParticipation>(
-            this.value,
-            [CMR.V1_0_0.Profile.PCCompositionExaminationParticipation]
-        );
+        this.composition =
+            ParserUtil.getEntry<CMR.V1_0_1.Profile.PCCompositionExaminationParticipation>(
+                this.value,
+                [CMR.V1_0_1.Profile.PCCompositionExaminationParticipation]
+            );
     }
 
     public getContent(): Content {
@@ -49,7 +50,7 @@ export default class PCtoPDF extends PDFRepresentation<
 
         if (encounter) {
             const participationCardModel = new Models.UH.PC.ParticipationCardModel(
-                encounter.resource as CMR.V1_0_0.Profile.PCEncounter,
+                encounter.resource as CMR.V1_0_1.Profile.PCEncounter,
                 encounter.fullUrl,
                 this.value
             );

@@ -38,7 +38,7 @@ describe("<PDF />", () => {
 
     const renderTest = (bundles: string[]) => {
         bundles.forEach((file) => {
-            it(file, async (done) => {
+            it(file, async () => {
                 const blob = new Blob([fs.readFileSync(file)]);
                 const result = await mioParser.parseFile(blob);
                 const bundle = result.value as KBVBundleResource;
@@ -59,7 +59,6 @@ describe("<PDF />", () => {
                 PDFMaker.create(bundle).then((pdfResult) => {
                     expect(pdfResult).toBeDefined();
                     expect(pdfResult.print).toBeDefined();
-                    done();
                 });
             });
         });

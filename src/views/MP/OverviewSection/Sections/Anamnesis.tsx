@@ -87,11 +87,12 @@ export default class Anamnesis extends Section<MR.V1_0_0.Profile.CompositionAnam
                 });
             }
 
-            const resPreviousPregnancy = ParserUtil.getEntryWithRef<MR.V1_0_0.Profile.ObservationPreviousPregnancy>(
-                mio,
-                [MR.V1_0_0.Profile.ObservationPreviousPregnancy],
-                ref
-            );
+            const resPreviousPregnancy =
+                ParserUtil.getEntryWithRef<MR.V1_0_0.Profile.ObservationPreviousPregnancy>(
+                    mio,
+                    [MR.V1_0_0.Profile.ObservationPreviousPregnancy],
+                    ref
+                );
 
             if (resPreviousPregnancy) {
                 const model = new Models.MP.Basic.ObservationModel(

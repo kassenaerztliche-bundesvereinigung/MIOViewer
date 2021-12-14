@@ -20,20 +20,18 @@ import React from "react";
 
 import { IonList } from "@ionic/react";
 
-import { KBVResource } from "@kbv/mioparser";
-
 import { UI } from "../../index";
 import { isModelValue } from "../../../models/Types";
 
-export type ListListSimpleProps<T extends KBVResource> = {
+export type ListListSimpleProps = {
     type: string;
 } & UI.DetailList.Props;
 
-export default class DetailListSimple<T extends KBVResource> extends React.Component<
-    ListListSimpleProps<T>,
+export default class DetailListSimple extends React.Component<
+    ListListSimpleProps,
     UI.DetailList.StickyHeaderState
 > {
-    constructor(props: ListListSimpleProps<T>) {
+    constructor(props: ListListSimpleProps) {
         super(props);
 
         this.state = {

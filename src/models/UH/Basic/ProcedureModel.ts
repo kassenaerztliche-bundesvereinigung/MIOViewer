@@ -28,39 +28,41 @@ import OrganizationModel from "./OrganizationModel";
 import { AdditionalCommentModel, AddressModel, TelecomModel } from "../../index";
 
 export type ProcedureType =
-    | CMR.V1_0_0.Profile.CMRProcedureConsultationAnnotation
-    | CMR.V1_0_0.Profile.CMRProcedureU1U3NewbornBloodSpotScreening
-    | CMR.V1_0_0.Profile.CMRProcedureU1U3CysticFibrosisScreening
-    | CMR.V1_0_0.Profile.CMRProcedureU2Consultation
-    | CMR.V1_0_0.Profile.CMRProcedureU3Consultation
-    | CMR.V1_0_0.Profile.CMRProcedureU4Consultation
-    | CMR.V1_0_0.Profile.CMRProcedureU5Consultation
-    | CMR.V1_0_0.Profile.CMRProcedureU6Consultation
-    | CMR.V1_0_0.Profile.CMRProcedureU7aConsultation
-    | CMR.V1_0_0.Profile.CMRProcedureU7Consultation
-    | CMR.V1_0_0.Profile.CMRProcedureU8Consultation
-    | CMR.V1_0_0.Profile.CMRProcedureU9Consultation;
+    | CMR.V1_0_1.Profile.CMRProcedureConsultationAnnotation
+    | CMR.V1_0_1.Profile.CMRProcedureU1U3NewbornBloodSpotScreening
+    | CMR.V1_0_1.Profile.CMRProcedureU1U3CysticFibrosisScreening
+    | CMR.V1_0_1.Profile.CMRProcedureU2Consultation
+    | CMR.V1_0_1.Profile.CMRProcedureU3Consultation
+    | CMR.V1_0_1.Profile.CMRProcedureU4Consultation
+    | CMR.V1_0_1.Profile.CMRProcedureU5Consultation
+    | CMR.V1_0_1.Profile.CMRProcedureU6Consultation
+    | CMR.V1_0_1.Profile.CMRProcedureU7aConsultation
+    | CMR.V1_0_1.Profile.CMRProcedureU7Consultation
+    | CMR.V1_0_1.Profile.CMRProcedureU8Consultation
+    | CMR.V1_0_1.Profile.CMRProcedureU9Consultation;
 
 export default class ProcedureModel extends BaseModel<ProcedureType> {
+    private absent: boolean;
+
     constructor(
         value: ProcedureType,
         fullUrl: string,
-        parent: CMR.V1_0_0.Profile.CMRBundle,
+        parent: CMR.V1_0_1.Profile.CMRBundle,
         history?: History,
         codeConceptMaps?: ParserUtil.ConceptMap[]
     ) {
         super(value, fullUrl, parent, history, codeConceptMaps);
 
         if (
-            CMR.V1_0_0.Profile.CMRProcedureU2Consultation.is(value) ||
-            CMR.V1_0_0.Profile.CMRProcedureU3Consultation.is(value) ||
-            CMR.V1_0_0.Profile.CMRProcedureU4Consultation.is(value) ||
-            CMR.V1_0_0.Profile.CMRProcedureU5Consultation.is(value) ||
-            CMR.V1_0_0.Profile.CMRProcedureU6Consultation.is(value) ||
-            CMR.V1_0_0.Profile.CMRProcedureU7aConsultation.is(value) ||
-            CMR.V1_0_0.Profile.CMRProcedureU7Consultation.is(value) ||
-            CMR.V1_0_0.Profile.CMRProcedureU8Consultation.is(value) ||
-            CMR.V1_0_0.Profile.CMRProcedureU9Consultation.is(value)
+            CMR.V1_0_1.Profile.CMRProcedureU2Consultation.is(value) ||
+            CMR.V1_0_1.Profile.CMRProcedureU3Consultation.is(value) ||
+            CMR.V1_0_1.Profile.CMRProcedureU4Consultation.is(value) ||
+            CMR.V1_0_1.Profile.CMRProcedureU5Consultation.is(value) ||
+            CMR.V1_0_1.Profile.CMRProcedureU6Consultation.is(value) ||
+            CMR.V1_0_1.Profile.CMRProcedureU7aConsultation.is(value) ||
+            CMR.V1_0_1.Profile.CMRProcedureU7Consultation.is(value) ||
+            CMR.V1_0_1.Profile.CMRProcedureU8Consultation.is(value) ||
+            CMR.V1_0_1.Profile.CMRProcedureU9Consultation.is(value)
         ) {
             this.headline = "Beratung";
             this.values.push({
@@ -76,9 +78,9 @@ export default class ProcedureModel extends BaseModel<ProcedureType> {
         const encounterRef = this.value.encounter.reference;
         const asserterRef = this.value.asserter?.reference;
 
-        const absent = this.value.status === "not-done";
+        this.absent = this.value.status === "not-done";
 
-        if (absent) {
+        if (this.absent) {
             this.values.push({
                 value: "Nicht durchgeführt",
                 label: "Status der Untersuchung"
@@ -132,10 +134,10 @@ export default class ProcedureModel extends BaseModel<ProcedureType> {
         let result = "-";
 
         if (
-            (CMR.V1_0_0.Profile.CMRProcedureU1U3NewbornBloodSpotScreening.is(
+            (CMR.V1_0_1.Profile.CMRProcedureU1U3NewbornBloodSpotScreening.is(
                 this.value
             ) ||
-                CMR.V1_0_0.Profile.CMRProcedureU1U3CysticFibrosisScreening.is(
+                CMR.V1_0_1.Profile.CMRProcedureU1U3CysticFibrosisScreening.is(
                     this.value
                 )) &&
             this.value.statusReason
@@ -144,13 +146,13 @@ export default class ProcedureModel extends BaseModel<ProcedureType> {
                 // eslint-disable-next-line
                 (c: { _display?: { extension?: any[] } }) => {
                     const slices = ParserUtil.getSlices<
-                        | CMR.V1_0_0.Profile.CMRProcedureU1U3NewbornBloodSpotScreeningStatusReasonCodingDisplayAnzeigenameStatusReasonSnomed
-                        | CMR.V1_0_0.Profile.CMRProcedureU1U3CysticFibrosisScreeningStatusReasonCodingDisplayAnzeigenameStatusReasonSnomed
+                        | CMR.V1_0_1.Profile.CMRProcedureU1U3NewbornBloodSpotScreeningStatusReasonCodingDisplayAnzeigenameStatusReasonSnomed
+                        | CMR.V1_0_1.Profile.CMRProcedureU1U3CysticFibrosisScreeningStatusReasonCodingDisplayAnzeigenameStatusReasonSnomed
                     >(
                         [
-                            CMR.V1_0_0.Profile
+                            CMR.V1_0_1.Profile
                                 .CMRProcedureU1U3NewbornBloodSpotScreeningStatusReasonCodingDisplayAnzeigenameStatusReasonSnomed,
-                            CMR.V1_0_0.Profile
+                            CMR.V1_0_1.Profile
                                 .CMRProcedureU1U3CysticFibrosisScreeningStatusReasonCodingDisplayAnzeigenameStatusReasonSnomed
                         ],
                         c._display?.extension
@@ -171,29 +173,33 @@ export default class ProcedureModel extends BaseModel<ProcedureType> {
 
     protected getScreeningLaboratory(): ModelValue | undefined {
         let slice = undefined;
-        if (CMR.V1_0_0.Profile.CMRProcedureU1U3CysticFibrosisScreening.is(this.value)) {
-            slice = ParserUtil.getSlice<CMR.V1_0_0.Profile.CMRProcedureU1U3CysticFibrosisScreeningScreeninglabor>(
-                CMR.V1_0_0.Profile.CMRProcedureU1U3CysticFibrosisScreeningScreeninglabor,
-                this.value.extension
-            );
+        if (CMR.V1_0_1.Profile.CMRProcedureU1U3CysticFibrosisScreening.is(this.value)) {
+            slice =
+                ParserUtil.getSlice<CMR.V1_0_1.Profile.CMRProcedureU1U3CysticFibrosisScreeningScreeninglabor>(
+                    CMR.V1_0_1.Profile
+                        .CMRProcedureU1U3CysticFibrosisScreeningScreeninglabor,
+                    this.value.extension
+                );
         } else if (
-            CMR.V1_0_0.Profile.CMRProcedureU1U3NewbornBloodSpotScreening.is(this.value)
+            CMR.V1_0_1.Profile.CMRProcedureU1U3NewbornBloodSpotScreening.is(this.value)
         ) {
-            slice = ParserUtil.getSlice<CMR.V1_0_0.Profile.CMRProcedureU1U3NewbornBloodSpotScreeningScreeninglabor>(
-                CMR.V1_0_0.Profile
-                    .CMRProcedureU1U3NewbornBloodSpotScreeningScreeninglabor,
-                this.value.extension
-            );
+            slice =
+                ParserUtil.getSlice<CMR.V1_0_1.Profile.CMRProcedureU1U3NewbornBloodSpotScreeningScreeninglabor>(
+                    CMR.V1_0_1.Profile
+                        .CMRProcedureU1U3NewbornBloodSpotScreeningScreeninglabor,
+                    this.value.extension
+                );
         }
 
         if (slice) {
             let subEntry = undefined;
             if (slice.valueReference.reference) {
-                subEntry = ParserUtil.getEntryWithRef<CMR.V1_0_0.Profile.CMROrganizationScreeningLaboratory>(
-                    this.parent,
-                    [CMR.V1_0_0.Profile.CMROrganizationScreeningLaboratory],
-                    slice.valueReference.reference
-                );
+                subEntry =
+                    ParserUtil.getEntryWithRef<CMR.V1_0_1.Profile.CMROrganizationScreeningLaboratory>(
+                        this.parent,
+                        [CMR.V1_0_1.Profile.CMROrganizationScreeningLaboratory],
+                        slice.valueReference.reference
+                    );
             }
 
             return {
@@ -216,17 +222,30 @@ export default class ProcedureModel extends BaseModel<ProcedureType> {
     }
 
     protected getPartOf(): ModelValue[] {
-        if (CMR.V1_0_0.Profile.CMRProcedureU1U3CysticFibrosisScreening.is(this.value)) {
-            const label = "Teil von";
-            const refs = this.value.partOf?.map((p) => p.reference);
+        if (CMR.V1_0_1.Profile.CMRProcedureU1U3CysticFibrosisScreening.is(this.value)) {
+            const renderAs = UI.ListItem.MultilineLabel;
 
-            if (refs && refs.length) {
-                return refs.map((ref) => {
-                    const procedure = ParserUtil.getEntryWithRef<CMR.V1_0_0.Profile.CMRProcedureU1U3NewbornBloodSpotScreening>(
-                        this.parent,
-                        [CMR.V1_0_0.Profile.CMRProcedureU1U3NewbornBloodSpotScreening],
-                        ref
-                    )?.resource;
+            type Part = { reference: string; display?: string };
+            const label = "Teil von";
+
+            const partOf = this.value.partOf?.filter(
+                (p) => p.reference || p.display
+            ) as Part[];
+            const parts = partOf?.map((p) => {
+                return { reference: p.reference, display: p.display };
+            });
+
+            if (parts && parts.length) {
+                return parts.map((part) => {
+                    const procedure =
+                        ParserUtil.getEntryWithRef<CMR.V1_0_1.Profile.CMRProcedureU1U3NewbornBloodSpotScreening>(
+                            this.parent,
+                            [
+                                CMR.V1_0_1.Profile
+                                    .CMRProcedureU1U3NewbornBloodSpotScreening
+                            ],
+                            part.reference
+                        )?.resource;
 
                     if (procedure) {
                         const codes = Util.FHIR.handleCode(
@@ -236,20 +255,25 @@ export default class ProcedureModel extends BaseModel<ProcedureType> {
 
                         return {
                             value: codes.join(", "),
-                            label,
+                            label: part.display ?? label,
                             onClick: Util.Misc.toEntryByRef(
                                 this.history,
                                 this.parent,
-                                ref,
+                                part.reference,
                                 true
-                            )
+                            ),
+                            renderAs
                         };
                     } else {
-                        return { value: "-", label };
+                        return {
+                            value: "-",
+                            label: part.display ?? label,
+                            renderAs
+                        };
                     }
                 });
             } else {
-                return [{ value: "-", label }];
+                return [{ value: "-", label, renderAs }];
             }
         }
 
@@ -257,24 +281,24 @@ export default class ProcedureModel extends BaseModel<ProcedureType> {
     }
 
     protected getExtension(): ModelValue | undefined {
-        if (CMR.V1_0_0.Profile.CMRProcedureU1U3NewbornBloodSpotScreening.is(this.value)) {
-            const slice = ParserUtil.getSlice<CMR.V1_0_0.Profile.CMRProcedureU1U3NewbornBloodSpotScreeningErstabnahmeVorVollendeter36Lebensstunde>(
-                CMR.V1_0_0.Profile
-                    .CMRProcedureU1U3NewbornBloodSpotScreeningErstabnahmeVorVollendeter36Lebensstunde,
-                this.value.extension
-            );
+        if (CMR.V1_0_1.Profile.CMRProcedureU1U3NewbornBloodSpotScreening.is(this.value)) {
+            const slice =
+                ParserUtil.getSlice<CMR.V1_0_1.Profile.CMRProcedureU1U3NewbornBloodSpotScreeningErstabnahmeVorVollendeter36Lebensstunde>(
+                    CMR.V1_0_1.Profile
+                        .CMRProcedureU1U3NewbornBloodSpotScreeningErstabnahmeVorVollendeter36Lebensstunde,
+                    this.value.extension
+                );
             if (!slice) return;
 
             return {
-                value:
-                    "Erstabnahme vor der vollendeten 36. Lebensstunde bei einer Entbindung vor der vollendeten 32. Schwangerschaftswoche",
+                value: "Erstabnahme vor der vollendeten 36. Lebensstunde bei einer Entbindung vor der vollendeten 32. Schwangerschaftswoche",
                 label: "Hinweis"
             };
         }
     }
 
     public getNote(): ModelValue | undefined {
-        if (CMR.V1_0_0.Profile.CMRProcedureConsultationAnnotation.is(this.value)) {
+        if (CMR.V1_0_1.Profile.CMRProcedureConsultationAnnotation.is(this.value)) {
             return {
                 value: this.value.note.map((note) => note.text).join(", "),
                 label: this.getCoding()
@@ -290,7 +314,9 @@ export default class ProcedureModel extends BaseModel<ProcedureType> {
     public getMainValue(): ModelValue {
         return {
             value: this.getCoding(),
-            label: Util.Misc.formatDate(this.value.performedDateTime),
+            label: this.absent
+                ? "Nicht durchgeführt"
+                : Util.Misc.formatDate(this.value.performedDateTime),
             onClick: Util.Misc.toEntryByRef(this.history, this.parent, this.fullUrl),
             sortBy: this.value.performedDateTime
                 ? new Date(this.value.performedDateTime).getTime().toString()

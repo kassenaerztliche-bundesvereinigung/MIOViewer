@@ -32,10 +32,11 @@ export default class RecordPrimeModel extends RecordModel<Vaccination.V1_1_0.Pro
     ) {
         super(value, fullUrl, parent, history);
 
-        const disclaimer = ParserUtil.getSlice<Vaccination.V1_1_0.Profile.RecordPrimeNoteHinweis>(
-            Vaccination.V1_1_0.Profile.RecordPrimeNoteHinweis,
-            this.value.note
-        );
+        const disclaimer =
+            ParserUtil.getSlice<Vaccination.V1_1_0.Profile.RecordPrimeNoteHinweis>(
+                Vaccination.V1_1_0.Profile.RecordPrimeNoteHinweis,
+                this.value.note
+            );
 
         const notes = this.value.note?.filter((note) => note.text !== disclaimer?.text);
 

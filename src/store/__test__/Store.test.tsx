@@ -36,7 +36,7 @@ describe("<Store/>", () => {
 
     const storeTest = (bundles: string[]) => {
         bundles.forEach((file) => {
-            test(file, async (done) => {
+            test(file, async () => {
                 const store = ViewerTestUtil.createStoreWithMios([]);
                 expect(store.getState().mioState.mios.length).toBe(0);
                 const blob = new Blob([fs.readFileSync(file)]);
@@ -50,8 +50,6 @@ describe("<Store/>", () => {
                     await store.dispatch(Actions.addMIO(mio));
                     expect(store.getState().mioState.mios.length).toBe(1);
                 }
-
-                done();
             });
         });
     };

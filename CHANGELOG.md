@@ -1,5 +1,10 @@
 # Changelog MIO Viewer
 
+## 1.5.0
+
+-   Darstellung Kinderuntersuchungsheft, Version 1.0.1
+-   Die Versionen 1.0.0 dieses MIOs kann nicht mehr dargestellt werden
+
 ## 1.4.0
 
 -   Darstellung Impfpass, Version 1.1.0

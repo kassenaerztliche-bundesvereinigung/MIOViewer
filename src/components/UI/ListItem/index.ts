@@ -22,6 +22,7 @@ import ListItemCollapsible from "./ListItemCollapsible";
 import ListItemHint from "./ListItemHint";
 import ListItemHintBox from "./ListItemHintBox";
 import ListItemLink from "./ListItemLink";
+import ListItemMultilineLabel from "./ListItemMultilineLabel";
 import ListItemNoLabel from "./ListItemNoLabel";
 import ListItemNoValue from "./ListItemNoValue";
 import ListItemText from "./ListItemText";
@@ -36,6 +37,7 @@ export {
     ListItemHint as Hint,
     ListItemHintBox as HintBox,
     ListItemLink as Link,
+    ListItemMultilineLabel as MultilineLabel,
     ListItemNoLabel as NoLabel,
     ListItemNoValue as NoValue,
     ListItemText as Text

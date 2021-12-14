@@ -44,8 +44,7 @@ class AppDetail extends React.Component<RouteComponentProps> {
             },
             {
                 label: "MIO-Support",
-                value:
-                    "<a href='https://mio.kbv.de/support' target='_blank' rel='noopener noreferrer'>https://mio.kbv.de/support</a>"
+                value: "<a href='https://mio.kbv.de/support' target='_blank' rel='noopener noreferrer'>https://mio.kbv.de/support</a>"
             }
         ];
 

@@ -29,10 +29,10 @@ import { ModelValue } from "../../../../models";
 import Mappings from "../../Mappings";
 
 type OverviewProps = {
-    mio: CMR.V1_0_0.Profile.CMRBundle;
+    mio: CMR.V1_0_1.Profile.CMRBundle;
 } & RouteComponentProps;
 
-type CompositionType = CMR.V1_0_0.Profile.CMRCompositionPercentileCurve;
+type CompositionType = CMR.V1_0_1.Profile.CMRCompositionPercentileCurve;
 
 export default class OverviewPercentileCurve extends React.Component<OverviewProps> {
     protected composition?: MIOEntry<CompositionType>;

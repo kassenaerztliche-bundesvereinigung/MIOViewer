@@ -46,11 +46,12 @@ export default class Cardiotocography extends Section<MR.V1_0_0.Profile.Composit
         const items: UI.ListItem.Props[] = [];
         this.section?.entry.forEach((entry) => {
             const ref = entry.reference;
-            const res = ParserUtil.getEntryWithRef<MR.V1_0_0.Profile.ObservationCardiotocography>(
-                mio,
-                [MR.V1_0_0.Profile.ObservationCardiotocography],
-                ref
-            )?.resource;
+            const res =
+                ParserUtil.getEntryWithRef<MR.V1_0_0.Profile.ObservationCardiotocography>(
+                    mio,
+                    [MR.V1_0_0.Profile.ObservationCardiotocography],
+                    ref
+                )?.resource;
 
             if (res) {
                 items.push({

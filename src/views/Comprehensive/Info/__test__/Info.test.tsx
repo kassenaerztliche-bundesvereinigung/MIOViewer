@@ -25,10 +25,9 @@ describe("<Info />", () => {
     ViewerTestUtil.mock();
 
     const renderTest = (file: string) => {
-        it(file, async (done) => {
+        it(file, async () => {
             const { getByText } = ViewerTestUtil.renderRoute(Info.Info, "/info", "/info");
             expect(getByText("Hilfethemen")).toBeDefined();
-            done();
         });
     };
 

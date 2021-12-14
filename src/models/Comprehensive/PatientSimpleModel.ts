@@ -28,9 +28,7 @@ export type PatientType =
     | Vaccination.V1_1_0.Profile.Patient
     | ZAEB.V1_1_0.Profile.Patient
     | MR.V1_0_0.Profile.PatientMother
-    | CMR.V1_0_0.Profile.CMRPatient
-    | CMR.V1_0_0.Profile.PCPatient
-    | CMR.V1_0_0.Profile.PNPatient;
+    | CMR.V1_0_1.Profile.CMRPatient;
 
 export default class PatientSimpleModel extends BaseModel<PatientType> {
     constructor(

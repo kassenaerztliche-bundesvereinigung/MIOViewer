@@ -31,9 +31,7 @@
     },
     "rules": {
         "quotes": ["warn", "double"],
-        "no-unused-vars": ["warn"],
         "no-prototype-builtins": ["warn"],
-        "@typescript-eslint/no-use-before-define": ["warn"],
         "import/no-webpack-loader-syntax": "off"
     }
 }

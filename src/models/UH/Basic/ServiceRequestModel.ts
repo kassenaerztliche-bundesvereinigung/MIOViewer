@@ -27,15 +27,15 @@ import OrganizationModel from "./OrganizationModel";
 import { AdditionalCommentModel, AddressModel, TelecomModel } from "../../Comprehensive";
 
 export type ServiceRequestType =
-    | CMR.V1_0_0.Profile.CMRServiceRequestU1U5ReferralPediatricAudiologyService
-    | CMR.V1_0_0.Profile.CMRServiceRequestU1U3PulseOxymetryClarification
-    | CMR.V1_0_0.Profile.CMRServiceRequestDentalReferral;
+    | CMR.V1_0_1.Profile.CMRServiceRequestU1U5ReferralPediatricAudiologyService
+    | CMR.V1_0_1.Profile.CMRServiceRequestU1U3PulseOxymetryClarification
+    | CMR.V1_0_1.Profile.CMRServiceRequestDentalReferral;
 
 export default class ServiceRequestModel extends BaseModel<ServiceRequestType> {
     constructor(
         value: ServiceRequestType,
         fullUrl: string,
-        parent: CMR.V1_0_0.Profile.CMRBundle,
+        parent: CMR.V1_0_1.Profile.CMRBundle,
         history?: History
     ) {
         super(value, fullUrl, parent, history);
@@ -66,7 +66,7 @@ export default class ServiceRequestModel extends BaseModel<ServiceRequestType> {
 
         const r = Util.UH.getPerformerModelValues(
             requesterRefs,
-            this.parent as CMR.V1_0_0.Profile.CMRBundle,
+            this.parent as CMR.V1_0_1.Profile.CMRBundle,
             this.history
         );
 
@@ -84,7 +84,7 @@ export default class ServiceRequestModel extends BaseModel<ServiceRequestType> {
 
     protected getReasonReference(): ModelValue | undefined {
         if (
-            CMR.V1_0_0.Profile.CMRServiceRequestU1U3PulseOxymetryClarification.is(
+            CMR.V1_0_1.Profile.CMRServiceRequestU1U3PulseOxymetryClarification.is(
                 this.value
             )
         ) {
@@ -94,14 +94,15 @@ export default class ServiceRequestModel extends BaseModel<ServiceRequestType> {
 
             if (refs.length) {
                 const ref = refs[0];
-                const result = ParserUtil.getEntryWithRef<CMR.V1_0_0.Profile.CMRObservationU1U3PulseOxymetryMeasurement>(
-                    this.parent,
-                    [CMR.V1_0_0.Profile.CMRObservationU1U3PulseOxymetryMeasurement],
-                    ref
-                )?.resource;
+                const result =
+                    ParserUtil.getEntryWithRef<CMR.V1_0_1.Profile.CMRObservationU1U3PulseOxymetryMeasurement>(
+                        this.parent,
+                        [CMR.V1_0_1.Profile.CMRObservationU1U3PulseOxymetryMeasurement],
+                        ref
+                    )?.resource;
 
                 if (result) {
-                    const CM = CMR.V1_0_0.ConceptMap;
+                    const CM = CMR.V1_0_1.ConceptMap;
                     const values = Util.FHIR.handleCode(result.code, [
                         CM.CMRPulseOxymetryScreeningMeasurementTypeGerman
                     ]);

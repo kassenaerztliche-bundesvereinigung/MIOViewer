@@ -58,20 +58,17 @@ class Intro extends React.Component<
         {
             headline: "Der MIO Viewer",
             lottie: LottieSlide1,
-            text:
-                "Lassen Sie sich Ihre MIOs aus der ePA im MIO Viewer anzeigen. Browsen Sie durch Impfeinträge, lassen Sie sich Ihre letzte zahnärztliche Behandlung anzeigen und vieles mehr!"
+            text: "Lassen Sie sich Ihre MIOs aus der ePA im MIO Viewer anzeigen. Browsen Sie durch Impfeinträge, lassen Sie sich Ihre letzte zahnärztliche Behandlung anzeigen und vieles mehr!"
         },
         {
             headline: "Öffnen Sie ein MIO",
             lottie: LottieSlide2,
-            text:
-                "Klicken Sie auf „MIO öffnen“, wählen Sie Ihre unverschlüsselte MIO-Datei von ihrem Gerät und schon können Sie die Informationen ansehen!"
+            text: "Klicken Sie auf „MIO öffnen“, wählen Sie Ihre unverschlüsselte MIO-Datei von ihrem Gerät und schon können Sie die Informationen ansehen!"
         },
         {
             headline: "Export als PDF",
             lottie: LottieSlide3,
-            text:
-                "Exportieren Sie Ihre MIOs als PDF und behalten Sie so alle Daten im Überblick. Speichern Sie es ab oder drucken es aus."
+            text: "Exportieren Sie Ihre MIOs als PDF und behalten Sie so alle Daten im Überblick. Speichern Sie es ab oder drucken es aus."
         },
         {
             headline: "Bereit?",

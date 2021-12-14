@@ -27,13 +27,6 @@ type ActionResult = {
     };
 };
 
-type ActionErrorResult = {
-    type: Constants;
-    payload: {
-        value: MIOFile | MIOFile[] | boolean;
-    };
-};
-
 type ActionSettingsResult = {
     type: Constants;
     payload: {

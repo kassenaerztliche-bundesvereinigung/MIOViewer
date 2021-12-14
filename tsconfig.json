@@ -9,6 +9,7 @@
         "esModuleInterop": true,
         "allowSyntheticDefaultImports": true,
         "strict": true,
+        "noUnusedLocals": true,
         "forceConsistentCasingInFileNames": true,
         "module": "esnext",
         "moduleResolution": "node",
@@ -17,7 +18,8 @@
         "noEmit": true,
         "jsx": "react",
         "sourceMap": true,
-        "typeRoots": ["src/customTypings", "node_modules/@types"]
+        "typeRoots": ["src/customTypings", "node_modules/@types"],
+        "noFallthroughCasesInSwitch": true
     },
     "exclude": ["node_modules", "src/customTypings"],
     "include": ["src", "root"]

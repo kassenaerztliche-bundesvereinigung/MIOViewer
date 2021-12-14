@@ -23,9 +23,9 @@ import { History } from "history";
 
 export function isBundle(mio: KBVBundleResource): boolean {
     return (
-        CMR.V1_0_0.Profile.CMRBundle.is(mio) ||
-        CMR.V1_0_0.Profile.PCBundle.is(mio) ||
-        CMR.V1_0_0.Profile.PNBundle.is(mio)
+        CMR.V1_0_1.Profile.CMRBundle.is(mio) ||
+        CMR.V1_0_1.Profile.PCBundle.is(mio) ||
+        CMR.V1_0_1.Profile.PNBundle.is(mio)
     );
 }
 
@@ -34,36 +34,36 @@ export function countBundles(mios: KBVBundleResource[]): number {
 }
 
 export function getSpecialComposition(
-    mio: CMR.V1_0_0.Profile.CMRBundle
+    mio: CMR.V1_0_1.Profile.CMRBundle
 ):
     | MIOEntry<
-          | CMR.V1_0_0.Profile.CMRCompositionCysticFibrosisScreening
-          | CMR.V1_0_0.Profile.CMRCompositionExtendedNewbornScreening
-          | CMR.V1_0_0.Profile.CMRCompositionHipScreening
-          | CMR.V1_0_0.Profile.CMRCompositionNeonatalHearscreening
-          | CMR.V1_0_0.Profile.CMRCompositionPulseOxymetryScreening
+          | CMR.V1_0_1.Profile.CMRCompositionCysticFibrosisScreening
+          | CMR.V1_0_1.Profile.CMRCompositionExtendedNewbornScreening
+          | CMR.V1_0_1.Profile.CMRCompositionHipScreening
+          | CMR.V1_0_1.Profile.CMRCompositionNeonatalHearscreening
+          | CMR.V1_0_1.Profile.CMRCompositionPulseOxymetryScreening
       >
     | undefined {
     return ParserUtil.getEntry<
-        | CMR.V1_0_0.Profile.CMRCompositionCysticFibrosisScreening
-        | CMR.V1_0_0.Profile.CMRCompositionExtendedNewbornScreening
-        | CMR.V1_0_0.Profile.CMRCompositionHipScreening
-        | CMR.V1_0_0.Profile.CMRCompositionNeonatalHearscreening
-        | CMR.V1_0_0.Profile.CMRCompositionPulseOxymetryScreening
+        | CMR.V1_0_1.Profile.CMRCompositionCysticFibrosisScreening
+        | CMR.V1_0_1.Profile.CMRCompositionExtendedNewbornScreening
+        | CMR.V1_0_1.Profile.CMRCompositionHipScreening
+        | CMR.V1_0_1.Profile.CMRCompositionNeonatalHearscreening
+        | CMR.V1_0_1.Profile.CMRCompositionPulseOxymetryScreening
     >(mio, [
-        CMR.V1_0_0.Profile.CMRCompositionCysticFibrosisScreening,
-        CMR.V1_0_0.Profile.CMRCompositionExtendedNewbornScreening,
-        CMR.V1_0_0.Profile.CMRCompositionHipScreening,
-        CMR.V1_0_0.Profile.CMRCompositionNeonatalHearscreening,
-        CMR.V1_0_0.Profile.CMRCompositionPulseOxymetryScreening
+        CMR.V1_0_1.Profile.CMRCompositionCysticFibrosisScreening,
+        CMR.V1_0_1.Profile.CMRCompositionExtendedNewbornScreening,
+        CMR.V1_0_1.Profile.CMRCompositionHipScreening,
+        CMR.V1_0_1.Profile.CMRCompositionNeonatalHearscreening,
+        CMR.V1_0_1.Profile.CMRCompositionPulseOxymetryScreening
     ]);
 }
 
 export function getPercentileComposition(
-    mio: CMR.V1_0_0.Profile.CMRBundle
-): MIOEntry<CMR.V1_0_0.Profile.CMRCompositionPercentileCurve> | undefined {
-    return ParserUtil.getEntry<CMR.V1_0_0.Profile.CMRCompositionPercentileCurve>(mio, [
-        CMR.V1_0_0.Profile.CMRCompositionPercentileCurve
+    mio: CMR.V1_0_1.Profile.CMRBundle
+): MIOEntry<CMR.V1_0_1.Profile.CMRCompositionPercentileCurve> | undefined {
+    return ParserUtil.getEntry<CMR.V1_0_1.Profile.CMRCompositionPercentileCurve>(mio, [
+        CMR.V1_0_1.Profile.CMRCompositionPercentileCurve
     ]);
 }
 
@@ -72,7 +72,7 @@ export function translateQualification(qualificationCoding: {
     system: string;
 }): string {
     const results: Set<string> = new Set<string>();
-    CMR.V1_0_0.ValueSet.CMRPractitionerSpecialityValueSet.forEach((vs) => {
+    CMR.V1_0_1.ValueSet.CMRPractitionerSpecialityValueSet.forEach((vs) => {
         const result = vs.concept.filter(
             (concept) => qualificationCoding.code === concept.code
         );
@@ -81,7 +81,7 @@ export function translateQualification(qualificationCoding: {
             if (qualificationCoding.code === "309343006") {
                 const translatedCode = ParserUtil.translateCode(
                     qualificationCoding.code,
-                    CMR.V1_0_0.ConceptMap.CMRPractitionerSpecialityGerman
+                    CMR.V1_0_1.ConceptMap.CMRPractitionerSpecialityGerman
                 );
                 results.add(translatedCode.length ? translatedCode[0] : "-");
             } else {
@@ -95,102 +95,102 @@ export function translateQualification(qualificationCoding: {
 
 export function getUComposition(
     mio:
-        | CMR.V1_0_0.Profile.CMRBundle
-        | CMR.V1_0_0.Profile.PCBundle
-        | CMR.V1_0_0.Profile.PNBundle
+        | CMR.V1_0_1.Profile.CMRBundle
+        | CMR.V1_0_1.Profile.PCBundle
+        | CMR.V1_0_1.Profile.PNBundle
 ):
     | MIOEntry<
-          | CMR.V1_0_0.Profile.CMRCompositionU1
-          | CMR.V1_0_0.Profile.CMRCompositionU2
-          | CMR.V1_0_0.Profile.CMRCompositionU3
-          | CMR.V1_0_0.Profile.CMRCompositionU4
-          | CMR.V1_0_0.Profile.CMRCompositionU5
-          | CMR.V1_0_0.Profile.CMRCompositionU6
-          | CMR.V1_0_0.Profile.CMRCompositionU7
-          | CMR.V1_0_0.Profile.CMRCompositionU7a
-          | CMR.V1_0_0.Profile.CMRCompositionU8
-          | CMR.V1_0_0.Profile.CMRCompositionU9
+          | CMR.V1_0_1.Profile.CMRCompositionU1
+          | CMR.V1_0_1.Profile.CMRCompositionU2
+          | CMR.V1_0_1.Profile.CMRCompositionU3
+          | CMR.V1_0_1.Profile.CMRCompositionU4
+          | CMR.V1_0_1.Profile.CMRCompositionU5
+          | CMR.V1_0_1.Profile.CMRCompositionU6
+          | CMR.V1_0_1.Profile.CMRCompositionU7
+          | CMR.V1_0_1.Profile.CMRCompositionU7a
+          | CMR.V1_0_1.Profile.CMRCompositionU8
+          | CMR.V1_0_1.Profile.CMRCompositionU9
       >
     | undefined {
     return ParserUtil.getEntry<
-        | CMR.V1_0_0.Profile.CMRCompositionU1
-        | CMR.V1_0_0.Profile.CMRCompositionU2
-        | CMR.V1_0_0.Profile.CMRCompositionU3
-        | CMR.V1_0_0.Profile.CMRCompositionU4
-        | CMR.V1_0_0.Profile.CMRCompositionU5
-        | CMR.V1_0_0.Profile.CMRCompositionU6
-        | CMR.V1_0_0.Profile.CMRCompositionU7
-        | CMR.V1_0_0.Profile.CMRCompositionU7a
-        | CMR.V1_0_0.Profile.CMRCompositionU8
-        | CMR.V1_0_0.Profile.CMRCompositionU9
+        | CMR.V1_0_1.Profile.CMRCompositionU1
+        | CMR.V1_0_1.Profile.CMRCompositionU2
+        | CMR.V1_0_1.Profile.CMRCompositionU3
+        | CMR.V1_0_1.Profile.CMRCompositionU4
+        | CMR.V1_0_1.Profile.CMRCompositionU5
+        | CMR.V1_0_1.Profile.CMRCompositionU6
+        | CMR.V1_0_1.Profile.CMRCompositionU7
+        | CMR.V1_0_1.Profile.CMRCompositionU7a
+        | CMR.V1_0_1.Profile.CMRCompositionU8
+        | CMR.V1_0_1.Profile.CMRCompositionU9
     >(mio, [
-        CMR.V1_0_0.Profile.CMRCompositionU1,
-        CMR.V1_0_0.Profile.CMRCompositionU2,
-        CMR.V1_0_0.Profile.CMRCompositionU3,
-        CMR.V1_0_0.Profile.CMRCompositionU4,
-        CMR.V1_0_0.Profile.CMRCompositionU5,
-        CMR.V1_0_0.Profile.CMRCompositionU6,
-        CMR.V1_0_0.Profile.CMRCompositionU7,
-        CMR.V1_0_0.Profile.CMRCompositionU7a,
-        CMR.V1_0_0.Profile.CMRCompositionU8,
-        CMR.V1_0_0.Profile.CMRCompositionU9
+        CMR.V1_0_1.Profile.CMRCompositionU1,
+        CMR.V1_0_1.Profile.CMRCompositionU2,
+        CMR.V1_0_1.Profile.CMRCompositionU3,
+        CMR.V1_0_1.Profile.CMRCompositionU4,
+        CMR.V1_0_1.Profile.CMRCompositionU5,
+        CMR.V1_0_1.Profile.CMRCompositionU6,
+        CMR.V1_0_1.Profile.CMRCompositionU7,
+        CMR.V1_0_1.Profile.CMRCompositionU7a,
+        CMR.V1_0_1.Profile.CMRCompositionU8,
+        CMR.V1_0_1.Profile.CMRCompositionU9
     ]);
 }
 
 export function getComposition(
     mio:
-        | CMR.V1_0_0.Profile.CMRBundle
-        | CMR.V1_0_0.Profile.PCBundle
-        | CMR.V1_0_0.Profile.PNBundle
+        | CMR.V1_0_1.Profile.CMRBundle
+        | CMR.V1_0_1.Profile.PCBundle
+        | CMR.V1_0_1.Profile.PNBundle
 ):
     | MIOEntry<
-          | CMR.V1_0_0.Profile.CMRCompositionU1
-          | CMR.V1_0_0.Profile.CMRCompositionU2
-          | CMR.V1_0_0.Profile.CMRCompositionU3
-          | CMR.V1_0_0.Profile.CMRCompositionU4
-          | CMR.V1_0_0.Profile.CMRCompositionU5
-          | CMR.V1_0_0.Profile.CMRCompositionU6
-          | CMR.V1_0_0.Profile.CMRCompositionU7
-          | CMR.V1_0_0.Profile.CMRCompositionU7a
-          | CMR.V1_0_0.Profile.CMRCompositionU8
-          | CMR.V1_0_0.Profile.CMRCompositionU9
-          | CMR.V1_0_0.Profile.PCCompositionExaminationParticipation
-          | CMR.V1_0_0.Profile.PNCompositionParentalNotes
-          | CMR.V1_0_0.Profile.CMRCompositionCysticFibrosisScreening
-          | CMR.V1_0_0.Profile.CMRCompositionExtendedNewbornScreening
-          | CMR.V1_0_0.Profile.CMRCompositionHipScreening
-          | CMR.V1_0_0.Profile.CMRCompositionNeonatalHearscreening
-          | CMR.V1_0_0.Profile.CMRCompositionPulseOxymetryScreening
-          | CMR.V1_0_0.Profile.CMRCompositionPercentileCurve
+          | CMR.V1_0_1.Profile.CMRCompositionU1
+          | CMR.V1_0_1.Profile.CMRCompositionU2
+          | CMR.V1_0_1.Profile.CMRCompositionU3
+          | CMR.V1_0_1.Profile.CMRCompositionU4
+          | CMR.V1_0_1.Profile.CMRCompositionU5
+          | CMR.V1_0_1.Profile.CMRCompositionU6
+          | CMR.V1_0_1.Profile.CMRCompositionU7
+          | CMR.V1_0_1.Profile.CMRCompositionU7a
+          | CMR.V1_0_1.Profile.CMRCompositionU8
+          | CMR.V1_0_1.Profile.CMRCompositionU9
+          | CMR.V1_0_1.Profile.PCCompositionExaminationParticipation
+          | CMR.V1_0_1.Profile.PNCompositionParentalNotes
+          | CMR.V1_0_1.Profile.CMRCompositionCysticFibrosisScreening
+          | CMR.V1_0_1.Profile.CMRCompositionExtendedNewbornScreening
+          | CMR.V1_0_1.Profile.CMRCompositionHipScreening
+          | CMR.V1_0_1.Profile.CMRCompositionNeonatalHearscreening
+          | CMR.V1_0_1.Profile.CMRCompositionPulseOxymetryScreening
+          | CMR.V1_0_1.Profile.CMRCompositionPercentileCurve
       >
     | undefined {
     const composition = getUComposition(mio);
     if (composition) return composition;
-    else if (CMR.V1_0_0.Profile.CMRBundle.is(mio)) {
+    else if (CMR.V1_0_1.Profile.CMRBundle.is(mio)) {
         const special = getSpecialComposition(mio);
         if (special) return special;
         else return getPercentileComposition(mio);
     } else {
         return ParserUtil.getEntry<
-            | CMR.V1_0_0.Profile.PCCompositionExaminationParticipation
-            | CMR.V1_0_0.Profile.PNCompositionParentalNotes
+            | CMR.V1_0_1.Profile.PCCompositionExaminationParticipation
+            | CMR.V1_0_1.Profile.PNCompositionParentalNotes
         >(mio, [
-            CMR.V1_0_0.Profile.PCCompositionExaminationParticipation,
-            CMR.V1_0_0.Profile.PNCompositionParentalNotes
+            CMR.V1_0_1.Profile.PCCompositionExaminationParticipation,
+            CMR.V1_0_1.Profile.PNCompositionParentalNotes
         ]);
     }
 }
 
 export function getCompositionEncounter(
     mio:
-        | CMR.V1_0_0.Profile.CMRBundle
-        | CMR.V1_0_0.Profile.PCBundle
-        | CMR.V1_0_0.Profile.PNBundle
+        | CMR.V1_0_1.Profile.CMRBundle
+        | CMR.V1_0_1.Profile.PCBundle
+        | CMR.V1_0_1.Profile.PNBundle
 ):
     | MIOEntry<
-          | CMR.V1_0_0.Profile.CMREncounter
-          | CMR.V1_0_0.Profile.PCEncounter
-          | CMR.V1_0_0.Profile.PNEncounter
+          | CMR.V1_0_1.Profile.CMREncounter
+          | CMR.V1_0_1.Profile.PCEncounter
+          | CMR.V1_0_1.Profile.PNEncounter
       >
     | undefined {
     const composition = getComposition(mio);
@@ -199,15 +199,15 @@ export function getCompositionEncounter(
         const ref = composition.resource.encounter.reference;
 
         return ParserUtil.getEntryWithRef<
-            | CMR.V1_0_0.Profile.CMREncounter
-            | CMR.V1_0_0.Profile.PCEncounter
-            | CMR.V1_0_0.Profile.PNEncounter
+            | CMR.V1_0_1.Profile.CMREncounter
+            | CMR.V1_0_1.Profile.PCEncounter
+            | CMR.V1_0_1.Profile.PNEncounter
         >(
             mio,
             [
-                CMR.V1_0_0.Profile.CMREncounter,
-                CMR.V1_0_0.Profile.PCEncounter,
-                CMR.V1_0_0.Profile.PNEncounter
+                CMR.V1_0_1.Profile.CMREncounter,
+                CMR.V1_0_1.Profile.PCEncounter,
+                CMR.V1_0_1.Profile.PNEncounter
             ],
             ref
         );
@@ -216,27 +216,27 @@ export function getCompositionEncounter(
 
 export function getType(
     value:
-        | CMR.V1_0_0.Profile.CMREncounter
-        | CMR.V1_0_0.Profile.PCEncounter
-        | CMR.V1_0_0.Profile.PNEncounter
-        | CMR.V1_0_0.Profile.CMRCompositionU1
-        | CMR.V1_0_0.Profile.CMRCompositionU2
-        | CMR.V1_0_0.Profile.CMRCompositionU3
-        | CMR.V1_0_0.Profile.CMRCompositionU4
-        | CMR.V1_0_0.Profile.CMRCompositionU5
-        | CMR.V1_0_0.Profile.CMRCompositionU6
-        | CMR.V1_0_0.Profile.CMRCompositionU7
-        | CMR.V1_0_0.Profile.CMRCompositionU7a
-        | CMR.V1_0_0.Profile.CMRCompositionU8
-        | CMR.V1_0_0.Profile.CMRCompositionU9
-        | CMR.V1_0_0.Profile.PCCompositionExaminationParticipation
-        | CMR.V1_0_0.Profile.PNCompositionParentalNotes
-        | CMR.V1_0_0.Profile.CMRCompositionCysticFibrosisScreening
-        | CMR.V1_0_0.Profile.CMRCompositionExtendedNewbornScreening
-        | CMR.V1_0_0.Profile.CMRCompositionHipScreening
-        | CMR.V1_0_0.Profile.CMRCompositionNeonatalHearscreening
-        | CMR.V1_0_0.Profile.CMRCompositionPulseOxymetryScreening
-        | CMR.V1_0_0.Profile.CMRCompositionPercentileCurve,
+        | CMR.V1_0_1.Profile.CMREncounter
+        | CMR.V1_0_1.Profile.PCEncounter
+        | CMR.V1_0_1.Profile.PNEncounter
+        | CMR.V1_0_1.Profile.CMRCompositionU1
+        | CMR.V1_0_1.Profile.CMRCompositionU2
+        | CMR.V1_0_1.Profile.CMRCompositionU3
+        | CMR.V1_0_1.Profile.CMRCompositionU4
+        | CMR.V1_0_1.Profile.CMRCompositionU5
+        | CMR.V1_0_1.Profile.CMRCompositionU6
+        | CMR.V1_0_1.Profile.CMRCompositionU7
+        | CMR.V1_0_1.Profile.CMRCompositionU7a
+        | CMR.V1_0_1.Profile.CMRCompositionU8
+        | CMR.V1_0_1.Profile.CMRCompositionU9
+        | CMR.V1_0_1.Profile.PCCompositionExaminationParticipation
+        | CMR.V1_0_1.Profile.PNCompositionParentalNotes
+        | CMR.V1_0_1.Profile.CMRCompositionCysticFibrosisScreening
+        | CMR.V1_0_1.Profile.CMRCompositionExtendedNewbornScreening
+        | CMR.V1_0_1.Profile.CMRCompositionHipScreening
+        | CMR.V1_0_1.Profile.CMRCompositionNeonatalHearscreening
+        | CMR.V1_0_1.Profile.CMRCompositionPulseOxymetryScreening
+        | CMR.V1_0_1.Profile.CMRCompositionPercentileCurve,
     full?: boolean
 ): string {
     const type = value.type;
@@ -244,17 +244,17 @@ export function getType(
     const coding = [];
 
     if (
-        CMR.V1_0_0.Profile.PCCompositionExaminationParticipation.is(value) ||
-        CMR.V1_0_0.Profile.PNCompositionParentalNotes.is(value) ||
-        CMR.V1_0_0.Profile.CMRCompositionPercentileCurve.is(value)
+        CMR.V1_0_1.Profile.PCCompositionExaminationParticipation.is(value) ||
+        CMR.V1_0_1.Profile.PNCompositionParentalNotes.is(value) ||
+        CMR.V1_0_1.Profile.CMRCompositionPercentileCurve.is(value)
     ) {
         return value.title;
     } else if (
-        CMR.V1_0_0.Profile.CMRCompositionCysticFibrosisScreening.is(value) ||
-        CMR.V1_0_0.Profile.CMRCompositionExtendedNewbornScreening.is(value) ||
-        CMR.V1_0_0.Profile.CMRCompositionHipScreening.is(value) ||
-        CMR.V1_0_0.Profile.CMRCompositionNeonatalHearscreening.is(value) ||
-        CMR.V1_0_0.Profile.CMRCompositionPulseOxymetryScreening.is(value)
+        CMR.V1_0_1.Profile.CMRCompositionCysticFibrosisScreening.is(value) ||
+        CMR.V1_0_1.Profile.CMRCompositionExtendedNewbornScreening.is(value) ||
+        CMR.V1_0_1.Profile.CMRCompositionHipScreening.is(value) ||
+        CMR.V1_0_1.Profile.CMRCompositionNeonatalHearscreening.is(value) ||
+        CMR.V1_0_1.Profile.CMRCompositionPulseOxymetryScreening.is(value)
     ) {
         const values: string[] = [];
         value.section.forEach((s: { title: string }) => values.push(s.title));
@@ -273,8 +273,8 @@ export function getType(
     coding.flat().forEach((c) => codes.push(c.code));
 
     const cm = [
-        CMR.V1_0_0.ConceptMap.CMRExaminationNumberGerman,
-        CMR.V1_0_0.ConceptMap.PCPNExaminationNumberGerman
+        CMR.V1_0_1.ConceptMap.CMRExaminationNumberGerman,
+        CMR.V1_0_1.ConceptMap.PCPNExaminationNumberGerman
     ];
 
     const translated = new Set<string>();
@@ -297,9 +297,9 @@ export function getType(
 
 export function getEncounterTypeFromBundle(
     mio:
-        | CMR.V1_0_0.Profile.CMRBundle
-        | CMR.V1_0_0.Profile.PCBundle
-        | CMR.V1_0_0.Profile.PNBundle,
+        | CMR.V1_0_1.Profile.CMRBundle
+        | CMR.V1_0_1.Profile.PCBundle
+        | CMR.V1_0_1.Profile.PNBundle,
     full?: boolean
 ): string {
     const encounter = getCompositionEncounter(mio);
@@ -313,9 +313,9 @@ export function getEncounterTypeFromBundle(
 
 export function getTypeFromBundle(
     mio:
-        | CMR.V1_0_0.Profile.CMRBundle
-        | CMR.V1_0_0.Profile.PCBundle
-        | CMR.V1_0_0.Profile.PNBundle,
+        | CMR.V1_0_1.Profile.CMRBundle
+        | CMR.V1_0_1.Profile.PCBundle
+        | CMR.V1_0_1.Profile.PNBundle,
     full?: boolean
 ): string {
     const composition = getComposition(mio);
@@ -329,20 +329,20 @@ export function getTypeFromBundle(
 
 export function getUCompositionTitle(
     mio:
-        | CMR.V1_0_0.Profile.CMRBundle
-        | CMR.V1_0_0.Profile.PCBundle
-        | CMR.V1_0_0.Profile.PNBundle
+        | CMR.V1_0_1.Profile.CMRBundle
+        | CMR.V1_0_1.Profile.PCBundle
+        | CMR.V1_0_1.Profile.PNBundle
 ): string {
-    if (CMR.V1_0_0.Profile.CMRBundle) {
+    if (CMR.V1_0_1.Profile.CMRBundle) {
         const composition = getComposition(mio)?.resource;
         if (
-            CMR.V1_0_0.Profile.CMRCompositionCysticFibrosisScreening.is(composition) ||
-            CMR.V1_0_0.Profile.CMRCompositionExtendedNewbornScreening.is(composition) ||
-            CMR.V1_0_0.Profile.CMRCompositionHipScreening.is(composition) ||
-            CMR.V1_0_0.Profile.CMRCompositionNeonatalHearscreening.is(composition) ||
-            CMR.V1_0_0.Profile.CMRCompositionPulseOxymetryScreening.is(composition)
+            CMR.V1_0_1.Profile.CMRCompositionCysticFibrosisScreening.is(composition) ||
+            CMR.V1_0_1.Profile.CMRCompositionExtendedNewbornScreening.is(composition) ||
+            CMR.V1_0_1.Profile.CMRCompositionHipScreening.is(composition) ||
+            CMR.V1_0_1.Profile.CMRCompositionNeonatalHearscreening.is(composition) ||
+            CMR.V1_0_1.Profile.CMRCompositionPulseOxymetryScreening.is(composition)
         ) {
-            return "Spezielle Früherkennungsuntersuchung";
+            return composition.title;
         } else {
             return getEncounterTypeFromBundle(mio);
         }
@@ -353,34 +353,20 @@ export function getUCompositionTitle(
 
 export function getPatient(
     mio:
-        | CMR.V1_0_0.Profile.CMRBundle
-        | CMR.V1_0_0.Profile.PCBundle
-        | CMR.V1_0_0.Profile.PNBundle,
+        | CMR.V1_0_1.Profile.CMRBundle
+        | CMR.V1_0_1.Profile.PCBundle
+        | CMR.V1_0_1.Profile.PNBundle,
     ref?: string
-):
-    | MIOEntry<
-          | CMR.V1_0_0.Profile.CMRPatient
-          | CMR.V1_0_0.Profile.PCPatient
-          | CMR.V1_0_0.Profile.PNPatient
-      >
-    | undefined {
+): MIOEntry<CMR.V1_0_1.Profile.CMRPatient> | undefined {
     let patient = undefined;
 
     const composition = getComposition(mio);
     const usedRef = ref ?? composition?.resource.subject.reference;
 
     if (usedRef) {
-        patient = ParserUtil.getEntryWithRef<
-            | CMR.V1_0_0.Profile.CMRPatient
-            | CMR.V1_0_0.Profile.PCPatient
-            | CMR.V1_0_0.Profile.PNPatient
-        >(
+        patient = ParserUtil.getEntryWithRef<CMR.V1_0_1.Profile.CMRPatient>(
             mio,
-            [
-                CMR.V1_0_0.Profile.CMRPatient,
-                CMR.V1_0_0.Profile.PCPatient,
-                CMR.V1_0_0.Profile.PNPatient
-            ],
+            [CMR.V1_0_1.Profile.CMRPatient],
             usedRef
         );
     }
@@ -389,16 +375,12 @@ export function getPatient(
 }
 
 export function getPatientName(
-    patient:
-        | CMR.V1_0_0.Profile.CMRPatient
-        | CMR.V1_0_0.Profile.PCPatient
-        | CMR.V1_0_0.Profile.PNPatient
-        | undefined
+    patient: CMR.V1_0_1.Profile.CMRPatient | undefined
 ): string {
     if (patient && patient.name) {
         let nameStr = "-";
-        const nameSlice = ParserUtil.getSlice<CMR.V1_0_0.Profile.CMRPatientName>(
-            CMR.V1_0_0.Profile.CMRPatientName,
+        const nameSlice = ParserUtil.getSlice<CMR.V1_0_1.Profile.CMRPatientName>(
+            CMR.V1_0_1.Profile.CMRPatientName,
             patient.name
         );
 
@@ -412,24 +394,27 @@ export function getPatientName(
             } else if (nameSlice._family) {
                 const partsFamily = [];
 
-                const addition = ParserUtil.getSlice<CMR.V1_0_0.Profile.CMRPatientNameFamilyNamenszusatz>(
-                    CMR.V1_0_0.Profile.CMRPatientNameFamilyNamenszusatz,
-                    nameSlice._family.extension
-                )?.valueString;
+                const addition =
+                    ParserUtil.getSlice<CMR.V1_0_1.Profile.CMRPatientNameFamilyNamenszusatz>(
+                        CMR.V1_0_1.Profile.CMRPatientNameFamilyNamenszusatz,
+                        nameSlice._family.extension
+                    )?.valueString;
 
                 if (addition) partsFamily.push(addition);
 
-                const pre = ParserUtil.getSlice<CMR.V1_0_0.Profile.CMRPatientNameFamilyVorsatzwort>(
-                    CMR.V1_0_0.Profile.CMRPatientNameFamilyVorsatzwort,
-                    nameSlice._family.extension
-                )?.valueString;
+                const pre =
+                    ParserUtil.getSlice<CMR.V1_0_1.Profile.CMRPatientNameFamilyVorsatzwort>(
+                        CMR.V1_0_1.Profile.CMRPatientNameFamilyVorsatzwort,
+                        nameSlice._family.extension
+                    )?.valueString;
 
                 if (pre) partsFamily.push(pre);
 
-                const family = ParserUtil.getSlice<CMR.V1_0_0.Profile.CMRPatientNameFamilyNachname>(
-                    CMR.V1_0_0.Profile.CMRPatientNameFamilyNachname,
-                    nameSlice._family.extension
-                )?.valueString;
+                const family =
+                    ParserUtil.getSlice<CMR.V1_0_1.Profile.CMRPatientNameFamilyNachname>(
+                        CMR.V1_0_1.Profile.CMRPatientNameFamilyNachname,
+                        nameSlice._family.extension
+                    )?.valueString;
 
                 if (family) partsFamily.push(family);
 
@@ -446,16 +431,12 @@ export function getPatientName(
 }
 
 export function getPatientBirthName(
-    patient:
-        | CMR.V1_0_0.Profile.CMRPatient
-        | CMR.V1_0_0.Profile.PCPatient
-        | CMR.V1_0_0.Profile.PNPatient
-        | undefined
+    patient: CMR.V1_0_1.Profile.CMRPatient | undefined
 ): string {
     if (patient && patient.name) {
         let nameStr = "-";
-        const nameSlice = ParserUtil.getSlice<CMR.V1_0_0.Profile.CMRPatientGeburtsname>(
-            CMR.V1_0_0.Profile.CMRPatientGeburtsname,
+        const nameSlice = ParserUtil.getSlice<CMR.V1_0_1.Profile.CMRPatientGeburtsname>(
+            CMR.V1_0_1.Profile.CMRPatientGeburtsname,
             patient.name
         );
 
@@ -467,24 +448,27 @@ export function getPatientBirthName(
             } else if (nameSlice._family) {
                 const partsFamily = [];
 
-                const addition = ParserUtil.getSlice<CMR.V1_0_0.Profile.CMRPatientGeburtsnameFamilyNamenszusatz>(
-                    CMR.V1_0_0.Profile.CMRPatientGeburtsnameFamilyNamenszusatz,
-                    nameSlice._family.extension
-                )?.valueString;
+                const addition =
+                    ParserUtil.getSlice<CMR.V1_0_1.Profile.CMRPatientGeburtsnameFamilyNamenszusatz>(
+                        CMR.V1_0_1.Profile.CMRPatientGeburtsnameFamilyNamenszusatz,
+                        nameSlice._family.extension
+                    )?.valueString;
 
                 if (addition) partsFamily.push(addition);
 
-                const pre = ParserUtil.getSlice<CMR.V1_0_0.Profile.CMRPatientGeburtsnameFamilyVorsatzwort>(
-                    CMR.V1_0_0.Profile.CMRPatientNameFamilyVorsatzwort,
-                    nameSlice._family.extension
-                )?.valueString;
+                const pre =
+                    ParserUtil.getSlice<CMR.V1_0_1.Profile.CMRPatientGeburtsnameFamilyVorsatzwort>(
+                        CMR.V1_0_1.Profile.CMRPatientNameFamilyVorsatzwort,
+                        nameSlice._family.extension
+                    )?.valueString;
 
                 if (pre) partsFamily.push(pre);
 
-                const family = ParserUtil.getSlice<CMR.V1_0_0.Profile.CMRPatientGeburtsnameFamilyNachname>(
-                    CMR.V1_0_0.Profile.CMRPatientNameFamilyNachname,
-                    nameSlice._family.extension
-                )?.valueString;
+                const family =
+                    ParserUtil.getSlice<CMR.V1_0_1.Profile.CMRPatientGeburtsnameFamilyNachname>(
+                        CMR.V1_0_1.Profile.CMRPatientNameFamilyNachname,
+                        nameSlice._family.extension
+                    )?.valueString;
 
                 if (family) partsFamily.push(family);
 
@@ -501,20 +485,12 @@ export function getPatientBirthName(
 }
 
 export function getPractitionerName(
-    practitioner:
-        | CMR.V1_0_0.Profile.CMRPractitioner
-        | CMR.V1_0_0.Profile.PCPractitioner
-        | undefined
+    practitioner: CMR.V1_0_1.Profile.CMRPractitioner | undefined
 ): string {
     if (practitioner && practitioner.name) {
         let nameStr = "-";
-        const nameSlices = ParserUtil.getSlices<
-            CMR.V1_0_0.Profile.CMRPractitionerName | CMR.V1_0_0.Profile.PCPractitionerName
-        >(
-            [
-                CMR.V1_0_0.Profile.CMRPractitionerName,
-                CMR.V1_0_0.Profile.PCPractitionerName
-            ],
+        const nameSlices = ParserUtil.getSlices<CMR.V1_0_1.Profile.CMRPractitionerName>(
+            [CMR.V1_0_1.Profile.CMRPractitionerName],
             practitioner.name
         );
 
@@ -535,42 +511,27 @@ export function getPractitionerName(
             } else if (nameSlice._family) {
                 const partsFamily = [];
 
-                const addition = ParserUtil.getSlices<
-                    | CMR.V1_0_0.Profile.CMRPractitionerNameFamilyNamenszusatz
-                    | CMR.V1_0_0.Profile.PCPractitionerNameFamilyNamenszusatz
-                >(
-                    [
-                        CMR.V1_0_0.Profile.CMRPractitionerNameFamilyNamenszusatz,
-                        CMR.V1_0_0.Profile.PCPractitionerNameFamilyNamenszusatz
-                    ],
-                    nameSlice._family.extension
-                );
+                const addition =
+                    ParserUtil.getSlices<CMR.V1_0_1.Profile.CMRPractitionerNameFamilyNamenszusatz>(
+                        [CMR.V1_0_1.Profile.CMRPractitionerNameFamilyNamenszusatz],
+                        nameSlice._family.extension
+                    );
 
                 if (addition.length) partsFamily.push(addition[0].valueString);
 
-                const pre = ParserUtil.getSlices<
-                    | CMR.V1_0_0.Profile.CMRPractitionerNameFamilyVorsatzwort
-                    | CMR.V1_0_0.Profile.PCPractitionerNameFamilyVorsatzwort
-                >(
-                    [
-                        CMR.V1_0_0.Profile.CMRPractitionerNameFamilyVorsatzwort,
-                        CMR.V1_0_0.Profile.PCPractitionerNameFamilyVorsatzwort
-                    ],
-                    nameSlice._family.extension
-                );
+                const pre =
+                    ParserUtil.getSlices<CMR.V1_0_1.Profile.CMRPractitionerNameFamilyVorsatzwort>(
+                        [CMR.V1_0_1.Profile.CMRPractitionerNameFamilyVorsatzwort],
+                        nameSlice._family.extension
+                    );
 
                 if (pre.length) partsFamily.push(pre[0].valueString);
 
-                const family = ParserUtil.getSlices<
-                    | CMR.V1_0_0.Profile.CMRPractitionerNameFamilyNachname
-                    | CMR.V1_0_0.Profile.PCPractitionerNameFamilyNachname
-                >(
-                    [
-                        CMR.V1_0_0.Profile.CMRPractitionerNameFamilyNachname,
-                        CMR.V1_0_0.Profile.PCPractitionerNameFamilyNachname
-                    ],
-                    nameSlice._family.extension
-                );
+                const family =
+                    ParserUtil.getSlices<CMR.V1_0_1.Profile.CMRPractitionerNameFamilyNachname>(
+                        [CMR.V1_0_1.Profile.CMRPractitionerNameFamilyNachname],
+                        nameSlice._family.extension
+                    );
 
                 if (family.length) partsFamily.push(family[0].valueString);
 
@@ -589,23 +550,15 @@ export function getPractitionerName(
 export function getPatientModelValue(
     patientRef: string,
     mio:
-        | CMR.V1_0_0.Profile.CMRBundle
-        | CMR.V1_0_0.Profile.PCBundle
-        | CMR.V1_0_0.Profile.PNBundle,
+        | CMR.V1_0_1.Profile.CMRBundle
+        | CMR.V1_0_1.Profile.PCBundle
+        | CMR.V1_0_1.Profile.PNBundle,
     history?: History,
     label = "Patient/-in"
 ): ModelValue {
-    const patient = ParserUtil.getEntryWithRef<
-        | CMR.V1_0_0.Profile.CMRPatient
-        | CMR.V1_0_0.Profile.PCPatient
-        | CMR.V1_0_0.Profile.PNPatient
-    >(
+    const patient = ParserUtil.getEntryWithRef<CMR.V1_0_1.Profile.CMRPatient>(
         mio,
-        [
-            CMR.V1_0_0.Profile.CMRPatient,
-            CMR.V1_0_0.Profile.PCPatient,
-            CMR.V1_0_0.Profile.PNPatient
-        ],
+        [CMR.V1_0_1.Profile.CMRPatient],
         patientRef
     )?.resource;
 
@@ -619,21 +572,21 @@ export function getPatientModelValue(
 export function getEncounterModelValue(
     encounterRef: string,
     mio:
-        | CMR.V1_0_0.Profile.CMRBundle
-        | CMR.V1_0_0.Profile.PCBundle
-        | CMR.V1_0_0.Profile.PNBundle,
+        | CMR.V1_0_1.Profile.CMRBundle
+        | CMR.V1_0_1.Profile.PCBundle
+        | CMR.V1_0_1.Profile.PNBundle,
     history?: History
 ): ModelValue {
     const encounter = ParserUtil.getEntryWithRef<
-        | CMR.V1_0_0.Profile.CMREncounter
-        | CMR.V1_0_0.Profile.PCEncounter
-        | CMR.V1_0_0.Profile.PNEncounter
+        | CMR.V1_0_1.Profile.CMREncounter
+        | CMR.V1_0_1.Profile.PCEncounter
+        | CMR.V1_0_1.Profile.PNEncounter
     >(
         mio,
         [
-            CMR.V1_0_0.Profile.CMREncounter,
-            CMR.V1_0_0.Profile.PCEncounter,
-            CMR.V1_0_0.Profile.PNEncounter
+            CMR.V1_0_1.Profile.CMREncounter,
+            CMR.V1_0_1.Profile.PCEncounter,
+            CMR.V1_0_1.Profile.PNEncounter
         ],
         encounterRef
     )?.resource;
@@ -648,20 +601,18 @@ export function getEncounterModelValue(
 export function getPerformerModelValues(
     refs: string[] | undefined,
     mio:
-        | CMR.V1_0_0.Profile.CMRBundle
-        | CMR.V1_0_0.Profile.PCBundle
-        | CMR.V1_0_0.Profile.PNBundle,
+        | CMR.V1_0_1.Profile.CMRBundle
+        | CMR.V1_0_1.Profile.PCBundle
+        | CMR.V1_0_1.Profile.PNBundle,
     history?: History,
     label = "Durchgeführt durch"
 ): ModelValue[] {
     const modelValues: ModelValue[] = [];
     if (refs) {
         refs.forEach((ref) => {
-            const val = ParserUtil.getEntryWithRef<
-                CMR.V1_0_0.Profile.CMRPractitioner | CMR.V1_0_0.Profile.PCPractitioner
-            >(
+            const val = ParserUtil.getEntryWithRef<CMR.V1_0_1.Profile.CMRPractitioner>(
                 mio,
-                [CMR.V1_0_0.Profile.CMRPractitioner, CMR.V1_0_0.Profile.PCPractitioner],
+                [CMR.V1_0_1.Profile.CMRPractitioner],
                 ref
             );
 

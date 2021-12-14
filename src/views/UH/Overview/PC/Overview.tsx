@@ -27,7 +27,7 @@ import PatientCard from "../../../../components/PatientCard";
 import * as Models from "../../../../models";
 
 type OverviewProps = {
-    mio: CMR.V1_0_0.Profile.PCBundle;
+    mio: CMR.V1_0_1.Profile.PCBundle;
 } & RouteComponentProps;
 
 export default class Overview extends React.Component<OverviewProps> {
@@ -36,7 +36,7 @@ export default class Overview extends React.Component<OverviewProps> {
 
         const encounter = Util.UH.getCompositionEncounter(mio);
         const model = new Models.UH.PC.ParticipationCardModel(
-            encounter?.resource as CMR.V1_0_0.Profile.PCEncounter,
+            encounter?.resource as CMR.V1_0_1.Profile.PCEncounter,
             encounter?.fullUrl ?? "",
             mio,
             history
@@ -46,7 +46,7 @@ export default class Overview extends React.Component<OverviewProps> {
 
         const composition = Util.UH.getComposition(
             mio
-        ) as MIOEntry<CMR.V1_0_0.Profile.PCCompositionExaminationParticipation>;
+        ) as MIOEntry<CMR.V1_0_1.Profile.PCCompositionExaminationParticipation>;
 
         const hints: Models.ModelValue[] = [];
 

@@ -31,7 +31,7 @@ export type AdditionalCommentType =
     | MR.V1_0_0.Profile.Practitioner
     | MR.V1_0_0.Profile.PatientChild
     | MR.V1_0_0.Profile.DiagnosticReportUltrasoundI
-    | CMR.V1_0_0.Profile.CMRPractitioner;
+    | CMR.V1_0_1.Profile.CMRPractitioner;
 
 export default class AdditionalCommentModel extends BaseModel<AdditionalCommentType> {
     constructor(
