@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -19,7 +19,7 @@
 import React from "react";
 import { RouteComponentProps } from "react-router";
 
-import { CMR, MIOEntry, ParserUtil } from "@kbv/mioparser";
+import { CMR, MIOEntry, ParserUtil, Reference } from "@kbv/mioparser";
 
 import { UI, Util } from "../../../../components/";
 
@@ -63,7 +63,7 @@ export default class OverviewPercentileCurve extends React.Component<OverviewPro
                     const entry = ParserUtil.getEntryWithRef<typeof mapping.profile>(
                         mio,
                         [mapping.profile],
-                        ref
+                        new Reference(ref, this.composition?.fullUrl)
                     );
 
                     if (entry) {

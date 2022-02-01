@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -16,7 +16,7 @@
  * along with MIO Viewer. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { ZAEB, MIOEntry, ParserUtil } from "@kbv/mioparser";
+import { ZAEB, MIOEntry, ParserUtil, Reference } from "@kbv/mioparser";
 import { Util } from "../index";
 import { FHIR } from "./index";
 
@@ -33,13 +33,14 @@ export function getComposition(
 export function getPatient(
     mio: Bundle
 ): MIOEntry<ZAEB.V1_1_0.Profile.Patient> | undefined {
-    const subject = Util.ZB.getComposition(mio)?.resource.subject.reference;
-    return Util.ZB.getPatientByRef(mio, subject);
+    const composition = Util.ZB.getComposition(mio);
+    const subject = composition?.resource.subject.reference;
+    return Util.ZB.getPatientByRef(mio, new Reference(subject, composition?.fullUrl));
 }
 
 export function getPatientByRef(
     mio: Bundle,
-    ref?: string
+    ref?: Reference
 ): MIOEntry<ZAEB.V1_1_0.Profile.Patient> | undefined {
     if (!ref) return;
     return ParserUtil.getEntryWithRef<ZAEB.V1_1_0.Profile.Patient>(
@@ -60,9 +61,10 @@ export function getEntries(
         | ZAEB.V1_1_0.Profile.ObservationGaplessDocumentation
     >[] = [];
 
-    const composition = Util.ZB.getComposition(mio)?.resource;
+    const composition = Util.ZB.getComposition(mio);
+
     if (composition) {
-        const refs = composition.section
+        const refs = composition.resource.section
             .map((s) => s.entry.map((e) => e.reference))
             .flat();
 
@@ -76,7 +78,7 @@ export function getEntries(
                     ZAEB.V1_1_0.Profile.ObservationDentalCheckUp,
                     ZAEB.V1_1_0.Profile.ObservationGaplessDocumentation
                 ],
-                ref
+                new Reference(ref, composition.fullUrl)
             );
             if (resource) entries.push(resource);
         });
@@ -103,7 +105,7 @@ export function getObservationGaplessDocumentation(
 
 export function getOrganization(
     mio: Bundle,
-    ref?: string
+    ref?: Reference
 ): MIOEntry<ZAEB.V1_1_0.Profile.Organization> | undefined {
     if (ref) {
         return ParserUtil.getEntryWithRef<ZAEB.V1_1_0.Profile.Organization>(

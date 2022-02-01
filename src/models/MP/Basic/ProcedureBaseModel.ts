@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -18,7 +18,7 @@
 
 import { History } from "history";
 
-import { ParserUtil, MR } from "@kbv/mioparser";
+import { ParserUtil, MR, Reference } from "@kbv/mioparser";
 import { Util } from "../../../components";
 
 import MPBaseModel from "../MPBaseModel";
@@ -27,13 +27,13 @@ import { ModelValue } from "../../Types";
 
 export default class ProcedureBaseModel<
     T extends
-        | MR.V1_0_0.Profile.ProcedureAntiDProphylaxis
-        | MR.V1_0_0.Profile.ProcedureCounselling
+        | MR.V1_1_0.Profile.ProcedureAntiDProphylaxis
+        | MR.V1_1_0.Profile.ProcedureCounselling
 > extends MPBaseModel<T> {
     constructor(
         value: T,
         fullUrl: string,
-        parent: MR.V1_0_0.Profile.Bundle,
+        parent: MR.V1_1_0.Profile.Bundle,
         history?: History
     ) {
         super(value, fullUrl, parent, history);
@@ -41,10 +41,10 @@ export default class ProcedureBaseModel<
         this.headline = this.getCoding();
 
         const subjectRef = this.value.subject.reference;
-        const patient = ParserUtil.getEntryWithRef<MR.V1_0_0.Profile.PatientMother>(
+        const patient = ParserUtil.getEntryWithRef<MR.V1_1_0.Profile.PatientMother>(
             this.parent,
-            [MR.V1_0_0.Profile.PatientMother],
-            subjectRef
+            [MR.V1_1_0.Profile.PatientMother],
+            new Reference(subjectRef, this.fullUrl)
         );
 
         const performerRefs = this.value.performer?.map((p) => p.actor.reference);
@@ -53,29 +53,29 @@ export default class ProcedureBaseModel<
         if (performerRefs?.length) {
             // There is only one (0..1)
             const performer = ParserUtil.getEntryWithRef<
-                MR.V1_0_0.Profile.Organization | MR.V1_0_0.Profile.Practitioner
+                MR.V1_1_0.Profile.Organization | MR.V1_1_0.Profile.Practitioner
             >(
                 this.parent,
-                [MR.V1_0_0.Profile.Organization, MR.V1_0_0.Profile.Practitioner],
-                performerRefs[0]
+                [MR.V1_1_0.Profile.Organization, MR.V1_1_0.Profile.Practitioner],
+                new Reference(performerRefs[0], this.fullUrl)
             );
 
             if (performer) {
                 toPerformerEntry = Util.Misc.toEntry(history, parent, performer, true);
 
-                if (MR.V1_0_0.Profile.Organization.is(performer.resource)) {
+                if (MR.V1_1_0.Profile.Organization.is(performer.resource)) {
                     if (performer.resource.name) performerName = performer.resource.name;
-                } else if (MR.V1_0_0.Profile.Practitioner.is(performer.resource)) {
+                } else if (MR.V1_1_0.Profile.Practitioner.is(performer.resource)) {
                     performerName = Util.MP.getPractitionerName(performer.resource);
                 }
             }
         }
 
         const encounterRef = this.value.encounter.reference;
-        const encounter = ParserUtil.getEntryWithRef<MR.V1_0_0.Profile.EncounterGeneral>(
+        const encounter = ParserUtil.getEntryWithRef<MR.V1_1_0.Profile.EncounterGeneral>(
             this.parent,
-            [MR.V1_0_0.Profile.EncounterGeneral],
-            encounterRef
+            [MR.V1_1_0.Profile.EncounterGeneral],
+            new Reference(encounterRef, this.fullUrl)
         );
         const toEncounterEntry = Util.Misc.toEntry(history, parent, encounter, true);
 
@@ -85,7 +85,12 @@ export default class ProcedureBaseModel<
             {
                 value: patient ? Util.MP.getPatientMotherName(patient.resource) : "-",
                 label: "Patient/-in",
-                onClick: Util.Misc.toEntryByRef(history, parent, subjectRef, true)
+                onClick: Util.Misc.toEntryByRef(
+                    history,
+                    parent,
+                    new Reference(subjectRef, this.fullUrl),
+                    true
+                )
             },
             {
                 value: encounter
@@ -136,7 +141,7 @@ export default class ProcedureBaseModel<
         subTable?: boolean,
         removeHTML?: boolean
     ): Content {
-        if (MR.V1_0_0.Profile.ProcedureAntiDProphylaxis.is(this.value)) {
+        if (MR.V1_1_0.Profile.ProcedureAntiDProphylaxis.is(this.value)) {
             const noHeadline = this.noHeadline;
             this.noHeadline = true;
             const pdfContent = super.toPDFContent(styles, subTable, removeHTML);

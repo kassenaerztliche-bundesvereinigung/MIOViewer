@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -51,8 +51,8 @@ type Model =
     | MP.Basic.ClinicalImpressionInvestigationModel
     | MP.Basic.ClinicalImpressionModel
     | MP.Basic.EncounterModel<
-          | MR.V1_0_0.Profile.EncounterGeneral
-          | MR.V1_0_0.Profile.EncounterInpatientTreatment
+          | MR.V1_1_0.Profile.EncounterGeneral
+          | MR.V1_1_0.Profile.EncounterInpatientTreatment
       >
     | MP.Basic.ObservationModel<MP.Basic.ObservationType>
     | MP.Basic.OrganizationModel
@@ -60,8 +60,8 @@ type Model =
     | MP.Basic.PatientMotherModel
     | MP.Basic.PractitionerModel
     | MP.Basic.ProcedureBaseModel<
-          | MR.V1_0_0.Profile.ProcedureAntiDProphylaxis
-          | MR.V1_0_0.Profile.ProcedureCounselling
+          | MR.V1_1_0.Profile.ProcedureAntiDProphylaxis
+          | MR.V1_1_0.Profile.ProcedureCounselling
       >
     | MP.AppointmentPregnancyModel
     | MP.EncounterArrivalMaternityHospitalModel
@@ -75,6 +75,7 @@ type Model =
     | MP.DiagnosticReportResultRequireControlModel
     | MP.InformationAboutModel
     | MP.InformationAboutChildModel
+    | MP.InformationAboutChildModelBirth
     | MP.InformationAboutMotherModel
     | UH.Basic.AppointmentModel
     | UH.Basic.CarePlanModel
@@ -97,8 +98,8 @@ type Model =
           | Vaccination.V1_1_0.Profile.Organization
           | ZAEB.V1_1_0.Profile.Patient
           | ZAEB.V1_1_0.Profile.Organization
-          | MR.V1_0_0.Profile.PatientMother
-          | MR.V1_0_0.Profile.Practitioner
+          | MR.V1_1_0.Profile.PatientMother
+          | MR.V1_1_0.Profile.Practitioner
       >
     | ContactModel<CMR.V1_0_1.Profile.CMROrganizationScreeningLaboratory>
     | PatientSimpleModel
@@ -107,7 +108,7 @@ type Model =
           | Vaccination.V1_1_0.Profile.PractitionerAddendum
           | Vaccination.V1_1_0.Profile.Organization
           | ZAEB.V1_1_0.Profile.Organization
-          | MR.V1_0_0.Profile.Practitioner
+          | MR.V1_1_0.Profile.Practitioner
       >
     | QualificationModel<CMR.V1_0_1.Profile.CMRPractitioner>
     | ContactDetailsModel<CMR.V1_0_1.Profile.CMROrganizationScreeningLaboratory>;

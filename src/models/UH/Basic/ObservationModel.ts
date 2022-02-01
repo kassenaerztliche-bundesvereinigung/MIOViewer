@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -18,7 +18,7 @@
 
 import { History } from "history";
 
-import { ParserUtil, CMR } from "@kbv/mioparser";
+import { ParserUtil, CMR, Reference } from "@kbv/mioparser";
 import { UI, Util } from "../../../components";
 
 import BaseModel from "./CMRBaseModel";
@@ -144,9 +144,8 @@ export default class ObservationModel extends BaseModel<ObservationType> {
 
         const patientRef = this.value.subject.reference;
         const encounterRef = this.value.encounter.reference;
-        const performerRefs = this.value.performer?.map(
-            (performer) => performer.reference
-        );
+        const performerRefs: string[] =
+            this.value.performer?.map((performer) => performer.reference) ?? [];
 
         this.values = [];
 
@@ -164,8 +163,16 @@ export default class ObservationModel extends BaseModel<ObservationType> {
         this.values.push(...this.getDerivedFrom());
 
         this.values.push(
-            Util.UH.getPatientModelValue(patientRef, parent, history),
-            Util.UH.getEncounterModelValue(encounterRef, parent, history)
+            Util.UH.getPatientModelValue(
+                new Reference(patientRef, this.fullUrl),
+                parent,
+                history
+            ),
+            Util.UH.getEncounterModelValue(
+                new Reference(encounterRef, this.fullUrl),
+                parent,
+                history
+            )
         );
 
         if (
@@ -178,17 +185,19 @@ export default class ObservationModel extends BaseModel<ObservationType> {
         }
 
         this.values.push(
-            ...Util.UH.getPerformerModelValues(performerRefs, parent, history).map(
-                (v) => {
-                    v.subModels = [
-                        OrganizationModel,
-                        AddressModel,
-                        TelecomModel,
-                        AdditionalCommentModel
-                    ];
-                    return v;
-                }
-            )
+            ...Util.UH.getPerformerModelValues(
+                performerRefs.map((r) => new Reference(r, this.fullUrl)),
+                parent,
+                history
+            ).map((v) => {
+                v.subModels = [
+                    OrganizationModel,
+                    AddressModel,
+                    TelecomModel,
+                    AdditionalCommentModel
+                ];
+                return v;
+            })
         );
     }
 
@@ -377,7 +386,7 @@ export default class ObservationModel extends BaseModel<ObservationType> {
                         CMR.V1_0_1.Profile.CMRObservationU2U9BodyHeightMeasure,
                         CMR.V1_0_1.Profile.CMRObservationU7U9BMI
                     ],
-                    ref
+                    new Reference(ref, this.fullUrl)
                 );
 
                 if (result) {
@@ -424,7 +433,11 @@ export default class ObservationModel extends BaseModel<ObservationType> {
         return {
             value,
             label,
-            onClick: Util.Misc.toEntryByRef(this.history, this.parent, this.fullUrl),
+            onClick: Util.Misc.toEntryByRef(
+                this.history,
+                this.parent,
+                new Reference(this.fullUrl)
+            ),
             sortBy: new Date(this.value.effectiveDateTime).getTime().toString(),
             renderAs: CMR.V1_0_1.Profile.CMRObservationU1FamilyHistory.is(this.value)
                 ? UI.ListItem.NoLabel

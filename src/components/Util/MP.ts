@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -16,16 +16,27 @@
  * along with MIO Viewer. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { MR, MIOEntry, ParserUtil } from "@kbv/mioparser";
+import { MR, MIOEntry, ParserUtil, Reference } from "@kbv/mioparser";
 import { ModelValue } from "../../models";
 
-type Bundle = MR.V1_0_0.Profile.Bundle;
+type Bundle = MR.V1_1_0.Profile.Bundle;
+
+export function getPatientChild(
+    mio: Bundle,
+    reference: Reference
+): MIOEntry<MR.V1_1_0.Profile.PatientChild> | undefined {
+    return ParserUtil.getEntryWithRef<MR.V1_1_0.Profile.PatientChild>(
+        mio,
+        [MR.V1_1_0.Profile.PatientChild],
+        reference
+    );
+}
 
 export function getPatientMother(
     mio: Bundle
-): MIOEntry<MR.V1_0_0.Profile.PatientMother> | undefined {
-    return ParserUtil.getEntry<MR.V1_0_0.Profile.PatientMother>(mio, [
-        MR.V1_0_0.Profile.PatientMother
+): MIOEntry<MR.V1_1_0.Profile.PatientMother> | undefined {
+    return ParserUtil.getEntry<MR.V1_1_0.Profile.PatientMother>(mio, [
+        MR.V1_1_0.Profile.PatientMother
     ]);
 }
 
@@ -33,11 +44,11 @@ export function getPatientMother(
  *
  * @param patient
  */
-export function getPatientMotherName(patient: MR.V1_0_0.Profile.PatientMother): string {
+export function getPatientMotherName(patient: MR.V1_1_0.Profile.PatientMother): string {
     if (patient && patient.name) {
         let nameStr = "-";
-        const nameSlice = ParserUtil.getSlice<MR.V1_0_0.Profile.PatientMotherName>(
-            MR.V1_0_0.Profile.PatientMotherName,
+        const nameSlice = ParserUtil.getSlice<MR.V1_1_0.Profile.PatientMotherName>(
+            MR.V1_1_0.Profile.PatientMotherName,
             patient.name
         );
 
@@ -56,24 +67,24 @@ export function getPatientMotherName(patient: MR.V1_0_0.Profile.PatientMother): 
                 const partsFamily = [];
 
                 const addition =
-                    ParserUtil.getSlice<MR.V1_0_0.Profile.PatientMotherNameFamilyNamenszusatz>(
-                        MR.V1_0_0.Profile.PatientMotherNameFamilyNamenszusatz,
+                    ParserUtil.getSlice<MR.V1_1_0.Profile.PatientMotherNameFamilyNamenszusatz>(
+                        MR.V1_1_0.Profile.PatientMotherNameFamilyNamenszusatz,
                         nameSlice._family.extension
                     )?.valueString;
 
                 if (addition) partsFamily.push(addition);
 
                 const pre =
-                    ParserUtil.getSlice<MR.V1_0_0.Profile.PatientMotherNameFamilyVorsatzwort>(
-                        MR.V1_0_0.Profile.PatientMotherNameFamilyVorsatzwort,
+                    ParserUtil.getSlice<MR.V1_1_0.Profile.PatientMotherNameFamilyVorsatzwort>(
+                        MR.V1_1_0.Profile.PatientMotherNameFamilyVorsatzwort,
                         nameSlice._family.extension
                     )?.valueString;
 
                 if (pre) partsFamily.push(pre);
 
                 const family =
-                    ParserUtil.getSlice<MR.V1_0_0.Profile.PatientMotherNameFamilyNachname>(
-                        MR.V1_0_0.Profile.PatientMotherNameFamilyNachname,
+                    ParserUtil.getSlice<MR.V1_1_0.Profile.PatientMotherNameFamilyNachname>(
+                        MR.V1_1_0.Profile.PatientMotherNameFamilyNachname,
                         nameSlice._family.extension
                     )?.valueString;
 
@@ -91,18 +102,15 @@ export function getPatientMotherName(patient: MR.V1_0_0.Profile.PatientMother): 
     return "-";
 }
 
-export function getPatientChildName(patient: MR.V1_0_0.Profile.PatientChild): string {
-    const id = patient.identifier.map((i) => {
-        return i.extension?.map((e) => e.valueInteger).flat();
-    });
-
-    return `${id}. Kind`;
+export function getPatientChildName(patient: MR.V1_1_0.Profile.PatientChild): string {
+    // There is only one (1..1)
+    return patient.identifier.map((pid) => pid.value).join(", ");
 }
 
 export function getPatientName(
-    patient: MR.V1_0_0.Profile.PatientMother | MR.V1_0_0.Profile.PatientChild
+    patient: MR.V1_1_0.Profile.PatientMother | MR.V1_1_0.Profile.PatientChild
 ): string {
-    if (MR.V1_0_0.Profile.PatientMother.is(patient)) {
+    if (MR.V1_1_0.Profile.PatientMother.is(patient)) {
         return getPatientMotherName(patient);
     } else {
         return getPatientChildName(patient);
@@ -110,13 +118,13 @@ export function getPatientName(
 }
 
 export function getPatientMotherMaidenName(
-    patient: MR.V1_0_0.Profile.PatientMother
+    patient: MR.V1_1_0.Profile.PatientMother
 ): string {
     if (patient && patient.name) {
         let maidenStr = "-";
         const maidenSlice =
-            ParserUtil.getSlice<MR.V1_0_0.Profile.PatientMotherGeburtsname>(
-                MR.V1_0_0.Profile.PatientMotherGeburtsname,
+            ParserUtil.getSlice<MR.V1_1_0.Profile.PatientMotherGeburtsname>(
+                MR.V1_1_0.Profile.PatientMotherGeburtsname,
                 patient.name
             );
 
@@ -127,24 +135,24 @@ export function getPatientMotherMaidenName(
                 const parts = [];
 
                 const addition =
-                    ParserUtil.getSlice<MR.V1_0_0.Profile.PatientMotherGeburtsnameFamilyNamenszusatz>(
-                        MR.V1_0_0.Profile.PatientMotherGeburtsnameFamilyNamenszusatz,
+                    ParserUtil.getSlice<MR.V1_1_0.Profile.PatientMotherGeburtsnameFamilyNamenszusatz>(
+                        MR.V1_1_0.Profile.PatientMotherGeburtsnameFamilyNamenszusatz,
                         maidenSlice._family.extension
                     )?.valueString;
 
                 if (addition) parts.push(addition);
 
                 const pre =
-                    ParserUtil.getSlice<MR.V1_0_0.Profile.PatientMotherGeburtsnameFamilyVorsatzwort>(
-                        MR.V1_0_0.Profile.PatientMotherGeburtsnameFamilyVorsatzwort,
+                    ParserUtil.getSlice<MR.V1_1_0.Profile.PatientMotherGeburtsnameFamilyVorsatzwort>(
+                        MR.V1_1_0.Profile.PatientMotherGeburtsnameFamilyVorsatzwort,
                         maidenSlice._family.extension
                     )?.valueString;
 
                 if (pre) parts.push(pre);
 
                 const family =
-                    ParserUtil.getSlice<MR.V1_0_0.Profile.PatientMotherGeburtsnameFamilyNachname>(
-                        MR.V1_0_0.Profile.PatientMotherGeburtsnameFamilyNachname,
+                    ParserUtil.getSlice<MR.V1_1_0.Profile.PatientMotherGeburtsnameFamilyNachname>(
+                        MR.V1_1_0.Profile.PatientMotherGeburtsnameFamilyNachname,
                         maidenSlice._family.extension
                     )?.valueString;
 
@@ -161,12 +169,12 @@ export function getPatientMotherMaidenName(
 }
 
 export function getPractitionerName(
-    practitioner: MR.V1_0_0.Profile.Practitioner | undefined
+    practitioner: MR.V1_1_0.Profile.Practitioner | undefined
 ): string {
     if (practitioner && practitioner.name) {
         let nameStr = "-";
-        const nameSlice = ParserUtil.getSlice<MR.V1_0_0.Profile.PractitionerName>(
-            MR.V1_0_0.Profile.PractitionerName,
+        const nameSlice = ParserUtil.getSlice<MR.V1_1_0.Profile.PractitionerName>(
+            MR.V1_1_0.Profile.PractitionerName,
             practitioner.name
         );
 
@@ -187,24 +195,24 @@ export function getPractitionerName(
                 const partsFamily = [];
 
                 const addition =
-                    ParserUtil.getSlice<MR.V1_0_0.Profile.PractitionerNameFamilyNamenszusatz>(
-                        MR.V1_0_0.Profile.PractitionerNameFamilyNamenszusatz,
+                    ParserUtil.getSlice<MR.V1_1_0.Profile.PractitionerNameFamilyNamenszusatz>(
+                        MR.V1_1_0.Profile.PractitionerNameFamilyNamenszusatz,
                         nameSlice._family.extension
                     )?.valueString;
 
                 if (addition) partsFamily.push(addition);
 
                 const pre =
-                    ParserUtil.getSlice<MR.V1_0_0.Profile.PractitionerNameFamilyVorsatzwort>(
-                        MR.V1_0_0.Profile.PractitionerNameFamilyVorsatzwort,
+                    ParserUtil.getSlice<MR.V1_1_0.Profile.PractitionerNameFamilyVorsatzwort>(
+                        MR.V1_1_0.Profile.PractitionerNameFamilyVorsatzwort,
                         nameSlice._family.extension
                     )?.valueString;
 
                 if (pre) partsFamily.push(pre);
 
                 const family =
-                    ParserUtil.getSlice<MR.V1_0_0.Profile.PractitionerNameFamilyNachname>(
-                        MR.V1_0_0.Profile.PractitionerNameFamilyNachname,
+                    ParserUtil.getSlice<MR.V1_1_0.Profile.PractitionerNameFamilyNachname>(
+                        MR.V1_1_0.Profile.PractitionerNameFamilyNachname,
                         nameSlice._family.extension
                     )?.valueString;
 
@@ -267,11 +275,11 @@ export function getPregnancyWeekValue(resource: any): ModelValue {
 
 export function getAuthor(
     mio: Bundle,
-    ref?: string
-): MIOEntry<MR.V1_0_0.Profile.Practitioner | MR.V1_0_0.Profile.Organization> | undefined {
+    ref?: Reference
+): MIOEntry<MR.V1_1_0.Profile.Practitioner | MR.V1_1_0.Profile.Organization> | undefined {
     if (ref) {
         return ParserUtil.getEntryWithRef<
-            MR.V1_0_0.Profile.Practitioner | MR.V1_0_0.Profile.Organization
-        >(mio, [MR.V1_0_0.Profile.Practitioner, MR.V1_0_0.Profile.Organization], ref);
+            MR.V1_1_0.Profile.Practitioner | MR.V1_1_0.Profile.Organization
+        >(mio, [MR.V1_1_0.Profile.Practitioner, MR.V1_1_0.Profile.Organization], ref);
     }
 }

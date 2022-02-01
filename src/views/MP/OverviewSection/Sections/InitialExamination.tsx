@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -17,7 +17,7 @@
  */
 
 import React from "react";
-import { MR, ParserUtil } from "@kbv/mioparser";
+import { MR, ParserUtil, Reference } from "@kbv/mioparser";
 
 import DetailComponent from "../../../../components/Detail/Detail";
 import * as Models from "../../../../models";
@@ -25,7 +25,7 @@ import * as Models from "../../../../models";
 import Section, { SectionProps } from "../Section";
 import { UI } from "../../../../components";
 
-export default class InitialExamination extends Section<MR.V1_0_0.Profile.CompositionAnamneseUndAllgemeineBefunde> {
+export default class InitialExamination extends Section<MR.V1_1_0.Profile.CompositionAnamneseUndAllgemeineBefunde> {
     constructor(props: SectionProps) {
         super(props);
 
@@ -35,21 +35,21 @@ export default class InitialExamination extends Section<MR.V1_0_0.Profile.Compos
         };
 
         this.section = this.getSection([
-            MR.V1_0_0.Profile.CompositionAnamneseUndAllgemeineBefunde
+            MR.V1_1_0.Profile.CompositionAnamneseUndAllgemeineBefunde
         ]);
     }
 
     protected getDetails(): JSX.Element[] {
-        const { mio, history, location, match, devMode } = this.props;
+        const { mio, history, location, match, devMode, composition } = this.props;
 
         const details: JSX.Element[] = [];
         this.section?.entry.forEach((entry) => {
             const ref = entry.reference;
             const res =
-                ParserUtil.getEntryWithRef<MR.V1_0_0.Profile.ClinicalImpressionInitialExamination>(
+                ParserUtil.getEntryWithRef<MR.V1_1_0.Profile.ClinicalImpressionInitialExamination>(
                     mio,
-                    [MR.V1_0_0.Profile.ClinicalImpressionInitialExamination],
-                    ref
+                    [MR.V1_1_0.Profile.ClinicalImpressionInitialExamination],
+                    new Reference(ref, composition.fullUrl)
                 );
 
             if (res) {

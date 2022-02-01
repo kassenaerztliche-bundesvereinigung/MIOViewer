@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -18,7 +18,7 @@
 
 import { History } from "history";
 
-import { ParserUtil, MR } from "@kbv/mioparser";
+import { ParserUtil, MR, Reference } from "@kbv/mioparser";
 
 import MPBaseModel from "../MPBaseModel";
 import * as Models from "../../../models";
@@ -28,44 +28,44 @@ import { Content } from "pdfmake/interfaces";
 import { ModelValue } from "../../Types";
 
 export type ClinicalImpressionFindingType =
-    | MR.V1_0_0.Profile.ClinicalImpressionInitialExamination
-    | MR.V1_0_0.Profile.ClinicalImpressionPregnancyChartEntry
-    | MR.V1_0_0.Profile.ClinicalImpressionPregnancyExaminationDischargeSummary;
+    | MR.V1_1_0.Profile.ClinicalImpressionInitialExamination
+    | MR.V1_1_0.Profile.ClinicalImpressionPregnancyChartEntry
+    | MR.V1_1_0.Profile.ClinicalImpressionPregnancyExaminationDischargeSummary;
 
 export default class ClinicalImpressionFindingModel extends MPBaseModel<ClinicalImpressionFindingType> {
     constructor(
         value: ClinicalImpressionFindingType,
         fullUrl: string,
-        parent: MR.V1_0_0.Profile.Bundle,
+        parent: MR.V1_1_0.Profile.Bundle,
         history?: History,
         protected findingConceptMap: ParserUtil.ConceptMap[] | undefined = undefined
     ) {
         super(value, fullUrl, parent, history);
 
         if (!findingConceptMap) {
-            if (MR.V1_0_0.Profile.ClinicalImpressionPregnancyChartEntry.is(value)) {
-                this.findingConceptMap = [MR.V1_0_0.ConceptMap.SpecialFindingsGerman];
+            if (MR.V1_1_0.Profile.ClinicalImpressionPregnancyChartEntry.is(value)) {
+                this.findingConceptMap = [MR.V1_1_0.ConceptMap.SpecialFindingsGerman];
             } else if (
-                MR.V1_0_0.Profile.ClinicalImpressionPregnancyExaminationDischargeSummary.is(
+                MR.V1_1_0.Profile.ClinicalImpressionPregnancyExaminationDischargeSummary.is(
                     value
                 )
             ) {
                 this.findingConceptMap = [
-                    MR.V1_0_0.ConceptMap.SpecialFindingsGerman,
-                    MR.V1_0_0.ConceptMap.CatalogueAGerman
+                    MR.V1_1_0.ConceptMap.SpecialFindingsGerman,
+                    MR.V1_1_0.ConceptMap.CatalogueAGerman
                 ];
             } else {
-                this.findingConceptMap = [MR.V1_0_0.ConceptMap.CatalogueAGerman];
+                this.findingConceptMap = [MR.V1_1_0.ConceptMap.CatalogueAGerman];
             }
         }
 
         if (
-            MR.V1_0_0.Profile.ClinicalImpressionPregnancyExaminationDischargeSummary.is(
+            MR.V1_1_0.Profile.ClinicalImpressionPregnancyExaminationDischargeSummary.is(
                 this.value
             )
         ) {
             this.headline = "Nach Katalog A/B dokumentierte wichtigste Risikonummern";
-        } else if (MR.V1_0_0.Profile.ClinicalImpressionInitialExamination.is(value)) {
+        } else if (MR.V1_1_0.Profile.ClinicalImpressionInitialExamination.is(value)) {
             this.headline = "Schwangerschaftsrisiko";
         } else {
             this.headline = "Risikofaktoren";
@@ -130,17 +130,20 @@ export default class ClinicalImpressionFindingModel extends MPBaseModel<Clinical
                         });
                     } else if (Object.prototype.hasOwnProperty.call(f, "itemReference")) {
                         const res =
-                            ParserUtil.getEntryWithRef<MR.V1_0_0.Profile.ObservationPregnancyRisk>(
+                            ParserUtil.getEntryWithRef<MR.V1_1_0.Profile.ObservationPregnancyRisk>(
                                 this.parent,
-                                [MR.V1_0_0.Profile.ObservationPregnancyRisk],
-                                f.itemReference?.reference ?? ""
+                                [MR.V1_1_0.Profile.ObservationPregnancyRisk],
+                                new Reference(
+                                    f.itemReference?.reference ?? "",
+                                    this.fullUrl
+                                )
                             );
 
                         if (res) {
                             const model = new Models.MP.Basic.ObservationModel(
                                 res.resource,
                                 res.fullUrl,
-                                this.parent as MR.V1_0_0.Profile.Bundle,
+                                this.parent as MR.V1_1_0.Profile.Bundle,
                                 this.history
                             );
 

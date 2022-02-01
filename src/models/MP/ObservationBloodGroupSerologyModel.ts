@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -18,17 +18,22 @@
 
 import { History } from "history";
 
-import { ParserUtil, MR } from "@kbv/mioparser";
+import { ParserUtil, MR, Reference } from "@kbv/mioparser";
 import { UI, Util } from "../../components";
 
 import { ObservationModel } from "./Basic";
 import { ModelValue } from "../Types";
 
-export default class ObservationBloodGroupSerologyModel extends ObservationModel<MR.V1_0_0.Profile.ObservationBloodGroupSerology> {
+export default class ObservationBloodGroupSerologyModel extends ObservationModel<
+    | MR.V1_1_0.Profile.ObservationBloodGroupSerology
+    | MR.V1_1_0.Profile.ObservationBloodGroupSerologyFetus
+> {
     constructor(
-        value: MR.V1_0_0.Profile.ObservationBloodGroupSerology,
+        value:
+            | MR.V1_1_0.Profile.ObservationBloodGroupSerology
+            | MR.V1_1_0.Profile.ObservationBloodGroupSerologyFetus,
         fullUrl: string,
-        parent: MR.V1_0_0.Profile.Bundle,
+        parent: MR.V1_1_0.Profile.Bundle,
         history?: History
     ) {
         super(
@@ -45,54 +50,79 @@ export default class ObservationBloodGroupSerologyModel extends ObservationModel
 
         this.headline = this.getCoding();
 
-        this.values = [
-            ...this.values,
-            ...this.getComponents(),
-            {
+        this.values = [...this.values, ...this.getComponents()];
+
+        const disclaimer = this.getDisclaimer();
+        if (disclaimer) {
+            this.values.push({
                 value: this.getDisclaimer(),
                 label: "Hinweis an die behandelnde Person",
                 renderAs: UI.ListItem.Collapsible
-            }
-        ];
+            });
+        }
     }
 
     public getDisclaimer(): string {
-        if (this.value.extension && this.value.extension.length) {
-            return this.value.extension.map((e) => e.valueString).join(", ");
+        if (MR.V1_1_0.Profile.ObservationBloodGroupSerology.is(this.value)) {
+            if (this.value.extension && this.value.extension.length) {
+                return this.value.extension.map((e) => e.valueString).join(", ");
+            }
+            return "-";
         }
-        return "-";
+
+        return "";
     }
 
     public getComponents(): ModelValue[] {
-        return this.value && this.value.component
-            ? this.value.component.map((c) => {
-                  if (MR.V1_0_0.Profile.ObservationBloodGroupSerologyAB0.is(c)) {
-                      return {
-                          value: c.valueCodeableConcept.coding
-                              .map((cm) =>
-                                  ParserUtil.translateCode(
-                                      cm.code,
-                                      MR.V1_0_0.ConceptMap.AB0SystemGerman
+        if (MR.V1_1_0.Profile.ObservationBloodGroupSerology.is(this.value)) {
+            return this.value && this.value.component
+                ? this.value.component.map((c) => {
+                      if (MR.V1_1_0.Profile.ObservationBloodGroupSerologyAB0.is(c)) {
+                          return {
+                              value: c.valueCodeableConcept.coding
+                                  .map((cm) =>
+                                      ParserUtil.translateCode(
+                                          cm.code,
+                                          MR.V1_1_0.ConceptMap.AB0SystemGerman
+                                      )
                                   )
-                              )
-                              .join(", "),
-                          label: "Blutgruppe nach AB0-System"
-                      };
-                  } else {
+                                  .join(", "),
+                              label: "Blutgruppe nach AB0-System"
+                          };
+                      } else {
+                          return {
+                              value: c.valueCodeableConcept.coding
+                                  .map((cm) =>
+                                      ParserUtil.translateCode(
+                                          cm.code,
+                                          MR.V1_1_0.ConceptMap.RhesusSystemGerman
+                                      )
+                                  )
+                                  .join(", "),
+                              label: "Blutgruppe nach Rhesus-System"
+                          };
+                      }
+                  })
+                : [];
+        } else {
+            return this.value && this.value.component
+                ? this.value.component.map((c) => {
                       return {
                           value: c.valueCodeableConcept.coding
                               .map((cm) =>
                                   ParserUtil.translateCode(
                                       cm.code,
-                                      MR.V1_0_0.ConceptMap.RhesusSystemGerman
+                                      MR.V1_1_0.ConceptMap.RhesusSystemFetusGerman
                                   )
                               )
                               .join(", "),
                           label: "Blutgruppe nach Rhesus-System"
                       };
-                  }
-              })
-            : [];
+                  })
+                : [];
+        }
+
+        return [];
     }
 
     getMainValue(): ModelValue {
@@ -104,7 +134,7 @@ export default class ObservationBloodGroupSerologyModel extends ObservationModel
             onClick: Util.Misc.toEntryByRef(
                 this.history,
                 this.parent,
-                this.value.id,
+                new Reference(this.fullUrl),
                 true
             )
         };

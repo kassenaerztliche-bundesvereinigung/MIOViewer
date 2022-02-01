@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -19,7 +19,9 @@
 import React, { ReactNode } from "react";
 
 import { RouteComponentProps } from "react-router";
-import { IonSlide, IonSlides } from "@ionic/react";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/swiper.scss";
 
 import { MIOConnectorType } from "../../../store";
 
@@ -35,6 +37,7 @@ import {
 } from "@kbv/mioparser";
 
 import "./MIOSlides.scss";
+import SwiperClass from "swiper/types/swiper-class";
 
 export type MIOSlidesProps = MIOConnectorType & RouteComponentProps;
 
@@ -54,17 +57,19 @@ abstract class MIOSlides<
     P extends MIOSlidesProps,
     S extends MIOSlidesState
 > extends React.Component<P, S> {
-    protected slidesRef: React.RefObject<HTMLIonSlidesElement>;
+    protected swiper?: SwiperClass;
 
     protected constructor(props: P) {
         super(props);
-        this.slidesRef = React.createRef();
     }
 
-    protected changed = (): void => {
-        this.slidesRef.current?.getActiveIndex().then((index: number) => {
-            this.setState({ currentIndex: index });
-        });
+    protected setSwiper = (swiper: SwiperClass): void => {
+        if (this.swiper !== swiper) this.swiper = swiper;
+    };
+
+    protected changed = (swiper: SwiperClass): void => {
+        this.setSwiper(swiper);
+        this.setState({ currentIndex: swiper.activeIndex });
     };
 
     componentDidMount(): void {
@@ -131,7 +136,7 @@ abstract class MIOSlides<
         const mioFolders = [];
 
         mios.forEach((mio, index) => {
-            const mioId = ParserUtil.getUuid(mio.identifier.value);
+            const mioId = ParserUtil.getUuidFromBundle(mio);
             const path = (isExample ? "/example/" : "/mio/") + mioId;
 
             if (Vaccination.V1_1_0.Profile.BundleEntry.is(mio)) {
@@ -158,7 +163,7 @@ abstract class MIOSlides<
                         subline={patient ? Util.ZB.getPatientName(patient.resource) : ""}
                     />
                 );
-            } else if (MR.V1_0_0.Profile.Bundle.is(mio)) {
+            } else if (MR.V1_1_0.Profile.Bundle.is(mio)) {
                 const patient = Util.MP.getPatientMother(mio);
 
                 mioFolders.push(
@@ -278,27 +283,26 @@ abstract class MIOSlides<
         return (
             <div className={classes} data-testid={testId}>
                 {slides && (
-                    <IonSlides
-                        pager={true}
+                    <Swiper
+                        onSwiper={this.setSwiper}
+                        onSlideChange={this.changed}
                         key={slides.length}
-                        onIonSlideDidChange={this.changed}
-                        ref={this.slidesRef}
                     >
                         {slides.map((components, index) => (
-                            <IonSlide key={index}>
+                            <SwiperSlide key={index}>
                                 <div
                                     className={"mio-container"}
                                     data-testid={`slide-${index}`}
                                 >
                                     {components}
                                 </div>
-                            </IonSlide>
+                            </SwiperSlide>
                         ))}
-                    </IonSlides>
+                    </Swiper>
                 )}
                 <UI.Pagination
                     currentIndex={currentIndex}
-                    ionSlides={this.slidesRef}
+                    swiper={this.swiper}
                     numSlides={slides.length}
                     showFirstAndLastButton={true}
                 />

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -27,10 +27,10 @@ export type AdditionalCommentType =
     | Vaccination.V1_1_0.Profile.Practitioner
     | Vaccination.V1_1_0.Profile.PractitionerAddendum
     | Vaccination.V1_1_0.Profile.Organization
-    | MR.V1_0_0.Profile.Organization
-    | MR.V1_0_0.Profile.Practitioner
-    | MR.V1_0_0.Profile.PatientChild
-    | MR.V1_0_0.Profile.DiagnosticReportUltrasoundI
+    | MR.V1_1_0.Profile.Organization
+    | MR.V1_1_0.Profile.Practitioner
+    | MR.V1_1_0.Profile.PatientChild
+    | MR.V1_1_0.Profile.DiagnosticReportUltrasoundI
     | CMR.V1_0_1.Profile.CMRPractitioner;
 
 export default class AdditionalCommentModel extends BaseModel<AdditionalCommentType> {
@@ -46,22 +46,22 @@ export default class AdditionalCommentModel extends BaseModel<AdditionalCommentT
         this.headline = "";
 
         const additionalComments = ParserUtil.getSlices<
-            | MR.V1_0_0.Profile.OrganizationErgaenzendeAngaben
-            | MR.V1_0_0.Profile.PractitionerErgaenzendeAngaben
-            | MR.V1_0_0.Profile.PatientChildErgaenzendeAngaben
-            | MR.V1_0_0.Profile.DiagnosticReportUltrasoundIErgaenzendeAngaben
+            | MR.V1_1_0.Profile.OrganizationErgaenzendeAngaben
+            | MR.V1_1_0.Profile.PractitionerErgaenzendeAngaben
+            | MR.V1_1_0.Profile.PatientChildErgaenzendeAngaben
+            | MR.V1_1_0.Profile.DiagnosticReportUltrasoundIErgaenzendeAngaben
         >(
             [
-                MR.V1_0_0.Profile.OrganizationErgaenzendeAngaben,
-                MR.V1_0_0.Profile.PractitionerErgaenzendeAngaben,
-                MR.V1_0_0.Profile.PatientChildErgaenzendeAngaben,
-                MR.V1_0_0.Profile.DiagnosticReportUltrasoundIErgaenzendeAngaben
+                MR.V1_1_0.Profile.OrganizationErgaenzendeAngaben,
+                MR.V1_1_0.Profile.PractitionerErgaenzendeAngaben,
+                MR.V1_1_0.Profile.PatientChildErgaenzendeAngaben,
+                MR.V1_1_0.Profile.DiagnosticReportUltrasoundIErgaenzendeAngaben
             ],
             this.value.extension
         );
 
         let label = customLabel ? customLabel : "Ergänzende Angaben";
-        if (MR.V1_0_0.Profile.DiagnosticReportUltrasoundI.is(value)) {
+        if (MR.V1_1_0.Profile.DiagnosticReportUltrasoundI.is(value)) {
             label = "Bemerkungen";
         }
 

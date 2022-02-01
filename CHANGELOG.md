@@ -1,5 +1,10 @@
 # Changelog MIO Viewer
 
+## 1.6.0
+
+-   Darstellung Mutterpass, Version 1.1.0
+-   Die Versionen 1.0.0 dieses MIOs kann nicht mehr dargestellt werden
+
 ## 1.5.0
 
 -   Darstellung Kinderuntersuchungsheft, Version 1.0.1

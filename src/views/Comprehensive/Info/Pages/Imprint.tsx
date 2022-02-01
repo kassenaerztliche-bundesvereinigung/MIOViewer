@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -30,6 +30,7 @@ class Imprint extends React.Component<RouteComponentProps> {
                 headline={"Impressum"}
                 back={() => history.goBack()}
                 id={"imprint"}
+                className={"info-page"}
             >
                 <div className={"page-padded"}>
                     <h4>Kassenärztliche Bundesvereinigung KdöR</h4>

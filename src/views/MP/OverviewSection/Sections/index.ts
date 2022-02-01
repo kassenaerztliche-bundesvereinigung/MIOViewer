@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -23,6 +23,7 @@ import Gravidogram from "./Gravidogram";
 import InitialExamination from "./InitialExamination";
 import LaboratoryExamination from "./LaboratoryExamination";
 import Epicrisis from "./Epicrisis";
+import FirstExaminationAfterChildbirth from "./FirstExaminationAfterChildbirth";
 import SpecialFindings from "./SpecialFindings";
 import GestationalDiabetes from "./GestationalDiabetes";
 import Ultrasound from "./Ultrasound";
@@ -35,6 +36,7 @@ export {
     InitialExamination,
     LaboratoryExamination,
     Epicrisis,
+    FirstExaminationAfterChildbirth,
     SpecialFindings,
     GestationalDiabetes,
     Ultrasound

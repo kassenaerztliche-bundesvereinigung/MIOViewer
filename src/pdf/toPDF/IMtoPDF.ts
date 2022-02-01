@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -18,7 +18,7 @@
 
 import { Content } from "pdfmake/interfaces";
 
-import { ParserUtil, Vaccination } from "@kbv/mioparser";
+import { ParserUtil, Reference, Vaccination } from "@kbv/mioparser";
 
 import { AdditionalCommentModel, TelecomModel, IM } from "../../models";
 import { horizontalLine } from "../PDFHelper";
@@ -145,7 +145,7 @@ export default class IMtoPDF extends PDFRepresentation<Vaccination.V1_1_0.Profil
                     Vaccination.V1_1_0.Profile.Practitioner,
                     Vaccination.V1_1_0.Profile.PractitionerAddendum
                 ],
-                ref
+                new Reference(ref, composition?.fullUrl)
             );
 
             if (practitioner && practitioner.resource) {

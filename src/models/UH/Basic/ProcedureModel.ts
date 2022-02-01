@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -18,7 +18,7 @@
 
 import { History } from "history";
 
-import { ParserUtil, CMR } from "@kbv/mioparser";
+import { ParserUtil, CMR, Reference } from "@kbv/mioparser";
 import { UI, Util } from "../../../components";
 
 import BaseModel from "./CMRBaseModel";
@@ -92,23 +92,33 @@ export default class ProcedureModel extends BaseModel<ProcedureType> {
         }
 
         this.values.push(
-            Util.UH.getPatientModelValue(patientRef, parent, history),
-            Util.UH.getEncounterModelValue(encounterRef, parent, history),
+            Util.UH.getPatientModelValue(
+                new Reference(patientRef, this.fullUrl),
+                parent,
+                history
+            ),
+            Util.UH.getEncounterModelValue(
+                new Reference(encounterRef, this.fullUrl),
+                parent,
+                history
+            ),
             {
                 value: Util.Misc.formatDate(this.value.performedDateTime),
                 label: "Durchgeführt am"
             },
-            ...Util.UH.getPerformerModelValues([asserterRef ?? ""], parent, history).map(
-                (v) => {
-                    v.subModels = [
-                        OrganizationModel,
-                        AddressModel,
-                        TelecomModel,
-                        AdditionalCommentModel
-                    ];
-                    return v;
-                }
-            )
+            ...Util.UH.getPerformerModelValues(
+                [new Reference(asserterRef ?? "", this.fullUrl)],
+                parent,
+                history
+            ).map((v) => {
+                v.subModels = [
+                    OrganizationModel,
+                    AddressModel,
+                    TelecomModel,
+                    AdditionalCommentModel
+                ];
+                return v;
+            })
         );
 
         const partOf = this.getPartOf();
@@ -198,7 +208,7 @@ export default class ProcedureModel extends BaseModel<ProcedureType> {
                     ParserUtil.getEntryWithRef<CMR.V1_0_1.Profile.CMROrganizationScreeningLaboratory>(
                         this.parent,
                         [CMR.V1_0_1.Profile.CMROrganizationScreeningLaboratory],
-                        slice.valueReference.reference
+                        new Reference(slice.valueReference.reference, this.fullUrl)
                     );
             }
 
@@ -208,7 +218,7 @@ export default class ProcedureModel extends BaseModel<ProcedureType> {
                 onClick: Util.Misc.toEntryByRef(
                     this.history,
                     this.parent,
-                    slice.valueReference.reference,
+                    new Reference(slice.valueReference.reference, this.fullUrl),
                     true
                 ),
                 subEntry: subEntry,
@@ -244,7 +254,7 @@ export default class ProcedureModel extends BaseModel<ProcedureType> {
                                 CMR.V1_0_1.Profile
                                     .CMRProcedureU1U3NewbornBloodSpotScreening
                             ],
-                            part.reference
+                            new Reference(part.reference, this.fullUrl)
                         )?.resource;
 
                     if (procedure) {
@@ -259,7 +269,7 @@ export default class ProcedureModel extends BaseModel<ProcedureType> {
                             onClick: Util.Misc.toEntryByRef(
                                 this.history,
                                 this.parent,
-                                part.reference,
+                                new Reference(part.reference, this.fullUrl),
                                 true
                             ),
                             renderAs
@@ -317,7 +327,11 @@ export default class ProcedureModel extends BaseModel<ProcedureType> {
             label: this.absent
                 ? "Nicht durchgeführt"
                 : Util.Misc.formatDate(this.value.performedDateTime),
-            onClick: Util.Misc.toEntryByRef(this.history, this.parent, this.fullUrl),
+            onClick: Util.Misc.toEntryByRef(
+                this.history,
+                this.parent,
+                new Reference(this.fullUrl)
+            ),
             sortBy: this.value.performedDateTime
                 ? new Date(this.value.performedDateTime).getTime().toString()
                 : undefined

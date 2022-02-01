@@ -26,9 +26,8 @@ import { createMemoryHistory, createLocation } from "history";
 
 import "@testing-library/jest-dom/extend-expect";
 import "jest-canvas-mock";
-import { mockIonicReact } from "@ionic/react-test-utils";
 
-import { KBVBundleResource } from "@kbv/mioparser";
+import { KBVBundleResource } from "../../mioparser";
 import { combineReducers, createStore } from "redux";
 import { mioReducer, settingsReducer } from "../src/store/reducers";
 
@@ -160,16 +159,16 @@ export function mock(): void {
 
     setupIntersectionObserverMock();
     setupMutationObserverMock();
-    mockIonicReact();
 }
 
 export function listItemMustBeDefined(label: string, fn: any) {
     const el = fn(`list-item-${label}`);
     expect(el).toBeDefined();
     if (Array.isArray(el)) {
-        expect(
-            el.filter((el: any) => el.textContent?.replace(label, "") === "-").length
-        ).toBe(0);
+        const notDefinedListItems = el.filter(
+            (el: any) => el.textContent?.replace(label, "") === "-"
+        ).length;
+        expect(notDefinedListItems).toBe(0);
     } else {
         expect(el.textContent?.replace(label, "")).not.toBe("-");
     }

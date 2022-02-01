@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -18,7 +18,7 @@
 
 import { History } from "history";
 
-import { ParserUtil, CMR } from "@kbv/mioparser";
+import { ParserUtil, CMR, Reference } from "@kbv/mioparser";
 import { Util } from "../../../components";
 
 import BaseModel from "./CMRBaseModel";
@@ -46,7 +46,11 @@ export default class SpecialCompositionModel extends BaseModel<SpecialCompositio
         const encounterRef = this.value.encounter.reference;
 
         this.values = [
-            Util.UH.getEncounterModelValue(encounterRef, parent, history),
+            Util.UH.getEncounterModelValue(
+                new Reference(encounterRef, this.fullUrl),
+                parent,
+                history
+            ),
             {
                 value: Util.Misc.formatDate(this.value.date),
                 label: "Dokumentiert am"
@@ -65,7 +69,7 @@ export default class SpecialCompositionModel extends BaseModel<SpecialCompositio
             >(
                 this.parent,
                 [CMR.V1_0_1.Profile.CMRPractitioner, CMR.V1_0_1.Profile.CMROrganization],
-                ref
+                new Reference(ref, this.fullUrl)
             )?.resource;
 
             if (author) {
@@ -79,7 +83,11 @@ export default class SpecialCompositionModel extends BaseModel<SpecialCompositio
                 result.push({
                     value: name,
                     label: "Dokumentiert durch",
-                    onClick: Util.Misc.toEntryByRef(this.history, this.parent, ref)
+                    onClick: Util.Misc.toEntryByRef(
+                        this.history,
+                        this.parent,
+                        new Reference(ref, this.fullUrl)
+                    )
                 });
             }
         });

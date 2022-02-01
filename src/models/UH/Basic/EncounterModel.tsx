@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -18,7 +18,7 @@
 
 import { History } from "history";
 
-import { ParserUtil, CMR } from "@kbv/mioparser";
+import { ParserUtil, CMR, Reference } from "@kbv/mioparser";
 import { Util } from "../../../components";
 
 import * as Models from "../../";
@@ -52,7 +52,11 @@ export default class EncounterModel extends BaseModel<EncounterType> {
                 value: Util.Misc.formatDate(this.value.period.start),
                 label: "Untersucht am"
             },
-            Util.UH.getPatientModelValue(patientRef, parent, history),
+            Util.UH.getPatientModelValue(
+                new Reference(patientRef, this.fullUrl),
+                parent,
+                history
+            ),
             ...this.getParticipants()
         ];
 
@@ -68,7 +72,7 @@ export default class EncounterModel extends BaseModel<EncounterType> {
                 ParserUtil.getEntryWithRef<CMR.V1_0_1.Profile.CMRPractitioner>(
                     this.parent,
                     [CMR.V1_0_1.Profile.CMRPractitioner],
-                    ref
+                    new Reference(ref, this.fullUrl)
                 );
 
             return {
@@ -98,7 +102,7 @@ export default class EncounterModel extends BaseModel<EncounterType> {
                     ParserUtil.getEntryWithRef<CMR.V1_0_1.Profile.CMROrganization>(
                         this.parent,
                         [CMR.V1_0_1.Profile.CMROrganization],
-                        ref
+                        new Reference(ref, this.fullUrl)
                     );
 
                 const organizationName = organization?.resource.name;

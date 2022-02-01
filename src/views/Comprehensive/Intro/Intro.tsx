@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -27,7 +27,11 @@ import {
     SettingsConnectorType
 } from "../../../store";
 
-import { IonPage, IonSlide, IonSlides, IonContent, withIonLifeCycle } from "@ionic/react";
+import { IonPage, IonContent, withIonLifeCycle } from "@ionic/react";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+import SwiperClass from "swiper/types/swiper-class";
+import "swiper/swiper.scss";
 
 import { UI } from "components";
 
@@ -77,11 +81,10 @@ class Intro extends React.Component<
         }
     ];
 
-    protected slidesRef: React.RefObject<HTMLIonSlidesElement>;
+    protected swiper?: SwiperClass;
 
     constructor(props: SettingsConnectorType & MIOConnectorType & RouteComponentProps) {
         super(props);
-        this.slidesRef = React.createRef();
 
         this.state = {
             currentIndex: 0,
@@ -162,14 +165,20 @@ class Intro extends React.Component<
         });
     };
 
-    protected changed = (): void => {
-        this.slidesRef.current?.getActiveIndex().then((index: number) => {
-            if (this.animations[this.state.currentIndex]) {
-                this.animations[this.state.currentIndex].goToAndStop(0);
-            }
-            this.setState({ currentIndex: index }, () => {
-                if (this.animations[index]) this.animations[index].play();
-            });
+    protected setSwiper = (swiper: SwiperClass): void => {
+        if (this.swiper !== swiper) this.swiper = swiper;
+    };
+
+    protected changed = (swiper: SwiperClass): void => {
+        this.setSwiper(swiper);
+
+        const index = swiper.activeIndex;
+
+        if (this.animations[this.state.currentIndex]) {
+            this.animations[this.state.currentIndex].goToAndStop(0);
+        }
+        this.setState({ currentIndex: index }, () => {
+            if (this.animations[index]) this.animations[index].play();
         });
     };
 
@@ -185,7 +194,7 @@ class Intro extends React.Component<
 
     render(): JSX.Element {
         const { slides, currentIndex, visible } = this.state;
-        const options = { speed: 300 };
+        // const options = { speed: 300 };
 
         return (
             <IonPage className={visible ? " current-active-page" : ""}>
@@ -199,22 +208,20 @@ class Intro extends React.Component<
                             rightToLeft={true}
                         />
 
-                        <IonSlides
-                            pager={true}
-                            options={options}
-                            onIonSlideWillChange={this.changed}
-                            ref={this.slidesRef}
+                        <Swiper
+                            onSwiper={this.setSwiper}
+                            onSlideChange={this.changed}
                             key={slides.length}
                         >
                             {slides.map((components, index) => (
-                                <IonSlide key={`slide-${index}`}>
+                                <SwiperSlide key={`slide-${index}`}>
                                     <div data-testid={`slide-${index}`}>{components}</div>
-                                </IonSlide>
+                                </SwiperSlide>
                             ))}
-                        </IonSlides>
+                        </Swiper>
                         <UI.Pagination
                             currentIndex={currentIndex}
-                            ionSlides={this.slidesRef}
+                            swiper={this.swiper}
                             numSlides={slides.length}
                         />
                         <p className={"small"}>

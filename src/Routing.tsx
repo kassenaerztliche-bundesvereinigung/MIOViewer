@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -64,7 +64,6 @@ export default class Routing extends React.Component {
                 { path: "/examples", component: Examples, exact: true },
                 { path: "/example/:id", component: Overview },
                 { path: "/examples/:id", component: Overview }
-                // TODO: solve example stuff via routing??? (not via EXAMPLE_PREFIX)
             ]
         },
         {
@@ -72,6 +71,7 @@ export default class Routing extends React.Component {
             routes: [
                 { path: "/info", component: Info.Info, exact: true },
                 { path: "/info/intro", component: Info.Intro, exact: true },
+                { path: "/info/mios", component: Info.Mios, exact: true },
                 { path: "/info/technical", component: Info.Technical, exact: true },
                 { path: "/info/commenting", component: Info.Commenting, exact: true },
                 { path: "/info/version", component: Info.AppDetail, exact: true },

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -18,7 +18,7 @@
 
 import { History } from "history";
 
-import { KBVBundleResource, CMR } from "@kbv/mioparser";
+import { KBVBundleResource, CMR, Reference } from "@kbv/mioparser";
 import { UI, Util } from "../../components/";
 
 import BaseModel from "../BaseModel";
@@ -42,7 +42,7 @@ export default class ContactModel<
                     onClick: Util.Misc.toEntryByRef(
                         this.history,
                         this.parent,
-                        this.value.id,
+                        new Reference(this.value.id, this.fullUrl),
                         true,
                         "contact",
                         Util.Misc.humanNameToString(contact.name)

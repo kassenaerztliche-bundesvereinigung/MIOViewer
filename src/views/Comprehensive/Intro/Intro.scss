@@ -1,5 +1,5 @@
 /*!
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -29,10 +29,19 @@
         margin: $space;
     }
 
-    ion-slides {
+    .swiper-container {
         position: relative;
         height: calc(100% - #{$space} * 3);
         margin: 0;
+
+        .swiper-slide {
+            display: flex;
+            position: relative;
+            align-items: center;
+            flex-shrink: 0;
+            justify-content: center;
+            text-align: center;
+        }
 
         .slide-inner {
             padding: 0 $space;

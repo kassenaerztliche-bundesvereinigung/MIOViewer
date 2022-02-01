@@ -1,5 +1,5 @@
 /*!
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -19,24 +19,54 @@
 @import "../../../assets/css/colors";
 @import "../../../assets/css/variables";
 
-.page-padded {
-    padding: calc(#{$space} + #{$space-small}) 0 $space-big 0;
+.info-page {
+    .page-padded {
+        padding: calc(#{$space} + #{$space-small}) 0 $space-big 0;
 
-    @include for-desktop-up {
-        padding: calc(#{$space} + #{$space-small}) $desktop-space $space-big
-            $desktop-space;
+        @include for-desktop-up {
+            padding: calc(#{$space} + #{$space-small}) $desktop-space $space-big
+                $desktop-space;
+        }
     }
-}
 
-#intro-illustration {
-    position: relative;
-    width: 100%;
-    cursor: pointer;
-
-    svg {
-        display: block;
+    #intro-illustration {
+        position: relative;
         width: 100%;
-        max-width: 375px;
-        margin: 0 auto;
+        cursor: pointer;
+
+        svg {
+            display: block;
+            width: 100%;
+            max-width: 375px;
+            margin: 0 auto;
+        }
+    }
+
+    h5 {
+        line-height: 64px;
+    }
+
+    ul {
+        font-family: "Montserrat-Regular", sans-serif;
+        font-size: 1rem;
+        line-height: 1.5rem;
+        color: $black;
+        white-space: normal;
+        margin: $space-small / 4 0;
+        padding-left: $space + $space-small / 2;
+
+        li {
+            list-style-type: none;
+            hyphens: auto;
+
+            &::before {
+                content: "–";
+                font-size: 1rem;
+                color: $green;
+                display: inline-block;
+                width: 1rem;
+                margin-left: -1rem;
+            }
+        }
     }
 }

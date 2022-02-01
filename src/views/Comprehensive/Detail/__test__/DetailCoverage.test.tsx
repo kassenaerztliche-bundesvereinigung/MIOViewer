@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -86,7 +86,8 @@ describe("Detail Coverage", () => {
         "MRAppointmentPregnancy",
         "MRClinicalImpressionBirthExaminationChildInformation",
         "MRClinicalImpressionBirthExaminationDeliveryInformation",
-        "MRClinicalImpressionFirstExaminationAfterChildbirth",
+        "MRClinicalImpressionFirstExaminationAfterChildbirthChild",
+        "MRClinicalImpressionFirstExaminationAfterChildbirthMother",
         "MRClinicalImpressionInitialExamination",
         "MRClinicalImpressionPregnancyChartEntry",
         "MRClinicalImpressionPregnancyExaminationDischargeSummary",
@@ -111,6 +112,7 @@ describe("Detail Coverage", () => {
         "MRObservationBirthMode",
         "MRObservationBloodGroupSerology",
         "MRObservationBloodGroupSerologyChild",
+        "MRObservationBloodGroupSerologyFetus",
         "MRObservationBloodPressure",
         "MRObservationBreastfeedingBehavior",
         "MRObservationCalculatedDeliveryDate",
@@ -119,6 +121,7 @@ describe("Detail Coverage", () => {
         "MRObservationChildIsHealthy",
         "MRObservationChildMovement",
         "MRObservationChildPosition",
+        "MRObservationChildPositionAtBirth",
         "MRObservationConsultationInitiated",
         "MRObservationDateDeterminationChildbirth",
         "MRObservationDateOfConception",
@@ -126,6 +129,7 @@ describe("Detail Coverage", () => {
         "MRObservationDirectCoombstest",
         "MRObservationEdema",
         "MRObservationExamination",
+        "MRObservationExaminationMasked",
         "MRObservationExternalBirth",
         "MRObservationFindingsRequiredControl",
         "MRObservationFundusHeight",
@@ -161,10 +165,7 @@ describe("Detail Coverage", () => {
         "MRObservationU3Performed",
         "MRObservationUltrasound",
         "MRObservationUrine",
-        "MRObservationUrineBlood",
-        "MRObservationUrineNitrite",
         "MRObservationUrineProtein",
-        "MRObservationUrineSediment",
         "MRObservationUrineSugar",
         "MRObservationVaginalExamination",
         "MRObservationVaricosis",
@@ -482,6 +483,7 @@ describe("Detail Coverage", () => {
         "MRObservationoGTTDiagnosistest",
         "MRObservationHIVTestPerformed",
         "MRObservationExamination",
+        "MRObservationExaminationMasked",
         "MRObservationImmunizationStatus",
         "MRObservationBloodGroupSerology",
         "MRObservationOtherBloodGroupSystems",
@@ -493,8 +495,6 @@ describe("Detail Coverage", () => {
         "MRObservationUrine",
         "MRObservationUrineSugar",
         "MRObservationUrineProtein",
-        "MRObservationUrineNitrite",
-        "MRObservationUrineBlood",
         "MRObservationVaginalExamination",
         "MRObservationHeartSoundsChild",
         "MRObservationChildMovement",
@@ -502,6 +502,7 @@ describe("Detail Coverage", () => {
         "MRObservationPresentationAtBirthClinic",
         "MRObservationInpatientStayDuringPregnancy",
         "MRObservationCardiotocography",
+        "MRObservationBloodGroupSerologyFetus",
         "MRObservationUltrasound",
         "MRObservationOtherUltrasoundStudies",
         "MRDiagnosticReportUltrasoundI",
@@ -513,6 +514,7 @@ describe("Detail Coverage", () => {
         "MRObservationHeartAction",
         "MRObservationLocalisationPlacenta",
         "MRObservationChildPosition",
+        "MRObservationChildPositionAtBirth",
         "MRObservationBiometricsI",
         "MRObservationBiometricsII",
         "MRObservationBiometricsIII",
@@ -538,7 +540,6 @@ describe("Detail Coverage", () => {
         "MRObservationBloodGroupSerologyChild",
         "MRObservationDirectCoombstest",
         "MRObservationBreastfeedingBehavior",
-        "MRObservationUrineSediment",
         "MRObservationU3Performed",
         "MRObservationNeedOfTreatmentU3",
         "MRObservationChildIsHealthy"

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -18,23 +18,23 @@
 
 import { History } from "history";
 
-import { ParserUtil, MR } from "@kbv/mioparser";
+import { ParserUtil, MR, Reference } from "@kbv/mioparser";
 import { Util } from "../../../components";
 
 import MPBaseModel from "../MPBaseModel";
 import { ModelValue } from "../../Types";
 
-const PR = MR.V1_0_0.Profile;
+const PR = MR.V1_1_0.Profile;
 
 export default class EncounterModel<
     T extends
-        | MR.V1_0_0.Profile.EncounterGeneral
-        | MR.V1_0_0.Profile.EncounterInpatientTreatment
+        | MR.V1_1_0.Profile.EncounterGeneral
+        | MR.V1_1_0.Profile.EncounterInpatientTreatment
 > extends MPBaseModel<T> {
     constructor(
         value: T,
         fullUrl: string,
-        parent: MR.V1_0_0.Profile.Bundle,
+        parent: MR.V1_1_0.Profile.Bundle,
         history?: History,
         customLabel = "Untersucht am"
     ) {
@@ -43,19 +43,19 @@ export default class EncounterModel<
         this.headline = this.getPeriod();
 
         const subjectRef = this.value.subject.reference;
-        const patient = ParserUtil.getEntryWithRef<MR.V1_0_0.Profile.PatientMother>(
+        const patient = ParserUtil.getEntryWithRef<MR.V1_1_0.Profile.PatientMother>(
             this.parent,
             [PR.PatientMother],
-            subjectRef
+            new Reference(subjectRef, this.fullUrl)
         );
 
         const providerRef = this.value.serviceProvider
             ? this.value.serviceProvider.reference
             : "";
-        const provider = ParserUtil.getEntryWithRef<MR.V1_0_0.Profile.Organization>(
+        const provider = ParserUtil.getEntryWithRef<MR.V1_1_0.Profile.Organization>(
             this.parent,
             [PR.Organization],
-            providerRef
+            new Reference(providerRef, this.fullUrl)
         );
 
         this.values = [
@@ -66,12 +66,22 @@ export default class EncounterModel<
             {
                 value: patient ? Util.MP.getPatientMotherName(patient.resource) : "-",
                 label: "Patient/-in",
-                onClick: Util.Misc.toEntryByRef(history, parent, subjectRef, true)
+                onClick: Util.Misc.toEntryByRef(
+                    history,
+                    parent,
+                    new Reference(subjectRef, this.fullUrl),
+                    true
+                )
             },
             {
                 value: provider && provider.resource.name ? provider.resource.name : "-",
                 label: "Einrichtung",
-                onClick: Util.Misc.toEntryByRef(history, parent, providerRef, true)
+                onClick: Util.Misc.toEntryByRef(
+                    history,
+                    parent,
+                    new Reference(providerRef, this.fullUrl),
+                    true
+                )
             }
         ];
     }

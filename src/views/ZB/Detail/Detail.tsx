@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -22,7 +22,7 @@ import { UI, Util } from "../../../components";
 import DetailBase from "../../Comprehensive/Detail/DetailBase";
 import { DetailMapping } from "../../Comprehensive/Detail/Types";
 
-import { MIOEntry, ZAEB } from "@kbv/mioparser";
+import { MIOEntry, Reference, ZAEB } from "@kbv/mioparser";
 import Mappings from "../Mappings";
 
 class Detail extends DetailBase<ZAEB.V1_1_0.Profile.Bundle> {
@@ -59,7 +59,7 @@ class Detail extends DetailBase<ZAEB.V1_1_0.Profile.Bundle> {
         ) {
             return Util.ZB.getPatientByRef(
                 mio as ZAEB.V1_1_0.Profile.Bundle,
-                resource.subject.reference
+                new Reference(resource.subject.reference, entry?.fullUrl)
             );
         }
     }

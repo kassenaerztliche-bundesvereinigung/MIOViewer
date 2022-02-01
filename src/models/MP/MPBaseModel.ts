@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -28,7 +28,7 @@ export default abstract class MPBaseModel<T extends MRResource> extends BaseMode
     protected constructor(
         value: T,
         fullUrl: string,
-        parent: MR.V1_0_0.Profile.Bundle,
+        parent: MR.V1_1_0.Profile.Bundle,
         history?: History
     ) {
         super(value, fullUrl, parent, history);

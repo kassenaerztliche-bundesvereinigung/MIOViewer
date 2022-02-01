@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -100,7 +100,7 @@ describe("<Detail />", () => {
                         ): void => {
                             const mioId = ParserUtil.getUuidFromBundle(bundle);
                             const entryId = entry
-                                ? ParserUtil.getUuidFromEntry(entry)
+                                ? encodeURIComponent(entry.fullUrl)
                                 : "-";
 
                             const { getByTestId, getAllByTestId } =

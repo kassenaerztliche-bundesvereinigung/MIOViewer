@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -126,13 +126,13 @@ describe("<Detail-View />", () => {
                 {
                     getFunction: Util.MP.getPatientMother,
                     testId: "detail-MRPatientMother",
-                    profile: MR.V1_0_0.Profile.PatientMother,
+                    profile: MR.V1_1_0.Profile.PatientMother,
                     required: ["Geburtsdatum"]
                 },
                 {
                     getFunction: Util.MP.getAuthor,
                     testId: /(detail-MROrganization)|(detail-MRPractitioner)/,
-                    profile: MR.V1_0_0.Profile.Organization,
+                    profile: MR.V1_1_0.Profile.Organization,
                     required: []
                 }
             ]
@@ -169,7 +169,7 @@ describe("<Detail-View />", () => {
                         ): void => {
                             const mioId = ParserUtil.getUuidFromBundle(bundle);
                             const entryId = entry
-                                ? ParserUtil.getUuidFromEntry(entry)
+                                ? encodeURIComponent(entry.fullUrl)
                                 : "-";
 
                             const { getAllByTestId, getByTestId } =
@@ -248,7 +248,7 @@ describe("<Detail-View />", () => {
                 ZAEB.V1_1_0.Profile.Patient
             ]);
 
-            const entryId = entry ? ParserUtil.getUuidFromEntry(entry) : "-";
+            const entryId = entry ? encodeURIComponent(entry.fullUrl) : "-";
 
             const { getByTestId, getAllByText } = ViewerTestUtil.renderReduxRoute(
                 DetailIM,
@@ -279,7 +279,7 @@ describe("<Detail-View />", () => {
                 [Vaccination.V1_1_0.Profile.Patient]
             );
 
-            const entryId = entry ? ParserUtil.getUuidFromEntry(entry) : "-";
+            const entryId = entry ? encodeURIComponent(entry.fullUrl) : "-";
 
             const { getByTestId, getAllByText } = ViewerTestUtil.renderReduxRoute(
                 DetailZB,

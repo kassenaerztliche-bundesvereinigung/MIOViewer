@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -18,7 +18,7 @@
 
 import { History } from "history";
 
-import { CMR, ParserUtil } from "@kbv/mioparser";
+import { CMR, ParserUtil, Reference } from "@kbv/mioparser";
 import { Util } from "../../../components";
 
 import BaseModel from "./CMRBaseModel";
@@ -42,8 +42,16 @@ export default class MedicationPlan extends BaseModel<MedicationPlanType> {
         const encounterRef = this.value.context.reference;
 
         this.values.push(
-            Util.UH.getPatientModelValue(patientRef, parent, history),
-            Util.UH.getEncounterModelValue(encounterRef, parent, history),
+            Util.UH.getPatientModelValue(
+                new Reference(patientRef, this.fullUrl),
+                parent,
+                history
+            ),
+            Util.UH.getEncounterModelValue(
+                new Reference(encounterRef, this.fullUrl),
+                parent,
+                history
+            ),
             {
                 value: ParserUtil.translateCode(
                     this.value.status,
@@ -105,7 +113,11 @@ export default class MedicationPlan extends BaseModel<MedicationPlanType> {
         return {
             value: this.getCoding(),
             label: Util.Misc.formatDate(this.value.effectiveDateTime, true),
-            onClick: Util.Misc.toEntryByRef(this.history, this.parent, this.fullUrl)
+            onClick: Util.Misc.toEntryByRef(
+                this.history,
+                this.parent,
+                new Reference(this.fullUrl)
+            )
         };
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -28,7 +28,7 @@ describe("Mutterpass Section Tests", () => {
     ViewerTestUtil.mock();
 
     const mioParser = new MIOParser();
-    let bundle: MR.V1_0_0.Profile.Bundle | undefined = undefined;
+    let bundle: MR.V1_1_0.Profile.Bundle | undefined = undefined;
     let store: any = undefined; // eslint-disable-line
 
     it("Loads max example", async () => {
@@ -36,7 +36,7 @@ describe("Mutterpass Section Tests", () => {
         expect(file).toBeDefined();
         if (file) {
             const result = await mioParser.parseString(file);
-            bundle = result.value as MR.V1_0_0.Profile.Bundle;
+            bundle = result.value as MR.V1_1_0.Profile.Bundle;
             store = ViewerTestUtil.createStoreWithMios([bundle]);
         }
     });
@@ -70,25 +70,25 @@ describe("Mutterpass Section Tests", () => {
 
             // Schwangerschaft
             checkSub(
-                `/entry/${mioId}/fbb02cfc-e23f-473f-b65d-a09f2aadcecb`,
+                `/entry/${mioId}/urn%3Auuid%3Afbb02cfc-e23f-473f-b65d-a09f2aadcecb`,
                 "MRClinicalImpressionPregnancyExaminationDischargeSummary"
             );
 
             // Geburt
             checkSub(
-                `/entry/${mioId}/adba8172-4250-466b-baaf-6852c14f33a5`,
+                `/entry/${mioId}/urn%3Auuid%3Aadba8172-4250-466b-baaf-6852c14f33a5`,
                 "MRClinicalImpressionBirthExaminationDeliveryInformation"
             );
 
             // Wochenbett
             checkSub(
-                `/entry/${mioId}/98b95351-c9cd-43c6-a787-152c19324d07`,
-                "MRClinicalImpressionFirstExaminationAfterChildbirth"
+                `/entry/${mioId}/urn%3Auuid%3A98b95351-c9cd-43c6-a787-152c19324d07`,
+                "MRClinicalImpressionFirstExaminationAfterChildbirthMother"
             );
 
             // Zweite Untersuchung
             checkSub(
-                `/entry/${mioId}/85aaf6e5-0d6f-476c-9d0b-a41556914a53`,
+                `/entry/${mioId}/urn%3Auuid%3A85aaf6e5-0d6f-476c-9d0b-a41556914a53`,
                 "MRClinicalImpressionSecondExaminationAfterChildbirth"
             );
         }

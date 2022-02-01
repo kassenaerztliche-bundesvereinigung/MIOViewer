@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -22,7 +22,13 @@ import { RouteComponentProps } from "react-router";
 
 import { MIOViewerRootState, MIOActions, AsyncAction, MIOState } from "./";
 
-import { ParserUtil, KBVResource, KBVBundleResource, MIOEntry } from "@kbv/mioparser";
+import {
+    ParserUtil,
+    KBVResource,
+    KBVBundleResource,
+    MIOEntry,
+    Reference
+} from "@kbv/mioparser";
 
 function findMIO(
     mios: KBVBundleResource[],
@@ -33,7 +39,7 @@ function findMIO(
             (m) =>
                 m.identifier &&
                 m.identifier.value &&
-                ParserUtil.getUuid(m.identifier.value) === props.match.params.id
+                ParserUtil.getUuidFromBundle(m) === props.match.params.id
         );
         if (result.length > 0) return result[0];
     }
@@ -46,7 +52,8 @@ function findEntryByRouteProps(
     props: RouteComponentProps<{ id: string; entry: string }>
 ): MIOEntry<KBVResource> | undefined {
     if (mio && props.match && props.match.params && props.match.params.entry) {
-        return ParserUtil.findEntryByFullUrl(mio, props.match.params.entry);
+        const entry = decodeURIComponent(props.match.params.entry);
+        return ParserUtil.findEntryByReference(mio, new Reference(entry));
     }
 
     return undefined;

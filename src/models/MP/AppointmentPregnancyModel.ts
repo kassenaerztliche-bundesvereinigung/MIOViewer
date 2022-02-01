@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -24,11 +24,11 @@ import { Util } from "../../components";
 import MPBaseModel from "./MPBaseModel";
 import { ModelValue } from "../Types";
 
-export default class AppointmentPregnancyModel extends MPBaseModel<MR.V1_0_0.Profile.AppointmentPregnancy> {
+export default class AppointmentPregnancyModel extends MPBaseModel<MR.V1_1_0.Profile.AppointmentPregnancy> {
     constructor(
-        value: MR.V1_0_0.Profile.AppointmentPregnancy,
+        value: MR.V1_1_0.Profile.AppointmentPregnancy,
         fullUrl: string,
-        parent: MR.V1_0_0.Profile.Bundle,
+        parent: MR.V1_1_0.Profile.Bundle,
         history?: History
     ) {
         super(value, fullUrl, parent, history);

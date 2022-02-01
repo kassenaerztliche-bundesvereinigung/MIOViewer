@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -18,7 +18,7 @@
 
 import { Content } from "pdfmake/interfaces";
 
-import { ParserUtil, MIOEntry, CMR } from "@kbv/mioparser";
+import { ParserUtil, MIOEntry, CMR, Reference } from "@kbv/mioparser";
 
 import { horizontalLine } from "../../PDFHelper";
 
@@ -122,9 +122,9 @@ export default class CMRtoPDF extends Base<
         const content: Content[] = [];
 
         if (this.composition) {
-            const composition = Util.UH.getUComposition(this.value)?.resource;
+            const composition = Util.UH.getUComposition(this.value);
 
-            composition?.section?.forEach(
+            composition?.resource?.section?.forEach(
                 (section: {
                     title: string;
                     extension?: { url: string; valueString?: string }[];
@@ -146,7 +146,11 @@ export default class CMRtoPDF extends Base<
                             for (const mapping of Mappings.All) {
                                 const entry = ParserUtil.getEntryWithRef<
                                     typeof mapping.profile
-                                >(this.value, [mapping.profile], ref.reference);
+                                >(
+                                    this.value,
+                                    [mapping.profile],
+                                    new Reference(ref.reference, composition?.fullUrl)
+                                );
 
                                 if (entry) {
                                     const model = Mappings.modelFromMapping(
@@ -177,7 +181,11 @@ export default class CMRtoPDF extends Base<
                                     for (const mapping of Mappings.All) {
                                         const entry = ParserUtil.getEntryWithRef<
                                             typeof mapping.profile
-                                        >(this.value, [mapping.profile], ref);
+                                        >(
+                                            this.value,
+                                            [mapping.profile],
+                                            new Reference(ref, composition?.fullUrl)
+                                        );
 
                                         if (entry) {
                                             model = Mappings.modelFromMapping(
@@ -230,12 +238,21 @@ export default class CMRtoPDF extends Base<
         return content;
     }
 
-    protected getEntriesSpecial(): string[] {
-        const entries: string[] = [];
+    protected getEntriesSpecial(): Reference[] {
+        const entries: Reference[] = [];
         (this.compositionSpecial || this.compositionPercentile)?.resource.section.forEach(
             (s: { title: string; entry: { reference: string }[] }) => {
                 this.sectionTitle = s.title;
-                s.entry.forEach((e) => entries.push(e.reference));
+                s.entry.forEach((e) =>
+                    entries.push(
+                        new Reference(
+                            e.reference,
+                            (
+                                this.compositionSpecial || this.compositionPercentile
+                            )?.fullUrl
+                        )
+                    )
+                );
             }
         );
 
@@ -243,12 +260,9 @@ export default class CMRtoPDF extends Base<
     }
 
     public getHeading(): Content {
-        const refs =
-            (
-                this.compositionPercentile ||
-                this.compositionSpecial ||
-                this.composition
-            )?.resource.author.map((a) => a.reference) ?? [];
+        const composition =
+            this.compositionPercentile || this.compositionSpecial || this.composition;
+        const refs = composition?.resource.author.map((a) => a.reference) ?? [];
         const date =
             this.composition?.resource.date ||
             this.compositionSpecial?.resource.date ||
@@ -266,7 +280,7 @@ export default class CMRtoPDF extends Base<
                         CMR.V1_0_1.Profile.CMRPractitioner,
                         CMR.V1_0_1.Profile.CMROrganization
                     ],
-                    ref
+                    new Reference(ref, composition?.fullUrl)
                 );
 
                 if (author && author.resource) {

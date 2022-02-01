@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -18,7 +18,7 @@
 
 import { Content } from "pdfmake/interfaces";
 
-import { ParserUtil, MR } from "@kbv/mioparser";
+import { ParserUtil, MIOEntry, MR, Reference } from "@kbv/mioparser";
 import { Util } from "../../components";
 
 import * as Models from "../../models";
@@ -30,18 +30,18 @@ import { horizontalLine, modelValueToPDF } from "../PDFHelper";
 import PDFRepresentation from "../PDFRepresentation";
 import { ChildInformation } from "../../views/MP/OverviewSection/Sections";
 
-const MR_PR = MR.V1_0_0.Profile;
+const MR_PR = MR.V1_1_0.Profile;
 
-export default class MRtoPDF extends PDFRepresentation<MR.V1_0_0.Profile.Bundle> {
-    protected composition?: MR.V1_0_0.Profile.Composition;
+export default class MRtoPDF extends PDFRepresentation<MR.V1_1_0.Profile.Bundle> {
+    protected composition?: MIOEntry<MR.V1_1_0.Profile.Composition>;
 
-    constructor(value: MR.V1_0_0.Profile.Bundle) {
+    constructor(value: MR.V1_1_0.Profile.Bundle) {
         super(value, "Mutterpasseintrag", "s");
 
-        this.composition = ParserUtil.getEntry<MR.V1_0_0.Profile.Composition>(
+        this.composition = ParserUtil.getEntry<MR.V1_1_0.Profile.Composition>(
             this.value,
             [MR_PR.Composition]
-        )?.resource;
+        );
     }
 
     public getContent(): Content {
@@ -61,18 +61,22 @@ export default class MRtoPDF extends PDFRepresentation<MR.V1_0_0.Profile.Bundle>
     }
 
     public getHeading(): Content {
-        const title = this.composition ? this.composition.title : "-";
-        const ref = this.composition?.author[0].reference;
-        const date = this.composition?.date;
+        const composition = this.composition?.resource;
+        const title = composition ? composition.title : "-";
+        const ref = composition?.author[0].reference;
+        const date = composition?.date;
 
         let authorContent: Content | undefined = undefined;
         if (ref) {
-            const author = Util.MP.getAuthor(this.value, ref);
+            const author = Util.MP.getAuthor(
+                this.value,
+                new Reference(ref, this.composition?.fullUrl)
+            );
 
             if (author && author.resource) {
                 let model;
 
-                if (MR.V1_0_0.Profile.Practitioner.is(author.resource)) {
+                if (MR.V1_1_0.Profile.Practitioner.is(author.resource)) {
                     model = new Models.MP.Basic.PractitionerModel(
                         author.resource,
                         author.fullUrl,
@@ -128,6 +132,7 @@ export default class MRtoPDF extends PDFRepresentation<MR.V1_0_0.Profile.Bundle>
     public getStampInformation(): Content {
         const content: Content = this.mapToModels(
             Mappings.StampInformation,
+            this.composition?.fullUrl ?? "",
             Compare.StampInformation
         );
 
@@ -140,6 +145,7 @@ export default class MRtoPDF extends PDFRepresentation<MR.V1_0_0.Profile.Bundle>
     public getAppointments(): Content {
         const content: Content = this.mapToModels(
             Mappings.Appointments,
+            this.composition?.fullUrl ?? "",
             Compare.Appointment
         );
 
@@ -149,6 +155,7 @@ export default class MRtoPDF extends PDFRepresentation<MR.V1_0_0.Profile.Bundle>
     public getDateDetermination(): Content {
         const content: Content = this.mapToModels(
             Mappings.DateDetermination,
+            this.composition?.fullUrl ?? "",
             Compare.DateDetermination
         );
 
@@ -157,13 +164,14 @@ export default class MRtoPDF extends PDFRepresentation<MR.V1_0_0.Profile.Bundle>
 
     public getAnamnesis(): Content {
         const section =
-            this.getSection<MR.V1_0_0.Profile.CompositionAnamneseUndAllgemeineBefunde>(
-                this.composition,
+            this.getSection<MR.V1_1_0.Profile.CompositionAnamneseUndAllgemeineBefunde>(
+                this.composition?.resource,
                 [MR_PR.CompositionAnamneseUndAllgemeineBefunde]
             );
 
         const itemsAnamnesis: Content = this.mapToModels(
             Mappings.Anamnesis.Observations,
+            this.composition?.fullUrl ?? "",
             undefined,
             section
         );
@@ -175,6 +183,7 @@ export default class MRtoPDF extends PDFRepresentation<MR.V1_0_0.Profile.Bundle>
                     models: [Models.MP.Basic.ObservationModel]
                 }
             ],
+            this.composition?.fullUrl ?? "",
             undefined,
             section
         );
@@ -198,6 +207,7 @@ export default class MRtoPDF extends PDFRepresentation<MR.V1_0_0.Profile.Bundle>
                     noHeadline: true
                 }
             ],
+            this.composition?.fullUrl ?? "",
             undefined,
             section
         );
@@ -216,8 +226,8 @@ export default class MRtoPDF extends PDFRepresentation<MR.V1_0_0.Profile.Bundle>
     public getSpecialFindings(): Content {
         const content: Content = [];
 
-        const section = this.getSection<MR.V1_0_0.Profile.CompositionBesondereBefunde>(
-            this.composition,
+        const section = this.getSection<MR.V1_1_0.Profile.CompositionBesondereBefunde>(
+            this.composition?.resource,
             [MR_PR.CompositionBesondereBefunde]
         );
 
@@ -225,10 +235,10 @@ export default class MRtoPDF extends PDFRepresentation<MR.V1_0_0.Profile.Bundle>
         section?.entry?.forEach((entry) => {
             const ref = entry.reference;
             const res =
-                ParserUtil.getEntryWithRef<MR.V1_0_0.Profile.ObservationSpecialFindings>(
+                ParserUtil.getEntryWithRef<MR.V1_1_0.Profile.ObservationSpecialFindings>(
                     this.value,
                     [MR_PR.ObservationSpecialFindings],
-                    ref
+                    new Reference(ref, this.composition?.fullUrl)
                 );
 
             if (res) {
@@ -237,7 +247,7 @@ export default class MRtoPDF extends PDFRepresentation<MR.V1_0_0.Profile.Bundle>
                     res.fullUrl,
                     this.value,
                     undefined,
-                    [MR.V1_0_0.ConceptMap.SpecialFindingsGerman]
+                    [MR.V1_1_0.ConceptMap.SpecialFindingsGerman]
                 );
 
                 const note = model.getNote();
@@ -260,7 +270,7 @@ export default class MRtoPDF extends PDFRepresentation<MR.V1_0_0.Profile.Bundle>
         if (itemsCatalogueB.length) content.push(contentCatalogueB, horizontalLine);
 
         const sectionOGTT =
-            this.getSection<MR.V1_0_0.Profile.CompositionBesondereBefundeSection>(
+            this.getSection<MR.V1_1_0.Profile.CompositionBesondereBefundeSection>(
                 section,
                 [MR_PR.CompositionBesondereBefundeSection]
             );
@@ -268,6 +278,7 @@ export default class MRtoPDF extends PDFRepresentation<MR.V1_0_0.Profile.Bundle>
         if (sectionOGTT) {
             const itemsOGTT: Content[] = this.mapToModels(
                 Mappings.SpecialFindings.Tests,
+                this.composition?.fullUrl ?? "",
                 undefined,
                 sectionOGTT,
                 true
@@ -285,19 +296,25 @@ export default class MRtoPDF extends PDFRepresentation<MR.V1_0_0.Profile.Bundle>
     }
 
     public getCounselling(): Content {
-        const content = this.mapToModels(Mappings.Counselling);
+        const content = this.mapToModels(
+            Mappings.Counselling,
+            this.composition?.fullUrl ?? ""
+        );
         return this.sectionWithContent("Beratung", content);
     }
 
     public getAntiDProphylaxis(): Content {
         const mappings = Mappings.AntiDProphylaxis;
         mappings[0].noHeadline = true;
-        const content = this.mapToModels(mappings);
+        const content = this.mapToModels(mappings, this.composition?.fullUrl ?? "");
         return this.sectionWithContent("Anti-D-Prophylaxe", content);
     }
 
     public getInpatientTreatments(): Content {
-        const content = this.mapToModels(Mappings.InpatientTreatment);
+        const content = this.mapToModels(
+            Mappings.InpatientTreatment,
+            this.composition?.fullUrl ?? ""
+        );
         return this.sectionWithContent("Stationäre Behandlung", content);
     }
 
@@ -315,8 +332,8 @@ export default class MRtoPDF extends PDFRepresentation<MR.V1_0_0.Profile.Bundle>
 
     protected getLaboratoryExamination(): Content {
         const section =
-            this.getSection<MR.V1_0_0.Profile.CompositionUntersuchungenLaboruntersuchungenUndRoetelnschutz>(
-                this.composition,
+            this.getSection<MR.V1_1_0.Profile.CompositionUntersuchungenLaboruntersuchungenUndRoetelnschutz>(
+                this.composition?.resource,
                 [
                     MR_PR.CompositionUntersuchungen,
                     MR_PR.CompositionUntersuchungenLaboruntersuchungenUndRoetelnschutz
@@ -325,6 +342,7 @@ export default class MRtoPDF extends PDFRepresentation<MR.V1_0_0.Profile.Bundle>
 
         const itemsBloodGroup = this.mapToModels(
             Mappings.LaboratoryExamination.BloodGroups,
+            this.composition?.fullUrl ?? "",
             undefined,
             section
         );
@@ -336,8 +354,8 @@ export default class MRtoPDF extends PDFRepresentation<MR.V1_0_0.Profile.Bundle>
         );
 
         const slices = ParserUtil.getSlices<
-            | MR.V1_0_0.Profile.CompositionUntersuchungenLaboruntersuchungenUndRoetelnschutzLaboruntersuchung
-            | MR.V1_0_0.Profile.CompositionUntersuchungenLaboruntersuchungenUndRoetelnschutzLaboruntersuchungMaskiert
+            | MR.V1_1_0.Profile.CompositionUntersuchungenLaboruntersuchungenUndRoetelnschutzLaboruntersuchung
+            | MR.V1_1_0.Profile.CompositionUntersuchungenLaboruntersuchungenUndRoetelnschutzLaboruntersuchungMaskiert
         >(
             [
                 MR_PR.CompositionUntersuchungenLaboruntersuchungenUndRoetelnschutzLaboruntersuchung,
@@ -347,10 +365,13 @@ export default class MRtoPDF extends PDFRepresentation<MR.V1_0_0.Profile.Bundle>
         );
 
         const entries: { reference: string }[] = [];
-        slices.forEach((slice) => entries.push(...slice.entry));
+        slices.forEach((slice) => {
+            if (slice.entry) entries.push(...slice.entry);
+        });
 
         const itemsExamination = this.mapToModels(
             Mappings.LaboratoryExamination.Observations,
+            this.composition?.fullUrl ?? "",
             undefined,
             {
                 entry: entries
@@ -365,6 +386,7 @@ export default class MRtoPDF extends PDFRepresentation<MR.V1_0_0.Profile.Bundle>
 
         const itemsVaccination = this.mapToModels(
             Mappings.LaboratoryExamination.ImmunizationStatus,
+            this.composition?.fullUrl ?? "",
             undefined,
             section
         );
@@ -384,22 +406,27 @@ export default class MRtoPDF extends PDFRepresentation<MR.V1_0_0.Profile.Bundle>
 
     protected getGravidogramm(): Content {
         const section =
-            this.getSection<MR.V1_0_0.Profile.CompositionUntersuchungenGravidogramm>(
-                this.composition,
+            this.getSection<MR.V1_1_0.Profile.CompositionUntersuchungenGravidogramm>(
+                this.composition?.resource,
                 [
                     MR_PR.CompositionUntersuchungen,
                     MR_PR.CompositionUntersuchungenGravidogramm
                 ]
             );
 
-        const content = this.mapToModels(Mappings.Gravidogramm.Basic, undefined, section);
+        const content = this.mapToModels(
+            Mappings.Gravidogramm.Basic,
+            this.composition?.fullUrl ?? "",
+            undefined,
+            section
+        );
         return this.sectionWithContent("Gravidogram", content);
     }
 
     protected getUltrasound(): Content {
         const section =
-            this.getSection<MR.V1_0_0.Profile.CompositionUntersuchungenUltraschall>(
-                this.composition,
+            this.getSection<MR.V1_1_0.Profile.CompositionUntersuchungenUltraschall>(
+                this.composition?.resource,
                 [
                     MR_PR.CompositionUntersuchungen,
                     MR_PR.CompositionUntersuchungenUltraschall
@@ -412,10 +439,10 @@ export default class MRtoPDF extends PDFRepresentation<MR.V1_0_0.Profile.Bundle>
         section?.entry?.forEach((entry) => {
             const ref = entry.reference;
             const res =
-                ParserUtil.getEntryWithRef<MR.V1_0_0.Profile.ObservationUltrasound>(
+                ParserUtil.getEntryWithRef<MR.V1_1_0.Profile.ObservationUltrasound>(
                     this.value,
                     [MR_PR.ObservationUltrasound],
-                    ref
+                    new Reference(ref, this.composition?.fullUrl)
                 );
 
             if (res) {
@@ -437,9 +464,9 @@ export default class MRtoPDF extends PDFRepresentation<MR.V1_0_0.Profile.Bundle>
         });
 
         const slices = ParserUtil.getSlices<
-            | MR.V1_0_0.Profile.CompositionUntersuchungenUltraschallUltraschallI
-            | MR.V1_0_0.Profile.CompositionUntersuchungenUltraschallUltraschallII
-            | MR.V1_0_0.Profile.CompositionUntersuchungenUltraschallUltraschallIII
+            | MR.V1_1_0.Profile.CompositionUntersuchungenUltraschallUltraschallI
+            | MR.V1_1_0.Profile.CompositionUntersuchungenUltraschallUltraschallII
+            | MR.V1_1_0.Profile.CompositionUntersuchungenUltraschallUltraschallIII
         >(
             [
                 MR_PR.CompositionUntersuchungenUltraschallUltraschallI,
@@ -452,6 +479,7 @@ export default class MRtoPDF extends PDFRepresentation<MR.V1_0_0.Profile.Bundle>
         slices.forEach((subSection) => {
             const diagnosticReportContent = this.mapToModels(
                 Mappings.Ultrasound.DiagnosticReports,
+                this.composition?.fullUrl ?? "",
                 undefined,
                 subSection
             );
@@ -460,7 +488,7 @@ export default class MRtoPDF extends PDFRepresentation<MR.V1_0_0.Profile.Bundle>
         });
 
         const otherUltrasoundSlices =
-            ParserUtil.getSlices<MR.V1_0_0.Profile.CompositionUntersuchungenUltraschallWeitereUltraschallUntersuchungen>(
+            ParserUtil.getSlices<MR.V1_1_0.Profile.CompositionUntersuchungenUltraschallWeitereUltraschallUntersuchungen>(
                 [
                     MR_PR.CompositionUntersuchungenUltraschallWeitereUltraschallUntersuchungen
                 ],
@@ -470,6 +498,7 @@ export default class MRtoPDF extends PDFRepresentation<MR.V1_0_0.Profile.Bundle>
         otherUltrasoundSlices.forEach((subSection) => {
             const itemsOtherUltrasound = this.mapToModels(
                 Mappings.Ultrasound.Others,
+                this.composition?.fullUrl ?? "",
                 undefined,
                 subSection
             );
@@ -487,23 +516,29 @@ export default class MRtoPDF extends PDFRepresentation<MR.V1_0_0.Profile.Bundle>
     }
 
     protected getCardiotocography(): Content {
-        const section =
-            this.getSection<MR.V1_0_0.Profile.CompositionUntersuchungenCardiotokographie>(
-                this.composition,
-                [
-                    MR_PR.CompositionUntersuchungen,
-                    MR_PR.CompositionUntersuchungenCardiotokographie
-                ]
-            );
+        const section = undefined;
 
-        const content = this.mapToModels(Mappings.Cardiotocography, undefined, section);
-        return this.sectionWithContent("Cardiotokographien", content, "h2");
+        this.getSection<MR.V1_1_0.Profile.CompositionUntersuchungenCardiotokografie>(
+            this.composition?.resource,
+            [
+                MR_PR.CompositionUntersuchungen,
+                MR_PR.CompositionUntersuchungenCardiotokografie
+            ]
+        );
+
+        const content = this.mapToModels(
+            Mappings.Cardiotocography,
+            this.composition?.fullUrl ?? "",
+            undefined,
+            section
+        );
+        return this.sectionWithContent("Cardiotokografien", content, "h2");
     }
 
     protected getEpicrisis(): Content {
         const section =
-            this.getSection<MR.V1_0_0.Profile.CompositionUntersuchungenEpikrise>(
-                this.composition,
+            this.getSection<MR.V1_1_0.Profile.CompositionUntersuchungenEpikrise>(
+                this.composition?.resource,
                 [MR_PR.CompositionUntersuchungen, MR_PR.CompositionUntersuchungenEpikrise]
             );
 
@@ -518,12 +553,12 @@ export default class MRtoPDF extends PDFRepresentation<MR.V1_0_0.Profile.Bundle>
     }
 
     protected getPregnancy(
-        section: MR.V1_0_0.Profile.CompositionUntersuchungenEpikrise | undefined
+        section: MR.V1_1_0.Profile.CompositionUntersuchungenEpikrise | undefined
     ): Content {
         const content: Content = [];
 
         const slices =
-            ParserUtil.getSlices<MR.V1_0_0.Profile.CompositionUntersuchungenEpikriseSchwangerschaft>(
+            ParserUtil.getSlices<MR.V1_1_0.Profile.CompositionUntersuchungenEpikriseSchwangerschaft>(
                 [MR_PR.CompositionUntersuchungenEpikriseSchwangerschaft],
                 section?.section
             );
@@ -531,6 +566,7 @@ export default class MRtoPDF extends PDFRepresentation<MR.V1_0_0.Profile.Bundle>
         slices.forEach((subSection) => {
             const contentPregnancyExamination = this.mapToModels(
                 Mappings.EpicrisisPregnancy.DischargeSummary,
+                this.composition?.fullUrl ?? "",
                 undefined,
                 subSection
             );
@@ -544,12 +580,12 @@ export default class MRtoPDF extends PDFRepresentation<MR.V1_0_0.Profile.Bundle>
     }
 
     protected getBirth(
-        section: MR.V1_0_0.Profile.CompositionUntersuchungenEpikrise | undefined
+        section: MR.V1_1_0.Profile.CompositionUntersuchungenEpikrise | undefined
     ): Content {
         const content: Content = [];
 
         const slices =
-            ParserUtil.getSlices<MR.V1_0_0.Profile.CompositionUntersuchungenEpikriseGeburt>(
+            ParserUtil.getSlices<MR.V1_1_0.Profile.CompositionUntersuchungenEpikriseGeburt>(
                 [MR_PR.CompositionUntersuchungenEpikriseGeburt],
                 section?.section
             );
@@ -558,10 +594,10 @@ export default class MRtoPDF extends PDFRepresentation<MR.V1_0_0.Profile.Bundle>
             subSection.entry?.forEach((entry) => {
                 const ref = entry.reference;
                 const res =
-                    ParserUtil.getEntryWithRef<MR.V1_0_0.Profile.ClinicalImpressionBirthExaminationDeliveryInformation>(
+                    ParserUtil.getEntryWithRef<MR.V1_1_0.Profile.ClinicalImpressionBirthExaminationDeliveryInformation>(
                         this.value,
                         [MR_PR.ClinicalImpressionBirthExaminationDeliveryInformation],
-                        ref
+                        new Reference(ref, this.composition?.fullUrl)
                     );
 
                 if (res) {
@@ -574,7 +610,7 @@ export default class MRtoPDF extends PDFRepresentation<MR.V1_0_0.Profile.Bundle>
                     content.push(model.toPDFContent(), horizontalLine);
 
                     const childSection =
-                        ParserUtil.getSlices<MR.V1_0_0.Profile.CompositionUntersuchungenEpikriseGeburtSection>(
+                        ParserUtil.getSlices<MR.V1_1_0.Profile.CompositionUntersuchungenEpikriseGeburtSection>(
                             [MR_PR.CompositionUntersuchungenEpikriseGeburtSection],
                             subSection.section
                         );
@@ -602,66 +638,24 @@ export default class MRtoPDF extends PDFRepresentation<MR.V1_0_0.Profile.Bundle>
     }
 
     protected getWochenbett(
-        section: MR.V1_0_0.Profile.CompositionUntersuchungenEpikrise | undefined
+        section: MR.V1_1_0.Profile.CompositionUntersuchungenEpikrise | undefined
     ): Content {
         const content: Content = [];
 
         const slices =
-            ParserUtil.getSlices<MR.V1_0_0.Profile.CompositionUntersuchungenEpikriseWochenbett>(
+            ParserUtil.getSlices<MR.V1_1_0.Profile.CompositionUntersuchungenEpikriseWochenbett>(
                 [MR_PR.CompositionUntersuchungenEpikriseWochenbett],
                 section?.section
             );
 
         slices.forEach((subSection) => {
-            subSection.entry?.forEach((entry) => {
-                const ref = entry.reference;
-                const res =
-                    ParserUtil.getEntryWithRef<MR.V1_0_0.Profile.ClinicalImpressionFirstExaminationAfterChildbirth>(
-                        this.value,
-                        [MR_PR.ClinicalImpressionFirstExaminationAfterChildbirth],
-                        ref
-                    );
-
-                if (res) {
-                    const model = new Models.MP.Basic.ClinicalImpressionModel(
-                        res.resource,
-                        res.fullUrl,
-                        this.value
-                    );
-
-                    content.push(model.toPDFContent(), horizontalLine);
-
-                    const mother = new Models.MP.InformationAboutMotherModel(
-                        res.resource,
-                        res.fullUrl,
-                        this.value
-                    );
-
-                    content.push(mother.toPDFContent(), horizontalLine);
-
-                    const childSection =
-                        ParserUtil.getSlices<MR.V1_0_0.Profile.CompositionUntersuchungenEpikriseWochenbettAngabenZumKind>(
-                            [
-                                MR_PR.CompositionUntersuchungenEpikriseWochenbettAngabenZumKind
-                            ],
-                            subSection.section
-                        );
-
-                    const childrenContent = this.mapChildren(
-                        res.resource,
-                        res.fullUrl,
-                        childSection
-                    );
-                    if (childrenContent.length) {
-                        content.push(
-                            this.sectionWithContent(
-                                "Angaben zum Kind",
-                                childrenContent,
-                                "h3"
-                            )
-                        );
-                    }
-                }
+            subSection.section?.forEach(() => {
+                content.push(
+                    this.mapToModels(
+                        Mappings.EpicrisisFirstExamination.ClinicalImpression,
+                        this.composition?.fullUrl ?? ""
+                    )
+                );
             });
         });
 
@@ -673,12 +667,12 @@ export default class MRtoPDF extends PDFRepresentation<MR.V1_0_0.Profile.Bundle>
     }
 
     protected getSecondExamination(
-        section: MR.V1_0_0.Profile.CompositionUntersuchungenEpikrise | undefined
+        section: MR.V1_1_0.Profile.CompositionUntersuchungenEpikrise | undefined
     ): Content {
         const content: Content = [];
 
         const slices =
-            ParserUtil.getSlices<MR.V1_0_0.Profile.CompositionUntersuchungenEpikriseZweiteUntersuchungNachEntbindung>(
+            ParserUtil.getSlices<MR.V1_1_0.Profile.CompositionUntersuchungenEpikriseZweiteUntersuchungNachEntbindung>(
                 [MR_PR.CompositionUntersuchungenEpikriseZweiteUntersuchungNachEntbindung],
                 section?.section
             );
@@ -687,10 +681,10 @@ export default class MRtoPDF extends PDFRepresentation<MR.V1_0_0.Profile.Bundle>
             subSection.entry?.forEach((entry) => {
                 const ref = entry.reference;
                 const res =
-                    ParserUtil.getEntryWithRef<MR.V1_0_0.Profile.ClinicalImpressionSecondExaminationAfterChildbirth>(
+                    ParserUtil.getEntryWithRef<MR.V1_1_0.Profile.ClinicalImpressionSecondExaminationAfterChildbirth>(
                         this.value,
                         [MR_PR.ClinicalImpressionSecondExaminationAfterChildbirth],
-                        ref
+                        new Reference(ref, this.composition?.fullUrl)
                     );
 
                 if (res) {
@@ -711,7 +705,7 @@ export default class MRtoPDF extends PDFRepresentation<MR.V1_0_0.Profile.Bundle>
                     content.push(mother.toPDFContent(), horizontalLine);
 
                     const childSection =
-                        ParserUtil.getSlices<MR.V1_0_0.Profile.CompositionUntersuchungenEpikriseZweiteUntersuchungNachEntbindungAngabenZumKind>(
+                        ParserUtil.getSlices<MR.V1_1_0.Profile.CompositionUntersuchungenEpikriseZweiteUntersuchungNachEntbindungAngabenZumKind>(
                             [
                                 MR_PR.CompositionUntersuchungenEpikriseZweiteUntersuchungNachEntbindungAngabenZumKind
                             ],
@@ -723,6 +717,9 @@ export default class MRtoPDF extends PDFRepresentation<MR.V1_0_0.Profile.Bundle>
                         res.fullUrl,
                         childSection
                     );
+
+                    console.log(childSection);
+
                     if (childrenContent.length) {
                         content.push(
                             this.sectionWithContent(
@@ -745,70 +742,106 @@ export default class MRtoPDF extends PDFRepresentation<MR.V1_0_0.Profile.Bundle>
 
     private mapChildren(
         resource:
-            | MR.V1_0_0.Profile.ClinicalImpressionBirthExaminationDeliveryInformation
-            | MR.V1_0_0.Profile.ClinicalImpressionSecondExaminationAfterChildbirth
-            | MR.V1_0_0.Profile.ClinicalImpressionFirstExaminationAfterChildbirth,
+            | MR.V1_1_0.Profile.ClinicalImpressionBirthExaminationDeliveryInformation
+            | MR.V1_1_0.Profile.ClinicalImpressionFirstExaminationAfterChildbirthMother
+            | MR.V1_1_0.Profile.ClinicalImpressionFirstExaminationAfterChildbirthChild
+            | MR.V1_1_0.Profile.ClinicalImpressionSecondExaminationAfterChildbirth,
+
         fullUrl: string,
         section:
-            | MR.V1_0_0.Profile.CompositionUntersuchungenEpikriseGeburtSection[]
-            | MR.V1_0_0.Profile.CompositionUntersuchungenEpikriseWochenbettAngabenZumKind[]
-            | MR.V1_0_0.Profile.CompositionUntersuchungenEpikriseZweiteUntersuchungNachEntbindungAngabenZumKind[]
+            | MR.V1_1_0.Profile.CompositionUntersuchungenEpikriseGeburtSection[]
+            | MR.V1_1_0.Profile.CompositionUntersuchungenEpikriseWochenbettAngabenZurMutter[]
+            | MR.V1_1_0.Profile.CompositionUntersuchungenEpikriseWochenbettAngabenZumKind[]
+            | MR.V1_1_0.Profile.CompositionUntersuchungenEpikriseZweiteUntersuchungNachEntbindungAngabenZumKind[]
     ): Content[] {
         const content: Content = [];
 
-        const model = new Models.MP.InformationAboutChildModel(
-            resource,
-            fullUrl,
-            this.value
-        );
+        if (
+            MR.V1_1_0.Profile.ClinicalImpressionBirthExaminationDeliveryInformation.is(
+                resource
+            )
+        ) {
+            const model = new Models.MP.InformationAboutChildModelBirth(
+                resource,
+                fullUrl,
+                this.value
+            );
 
-        model.getChildren().forEach((child) => {
-            const childContent: Content = [];
+            model.getChildInformation().forEach((i) => {
+                const childContent: Content = [];
 
-            section.forEach((r: { entry?: { reference: string }[] }) => {
-                const entries = [];
+                const ref = i.resource.subject.reference;
+                const res = Util.MP.getPatientChild(
+                    this.value,
+                    new Reference(ref, this.composition?.fullUrl)
+                );
 
-                if (r && r.entry) entries.push(...r.entry);
+                if (res) {
+                    const entryModel = new Models.MP.Basic.PatientChildModel(
+                        res.resource,
+                        res.fullUrl,
+                        this.value
+                    );
 
-                entries.forEach((entry: { reference: string }) => {
-                    const ref = entry.reference;
-                    const res =
-                        ParserUtil.getEntryWithRef<MR.V1_0_0.Profile.PatientChild>(
-                            this.value,
-                            [MR_PR.PatientChild],
-                            ref
+                    childContent.push(entryModel.toPDFContent());
+
+                    const investigation =
+                        new Models.MP.Basic.ClinicalImpressionInvestigationModel(
+                            i.resource,
+                            i.fullUrl,
+                            this.value
                         );
 
-                    if (res) {
-                        if (MR.V1_0_0.Profile.PatientChild.is(res.resource)) {
-                            if (child === res.resource.id) {
-                                const entryModel = new Models.MP.Basic.PatientChildModel(
-                                    res.resource,
-                                    res.fullUrl,
-                                    this.value
-                                );
-
-                                childContent.push(entryModel.toPDFContent());
-
-                                const items = ChildInformation.getListGroups(
-                                    this.value,
-                                    section[0],
-                                    child
-                                );
-
-                                childContent.push(
-                                    ...items.map((value) => modelValueToPDF(value))
-                                );
-                            }
-                        }
+                    if (childContent.length) {
+                        content.push(
+                            childContent,
+                            investigation.toPDFContent(),
+                            horizontalLine
+                        );
                     }
-                });
+                }
             });
+        } else if (
+            MR.V1_1_0.Profile.ClinicalImpressionSecondExaminationAfterChildbirth.is(
+                resource
+            )
+        ) {
+            const model = new Models.MP.InformationAboutChildModel(
+                resource,
+                fullUrl,
+                this.value
+            );
 
-            if (childContent.length) {
-                content.push(childContent, horizontalLine);
-            }
-        });
+            model.getChildren().forEach((child) => {
+                const childContent: Content = [];
+
+                const res = Util.MP.getPatientChild(this.value, child);
+                console.log(res);
+
+                if (res) {
+                    const childModel = new Models.MP.Basic.PatientChildModel(
+                        res.resource,
+                        res.fullUrl,
+                        this.value
+                    );
+
+                    childContent.push(childModel.toPDFContent());
+
+                    const items = ChildInformation.getListGroups(
+                        this.value,
+                        this.composition?.fullUrl ?? "",
+                        section[0],
+                        child.toString()
+                    );
+
+                    childContent.push(...items.map((value) => modelValueToPDF(value)));
+
+                    if (childContent.length) {
+                        content.push(childContent, horizontalLine);
+                    }
+                }
+            });
+        }
 
         return content;
     }
@@ -816,9 +849,9 @@ export default class MRtoPDF extends PDFRepresentation<MR.V1_0_0.Profile.Bundle>
     protected getHints(): Content {
         const content: Content[] = [];
 
-        const hints = ParserUtil.getSlice<MR.V1_0_0.Profile.CompositionHinweise>(
-            MR.V1_0_0.Profile.CompositionHinweise,
-            this.composition?.extension
+        const hints = ParserUtil.getSlice<MR.V1_1_0.Profile.CompositionHinweise>(
+            MR.V1_1_0.Profile.CompositionHinweise,
+            this.composition?.resource?.extension
         );
 
         const hintMap: Record<string, string> = {

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -16,13 +16,13 @@
  * along with MIO Viewer. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { MR, ParserUtil } from "@kbv/mioparser";
+import { MR, ParserUtil, Reference } from "@kbv/mioparser";
 
 import { UI, Util } from "../../../../components";
 
 import Section, { SectionProps } from "../Section";
 
-export default class Epicrisis extends Section<MR.V1_0_0.Profile.CompositionUntersuchungenEpikrise> {
+export default class Epicrisis extends Section<MR.V1_1_0.Profile.CompositionUntersuchungenEpikrise> {
     constructor(props: SectionProps) {
         super(props);
 
@@ -32,8 +32,8 @@ export default class Epicrisis extends Section<MR.V1_0_0.Profile.CompositionUnte
         };
 
         this.section = this.getSection([
-            MR.V1_0_0.Profile.CompositionUntersuchungen,
-            MR.V1_0_0.Profile.CompositionUntersuchungenEpikrise
+            MR.V1_1_0.Profile.CompositionUntersuchungen,
+            MR.V1_1_0.Profile.CompositionUntersuchungenEpikrise
         ]);
     }
 
@@ -42,13 +42,13 @@ export default class Epicrisis extends Section<MR.V1_0_0.Profile.CompositionUnte
     }
 
     protected getListGroups(): UI.DetailList.Props[] {
-        const { mio, history } = this.props;
+        const { mio, history, composition } = this.props;
 
         const pregnancyItems: UI.ListItem.Props[] = [];
 
         const slices =
-            ParserUtil.getSlices<MR.V1_0_0.Profile.CompositionUntersuchungenEpikriseSchwangerschaft>(
-                [MR.V1_0_0.Profile.CompositionUntersuchungenEpikriseSchwangerschaft],
+            ParserUtil.getSlices<MR.V1_1_0.Profile.CompositionUntersuchungenEpikriseSchwangerschaft>(
+                [MR.V1_1_0.Profile.CompositionUntersuchungenEpikriseSchwangerschaft],
                 this.section?.section
             );
 
@@ -57,16 +57,21 @@ export default class Epicrisis extends Section<MR.V1_0_0.Profile.CompositionUnte
             section.entry.forEach((entry) => {
                 const ref = entry.reference;
                 const res =
-                    ParserUtil.getEntryWithRef<MR.V1_0_0.Profile.ClinicalImpressionPregnancyExaminationDischargeSummary>(
+                    ParserUtil.getEntryWithRef<MR.V1_1_0.Profile.ClinicalImpressionPregnancyExaminationDischargeSummary>(
                         mio,
                         [
-                            MR.V1_0_0.Profile
+                            MR.V1_1_0.Profile
                                 .ClinicalImpressionPregnancyExaminationDischargeSummary
                         ],
-                        ref
+                        new Reference(ref, composition.fullUrl)
                     )?.resource;
 
-                if (res) toEntry = Util.Misc.toEntryByRef(history, mio, ref);
+                if (res)
+                    toEntry = Util.Misc.toEntryByRef(
+                        history,
+                        mio,
+                        new Reference(ref, composition.fullUrl)
+                    );
             });
 
             pregnancyItems.push({
@@ -78,8 +83,8 @@ export default class Epicrisis extends Section<MR.V1_0_0.Profile.CompositionUnte
         const birthItems: UI.ListItem.Props[] = [];
 
         const slicesBirth =
-            ParserUtil.getSlices<MR.V1_0_0.Profile.CompositionUntersuchungenEpikriseGeburt>(
-                [MR.V1_0_0.Profile.CompositionUntersuchungenEpikriseGeburt],
+            ParserUtil.getSlices<MR.V1_1_0.Profile.CompositionUntersuchungenEpikriseGeburt>(
+                [MR.V1_1_0.Profile.CompositionUntersuchungenEpikriseGeburt],
                 this.section?.section
             );
 
@@ -88,16 +93,21 @@ export default class Epicrisis extends Section<MR.V1_0_0.Profile.CompositionUnte
             section.entry?.forEach((entry) => {
                 const ref = entry.reference;
                 const res =
-                    ParserUtil.getEntryWithRef<MR.V1_0_0.Profile.ClinicalImpressionBirthExaminationDeliveryInformation>(
+                    ParserUtil.getEntryWithRef<MR.V1_1_0.Profile.ClinicalImpressionBirthExaminationDeliveryInformation>(
                         mio,
                         [
-                            MR.V1_0_0.Profile
+                            MR.V1_1_0.Profile
                                 .ClinicalImpressionBirthExaminationDeliveryInformation
                         ],
-                        ref
+                        new Reference(ref, composition.fullUrl)
                     )?.resource;
 
-                if (res) toEntry = Util.Misc.toEntryByRef(history, mio, ref);
+                if (res)
+                    toEntry = Util.Misc.toEntryByRef(
+                        history,
+                        mio,
+                        new Reference(ref, composition.fullUrl)
+                    );
             });
 
             birthItems.push({
@@ -106,43 +116,52 @@ export default class Epicrisis extends Section<MR.V1_0_0.Profile.CompositionUnte
             });
         });
 
-        const firstExaminationItems: UI.ListItem.Props[] = [];
+        let hasFirstExamination = false;
+        let firstExaminationTitle = "-";
 
         const slicesFirstExamination =
-            ParserUtil.getSlices<MR.V1_0_0.Profile.CompositionUntersuchungenEpikriseWochenbett>(
-                [MR.V1_0_0.Profile.CompositionUntersuchungenEpikriseWochenbett],
+            ParserUtil.getSlices<MR.V1_1_0.Profile.CompositionUntersuchungenEpikriseWochenbett>(
+                [MR.V1_1_0.Profile.CompositionUntersuchungenEpikriseWochenbett],
                 this.section?.section
             );
 
         slicesFirstExamination.forEach((section) => {
-            let toEntry = undefined;
-            section.entry?.forEach((entry) => {
-                const ref = entry.reference;
-                const res =
-                    ParserUtil.getEntryWithRef<MR.V1_0_0.Profile.ClinicalImpressionFirstExaminationAfterChildbirth>(
+            if (hasFirstExamination) return;
+
+            section.section?.forEach((s) => {
+                if (hasFirstExamination) return;
+
+                s.entry?.forEach((entry) => {
+                    if (hasFirstExamination) return;
+
+                    const ref = entry.reference;
+                    const res = ParserUtil.getEntryWithRef<
+                        | MR.V1_1_0.Profile.ClinicalImpressionFirstExaminationAfterChildbirthMother
+                        | MR.V1_1_0.Profile.ClinicalImpressionFirstExaminationAfterChildbirthChild
+                    >(
                         mio,
                         [
-                            MR.V1_0_0.Profile
-                                .ClinicalImpressionFirstExaminationAfterChildbirth
+                            MR.V1_1_0.Profile
+                                .ClinicalImpressionFirstExaminationAfterChildbirthMother,
+                            MR.V1_1_0.Profile
+                                .ClinicalImpressionFirstExaminationAfterChildbirthChild
                         ],
-                        ref
+                        new Reference(ref, composition.fullUrl)
                     )?.resource;
 
-                if (res) toEntry = Util.Misc.toEntryByRef(history, mio, ref);
-            });
+                    if (res) hasFirstExamination = true;
+                });
 
-            firstExaminationItems.push({
-                label: section.title,
-                onClick: toEntry
+                firstExaminationTitle = section.title;
             });
         });
 
         const secondExaminationItems: UI.ListItem.Props[] = [];
 
         const slicesSecondExamination =
-            ParserUtil.getSlices<MR.V1_0_0.Profile.CompositionUntersuchungenEpikriseZweiteUntersuchungNachEntbindung>(
+            ParserUtil.getSlices<MR.V1_1_0.Profile.CompositionUntersuchungenEpikriseZweiteUntersuchungNachEntbindung>(
                 [
-                    MR.V1_0_0.Profile
+                    MR.V1_1_0.Profile
                         .CompositionUntersuchungenEpikriseZweiteUntersuchungNachEntbindung
                 ],
                 this.section?.section
@@ -153,16 +172,22 @@ export default class Epicrisis extends Section<MR.V1_0_0.Profile.CompositionUnte
             section.entry?.forEach((entry) => {
                 const ref = entry.reference;
                 const res =
-                    ParserUtil.getEntryWithRef<MR.V1_0_0.Profile.ClinicalImpressionSecondExaminationAfterChildbirth>(
+                    ParserUtil.getEntryWithRef<MR.V1_1_0.Profile.ClinicalImpressionSecondExaminationAfterChildbirth>(
                         mio,
                         [
-                            MR.V1_0_0.Profile
+                            MR.V1_1_0.Profile
                                 .ClinicalImpressionSecondExaminationAfterChildbirth
                         ],
-                        ref
+                        new Reference(ref, composition.fullUrl)
                     )?.resource;
 
-                if (res) toEntry = Util.Misc.toEntryByRef(history, mio, ref);
+                if (res) {
+                    toEntry = Util.Misc.toEntryByRef(
+                        history,
+                        mio,
+                        new Reference(ref, composition.fullUrl)
+                    );
+                }
             });
 
             secondExaminationItems.push({
@@ -175,7 +200,14 @@ export default class Epicrisis extends Section<MR.V1_0_0.Profile.CompositionUnte
 
         allItems.push(...pregnancyItems);
         allItems.push(...birthItems);
-        allItems.push(...firstExaminationItems);
+        if (hasFirstExamination) {
+            const mioId = ParserUtil.getUuidFromBundle(mio);
+            const title = "Erste Untersuchung nach Entbindung (Wochenbett)";
+            allItems.push({
+                label: firstExaminationTitle,
+                onClick: () => history.push(`/section/${mioId}/${title}`)
+            });
+        }
         allItems.push(...secondExaminationItems);
 
         return [

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -18,26 +18,26 @@
 
 import { History } from "history";
 
-import { ParserUtil, MR } from "@kbv/mioparser";
+import { ParserUtil, MR, Reference } from "@kbv/mioparser";
 import { Util } from "../../components";
 
 import { ObservationModel } from "./Basic";
 import MPBaseModel from "./MPBaseModel";
 import { ModelValue } from "../Types";
 
-const PR = MR.V1_0_0.Profile;
-const CM = MR.V1_0_0.ConceptMap;
+const PR = MR.V1_1_0.Profile;
+const CM = MR.V1_1_0.ConceptMap;
 
 export type DiagnosticReportResultType =
-    | MR.V1_0_0.Profile.DiagnosticReportUltrasoundI
-    | MR.V1_0_0.Profile.DiagnosticReportUltrasoundII
-    | MR.V1_0_0.Profile.DiagnosticReportUltrasoundIII;
+    | MR.V1_1_0.Profile.DiagnosticReportUltrasoundI
+    | MR.V1_1_0.Profile.DiagnosticReportUltrasoundII
+    | MR.V1_1_0.Profile.DiagnosticReportUltrasoundIII;
 
 export default class DiagnosticReportResultModel extends MPBaseModel<DiagnosticReportResultType> {
     constructor(
         value: DiagnosticReportResultType,
         fullUrl: string,
-        parent: MR.V1_0_0.Profile.Bundle,
+        parent: MR.V1_1_0.Profile.Bundle,
         history?: History,
         protected codeConceptMap: ParserUtil.ConceptMap[] | undefined = [
             CM.FindingsRequiredControlGerman,
@@ -57,20 +57,20 @@ export default class DiagnosticReportResultModel extends MPBaseModel<DiagnosticR
                 const ref = valueResult.reference;
 
                 const result = ParserUtil.getEntryWithRef<
-                    | MR.V1_0_0.Profile.ObservationGeneralInformation
-                    | MR.V1_0_0.Profile.ObservationPregnancyInformation
-                    | MR.V1_0_0.Profile.ObservationSingletonPregnancy
-                    | MR.V1_0_0.Profile.ObservationHeartAction
-                    | MR.V1_0_0.Profile.ObservationLocalisationPlacenta
-                    | MR.V1_0_0.Profile.ObservationChildPosition
-                    | MR.V1_0_0.Profile.ObservationBiometricsI
-                    | MR.V1_0_0.Profile.ObservationBiometricsII
-                    | MR.V1_0_0.Profile.ObservationBiometricsIII
-                    | MR.V1_0_0.Profile.ObservationPercentile
-                    | MR.V1_0_0.Profile.ObservationTimelyDevelopment
-                    | MR.V1_0_0.Profile.ObservationAbnormalities
-                    | MR.V1_0_0.Profile.ObservationConsultationInitiated
-                    | MR.V1_0_0.Profile.ObservationMorphology
+                    | MR.V1_1_0.Profile.ObservationGeneralInformation
+                    | MR.V1_1_0.Profile.ObservationPregnancyInformation
+                    | MR.V1_1_0.Profile.ObservationSingletonPregnancy
+                    | MR.V1_1_0.Profile.ObservationHeartAction
+                    | MR.V1_1_0.Profile.ObservationLocalisationPlacenta
+                    | MR.V1_1_0.Profile.ObservationChildPosition
+                    | MR.V1_1_0.Profile.ObservationBiometricsI
+                    | MR.V1_1_0.Profile.ObservationBiometricsII
+                    | MR.V1_1_0.Profile.ObservationBiometricsIII
+                    | MR.V1_1_0.Profile.ObservationPercentile
+                    | MR.V1_1_0.Profile.ObservationTimelyDevelopment
+                    | MR.V1_1_0.Profile.ObservationAbnormalities
+                    | MR.V1_1_0.Profile.ObservationConsultationInitiated
+                    | MR.V1_1_0.Profile.ObservationMorphology
                 >(
                     parent,
                     [
@@ -89,11 +89,11 @@ export default class DiagnosticReportResultModel extends MPBaseModel<DiagnosticR
                         PR.ObservationConsultationInitiated,
                         PR.ObservationMorphology
                     ],
-                    ref
+                    new Reference(ref, this.fullUrl)
                 );
 
                 if (result) {
-                    const resultCM = MR.V1_0_0.ConceptMap;
+                    const resultCM = MR.V1_1_0.ConceptMap;
                     const model = new ObservationModel(
                         result.resource,
                         result.fullUrl,
@@ -115,7 +115,12 @@ export default class DiagnosticReportResultModel extends MPBaseModel<DiagnosticR
                     this.values.push({
                         value: model.getObservationValue().value,
                         label: model.getCoding(),
-                        onClick: Util.Misc.toEntryByRef(history, parent, ref, true)
+                        onClick: Util.Misc.toEntryByRef(
+                            history,
+                            parent,
+                            new Reference(ref, this.fullUrl),
+                            true
+                        )
                     });
                 }
             });

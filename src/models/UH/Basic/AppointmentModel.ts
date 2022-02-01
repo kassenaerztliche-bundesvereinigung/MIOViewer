@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -18,7 +18,7 @@
 
 import { History } from "history";
 
-import { ParserUtil, CMR } from "@kbv/mioparser";
+import { ParserUtil, CMR, Reference } from "@kbv/mioparser";
 import { Util } from "../../../components";
 
 import BaseModel from "./CMRBaseModel";
@@ -57,7 +57,7 @@ export default class AppointmentModel extends BaseModel<AppointmentType> {
             >(
                 this.parent,
                 [CMR.V1_0_1.Profile.CMRPatient, CMR.V1_0_1.Profile.CMRPractitioner],
-                ref
+                new Reference(ref, this.fullUrl)
             );
 
             let value = "-";
@@ -134,7 +134,11 @@ export default class AppointmentModel extends BaseModel<AppointmentType> {
         return {
             value: this.getServiceType().value,
             label: periods.length ? periods[0].value : "-",
-            onClick: Util.Misc.toEntryByRef(this.history, this.parent, this.fullUrl)
+            onClick: Util.Misc.toEntryByRef(
+                this.history,
+                this.parent,
+                new Reference(this.fullUrl)
+            )
         };
     }
 

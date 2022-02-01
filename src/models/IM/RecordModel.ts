@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -18,7 +18,7 @@
 
 import { History } from "history";
 
-import { ParserUtil, KBVBundleResource, Vaccination } from "@kbv/mioparser";
+import { ParserUtil, KBVBundleResource, Vaccination, Reference } from "@kbv/mioparser";
 import { Util } from "../../components";
 
 import BaseModel from "../BaseModel";
@@ -77,12 +77,18 @@ export default class RecordModel<
 
         const organizationAttester = Util.IM.getOrganization(
             parent as Bundle,
-            entryAttester?.resource.organization.reference
+            new Reference(
+                entryAttester?.resource.organization.reference,
+                entryAttester?.fullUrl
+            )
         );
 
         const practitionerAttester = Util.IM.getPractitioner(
             parent as Bundle,
-            entryAttester?.resource.practitioner.reference
+            new Reference(
+                entryAttester?.resource.practitioner.reference,
+                entryAttester?.fullUrl
+            )
         );
 
         const enterer = ParserUtil.getSlice<Vaccination.V1_1_0.Extension.Enterer>(
@@ -96,12 +102,18 @@ export default class RecordModel<
         );
         const practitionerEnterer = Util.IM.getPractitioner(
             parent as Bundle,
-            entryEnterer?.resource.practitioner.reference
+            new Reference(
+                entryEnterer?.resource.practitioner.reference,
+                entryEnterer?.fullUrl
+            )
         );
 
         const organizationEnterer = Util.IM.getOrganization(
             parent as Bundle,
-            entryEnterer?.resource.organization.reference
+            new Reference(
+                entryEnterer?.resource.organization.reference,
+                entryEnterer?.fullUrl
+            )
         );
 
         this.values = [
@@ -203,7 +215,11 @@ export default class RecordModel<
         return {
             value: this.headline,
             label: Util.Misc.formatDate(this.value.occurrenceDateTime),
-            onClick: Util.Misc.toEntryByRef(this.history, this.parent, this.fullUrl)
+            onClick: Util.Misc.toEntryByRef(
+                this.history,
+                this.parent,
+                new Reference(this.fullUrl)
+            )
         };
     }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -16,14 +16,14 @@
  * along with MIO Viewer. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { MR, ParserUtil } from "@kbv/mioparser";
+import { MR, ParserUtil, Reference } from "@kbv/mioparser";
 
 import { UI, Util } from "../../../../components";
 import * as Models from "../../../../models";
 
 import Section, { SectionProps } from "../Section";
 
-export default class Gravidogram extends Section<MR.V1_0_0.Profile.CompositionUntersuchungenGravidogramm> {
+export default class Gravidogram extends Section<MR.V1_1_0.Profile.CompositionUntersuchungenGravidogramm> {
     constructor(props: SectionProps) {
         super(props);
         this.state = {
@@ -32,8 +32,8 @@ export default class Gravidogram extends Section<MR.V1_0_0.Profile.CompositionUn
         };
 
         this.section = this.getSection([
-            MR.V1_0_0.Profile.CompositionUntersuchungen,
-            MR.V1_0_0.Profile.CompositionUntersuchungenGravidogramm
+            MR.V1_1_0.Profile.CompositionUntersuchungen,
+            MR.V1_1_0.Profile.CompositionUntersuchungenGravidogramm
         ]);
     }
 
@@ -42,16 +42,16 @@ export default class Gravidogram extends Section<MR.V1_0_0.Profile.CompositionUn
     }
 
     protected getListGroups(): UI.DetailList.Props[] {
-        const { mio, history } = this.props;
+        const { mio, history, composition } = this.props;
 
         const items: UI.ListItem.Props[] = [];
         this.section?.entry.forEach((entry) => {
             const ref = entry.reference;
             const res =
-                ParserUtil.getEntryWithRef<MR.V1_0_0.Profile.ClinicalImpressionPregnancyChartEntry>(
+                ParserUtil.getEntryWithRef<MR.V1_1_0.Profile.ClinicalImpressionPregnancyChartEntry>(
                     mio,
-                    [MR.V1_0_0.Profile.ClinicalImpressionPregnancyChartEntry],
-                    ref
+                    [MR.V1_1_0.Profile.ClinicalImpressionPregnancyChartEntry],
+                    new Reference(ref, composition.fullUrl)
                 );
 
             if (res) {
@@ -65,7 +65,11 @@ export default class Gravidogram extends Section<MR.V1_0_0.Profile.CompositionUn
                 items.push({
                     value: mainValue.value,
                     label: mainValue.label,
-                    onClick: Util.Misc.toEntryByRef(history, mio, ref)
+                    onClick: Util.Misc.toEntryByRef(
+                        history,
+                        mio,
+                        new Reference(ref, composition.fullUrl)
+                    )
                 });
             }
         });

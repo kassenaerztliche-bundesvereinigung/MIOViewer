@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -56,7 +56,7 @@ class Overview extends React.Component<MIOConnectorType & RouteComponentProps> {
                     headline = "Zahnärztliches Bonusheft";
                     mioClass = "zaeb";
                     component = <OverviewZAEB mio={mio} history={history} />;
-                } else if (MR.V1_0_0.Profile.Bundle.is(mio)) {
+                } else if (MR.V1_1_0.Profile.Bundle.is(mio)) {
                     headline = "Mutterpass";
                     mioClass = "mutterpass";
                     component = <OverviewMP mio={mio} history={history} />;

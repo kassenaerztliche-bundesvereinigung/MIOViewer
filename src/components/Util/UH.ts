@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -16,7 +16,7 @@
  * along with MIO Viewer. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { CMR, KBVBundleResource, MIOEntry, ParserUtil } from "@kbv/mioparser";
+import { CMR, KBVBundleResource, MIOEntry, ParserUtil, Reference } from "@kbv/mioparser";
 import { ModelValue } from "../../models";
 import { Util } from "../index";
 import { History } from "history";
@@ -209,7 +209,7 @@ export function getCompositionEncounter(
                 CMR.V1_0_1.Profile.PCEncounter,
                 CMR.V1_0_1.Profile.PNEncounter
             ],
-            ref
+            new Reference(ref, composition.fullUrl)
         );
     }
 }
@@ -367,7 +367,7 @@ export function getPatient(
         patient = ParserUtil.getEntryWithRef<CMR.V1_0_1.Profile.CMRPatient>(
             mio,
             [CMR.V1_0_1.Profile.CMRPatient],
-            usedRef
+            new Reference(usedRef, composition?.fullUrl)
         );
     }
 
@@ -548,7 +548,7 @@ export function getPractitionerName(
 }
 
 export function getPatientModelValue(
-    patientRef: string,
+    patientRef: Reference,
     mio:
         | CMR.V1_0_1.Profile.CMRBundle
         | CMR.V1_0_1.Profile.PCBundle
@@ -570,7 +570,7 @@ export function getPatientModelValue(
 }
 
 export function getEncounterModelValue(
-    encounterRef: string,
+    encounterRef: Reference,
     mio:
         | CMR.V1_0_1.Profile.CMRBundle
         | CMR.V1_0_1.Profile.PCBundle
@@ -599,7 +599,7 @@ export function getEncounterModelValue(
 }
 
 export function getPerformerModelValues(
-    refs: string[] | undefined,
+    refs: Reference[] | undefined,
     mio:
         | CMR.V1_0_1.Profile.CMRBundle
         | CMR.V1_0_1.Profile.PCBundle

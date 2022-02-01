@@ -35,6 +35,13 @@ Hierfür wird es zur freien Nutzung unter der LGPLv3 Lizenz zur Verfügung geste
 
 Welche MIOs verarbeitet werden können kann dem [Changelog](https://github.com/kassenaerztliche-bundesvereinigung/MIOViewer/blob/master/CHANGELOG.md) entnommen werden.
 
+### Derzeit unterstützte MIOs
+Folgende MIOs können mit dem MIO Viewer dargestellt werden: 
+* [Impfpass v1.1.0](https://mio.kbv.de/display/IM1X1X0)
+* [Zahnärztliches Bonusheft v1.1.0](https://mio.kbv.de/display/ZB1X1X0)
+* [Mutterpass v1.1.0](https://mio.kbv.de/display/MP1X1X0/Mutterpass+1.1.0)
+* [Untersuchungsheft v1.0.1](https://mio.kbv.de/display/UH1X0X1)
+
 ## Setup
 
 Die folgenden Anweisungen sollen helfen die Software herunterzuladen, installieren und auszuführen.
@@ -77,7 +84,7 @@ Softwarefehler können über die [GitHub Issues](https://github.com/kassenaerztl
 ### Lizenz
 
 Diese Software ist unter der LGPLv3 Lizenz lizensiert worden - siehe <a href="./COPYING.LESSER">LICENSE</a> für Details.
-(c) 2020 - 2021 Kassenärztliche Bundesvereinigung KdöR
+(c) 2020 - 2022 Kassenärztliche Bundesvereinigung KdöR
 
 ### Bekannte Fehler
 

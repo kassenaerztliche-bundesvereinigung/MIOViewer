@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -23,11 +23,11 @@ import { ParserUtil, MR } from "@kbv/mioparser";
 import MPBaseModel from "../MPBaseModel";
 import { ModelValue } from "../../Types";
 
-export default class OrganizationModel extends MPBaseModel<MR.V1_0_0.Profile.Organization> {
+export default class OrganizationModel extends MPBaseModel<MR.V1_1_0.Profile.Organization> {
     constructor(
-        value: MR.V1_0_0.Profile.Organization,
+        value: MR.V1_1_0.Profile.Organization,
         fullUrl: string,
-        parent: MR.V1_0_0.Profile.Bundle,
+        parent: MR.V1_1_0.Profile.Bundle,
         history?: History
     ) {
         super(value, fullUrl, parent, history);
@@ -39,8 +39,8 @@ export default class OrganizationModel extends MPBaseModel<MR.V1_0_0.Profile.Org
     protected getIdentifier(): ModelValue {
         if (this.value.identifier) {
             const iknr =
-                ParserUtil.getSlice<MR.V1_0_0.Profile.OrganizationInstitutionskennzeichen>(
-                    MR.V1_0_0.Profile.OrganizationInstitutionskennzeichen,
+                ParserUtil.getSlice<MR.V1_1_0.Profile.OrganizationInstitutionskennzeichen>(
+                    MR.V1_1_0.Profile.OrganizationInstitutionskennzeichen,
                     this.value.identifier
                 );
 
@@ -51,8 +51,8 @@ export default class OrganizationModel extends MPBaseModel<MR.V1_0_0.Profile.Org
                 };
 
             const bsnr =
-                ParserUtil.getSlice<MR.V1_0_0.Profile.OrganizationBetriebsstaettennummer>(
-                    MR.V1_0_0.Profile.OrganizationBetriebsstaettennummer,
+                ParserUtil.getSlice<MR.V1_1_0.Profile.OrganizationBetriebsstaettennummer>(
+                    MR.V1_1_0.Profile.OrganizationBetriebsstaettennummer,
                     this.value.identifier
                 );
 

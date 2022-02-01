@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -52,7 +52,7 @@ export default class PDFMaker {
             valueContent = new ZBtoPDF(value).getContent();
             style = "zaeb";
             exportHeader = "Zahnärztliches Bonusheft";
-        } else if (MR.V1_0_0.Profile.Bundle.is(value)) {
+        } else if (MR.V1_1_0.Profile.Bundle.is(value)) {
             valueContent = new MRtoPDF(value).getContent();
             style = "mr";
             exportHeader = "Mutterpass";

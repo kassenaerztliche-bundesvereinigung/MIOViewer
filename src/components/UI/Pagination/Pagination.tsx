@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -18,13 +18,14 @@
 
 import React from "react";
 import * as Icons from "react-feather";
+import SwiperClass from "swiper/types/swiper-class";
 
 import { UI } from "../../index";
 
 import "./Pagination.scss";
 
 export type PaginationProps = {
-    ionSlides: React.RefObject<HTMLIonSlidesElement>;
+    swiper?: SwiperClass;
     currentIndex: number;
     numSlides: number;
     showFirstAndLastButton?: boolean;
@@ -36,25 +37,25 @@ export default class Pagination extends React.Component<PaginationProps> {
     };
 
     protected first = (): void => {
-        this.props.ionSlides.current?.slideTo(0);
+        this.props.swiper?.slideTo(0);
     };
 
     protected last = async (): Promise<void> => {
-        const { ionSlides, numSlides } = this.props;
-        ionSlides.current?.slideTo(numSlides - 1);
+        const { swiper, numSlides } = this.props;
+        swiper?.slideTo(numSlides - 1);
     };
 
     protected prev = (): void => {
-        const { ionSlides, currentIndex } = this.props;
+        const { swiper, currentIndex } = this.props;
         if (currentIndex > 0) {
-            ionSlides.current?.slideTo(currentIndex - 1);
+            swiper?.slideTo(currentIndex - 1);
         }
     };
 
     protected next = (): void => {
-        const { ionSlides, currentIndex, numSlides } = this.props;
+        const { swiper, currentIndex, numSlides } = this.props;
         if (currentIndex < numSlides - 1) {
-            ionSlides.current?.slideTo(currentIndex + 1);
+            swiper?.slideTo(currentIndex + 1);
         }
     };
 

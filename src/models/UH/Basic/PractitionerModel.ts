@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -18,7 +18,7 @@
 
 import { History } from "history";
 
-import { ParserUtil, KBVBundleResource, CMR } from "@kbv/mioparser";
+import { ParserUtil, KBVBundleResource, CMR, Reference } from "@kbv/mioparser";
 
 import { Util } from "../../../components";
 
@@ -53,7 +53,7 @@ export default class PractitionerModel extends BaseModel<PractitionerType> {
                     onClick: Util.Misc.toEntryByRef(
                         this.history,
                         this.parent,
-                        this.fullUrl,
+                        new Reference(this.fullUrl),
                         true,
                         "qualification",
                         qualificationCoding.code

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -32,7 +32,7 @@ import Mappings from "../Mappings";
 
 type ListItemType = { header: string; testIdSuffix?: string; component: JSX.Element };
 
-class Detail extends DetailBase<MR.V1_0_0.Profile.Bundle> {
+class Detail extends DetailBase<MR.V1_1_0.Profile.Bundle> {
     protected getHeaderClass(): UI.MIOClassName {
         return "mutterpass";
     }
@@ -69,7 +69,7 @@ class Detail extends DetailBase<MR.V1_0_0.Profile.Bundle> {
         ...Mappings.Ultrasound.DiagnosticReports,
         ...Mappings.Ultrasound.Observations, // Befunde
         ...Mappings.Ultrasound.Others, // Weitere Untersuchungen
-        // Untersuchungen - Cardiotokographie
+        // Untersuchungen - Cardiotokografie
         ...Mappings.Cardiotocography,
         // Untersuchungen - Abschluss-Untersuchung/Epikrise
         ...Mappings.EpicrisisPregnancy.DischargeSummary, // Schwangerschaft
@@ -101,7 +101,7 @@ class Detail extends DetailBase<MR.V1_0_0.Profile.Bundle> {
                 match: match
             };
 
-            const bundle = mio as MR.V1_0_0.Profile.Bundle;
+            const bundle = mio as MR.V1_1_0.Profile.Bundle;
 
             let mappedResult: ListItemType | undefined = undefined;
             this.getMappings().forEach((mapping) => {
@@ -164,7 +164,7 @@ class Detail extends DetailBase<MR.V1_0_0.Profile.Bundle> {
         }
     };
 
-    protected getPatient(): MIOEntry<MR.V1_0_0.Profile.PatientMother> | undefined {
+    protected getPatient(): MIOEntry<MR.V1_1_0.Profile.PatientMother> | undefined {
         return undefined;
     }
 

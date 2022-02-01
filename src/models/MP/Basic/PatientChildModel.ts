@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -18,34 +18,33 @@
 
 import { History } from "history";
 
-import { MR } from "@kbv/mioparser";
+import { MR, Reference } from "@kbv/mioparser";
 import { Util } from "../../../components";
 
 import MPBaseModel from "../MPBaseModel";
 import { AdditionalCommentModel } from "../../Comprehensive";
 import { ModelValue } from "../../Types";
 
-export default class PatientChildModel extends MPBaseModel<MR.V1_0_0.Profile.PatientChild> {
+export default class PatientChildModel extends MPBaseModel<MR.V1_1_0.Profile.PatientChild> {
     constructor(
-        value: MR.V1_0_0.Profile.PatientChild,
+        value: MR.V1_1_0.Profile.PatientChild,
         fullUrl: string,
-        parent: MR.V1_0_0.Profile.Bundle,
+        parent: MR.V1_1_0.Profile.Bundle,
         history?: History
     ) {
         super(value, fullUrl, parent, history);
 
-        const identifier = this.getIdentifier();
-
-        this.headline = (identifier.value ? identifier.value + ". " : "") + "Kind";
+        this.headline = "Kind"; // (identifier.value ? identifier.value + ". " : "") + "Kind";
         this.values = [
-            {
-                value: Util.Misc.formatDate(this.value.birthDate),
-                label: "Geburtsdatum"
-            },
             {
                 value: this.value.gender ? this.translateGender(this.value.gender) : "-",
                 label: "Geschlecht"
             },
+            {
+                value: Util.Misc.formatDate(this.value.birthDate),
+                label: "Geburtsdatum"
+            },
+            this.getIdentifier(),
             this.getDeceased()
         ];
 
@@ -75,14 +74,12 @@ export default class PatientChildModel extends MPBaseModel<MR.V1_0_0.Profile.Pat
 
     public getIdentifier(): ModelValue {
         const identifier: string = this.value.identifier
-            .map((i) => {
-                return i.extension?.map((e) => e.valueInteger?.toString()).join(", ");
-            })
+            .map((pid) => pid.value)
             .join(", ");
 
         return {
             value: identifier,
-            label: "Identifier"
+            label: "Patientenidentifikationsnummer (PID)"
         };
     }
 
@@ -91,9 +88,7 @@ export default class PatientChildModel extends MPBaseModel<MR.V1_0_0.Profile.Pat
     }
 
     public getMainValue(): ModelValue {
-        const identifier = this.value.identifier.map((i) => {
-            return i.extension?.map((e) => e.valueInteger);
-        });
+        const identifier = this.getIdentifier().value;
 
         return {
             value: Util.Misc.formatDate(this.value.birthDate),
@@ -101,7 +96,7 @@ export default class PatientChildModel extends MPBaseModel<MR.V1_0_0.Profile.Pat
             onClick: Util.Misc.toEntryByRef(
                 this.history,
                 this.parent,
-                this.value.id,
+                new Reference(this.fullUrl),
                 true
             )
         };

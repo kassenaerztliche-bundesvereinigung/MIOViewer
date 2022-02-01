@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -25,11 +25,11 @@ import { EncounterModel } from "./Basic";
 import * as Models from "../index";
 import { ModelValue } from "../index";
 
-export default class EncounterGeneralModel extends EncounterModel<MR.V1_0_0.Profile.EncounterGeneral> {
+export default class EncounterGeneralModel extends EncounterModel<MR.V1_1_0.Profile.EncounterGeneral> {
     constructor(
-        value: MR.V1_0_0.Profile.EncounterGeneral,
+        value: MR.V1_1_0.Profile.EncounterGeneral,
         fullUrl: string,
-        parent: MR.V1_0_0.Profile.Bundle,
+        parent: MR.V1_1_0.Profile.Bundle,
         history?: History,
         customLabel = "Untersucht am"
     ) {

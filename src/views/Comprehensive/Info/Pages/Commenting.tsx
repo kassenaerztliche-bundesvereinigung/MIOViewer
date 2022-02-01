@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -30,6 +30,7 @@ class Commenting extends React.Component<RouteComponentProps> {
                 headline={"MIO Kommentierung"}
                 back={() => history.goBack()}
                 id={"commenting"}
+                className={"info-page"}
             >
                 <div className={"page-padded"}>
                     <p>

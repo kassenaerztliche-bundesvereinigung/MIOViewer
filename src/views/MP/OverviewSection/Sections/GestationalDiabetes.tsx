@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -16,14 +16,14 @@
  * along with MIO Viewer. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { MR, ParserUtil } from "@kbv/mioparser";
+import { MR, ParserUtil, Reference } from "@kbv/mioparser";
 
 import { UI, Util } from "../../../../components";
 import * as Models from "../../../../models";
 
 import Section, { SectionProps } from "../Section";
 
-export default class GestationalDiabetes extends Section<MR.V1_0_0.Profile.CompositionBesondereBefundeSection> {
+export default class GestationalDiabetes extends Section<MR.V1_1_0.Profile.CompositionBesondereBefundeSection> {
     constructor(props: SectionProps) {
         super(props);
 
@@ -33,8 +33,8 @@ export default class GestationalDiabetes extends Section<MR.V1_0_0.Profile.Compo
         };
 
         this.section = this.getSection([
-            MR.V1_0_0.Profile.CompositionBesondereBefunde,
-            MR.V1_0_0.Profile.CompositionBesondereBefundeSection
+            MR.V1_1_0.Profile.CompositionBesondereBefunde,
+            MR.V1_1_0.Profile.CompositionBesondereBefundeSection
         ]);
     }
 
@@ -53,7 +53,7 @@ export default class GestationalDiabetes extends Section<MR.V1_0_0.Profile.Compo
     }
 
     protected getListGroups(): UI.DetailList.Props[] {
-        const { mio, history } = this.props;
+        const { mio, history, composition } = this.props;
 
         const items: UI.ListItem.Props[] = [];
 
@@ -61,15 +61,15 @@ export default class GestationalDiabetes extends Section<MR.V1_0_0.Profile.Compo
             const ref = entry.reference;
 
             const resTests = ParserUtil.getEntryWithRef<
-                | MR.V1_0_0.Profile.ObservationoGTTPretest
-                | MR.V1_0_0.Profile.ObservationoGTTDiagnosistest
+                | MR.V1_1_0.Profile.ObservationoGTTPretest
+                | MR.V1_1_0.Profile.ObservationoGTTDiagnosistest
             >(
                 mio,
                 [
-                    MR.V1_0_0.Profile.ObservationoGTTPretest,
-                    MR.V1_0_0.Profile.ObservationoGTTDiagnosistest
+                    MR.V1_1_0.Profile.ObservationoGTTPretest,
+                    MR.V1_1_0.Profile.ObservationoGTTDiagnosistest
                 ],
-                ref
+                new Reference(ref, composition.fullUrl)
             );
 
             if (resTests) {
@@ -83,7 +83,12 @@ export default class GestationalDiabetes extends Section<MR.V1_0_0.Profile.Compo
                 items.push({
                     value: mainValue.value,
                     label: mainValue.label,
-                    onClick: Util.Misc.toEntryByRef(history, mio, ref, true)
+                    onClick: Util.Misc.toEntryByRef(
+                        history,
+                        mio,
+                        new Reference(ref, composition.fullUrl),
+                        true
+                    )
                 });
             }
         });

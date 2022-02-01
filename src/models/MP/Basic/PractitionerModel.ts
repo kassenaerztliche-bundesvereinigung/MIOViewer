@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -25,11 +25,11 @@ import { Util } from "../../../components";
 import MPBaseModel from "../MPBaseModel";
 import { ModelValue } from "../../Types";
 
-export default class PractitionerModel extends MPBaseModel<MR.V1_0_0.Profile.Practitioner> {
+export default class PractitionerModel extends MPBaseModel<MR.V1_1_0.Profile.Practitioner> {
     constructor(
-        value: MR.V1_0_0.Profile.Practitioner,
+        value: MR.V1_1_0.Profile.Practitioner,
         fullUrl: string,
-        parent: MR.V1_0_0.Profile.Bundle,
+        parent: MR.V1_1_0.Profile.Bundle,
         history?: History
     ) {
         super(value, fullUrl, parent, history);
@@ -47,18 +47,18 @@ export default class PractitionerModel extends MPBaseModel<MR.V1_0_0.Profile.Pra
     protected getQualification(): string {
         return Util.Misc.getQualification(
             this.value.qualification,
-            [MR.V1_0_0.ConceptMap.PractitionerFunctionGerman],
+            [MR.V1_1_0.ConceptMap.PractitionerFunctionGerman],
             [
-                MR.V1_0_0.ValueSet.IHEXDSAuthorSpecialityRestrictedValueSet,
-                MR.V1_0_0.ValueSet.PractitionerFunctionAddendumValueSet
+                MR.V1_1_0.ValueSet.IHEXDSAuthorSpecialityRestrictedValueSet,
+                MR.V1_1_0.ValueSet.PractitionerFunctionAddendumValueSet
             ]
         );
     }
 
     protected getIdentifier(): ModelValue {
         if (this.value.identifier) {
-            const ANR = ParserUtil.getSlice<MR.V1_0_0.Profile.PractitionerANR>(
-                MR.V1_0_0.Profile.PractitionerANR,
+            const ANR = ParserUtil.getSlice<MR.V1_1_0.Profile.PractitionerANR>(
+                MR.V1_1_0.Profile.PractitionerANR,
                 this.value.identifier
             );
 
@@ -68,8 +68,8 @@ export default class PractitionerModel extends MPBaseModel<MR.V1_0_0.Profile.Pra
                     label: "Lebenslange Arztnummer (LANR)"
                 };
 
-            const EFN = ParserUtil.getSlice<MR.V1_0_0.Profile.PractitionerEFN>(
-                MR.V1_0_0.Profile.PractitionerEFN,
+            const EFN = ParserUtil.getSlice<MR.V1_1_0.Profile.PractitionerEFN>(
+                MR.V1_1_0.Profile.PractitionerEFN,
                 this.value.identifier
             );
 
@@ -79,8 +79,8 @@ export default class PractitionerModel extends MPBaseModel<MR.V1_0_0.Profile.Pra
                     label: "Einheitliche Fortbildungsnummer (EFN)"
                 };
 
-            const IK = ParserUtil.getSlice<MR.V1_0_0.Profile.PractitionerHebammenIK>(
-                MR.V1_0_0.Profile.PractitionerHebammenIK,
+            const IK = ParserUtil.getSlice<MR.V1_1_0.Profile.PractitionerHebammenIK>(
+                MR.V1_1_0.Profile.PractitionerHebammenIK,
                 this.value.identifier
             );
 

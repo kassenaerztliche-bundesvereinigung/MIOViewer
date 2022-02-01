@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -16,13 +16,13 @@
  * along with MIO Viewer. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { MR, ParserUtil } from "@kbv/mioparser";
+import { MR, ParserUtil, Reference } from "@kbv/mioparser";
 
 import { UI, Util } from "../../../../components";
 
 import Section, { SectionProps } from "../Section";
 
-export default class Cardiotocography extends Section<MR.V1_0_0.Profile.CompositionUntersuchungenCardiotokographie> {
+export default class Cardiotocography extends Section<MR.V1_1_0.Profile.CompositionUntersuchungenCardiotokografie> {
     constructor(props: SectionProps) {
         super(props);
         this.state = {
@@ -31,8 +31,8 @@ export default class Cardiotocography extends Section<MR.V1_0_0.Profile.Composit
         };
 
         this.section = this.getSection([
-            MR.V1_0_0.Profile.CompositionUntersuchungen,
-            MR.V1_0_0.Profile.CompositionUntersuchungenCardiotokographie
+            MR.V1_1_0.Profile.CompositionUntersuchungen,
+            MR.V1_1_0.Profile.CompositionUntersuchungenCardiotokografie
         ]);
     }
 
@@ -41,22 +41,26 @@ export default class Cardiotocography extends Section<MR.V1_0_0.Profile.Composit
     }
 
     protected getListGroups(): UI.DetailList.Props[] {
-        const { mio, history } = this.props;
+        const { mio, history, composition } = this.props;
 
         const items: UI.ListItem.Props[] = [];
         this.section?.entry.forEach((entry) => {
             const ref = entry.reference;
             const res =
-                ParserUtil.getEntryWithRef<MR.V1_0_0.Profile.ObservationCardiotocography>(
+                ParserUtil.getEntryWithRef<MR.V1_1_0.Profile.ObservationCardiotocography>(
                     mio,
-                    [MR.V1_0_0.Profile.ObservationCardiotocography],
-                    ref
+                    [MR.V1_1_0.Profile.ObservationCardiotocography],
+                    new Reference(ref, composition.fullUrl)
                 )?.resource;
 
             if (res) {
                 items.push({
                     label: Util.Misc.formatDate(res.effectiveDateTime),
-                    onClick: Util.Misc.toEntryByRef(history, mio, ref)
+                    onClick: Util.Misc.toEntryByRef(
+                        history,
+                        mio,
+                        new Reference(ref, composition.fullUrl)
+                    )
                 });
             }
         });

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -18,17 +18,17 @@
 
 import { History } from "history";
 
-import { ParserUtil, MR } from "@kbv/mioparser";
+import { ParserUtil, MR, Reference } from "@kbv/mioparser";
 import { Util } from "../../components";
 
 import MPBaseModel from "./MPBaseModel";
 import { ModelValue } from "../Types";
 
-export default class EncounterArrivalMaternityHospitalModel extends MPBaseModel<MR.V1_0_0.Profile.EncounterArrivalMaternityHospital> {
+export default class EncounterArrivalMaternityHospitalModel extends MPBaseModel<MR.V1_1_0.Profile.EncounterArrivalMaternityHospital> {
     constructor(
-        value: MR.V1_0_0.Profile.EncounterArrivalMaternityHospital,
+        value: MR.V1_1_0.Profile.EncounterArrivalMaternityHospital,
         fullUrl: string,
-        parent: MR.V1_0_0.Profile.Bundle,
+        parent: MR.V1_1_0.Profile.Bundle,
         history?: History
     ) {
         super(value, fullUrl, parent, history);
@@ -36,24 +36,29 @@ export default class EncounterArrivalMaternityHospitalModel extends MPBaseModel<
         this.headline = "Vorstellung in einer Entbindungsklinik";
 
         const subjectRef = this.value.subject.reference;
-        const patient = ParserUtil.getEntryWithRef<MR.V1_0_0.Profile.PatientMother>(
+        const patient = ParserUtil.getEntryWithRef<MR.V1_1_0.Profile.PatientMother>(
             this.parent,
-            [MR.V1_0_0.Profile.PatientMother],
-            subjectRef
+            [MR.V1_1_0.Profile.PatientMother],
+            new Reference(subjectRef, this.fullUrl)
         );
 
         const providerRef = this.value.serviceProvider.reference;
-        const provider = ParserUtil.getEntryWithRef<MR.V1_0_0.Profile.Organization>(
+        const provider = ParserUtil.getEntryWithRef<MR.V1_1_0.Profile.Organization>(
             this.parent,
-            [MR.V1_0_0.Profile.Organization],
-            providerRef
+            [MR.V1_1_0.Profile.Organization],
+            new Reference(providerRef, this.fullUrl)
         );
 
         this.values = [
             {
                 value: patient ? Util.MP.getPatientMotherName(patient.resource) : "-",
                 label: "Patient/-in",
-                onClick: Util.Misc.toEntryByRef(history, parent, subjectRef, true)
+                onClick: Util.Misc.toEntryByRef(
+                    history,
+                    parent,
+                    new Reference(subjectRef, this.fullUrl),
+                    true
+                )
             },
             {
                 value: Util.Misc.formatDate(this.value.period.start),
@@ -62,7 +67,12 @@ export default class EncounterArrivalMaternityHospitalModel extends MPBaseModel<
             {
                 value: provider && provider.resource.name ? provider.resource.name : "-",
                 label: "Einrichtung",
-                onClick: Util.Misc.toEntryByRef(history, parent, providerRef, true)
+                onClick: Util.Misc.toEntryByRef(
+                    history,
+                    parent,
+                    new Reference(providerRef, this.fullUrl),
+                    true
+                )
             }
         ];
     }

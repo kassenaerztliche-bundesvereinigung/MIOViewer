@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -18,7 +18,7 @@
 
 import React from "react";
 import { RouteComponentProps } from "react-router";
-import { MR, ParserUtil, AnyType } from "@kbv/mioparser";
+import { MR, ParserUtil, AnyType, MIOEntry } from "@kbv/mioparser";
 
 import { UI } from "../../../components";
 
@@ -27,10 +27,11 @@ export enum Sections {
     ErsteVorsorgeUntersuchung = "Erste Vorsorge-Untersuchung",
     Ultraschall = "Ultraschall",
     Epikrise = "Epikrise",
+    ErsteUntersuchungNachEntbindung = "Erste Untersuchung nach Entbindung (Wochenbett)",
     KatalogB = "Katalog B",
     Gestationsdiabetes = "Gestationsdiabetes",
     Gravidogramm = "Gravidogramm",
-    Cardiotokographie = "Cardiotokographie",
+    Cardiotokografie = "Cardiotokografie",
     Laboruntersuchungen = "Laboruntersuchungen und Rötelnschutz",
     AngabenZumKindGeburt = "Angaben zum Kind Geburt",
     AngabenZumKindWochenbett = "Angaben zum Kind Wochenbett",
@@ -38,8 +39,8 @@ export enum Sections {
 }
 
 export type SectionProps = {
-    mio: MR.V1_0_0.Profile.Bundle;
-    composition: MR.V1_0_0.Profile.Composition;
+    mio: MR.V1_1_0.Profile.Bundle;
+    composition: MIOEntry<MR.V1_1_0.Profile.Composition>;
     id: string;
     devMode: boolean;
 } & RouteComponentProps;
@@ -68,7 +69,7 @@ export default abstract class Section<T> extends React.Component<
 
     getSection(sectionStack: AnyType[]): T | undefined {
         let result = undefined;
-        let section = this.props.composition;
+        let section = this.props.composition.resource;
         sectionStack.forEach(
             (s) => (section = ParserUtil.getSlice<any>(s, section.section)) // eslint-disable-line
         );

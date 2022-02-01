@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -19,7 +19,7 @@
 import React from "react";
 import { RouteComponentProps } from "react-router";
 
-import { ParserUtil, CMR } from "@kbv/mioparser";
+import { ParserUtil, CMR, Reference } from "@kbv/mioparser";
 
 import { UI, Util } from "../../../../components/";
 import Mappings from "../../Mappings";
@@ -70,7 +70,7 @@ export default class OverviewU extends React.Component<OverviewProps> {
         const composition = Util.UH.getUComposition(mio);
 
         if (composition) {
-            this.composition = Util.UH.getUComposition(mio)?.resource;
+            this.composition = composition.resource;
 
             this.composition?.section?.forEach(
                 (section: {
@@ -94,7 +94,11 @@ export default class OverviewU extends React.Component<OverviewProps> {
                             for (const mapping of Mappings.All) {
                                 const entry = ParserUtil.getEntryWithRef<
                                     typeof mapping.profile
-                                >(mio, [mapping.profile], ref.reference);
+                                >(
+                                    mio,
+                                    [mapping.profile],
+                                    new Reference(ref.reference, composition.fullUrl)
+                                );
 
                                 if (entry) {
                                     const model = Mappings.modelFromMapping(
@@ -129,7 +133,11 @@ export default class OverviewU extends React.Component<OverviewProps> {
                                     for (const mapping of Mappings.All) {
                                         const entry = ParserUtil.getEntryWithRef<
                                             typeof mapping.profile
-                                        >(mio, [mapping.profile], ref);
+                                        >(
+                                            mio,
+                                            [mapping.profile],
+                                            new Reference(ref, composition.fullUrl)
+                                        );
 
                                         if (entry) {
                                             const model = Mappings.modelFromMapping(

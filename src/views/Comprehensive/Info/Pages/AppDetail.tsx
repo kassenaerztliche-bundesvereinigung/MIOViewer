@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -40,7 +40,7 @@ class AppDetail extends React.Component<RouteComponentProps> {
             },
             {
                 label: "Copyright",
-                value: "© 2020 - 2021 KASSENÄRZTLICHE BUNDESVEREINIGUNG (KBV)"
+                value: "© 2020 - 2022 KASSENÄRZTLICHE BUNDESVEREINIGUNG (KBV)"
             },
             {
                 label: "MIO-Support",
@@ -54,6 +54,7 @@ class AppDetail extends React.Component<RouteComponentProps> {
                 padding={false}
                 back={() => history.goBack()}
                 id={"app-detail"}
+                className={"info-page"}
             >
                 <UI.DetailList.StickyHeader className={"detail-list"}>
                     <div className={"ion-padding-bottom"}>

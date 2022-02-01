@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -16,14 +16,14 @@
  * along with MIO Viewer. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { MR, ParserUtil } from "@kbv/mioparser";
+import { MR, ParserUtil, Reference } from "@kbv/mioparser";
 
 import { UI, Util } from "../../../../components";
 import * as Models from "../../../../models";
 
 import Section, { SectionProps } from "../Section";
 
-export default class SpecialFindings extends Section<MR.V1_0_0.Profile.CompositionBesondereBefunde> {
+export default class SpecialFindings extends Section<MR.V1_1_0.Profile.CompositionBesondereBefunde> {
     constructor(props: SectionProps) {
         super(props);
         this.state = {
@@ -31,7 +31,7 @@ export default class SpecialFindings extends Section<MR.V1_0_0.Profile.Compositi
             listGroups: []
         };
 
-        this.section = this.getSection([MR.V1_0_0.Profile.CompositionBesondereBefunde]);
+        this.section = this.getSection([MR.V1_1_0.Profile.CompositionBesondereBefunde]);
     }
 
     protected getDetails(): JSX.Element[] {
@@ -39,16 +39,16 @@ export default class SpecialFindings extends Section<MR.V1_0_0.Profile.Compositi
     }
 
     protected getListGroups(): UI.DetailList.Props[] {
-        const { mio, history } = this.props;
+        const { mio, history, composition } = this.props;
 
         const items: UI.ListItem.Props[] = [];
         this.section?.entry?.forEach((entry) => {
             const ref = entry.reference;
             const res =
-                ParserUtil.getEntryWithRef<MR.V1_0_0.Profile.ObservationSpecialFindings>(
+                ParserUtil.getEntryWithRef<MR.V1_1_0.Profile.ObservationSpecialFindings>(
                     mio,
-                    [MR.V1_0_0.Profile.ObservationSpecialFindings],
-                    ref
+                    [MR.V1_1_0.Profile.ObservationSpecialFindings],
+                    new Reference(ref, composition.fullUrl)
                 );
 
             if (res) {
@@ -57,13 +57,18 @@ export default class SpecialFindings extends Section<MR.V1_0_0.Profile.Compositi
                     res.fullUrl,
                     mio,
                     history,
-                    [MR.V1_0_0.ConceptMap.SpecialFindingsGerman]
+                    [MR.V1_1_0.ConceptMap.SpecialFindingsGerman]
                 );
                 const mainValue = model.getMainValue();
                 items.push({
                     value: mainValue.value,
                     label: Util.Misc.formatDate(res.resource.effectiveDateTime),
-                    onClick: Util.Misc.toEntryByRef(history, mio, ref, true)
+                    onClick: Util.Misc.toEntryByRef(
+                        history,
+                        mio,
+                        new Reference(ref, res.fullUrl),
+                        true
+                    )
                 });
             }
         });

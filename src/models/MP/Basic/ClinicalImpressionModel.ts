@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -18,7 +18,7 @@
 
 import { History } from "history";
 
-import { ParserUtil, MR } from "@kbv/mioparser";
+import { ParserUtil, MR, Reference } from "@kbv/mioparser";
 import { Util } from "../../../components";
 
 import MPBaseModel from "../MPBaseModel";
@@ -28,19 +28,20 @@ import * as Models from "../../index";
 import { ModelValue } from "../../index";
 
 export type ClinicalImpressionType =
-    | MR.V1_0_0.Profile.ClinicalImpressionInitialExamination
-    | MR.V1_0_0.Profile.ClinicalImpressionPregnancyChartEntry
-    | MR.V1_0_0.Profile.ClinicalImpressionPregnancyExaminationDischargeSummary
-    | MR.V1_0_0.Profile.ClinicalImpressionBirthExaminationDeliveryInformation
-    | MR.V1_0_0.Profile.ClinicalImpressionFirstExaminationAfterChildbirth
-    | MR.V1_0_0.Profile.ClinicalImpressionSecondExaminationAfterChildbirth
-    | MR.V1_0_0.Profile.ClinicalImpressionBirthExaminationChildInformation;
+    | MR.V1_1_0.Profile.ClinicalImpressionInitialExamination
+    | MR.V1_1_0.Profile.ClinicalImpressionPregnancyChartEntry
+    | MR.V1_1_0.Profile.ClinicalImpressionPregnancyExaminationDischargeSummary
+    | MR.V1_1_0.Profile.ClinicalImpressionBirthExaminationDeliveryInformation
+    | MR.V1_1_0.Profile.ClinicalImpressionFirstExaminationAfterChildbirthMother
+    | MR.V1_1_0.Profile.ClinicalImpressionFirstExaminationAfterChildbirthChild
+    | MR.V1_1_0.Profile.ClinicalImpressionSecondExaminationAfterChildbirth
+    | MR.V1_1_0.Profile.ClinicalImpressionBirthExaminationChildInformation;
 
 export default class ClinicalImpressionModel extends MPBaseModel<ClinicalImpressionType> {
     constructor(
         value: ClinicalImpressionType,
         fullUrl: string,
-        parent: MR.V1_0_0.Profile.Bundle,
+        parent: MR.V1_1_0.Profile.Bundle,
         history?: History,
         protected valueConceptMap: ParserUtil.ConceptMap[] | undefined = undefined,
         protected codeConceptMap: ParserUtil.ConceptMap[] | undefined = undefined,
@@ -51,17 +52,31 @@ export default class ClinicalImpressionModel extends MPBaseModel<ClinicalImpress
         this.headline =
             customHeadline ?? Util.Misc.formatDate(this.value.effectiveDateTime);
 
-        if (MR.V1_0_0.Profile.ClinicalImpressionPregnancyChartEntry.is(this.value)) {
+        if (MR.V1_1_0.Profile.ClinicalImpressionPregnancyChartEntry.is(this.value)) {
             this.headline = this.getMainValue().value;
+        } else if (
+            MR.V1_1_0.Profile.ClinicalImpressionFirstExaminationAfterChildbirthMother.is(
+                this.value
+            )
+        ) {
+            this.headline = "Angaben zur Mutter";
+        } else if (
+            MR.V1_1_0.Profile.ClinicalImpressionFirstExaminationAfterChildbirthChild.is(
+                this.value
+            )
+        ) {
+            this.headline = "Angaben zum Kind";
         } else {
             this.noHeadline = !customHeadline;
         }
 
         const subjectRef = this.value.subject.reference;
-        const patient = ParserUtil.getEntryWithRef<MR.V1_0_0.Profile.PatientMother>(
+        const patient = ParserUtil.getEntryWithRef<
+            MR.V1_1_0.Profile.PatientMother | MR.V1_1_0.Profile.PatientChild
+        >(
             this.parent,
-            [MR.V1_0_0.Profile.PatientMother],
-            subjectRef
+            [MR.V1_1_0.Profile.PatientMother, MR.V1_1_0.Profile.PatientChild],
+            new Reference(subjectRef, this.fullUrl)
         );
 
         const assessorRef = this.value.assessor?.reference;
@@ -69,10 +84,10 @@ export default class ClinicalImpressionModel extends MPBaseModel<ClinicalImpress
         let toAssessorEntry = undefined;
         if (assessorRef) {
             // There is only one (0..1)
-            const assessor = ParserUtil.getEntryWithRef<MR.V1_0_0.Profile.Practitioner>(
+            const assessor = ParserUtil.getEntryWithRef<MR.V1_1_0.Profile.Practitioner>(
                 this.parent,
-                [MR.V1_0_0.Profile.Practitioner],
-                assessorRef
+                [MR.V1_1_0.Profile.Practitioner],
+                new Reference(assessorRef, this.fullUrl)
             );
 
             toAssessorEntry = Util.Misc.toEntry(history, parent, assessor, true);
@@ -80,20 +95,27 @@ export default class ClinicalImpressionModel extends MPBaseModel<ClinicalImpress
         }
 
         const encounterRef = this.value.encounter.reference;
-        const encounter = ParserUtil.getEntryWithRef<MR.V1_0_0.Profile.EncounterGeneral>(
+        const encounter = ParserUtil.getEntryWithRef<MR.V1_1_0.Profile.EncounterGeneral>(
             this.parent,
-            [MR.V1_0_0.Profile.EncounterGeneral],
-            encounterRef
+            [MR.V1_1_0.Profile.EncounterGeneral],
+            new Reference(encounterRef, this.fullUrl)
         );
         const toEncounterEntry = Util.Misc.toEntry(history, parent, encounter, true);
 
         this.values = [];
-
         this.values.push(
+            ...this.getExtension(),
             {
-                value: patient ? Util.MP.getPatientMotherName(patient.resource) : "-",
-                label: "Patient/-in",
-                onClick: Util.Misc.toEntryByRef(history, parent, subjectRef, true)
+                value: patient ? Util.MP.getPatientName(patient.resource) : "-",
+                label: MR.V1_1_0.Profile.PatientChild.is(patient?.resource)
+                    ? "Kind"
+                    : "Patient/-in",
+                onClick: Util.Misc.toEntryByRef(
+                    history,
+                    parent,
+                    new Reference(subjectRef, this.fullUrl),
+                    true
+                )
             },
             {
                 value: encounter
@@ -110,23 +132,38 @@ export default class ClinicalImpressionModel extends MPBaseModel<ClinicalImpress
                 value: assessorName,
                 label: "Dokumentiert durch",
                 onClick: toAssessorEntry
-            },
-            {
-                value: Util.MP.getPregnancyWeekValue(this.value).value,
-                label: "Schwangerschaftswoche"
             }
         );
+
+        const pregnancyWeek = Util.MP.getPregnancyWeekValue(this.value).value;
+        if (
+            MR.V1_1_0.Profile.ClinicalImpressionPregnancyChartEntry.is(this.value) ||
+            MR.V1_1_0.Profile.ClinicalImpressionPregnancyExaminationDischargeSummary.is(
+                this.value
+            ) ||
+            MR.V1_1_0.Profile.ClinicalImpressionBirthExaminationDeliveryInformation.is(
+                this.value
+            )
+        ) {
+            this.values.push({
+                value: pregnancyWeek,
+                label: "Schwangerschaftswoche"
+            });
+        }
 
         const note = this.getNote();
 
         if (
-            MR.V1_0_0.Profile.ClinicalImpressionBirthExaminationDeliveryInformation.is(
+            MR.V1_1_0.Profile.ClinicalImpressionBirthExaminationDeliveryInformation.is(
                 value
             ) ||
-            MR.V1_0_0.Profile.ClinicalImpressionFirstExaminationAfterChildbirth.is(
+            MR.V1_1_0.Profile.ClinicalImpressionFirstExaminationAfterChildbirthMother.is(
                 value
             ) ||
-            MR.V1_0_0.Profile.ClinicalImpressionSecondExaminationAfterChildbirth.is(value)
+            MR.V1_1_0.Profile.ClinicalImpressionFirstExaminationAfterChildbirthChild.is(
+                value
+            ) ||
+            MR.V1_1_0.Profile.ClinicalImpressionSecondExaminationAfterChildbirth.is(value)
         ) {
             if (note) {
                 this.values.push({
@@ -139,7 +176,7 @@ export default class ClinicalImpressionModel extends MPBaseModel<ClinicalImpress
         }
 
         if (
-            MR.V1_0_0.Profile.ClinicalImpressionBirthExaminationDeliveryInformation.is(
+            MR.V1_1_0.Profile.ClinicalImpressionBirthExaminationDeliveryInformation.is(
                 value
             )
         ) {
@@ -155,13 +192,50 @@ export default class ClinicalImpressionModel extends MPBaseModel<ClinicalImpress
         }
     }
 
+    public getExtension(): ModelValue[] {
+        if (
+            MR.V1_1_0.Profile.ClinicalImpressionFirstExaminationAfterChildbirthChild.is(
+                this.value
+            )
+        ) {
+            const extension = this.value.extension;
+            if (extension && extension.length) {
+                const result: ModelValue[] = [];
+                extension.forEach((e) => {
+                    return e.extension?.map((e2) => {
+                        let value = "-";
+                        let label = "-";
+
+                        e2.extension?.forEach((e3: any) => {
+                            if (e3.url === "datum") {
+                                value = Util.Misc.formatDate(e3.valueDateTime);
+                            } else if (e3.url === "kode") {
+                                label = Util.FHIR.getCoding({
+                                    code: e3.valueCodeableConcept
+                                });
+                            }
+                        });
+
+                        result.push({
+                            value,
+                            label
+                        });
+                    });
+                });
+
+                return result;
+            }
+        }
+        return [];
+    }
+
     public getCoding(resource?: { code?: Util.FHIR.Code }): string {
         if (!resource) resource = this.value;
         return getCoding(resource, this.codeConceptMap);
     }
 
     public getMainValue(): ModelValue {
-        if (MR.V1_0_0.Profile.ClinicalImpressionPregnancyChartEntry.is(this.value)) {
+        if (MR.V1_1_0.Profile.ClinicalImpressionPregnancyChartEntry.is(this.value)) {
             const identifier =
                 this.value.identifier && this.value.identifier.length
                     ? this.value.identifier
@@ -175,7 +249,7 @@ export default class ClinicalImpressionModel extends MPBaseModel<ClinicalImpress
                 onClick: Util.Misc.toEntryByRef(
                     this.history,
                     this.parent,
-                    this.value.id,
+                    new Reference(this.fullUrl),
                     true
                 )
             };
@@ -186,7 +260,7 @@ export default class ClinicalImpressionModel extends MPBaseModel<ClinicalImpress
                 onClick: Util.Misc.toEntryByRef(
                     this.history,
                     this.parent,
-                    this.value.id,
+                    new Reference(this.fullUrl),
                     true
                 )
             };

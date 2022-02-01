@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -27,7 +27,7 @@ import { ModelValue } from "../Types";
 export type PatientType =
     | Vaccination.V1_1_0.Profile.Patient
     | ZAEB.V1_1_0.Profile.Patient
-    | MR.V1_0_0.Profile.PatientMother
+    | MR.V1_1_0.Profile.PatientMother
     | CMR.V1_0_1.Profile.CMRPatient;
 
 export default class PatientSimpleModel extends BaseModel<PatientType> {

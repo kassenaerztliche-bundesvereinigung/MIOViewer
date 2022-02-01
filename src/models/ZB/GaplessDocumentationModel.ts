@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -18,7 +18,7 @@
 
 import { History } from "history";
 
-import { ParserUtil, KBVBundleResource, ZAEB } from "@kbv/mioparser";
+import { ParserUtil, KBVBundleResource, ZAEB, Reference } from "@kbv/mioparser";
 import { Util, UI } from "../../components";
 
 import { AddressModel, BaseModel, ModelValue, TelecomModel } from "../";
@@ -44,7 +44,7 @@ export default class GaplessDocumentationModel extends BaseModel<ZAEB.V1_1_0.Pro
 
         const organization = Util.ZB.getOrganization(
             this.parent as ZAEB.V1_1_0.Profile.Bundle,
-            authorRef
+            new Reference(authorRef, this.fullUrl)
         );
 
         const disclaimer =

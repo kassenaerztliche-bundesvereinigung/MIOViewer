@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -18,7 +18,7 @@
 
 import { History } from "history";
 
-import { ParserUtil, CMR } from "@kbv/mioparser";
+import { ParserUtil, CMR, Reference } from "@kbv/mioparser";
 import { Util } from "../../../components";
 
 import BaseModel from "./CMRBaseModel";
@@ -102,29 +102,38 @@ export default class DiagnosticReportModel extends BaseModel<DiagnosticReportTyp
 
         const patientRef = this.value.subject.reference;
         const encounterRef = this.value.encounter.reference;
-        const performerRefs = this.value.performer?.map(
-            (performer) => performer.reference
-        );
+        const performerRefs: string[] =
+            this.value.performer?.map((performer) => performer.reference) ?? [];
 
         this.values = [
             ...this.getResults(),
-            Util.UH.getPatientModelValue(patientRef, parent, history),
-            Util.UH.getEncounterModelValue(encounterRef, parent, history),
+            Util.UH.getPatientModelValue(
+                new Reference(patientRef, this.fullUrl),
+                parent,
+                history
+            ),
+            Util.UH.getEncounterModelValue(
+                new Reference(encounterRef, this.fullUrl),
+                parent,
+                history
+            ),
             {
                 value: Util.Misc.formatDate(this.value.effectiveDateTime),
                 label: "Durchgeführt am"
             },
-            ...Util.UH.getPerformerModelValues(performerRefs, parent, history).map(
-                (v) => {
-                    v.subModels = [
-                        OrganizationModel,
-                        AddressModel,
-                        TelecomModel,
-                        AdditionalCommentModel
-                    ];
-                    return v;
-                }
-            )
+            ...Util.UH.getPerformerModelValues(
+                performerRefs.map((r) => new Reference(r, this.fullUrl)),
+                parent,
+                history
+            ).map((v) => {
+                v.subModels = [
+                    OrganizationModel,
+                    AddressModel,
+                    TelecomModel,
+                    AdditionalCommentModel
+                ];
+                return v;
+            })
         ];
     }
 
@@ -281,7 +290,7 @@ export default class DiagnosticReportModel extends BaseModel<DiagnosticReportTyp
                     // U9
                     PR.CMRObservationU9PhysicalExamAbdomenGenitals
                 ],
-                ref
+                new Reference(ref, this.fullUrl)
             );
 
             if (entry) {
@@ -310,7 +319,11 @@ export default class DiagnosticReportModel extends BaseModel<DiagnosticReportTyp
         return {
             value: this.getCoding(), // .replace(/:$/, ""),
             label: Util.Misc.formatDate(this.value.effectiveDateTime),
-            onClick: Util.Misc.toEntryByRef(this.history, this.parent, this.fullUrl),
+            onClick: Util.Misc.toEntryByRef(
+                this.history,
+                this.parent,
+                new Reference(this.fullUrl)
+            ),
             sortBy: new Date(this.value.effectiveDateTime).getTime().toString()
         };
     }

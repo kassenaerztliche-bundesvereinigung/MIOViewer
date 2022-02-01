@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -26,7 +26,7 @@ import { ModelValue } from "./Types";
 import { UI } from "../components";
 
 export default abstract class BaseModel<
-    T extends KBVResource | CMR.V1_0_1.Profile.CMROrganizationScreeningLaboratoryContact // TODO: remove is now a KBVResource?
+    T extends KBVResource | CMR.V1_0_1.Profile.CMROrganizationScreeningLaboratoryContact
 > {
     protected headline = "";
     protected noHeadline = false;

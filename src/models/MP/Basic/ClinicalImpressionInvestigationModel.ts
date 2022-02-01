@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -18,7 +18,7 @@
 
 import { History } from "history";
 
-import { ParserUtil, MIOEntry, MR } from "@kbv/mioparser";
+import { ParserUtil, MIOEntry, MR, Reference } from "@kbv/mioparser";
 
 import { Util } from "../../../components";
 
@@ -28,49 +28,47 @@ import { DetailMapping } from "../../../views/Comprehensive/Detail/Types";
 import { Content } from "pdfmake/interfaces";
 import { ModelValue } from "../../index";
 
-const PR = MR.V1_0_0.Profile;
-const CM = MR.V1_0_0.ConceptMap;
+const PR = MR.V1_1_0.Profile;
+const CM = MR.V1_1_0.ConceptMap;
 
 export type ClinicalImpressionInvestigationType =
-    | MR.V1_0_0.Profile.ClinicalImpressionInitialExamination
-    | MR.V1_0_0.Profile.ClinicalImpressionPregnancyChartEntry
-    | MR.V1_0_0.Profile.ClinicalImpressionPregnancyExaminationDischargeSummary
-    | MR.V1_0_0.Profile.ClinicalImpressionBirthExaminationDeliveryInformation
-    | MR.V1_0_0.Profile.ClinicalImpressionBirthExaminationChildInformation;
+    | MR.V1_1_0.Profile.ClinicalImpressionInitialExamination
+    | MR.V1_1_0.Profile.ClinicalImpressionPregnancyChartEntry
+    | MR.V1_1_0.Profile.ClinicalImpressionPregnancyExaminationDischargeSummary
+    | MR.V1_1_0.Profile.ClinicalImpressionBirthExaminationDeliveryInformation
+    | MR.V1_1_0.Profile.ClinicalImpressionBirthExaminationChildInformation
+    | MR.V1_1_0.Profile.ClinicalImpressionFirstExaminationAfterChildbirthMother
+    | MR.V1_1_0.Profile.ClinicalImpressionFirstExaminationAfterChildbirthChild;
 
 export type InvestigationItemType =
-    | MR.V1_0_0.Profile.ClinicalImpressionInitialExaminationInvestigationItem
-    | MR.V1_0_0.Profile.ClinicalImpressionPregnancyChartEntryInvestigationItem
-    | MR.V1_0_0.Profile.ClinicalImpressionPregnancyExaminationDischargeSummaryInvestigationItem
-    | MR.V1_0_0.Profile.ClinicalImpressionBirthExaminationDeliveryInformationInvestigationItem;
+    | MR.V1_1_0.Profile.ClinicalImpressionInitialExaminationInvestigationItem
+    | MR.V1_1_0.Profile.ClinicalImpressionPregnancyChartEntryInvestigationItem
+    | MR.V1_1_0.Profile.ClinicalImpressionPregnancyExaminationDischargeSummaryInvestigationItem
+    | MR.V1_1_0.Profile.ClinicalImpressionBirthExaminationDeliveryInformationInvestigationItem
+    | MR.V1_1_0.Profile.ClinicalImpressionFirstExaminationAfterChildbirthMotherInvestigationItem
+    | MR.V1_1_0.Profile.ClinicalImpressionFirstExaminationAfterChildbirthChildInvestigationItem;
 
 export default class ClinicalImpressionInvestigationModel extends MPBaseModel<ClinicalImpressionInvestigationType> {
-    protected patientId: string | undefined;
-
     constructor(
         value: ClinicalImpressionInvestigationType,
         fullUrl: string,
-        parent: MR.V1_0_0.Profile.Bundle,
+        parent: MR.V1_1_0.Profile.Bundle,
         history?: History,
         customHeadline?: string
     ) {
         super(value, fullUrl, parent, history);
-
-        if (PR.ClinicalImpressionBirthExaminationChildInformation.is(this.value)) {
-            this.patientId = history?.location.pathname.split("/").pop();
-        }
 
         const investigations = this.getInvestigations();
         this.values = [...investigations];
         this.headline =
             customHeadline ?? (investigations.length > 1 ? "Befunde" : "Befund");
         if (
-            MR.V1_0_0.Profile.ClinicalImpressionPregnancyExaminationDischargeSummary.is(
+            MR.V1_1_0.Profile.ClinicalImpressionPregnancyExaminationDischargeSummary.is(
                 value
             )
         ) {
             this.headline = "Allgemeine Angaben";
-        } else if (MR.V1_0_0.Profile.ClinicalImpressionInitialExamination.is(value)) {
+        } else if (MR.V1_1_0.Profile.ClinicalImpressionInitialExamination.is(value)) {
             this.headline = "Katalog A";
         }
     }
@@ -88,14 +86,15 @@ export default class ClinicalImpressionInvestigationModel extends MPBaseModel<Cl
             }
         );
 
-        if (MR.V1_0_0.Profile.ClinicalImpressionPregnancyChartEntry.is(this.value)) {
+        if (MR.V1_1_0.Profile.ClinicalImpressionPregnancyChartEntry.is(this.value)) {
             const encounterRef = this.value.encounter.reference;
 
             const examinations =
-                ParserUtil.getEntries<MR.V1_0_0.Profile.ObservationExamination>(
+                ParserUtil.getEntries<MR.V1_1_0.Profile.ObservationExamination>(
                     this.parent,
-                    [MR.V1_0_0.Profile.ObservationExamination]
+                    [MR.V1_1_0.Profile.ObservationExamination]
                 );
+
             if (examinations) {
                 examinations.forEach((res) => {
                     const ref = res.resource.encounter.reference;
@@ -103,14 +102,12 @@ export default class ClinicalImpressionInvestigationModel extends MPBaseModel<Cl
                         const model = new Models.MP.Basic.ObservationModel(
                             res.resource,
                             res.fullUrl,
-                            this.parent as MR.V1_0_0.Profile.Bundle,
+                            this.parent as MR.V1_1_0.Profile.Bundle,
                             this.history
                         );
 
-                        const loincHb1 = "718-7";
-                        const loincHb2 = "59260-0";
                         const codes = res.resource.code.coding.map((c) => c.code);
-                        const isHb = codes.includes(loincHb1) || codes.includes(loincHb2);
+                        const isHb = codes.includes("718-7"); // Loinc: Hemoglobin [Mass/volume] in Blood
                         if (isHb) {
                             investigations.push(model.getMainValue());
                         }
@@ -122,107 +119,98 @@ export default class ClinicalImpressionInvestigationModel extends MPBaseModel<Cl
         return investigations;
     }
 
-    public checkItem(
-        item:
-            | MR.V1_0_0.Profile.ClinicalImpressionInitialExaminationInvestigationItem
-            | MR.V1_0_0.Profile.ClinicalImpressionPregnancyChartEntryInvestigationItem
-            | MR.V1_0_0.Profile.ClinicalImpressionPregnancyExaminationDischargeSummaryInvestigationItem
-            | MR.V1_0_0.Profile.ClinicalImpressionBirthExaminationDeliveryInformationInvestigationItem
-    ): ModelValue | undefined {
+    public checkItem(item: InvestigationItemType): ModelValue | undefined {
         const mappings: DetailMapping[] = [
             {
-                profile: MR.V1_0_0.Profile.ObservationCatalogueA,
+                profile: PR.ObservationCatalogueA,
                 models: [Models.MP.Basic.ObservationModel],
-                codeConceptMaps: [MR.V1_0_0.ConceptMap.CatalogueAGerman]
+                codeConceptMaps: [CM.CatalogueAGerman]
             },
             // Gravidogramm - Observations,
             {
-                profile: MR.V1_0_0.Profile.ObservationBloodPressure,
+                profile: PR.ObservationBloodPressure,
                 models: [Models.MP.Basic.ObservationModel]
             },
             {
-                profile: MR.V1_0_0.Profile.ObservationWeightMother,
+                profile: PR.ObservationWeightMother,
                 models: [Models.MP.Basic.ObservationModel]
             },
             {
-                profile: MR.V1_0_0.Profile.ObservationFundusHeight,
+                profile: PR.ObservationFundusHeight,
                 models: [Models.MP.Basic.ObservationModel]
             },
             {
-                profile: MR.V1_0_0.Profile.ObservationVaricosis,
+                profile: PR.ObservationVaricosis,
                 models: [Models.MP.Basic.ObservationModel]
             },
             {
-                profile: MR.V1_0_0.Profile.ObservationEdema,
+                profile: PR.ObservationEdema,
                 models: [Models.MP.Basic.ObservationModel]
             },
             {
-                profile: MR.V1_0_0.Profile.ObservationUrine,
+                profile: PR.ObservationUrine,
                 models: [Models.MP.Basic.ObservationModel]
             },
             {
-                profile: MR.V1_0_0.Profile.ObservationUrineSugar,
+                profile: PR.ObservationUrineSugar,
                 models: [Models.MP.Basic.ObservationModel]
             },
             {
-                profile: MR.V1_0_0.Profile.ObservationUrineProtein,
+                profile: PR.ObservationUrineProtein,
                 models: [Models.MP.Basic.ObservationModel]
             },
             {
-                profile: MR.V1_0_0.Profile.ObservationUrineNitrite,
+                profile: PR.ObservationVaginalExamination,
                 models: [Models.MP.Basic.ObservationModel]
             },
             {
-                profile: MR.V1_0_0.Profile.ObservationUrineBlood,
-                models: [Models.MP.Basic.ObservationModel]
-            },
-            {
-                profile: MR.V1_0_0.Profile.ObservationVaginalExamination,
-                models: [Models.MP.Basic.ObservationModel]
-            },
-            {
-                profile: MR.V1_0_0.Profile.ObservationHeartSoundsChild,
+                profile: PR.ObservationHeartSoundsChild,
                 models: [Models.MP.Basic.ObservationModel],
-                codeConceptMaps: [MR.V1_0_0.ConceptMap.HeartSoundsChildGerman]
+                codeConceptMaps: [CM.HeartSoundsChildGerman]
             },
             {
-                profile: MR.V1_0_0.Profile.ObservationChildPosition,
+                profile: PR.ObservationChildPosition,
                 models: [Models.MP.Basic.ObservationModel],
-                codeConceptMaps: [MR.V1_0_0.ConceptMap.ChildPositionGerman]
+                codeConceptMaps: [CM.ChildPositionGerman]
             },
             {
-                profile: MR.V1_0_0.Profile.ObservationChildMovement,
+                profile: PR.ObservationChildPositionAtBirth,
+                models: [Models.MP.Basic.ObservationModel],
+                codeConceptMaps: [CM.ChildPositionGerman]
+            },
+            {
+                profile: PR.ObservationChildMovement,
                 models: [Models.MP.Basic.ObservationModel]
             },
             // Epikrise - Schwangerschaft
             {
-                profile: MR.V1_0_0.Profile.ObservationAge,
+                profile: PR.ObservationAge,
                 models: [Models.MP.Basic.ObservationModel]
             },
             {
-                profile: MR.V1_0_0.Profile.ObservationGravida,
+                profile: PR.ObservationGravida,
                 models: [Models.MP.Basic.ObservationModel]
             },
             {
-                profile: MR.V1_0_0.Profile.ObservationPara,
+                profile: PR.ObservationPara,
                 models: [Models.MP.Basic.ObservationModel]
             },
             // Epikrise - Schwangerschaft
             {
-                profile: MR.V1_0_0.Profile.ObservationPresentationAtBirthClinic,
+                profile: PR.ObservationPresentationAtBirthClinic,
                 models: [Models.MP.Basic.ObservationModel]
             },
             {
-                profile: MR.V1_0_0.Profile.ObservationInpatientStayDuringPregnancy,
+                profile: PR.ObservationInpatientStayDuringPregnancy,
                 models: [Models.MP.Basic.ObservationModel]
             },
             {
-                profile: MR.V1_0_0.Profile.ObservationNumberOfCheckups,
+                profile: PR.ObservationNumberOfCheckups,
                 models: [Models.MP.Basic.ObservationModel]
             },
             // Epikrise - Geburt
             {
-                profile: MR.V1_0_0.Profile.ObservationExternalBirth,
+                profile: PR.ObservationExternalBirth,
                 models: [Models.MP.Basic.ObservationModel]
             },
             // Epikrise - Angaben zum Kind
@@ -236,93 +224,86 @@ export default class ClinicalImpressionInvestigationModel extends MPBaseModel<Cl
                 valueConceptMaps: [CM.BirthModeGerman]
             },
             {
-                profile: MR.V1_0_0.Profile.PatientChild,
+                profile: PR.PatientChild,
                 models: [Models.MP.Basic.PatientChildModel]
             },
             {
-                profile: MR.V1_0_0.Profile.ObservationWeightChild,
+                profile: PR.ObservationWeightChild,
                 models: [Models.MP.Basic.ObservationModel]
             },
             {
-                profile: MR.V1_0_0.Profile.ObservationHeadCircumference,
+                profile: PR.ObservationHeadCircumference,
                 models: [Models.MP.Basic.ObservationModel]
             },
             {
-                profile: MR.V1_0_0.Profile.ObservationBirthHeight,
+                profile: PR.ObservationBirthHeight,
                 models: [Models.MP.Basic.ObservationModel]
             },
             {
-                profile: MR.V1_0_0.Profile.ObservationApgarScore,
+                profile: PR.ObservationApgarScore,
                 models: [Models.MP.Basic.ObservationModel]
             },
             {
-                profile: MR.V1_0_0.Profile.ObservationpHValueUmbilicalArtery,
+                profile: PR.ObservationpHValueUmbilicalArtery,
                 models: [Models.MP.Basic.ObservationModel]
             },
             {
-                profile: MR.V1_0_0.Profile.ObservationMalformation,
+                profile: PR.ObservationMalformation,
                 models: [Models.MP.Basic.ObservationModel]
             },
             // Epikrise - Wochenbett
             {
-                profile: MR.V1_0_0.Profile.ObservationPuerperiumNormal,
+                profile: PR.ObservationPuerperiumNormal,
                 models: [Models.MP.Basic.ObservationModel]
             },
             {
-                profile: MR.V1_0_0.Profile.ObservationAntiDProphylaxisPostPartum,
+                profile: PR.ObservationAntiDProphylaxisPostPartum,
                 models: [Models.MP.Basic.ObservationModel]
             },
             {
-                profile: MR.V1_0_0.Profile.ObservationAdviceOnIodineIntake,
+                profile: PR.ObservationAdviceOnIodineIntake,
                 models: [Models.MP.Basic.ObservationModel]
             },
             {
-                profile: MR.V1_0_0.Profile.ObservationBloodGroupSerologyChild,
+                profile: PR.ObservationBloodGroupSerologyChild,
                 models: [Models.MP.Basic.ObservationModel]
             },
             {
-                profile: MR.V1_0_0.Profile.ObservationDirectCoombstest,
+                profile: PR.ObservationDirectCoombstest,
                 models: [Models.MP.Basic.ObservationModel]
             },
             // Epikrise - Zweit Untersuchung
             {
-                profile: MR.V1_0_0.Profile.ObservationBreastfeedingBehavior,
+                profile: PR.ObservationBreastfeedingBehavior,
                 models: [Models.MP.Basic.ObservationModel],
                 valueConceptMaps: [CM.BreastfeedingBehaviorGerman]
             },
             {
-                profile: MR.V1_0_0.Profile.ObservationUrineSediment,
+                profile: PR.ObservationGynecologicalFindingNormal,
                 models: [Models.MP.Basic.ObservationModel]
             },
             {
-                profile: MR.V1_0_0.Profile.ObservationGynecologicalFindingNormal,
+                profile: PR.ObservationU3Performed,
                 models: [Models.MP.Basic.ObservationModel]
             },
             {
-                profile: MR.V1_0_0.Profile.ObservationU3Performed,
+                profile: PR.ObservationChildIsHealthy,
                 models: [Models.MP.Basic.ObservationModel]
             },
             {
-                profile: MR.V1_0_0.Profile.ObservationChildIsHealthy,
-                models: [Models.MP.Basic.ObservationModel]
-            },
-            {
-                profile: MR.V1_0_0.Profile.ObservationNeedOfTreatmentU3,
+                profile: PR.ObservationNeedOfTreatmentU3,
                 models: [Models.MP.Basic.ObservationModel]
             }
         ];
 
         const ref = item.reference;
-
         const result = ParserUtil.getEntryWithRef(
             this.parent,
             mappings.map((m) => m.profile),
-            ref
+            new Reference(ref, this.fullUrl)
         );
 
-        const bundle = this.parent as MR.V1_0_0.Profile.Bundle;
-
-        let mainValueResult: ModelValue | undefined = undefined;
+        const bundle = this.parent as MR.V1_1_0.Profile.Bundle;
         let model!: Models.Model;
 
         if (result) {
@@ -342,35 +323,7 @@ export default class ClinicalImpressionInvestigationModel extends MPBaseModel<Cl
                 }
             });
 
-            if (model) {
-                if (this.patientId) {
-                    if (MR.V1_0_0.Profile.PatientChild.is(result.resource)) {
-                        if (this.patientId === result.resource.id) {
-                            return model.getMainValue();
-                        }
-                    } else {
-                        const res = result.resource as { subject: { reference: string } };
-                        const modelResult =
-                            ParserUtil.getEntryWithRef<MR.V1_0_0.Profile.PatientChild>(
-                                bundle,
-                                [MR.V1_0_0.Profile.PatientChild],
-                                res.subject.reference
-                            );
-
-                        if (modelResult) {
-                            if (
-                                this.patientId === ParserUtil.getUuid(modelResult.fullUrl)
-                            ) {
-                                mainValueResult = model.getMainValue();
-                            }
-                        }
-                    }
-                } else {
-                    mainValueResult = model.getMainValue();
-                }
-            }
-
-            return mainValueResult;
+            return model.getMainValue();
         }
     }
 

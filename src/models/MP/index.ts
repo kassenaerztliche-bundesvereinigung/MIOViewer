@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -35,6 +35,7 @@ import DiagnosticReportResultRequireControlModel from "./DiagnosticReportResultR
 import InformationAboutModel from "./InformationAboutModel";
 
 import InformationAboutChildModel from "./InformationAboutChildModel";
+import InformationAboutChildModelBirth from "./InformationAboutChildModelBirth";
 import InformationAboutMotherModel from "./InformationAboutMotherModel";
 
 import * as Basic from "./Basic";
@@ -52,6 +53,7 @@ export {
     DiagnosticReportResultRequireControlModel,
     InformationAboutModel,
     InformationAboutChildModel,
+    InformationAboutChildModelBirth,
     InformationAboutMotherModel,
     Basic
 };

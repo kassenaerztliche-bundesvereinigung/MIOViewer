@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -25,14 +25,14 @@ import * as Models from "../index";
 export default class InformationAboutMotherModel extends InformationAboutModel {
     constructor(
         value:
-            | MR.V1_0_0.Profile.ClinicalImpressionFirstExaminationAfterChildbirth
-            | MR.V1_0_0.Profile.ClinicalImpressionSecondExaminationAfterChildbirth,
+            | MR.V1_1_0.Profile.ClinicalImpressionFirstExaminationAfterChildbirthMother
+            | MR.V1_1_0.Profile.ClinicalImpressionSecondExaminationAfterChildbirth,
         fullUrl: string,
-        parent: MR.V1_0_0.Profile.Bundle,
+        parent: MR.V1_1_0.Profile.Bundle,
         history?: History
     ) {
-        const PR = MR.V1_0_0.Profile;
-        const CM = MR.V1_0_0.ConceptMap;
+        const PR = MR.V1_1_0.Profile;
+        const CM = MR.V1_1_0.ConceptMap;
 
         const mappings = [
             // Epikrise - Erste Untersuchung
@@ -63,10 +63,6 @@ export default class InformationAboutMotherModel extends InformationAboutModel {
                 valueConceptMaps: [CM.BreastfeedingBehaviorGerman]
             },
             {
-                profile: PR.ObservationUrineSediment,
-                models: [Models.MP.Basic.ObservationModel]
-            },
-            {
                 profile: PR.ObservationUrine,
                 models: [Models.MP.Basic.ObservationModel]
             },
@@ -85,7 +81,7 @@ export default class InformationAboutMotherModel extends InformationAboutModel {
             PR.CompositionUntersuchungenEpikrise
         ];
 
-        if (PR.ClinicalImpressionFirstExaminationAfterChildbirth.is(value)) {
+        if (PR.ClinicalImpressionFirstExaminationAfterChildbirthMother.is(value)) {
             sectionStack.push(
                 PR.CompositionUntersuchungenEpikriseWochenbett,
                 PR.CompositionUntersuchungenEpikriseWochenbettAngabenZurMutter

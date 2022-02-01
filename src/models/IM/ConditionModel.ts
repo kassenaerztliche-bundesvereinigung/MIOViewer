@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -18,13 +18,20 @@
 
 import { History } from "history";
 
-import { ParserUtil, KBVBundleResource, Vaccination, KBVBase } from "@kbv/mioparser";
+import {
+    KBVBundleResource,
+    Vaccination,
+    KBVBase,
+    Reference,
+    ParserUtil
+} from "@kbv/mioparser";
 import { Util } from "../../components";
 
 import BaseModel from "../BaseModel";
 import { PractitionerModel } from "./";
 import { AdditionalCommentModel, ModelValue, TelecomModel } from "../";
 import { FHIR } from "../../components/Util";
+import * as Models from "../index";
 
 export default class ConditionModel extends BaseModel<Vaccination.V1_1_0.Profile.Condition> {
     constructor(
@@ -55,14 +62,53 @@ export default class ConditionModel extends BaseModel<Vaccination.V1_1_0.Profile
         }
         const onset = onsetArray.join(", ");
 
-        const practitioner = Util.IM.getPractitioner(
-            this.parent as Vaccination.V1_1_0.Profile.BundleEntry,
-            this.value.recorder?.reference
-        );
+        const recorders: ModelValue[] = [];
 
-        let recorder = "-";
-        if (practitioner) {
-            recorder = Util.IM.getPractitionerName(practitioner?.resource);
+        const practitionerRole =
+            ParserUtil.getEntryWithRef<Vaccination.V1_1_0.Profile.Practitionerrole>(
+                this.parent,
+                [Vaccination.V1_1_0.Profile.Practitionerrole],
+                new Reference(this.value.recorder?.reference, this.fullUrl)
+            );
+
+        if (practitionerRole) {
+            const practitionerRef = practitionerRole.resource.practitioner.reference;
+            const organizationRef = practitionerRole.resource.organization.reference;
+            const mio = this.parent as Vaccination.V1_1_0.Profile.BundleEntry;
+
+            const practitioner = Util.IM.getPractitioner(
+                mio,
+                new Reference(practitionerRef, practitionerRole.fullUrl)
+            );
+            const organization = Util.IM.getOrganization(
+                mio,
+                new Reference(organizationRef, practitionerRole.fullUrl)
+            );
+
+            if (practitioner) {
+                recorders.push({
+                    value: Util.IM.getPractitionerName(practitioner?.resource),
+                    label: "Dokumentiert von",
+                    onClick: Util.Misc.toEntry(history, parent, practitioner, true),
+                    subEntry: practitioner,
+                    subModels: [PractitionerModel, TelecomModel, AdditionalCommentModel]
+                });
+            }
+
+            if (organization) {
+                recorders.push({
+                    value: organization.resource.name,
+                    label: "Einrichtung in der dokumentiert wurde",
+                    onClick: Util.Misc.toEntry(history, parent, organization, true),
+                    subEntry: organization,
+                    subModels: [
+                        Models.IM.OrganizationModel,
+                        Models.AddressModel,
+                        Models.TelecomModel,
+                        Models.AdditionalCommentModel
+                    ]
+                });
+            }
         }
 
         const notes = this.value.note?.map((n) => n.text);
@@ -73,9 +119,10 @@ export default class ConditionModel extends BaseModel<Vaccination.V1_1_0.Profile
 
         if (provenance) {
             if (
-                !provenance.resource.target
-                    .map((t) => ParserUtil.getUuid(t.reference))
-                    .includes(ParserUtil.getUuid(this.fullUrl))
+                // TODO: MIOV-493
+                !provenance.resource.target.filter((t) =>
+                    new Reference(t.reference, this.fullUrl).resolve(t.reference)
+                ).length
             ) {
                 provenance = undefined;
             }
@@ -98,15 +145,7 @@ export default class ConditionModel extends BaseModel<Vaccination.V1_1_0.Profile
                 value: notes && notes.length ? notes.join(", ") : "-",
                 label: "Anmerkungen zur Erkrankung"
             },
-            {
-                value: recorder,
-                label: "Dokumentiert von",
-                onClick: this.history
-                    ? Util.Misc.toEntry(history, parent, practitioner, true)
-                    : undefined,
-                subEntry: practitioner,
-                subModels: [PractitionerModel, TelecomModel, AdditionalCommentModel]
-            },
+            ...recorders,
             {
                 value: provenance
                     ? Util.FHIR.handleCode(
@@ -132,7 +171,11 @@ export default class ConditionModel extends BaseModel<Vaccination.V1_1_0.Profile
         return {
             value: this.headline,
             label: Util.Misc.formatDate(this.value.recordedDate),
-            onClick: Util.Misc.toEntryByRef(this.history, this.parent, this.fullUrl)
+            onClick: Util.Misc.toEntryByRef(
+                this.history,
+                this.parent,
+                new Reference(this.fullUrl) // TODO:
+            )
         };
     }
 }

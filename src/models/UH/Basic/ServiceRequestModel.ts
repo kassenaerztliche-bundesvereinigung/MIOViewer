@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -18,7 +18,7 @@
 
 import { History } from "history";
 
-import { ParserUtil, CMR } from "@kbv/mioparser";
+import { ParserUtil, CMR, Reference } from "@kbv/mioparser";
 import { Util } from "../../../components";
 
 import BaseModel from "./CMRBaseModel";
@@ -51,8 +51,16 @@ export default class ServiceRequestModel extends BaseModel<ServiceRequestType> {
                 label: "Veranlasst am"
             },
             ...this.getRequester(),
-            Util.UH.getPatientModelValue(patientRef, parent, history),
-            Util.UH.getEncounterModelValue(encounterRef, parent, history)
+            Util.UH.getPatientModelValue(
+                new Reference(patientRef, this.fullUrl),
+                parent,
+                history
+            ),
+            Util.UH.getEncounterModelValue(
+                new Reference(encounterRef, this.fullUrl),
+                parent,
+                history
+            )
         ];
 
         const reason = this.getReasonReference();
@@ -65,7 +73,7 @@ export default class ServiceRequestModel extends BaseModel<ServiceRequestType> {
             : [];
 
         const r = Util.UH.getPerformerModelValues(
-            requesterRefs,
+            requesterRefs.map((r) => new Reference(r, this.fullUrl)),
             this.parent as CMR.V1_0_1.Profile.CMRBundle,
             this.history
         );
@@ -98,7 +106,7 @@ export default class ServiceRequestModel extends BaseModel<ServiceRequestType> {
                     ParserUtil.getEntryWithRef<CMR.V1_0_1.Profile.CMRObservationU1U3PulseOxymetryMeasurement>(
                         this.parent,
                         [CMR.V1_0_1.Profile.CMRObservationU1U3PulseOxymetryMeasurement],
-                        ref
+                        new Reference(ref, this.fullUrl)
                     )?.resource;
 
                 if (result) {
@@ -110,7 +118,11 @@ export default class ServiceRequestModel extends BaseModel<ServiceRequestType> {
                     return {
                         value: values.join(", "),
                         label: "Auffälliger Befund",
-                        onClick: Util.Misc.toEntryByRef(this.history, this.parent, ref)
+                        onClick: Util.Misc.toEntryByRef(
+                            this.history,
+                            this.parent,
+                            new Reference(ref, this.fullUrl)
+                        )
                     };
                 }
             }
@@ -126,7 +138,11 @@ export default class ServiceRequestModel extends BaseModel<ServiceRequestType> {
         return {
             value: this.getCoding(),
             label: Util.Misc.formatDate(this.value.authoredOn),
-            onClick: Util.Misc.toEntryByRef(this.history, this.parent, this.fullUrl),
+            onClick: Util.Misc.toEntryByRef(
+                this.history,
+                this.parent,
+                new Reference(this.fullUrl)
+            ),
             sortBy: new Date(this.value.authoredOn).getTime().toString()
         };
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -16,7 +16,7 @@
  * along with MIO Viewer. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Vaccination, MIOEntry, ParserUtil } from "@kbv/mioparser";
+import { Vaccination, MIOEntry, ParserUtil, Reference } from "@kbv/mioparser";
 import { Util } from "../index";
 
 type Bundle = Vaccination.V1_1_0.Profile.BundleEntry;
@@ -41,12 +41,13 @@ export function getComposition(
 export function getPatient(
     mio: Bundle
 ): MIOEntry<Vaccination.V1_1_0.Profile.Patient> | undefined {
-    const ref = getComposition(mio)?.resource.subject.reference;
+    const composition = getComposition(mio);
+    const ref = composition?.resource.subject.reference;
     if (!ref) return;
     return ParserUtil.getEntryWithRef<Vaccination.V1_1_0.Profile.Patient>(
         mio,
         [Vaccination.V1_1_0.Profile.Patient],
-        ref
+        new Reference(ref, composition?.fullUrl)
     );
 }
 
@@ -65,10 +66,10 @@ export function getEntries(
         | Vaccination.V1_1_0.Profile.RecordAddendum
     >[] = [];
 
-    const composition = Util.IM.getComposition(mio)?.resource;
+    const composition = Util.IM.getComposition(mio);
     if (composition) {
-        if (Vaccination.V1_1_0.Profile.CompositionPrime.is(composition)) {
-            const refs = composition.section
+        if (Vaccination.V1_1_0.Profile.CompositionPrime.is(composition.resource)) {
+            const refs = composition.resource.section
                 .map((s) => s.entry.map((e) => e.reference))
                 .flat();
 
@@ -84,12 +85,12 @@ export function getEntries(
                         Vaccination.V1_1_0.Profile.ObservationImmunizationStatus,
                         Vaccination.V1_1_0.Profile.RecordPrime
                     ],
-                    ref
+                    new Reference(ref, composition.fullUrl)
                 );
                 if (resource) entries.push(resource);
             });
         } else {
-            const refs = composition.section
+            const refs = composition.resource.section
                 .map((s) => s.entry.map((e) => e.reference))
                 .flat();
 
@@ -98,7 +99,7 @@ export function getEntries(
                     ParserUtil.getEntryWithRef<Vaccination.V1_1_0.Profile.RecordAddendum>(
                         mio,
                         [Vaccination.V1_1_0.Profile.RecordAddendum],
-                        ref
+                        new Reference(ref, composition.fullUrl)
                     );
                 if (resource) entries.push(resource);
             });
@@ -150,7 +151,7 @@ export function getRecord(
 
 export function getPractitioner(
     mio: Bundle,
-    ref?: string
+    ref?: Reference
 ):
     | MIOEntry<
           | Vaccination.V1_1_0.Profile.PractitionerAddendum
@@ -206,7 +207,7 @@ export function getPractitioners(
 
 export function getOrganization(
     mio: Bundle,
-    ref?: string
+    ref?: Reference
 ): MIOEntry<Vaccination.V1_1_0.Profile.Organization> | undefined {
     if (ref) {
         return ParserUtil.getEntryWithRef<Vaccination.V1_1_0.Profile.Organization>(
@@ -231,7 +232,7 @@ export function getOrganizations(
 
 export function getPractitionerrole(
     mio: Bundle,
-    ref?: string
+    ref?: Reference
 ): MIOEntry<Vaccination.V1_1_0.Profile.Practitionerrole> | undefined {
     if (ref) {
         return ParserUtil.getEntryWithRef<Vaccination.V1_1_0.Profile.Practitionerrole>(
@@ -275,7 +276,7 @@ export function getPractitionerroleByExtension(
         if (party && party.length) ref = party[0].valueReference.reference;
     }
 
-    return getPractitionerrole(mio, ref);
+    return getPractitionerrole(mio, new Reference(ref)); // TODO: parents fullURL missing
 }
 
 /**

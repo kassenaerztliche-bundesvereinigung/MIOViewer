@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -18,7 +18,7 @@
 
 import { History } from "history";
 
-import { ParserUtil, MR } from "@kbv/mioparser";
+import { ParserUtil, MR, Reference } from "@kbv/mioparser";
 import { Util } from "../../components";
 
 import { ObservationModel } from "./Basic";
@@ -26,18 +26,18 @@ import MPBaseModel from "./MPBaseModel";
 import { Content } from "pdfmake/interfaces";
 import { ModelValue } from "../Types";
 
-const PR = MR.V1_0_0.Profile;
+const PR = MR.V1_1_0.Profile;
 
 export type DiagnosticReportResultRequireControlType =
-    | MR.V1_0_0.Profile.DiagnosticReportUltrasoundI
-    | MR.V1_0_0.Profile.DiagnosticReportUltrasoundII
-    | MR.V1_0_0.Profile.DiagnosticReportUltrasoundIII;
+    | MR.V1_1_0.Profile.DiagnosticReportUltrasoundI
+    | MR.V1_1_0.Profile.DiagnosticReportUltrasoundII
+    | MR.V1_1_0.Profile.DiagnosticReportUltrasoundIII;
 
 export default class DiagnosticReportResultRequireControlModel extends MPBaseModel<DiagnosticReportResultRequireControlType> {
     constructor(
         value: DiagnosticReportResultRequireControlType,
         fullUrl: string,
-        parent: MR.V1_0_0.Profile.Bundle,
+        parent: MR.V1_1_0.Profile.Bundle,
         history?: History
     ) {
         super(value, fullUrl, parent, history);
@@ -50,14 +50,14 @@ export default class DiagnosticReportResultRequireControlModel extends MPBaseMod
                 const ref = valueResult.reference;
 
                 const result =
-                    ParserUtil.getEntryWithRef<MR.V1_0_0.Profile.ObservationFindingsRequiredControl>(
+                    ParserUtil.getEntryWithRef<MR.V1_1_0.Profile.ObservationFindingsRequiredControl>(
                         parent,
                         [PR.ObservationFindingsRequiredControl],
-                        ref
+                        new Reference(ref, this.fullUrl)
                     );
 
                 if (result) {
-                    const CM = MR.V1_0_0.ConceptMap;
+                    const CM = MR.V1_1_0.ConceptMap;
                     const model = new ObservationModel(
                         result.resource,
                         result.fullUrl,
@@ -70,7 +70,12 @@ export default class DiagnosticReportResultRequireControlModel extends MPBaseMod
                     this.values.push({
                         value: model.getObservationValue().value,
                         label: model.getCoding(),
-                        onClick: Util.Misc.toEntryByRef(history, parent, ref, true)
+                        onClick: Util.Misc.toEntryByRef(
+                            history,
+                            parent,
+                            new Reference(ref, this.fullUrl),
+                            true
+                        )
                     });
                 }
             });

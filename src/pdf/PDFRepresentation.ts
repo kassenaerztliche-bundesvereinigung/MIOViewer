@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -18,7 +18,13 @@
 
 import { Content } from "pdfmake/interfaces";
 
-import { KBVBundleResource, ParserUtil, MIOEntry, AnyType } from "@kbv/mioparser";
+import {
+    KBVBundleResource,
+    ParserUtil,
+    MIOEntry,
+    AnyType,
+    Reference
+} from "@kbv/mioparser";
 import { Util, UI } from "../components";
 
 import { horizontalLine, modelValueToPDF, pageBreakAfter } from "./PDFHelper";
@@ -242,6 +248,7 @@ export default abstract class PDFRepresentation<T extends KBVBundleResource> {
 
     protected mapToModels(
         mapping: DetailMapping[],
+        fullUrl: string,
         compare?: (a: MIOEntry<any>, b: MIOEntry<any>) => number, // eslint-disable-line
         section?: { entry?: { reference: string }[] },
         onlyMainValue = false
@@ -253,7 +260,7 @@ export default abstract class PDFRepresentation<T extends KBVBundleResource> {
                 const e = ParserUtil.getEntryWithRef(
                     this.value,
                     mapping.map((m) => m.profile),
-                    entry.reference
+                    new Reference(entry.reference, fullUrl)
                 );
                 if (e) entries.push(e);
             });

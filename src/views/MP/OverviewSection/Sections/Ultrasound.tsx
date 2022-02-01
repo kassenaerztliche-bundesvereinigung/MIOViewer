@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -16,13 +16,13 @@
  * along with MIO Viewer. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { MR, ParserUtil } from "@kbv/mioparser";
+import { MR, ParserUtil, Reference } from "@kbv/mioparser";
 
 import { UI, Util } from "../../../../components";
 
 import Section, { SectionProps } from "../Section";
 
-export default class Ultrasound extends Section<MR.V1_0_0.Profile.CompositionUntersuchungenUltraschall> {
+export default class Ultrasound extends Section<MR.V1_1_0.Profile.CompositionUntersuchungenUltraschall> {
     constructor(props: SectionProps) {
         super(props);
 
@@ -32,8 +32,8 @@ export default class Ultrasound extends Section<MR.V1_0_0.Profile.CompositionUnt
         };
 
         this.section = this.getSection([
-            MR.V1_0_0.Profile.CompositionUntersuchungen,
-            MR.V1_0_0.Profile.CompositionUntersuchungenUltraschall
+            MR.V1_1_0.Profile.CompositionUntersuchungen,
+            MR.V1_1_0.Profile.CompositionUntersuchungenUltraschall
         ]);
     }
 
@@ -42,37 +42,41 @@ export default class Ultrasound extends Section<MR.V1_0_0.Profile.CompositionUnt
     }
 
     protected getListGroups(): UI.DetailList.Props[] {
-        const { mio, history } = this.props;
+        const { mio, history, composition } = this.props;
 
         const items: UI.ListItem.Props[] = [];
 
         this.section?.entry?.forEach((entry) => {
             const ref = entry.reference;
             const res =
-                ParserUtil.getEntryWithRef<MR.V1_0_0.Profile.ObservationUltrasound>(
+                ParserUtil.getEntryWithRef<MR.V1_1_0.Profile.ObservationUltrasound>(
                     mio,
-                    [MR.V1_0_0.Profile.ObservationUltrasound],
-                    ref
-                )?.resource;
+                    [MR.V1_1_0.Profile.ObservationUltrasound],
+                    new Reference(ref, composition.fullUrl)
+                );
 
             if (res) {
                 items.push({
                     value: "Bemerkungen",
-                    label: Util.Misc.formatDate(res.effectiveDateTime),
-                    onClick: Util.Misc.toEntryByRef(history, mio, ref)
+                    label: Util.Misc.formatDate(res.resource.effectiveDateTime),
+                    onClick: Util.Misc.toEntryByRef(
+                        history,
+                        mio,
+                        new Reference(ref, res.fullUrl)
+                    )
                 });
             }
         });
 
         const slices = ParserUtil.getSlices<
-            | MR.V1_0_0.Profile.CompositionUntersuchungenUltraschallUltraschallI
-            | MR.V1_0_0.Profile.CompositionUntersuchungenUltraschallUltraschallII
-            | MR.V1_0_0.Profile.CompositionUntersuchungenUltraschallUltraschallIII
+            | MR.V1_1_0.Profile.CompositionUntersuchungenUltraschallUltraschallI
+            | MR.V1_1_0.Profile.CompositionUntersuchungenUltraschallUltraschallII
+            | MR.V1_1_0.Profile.CompositionUntersuchungenUltraschallUltraschallIII
         >(
             [
-                MR.V1_0_0.Profile.CompositionUntersuchungenUltraschallUltraschallI,
-                MR.V1_0_0.Profile.CompositionUntersuchungenUltraschallUltraschallII,
-                MR.V1_0_0.Profile.CompositionUntersuchungenUltraschallUltraschallIII
+                MR.V1_1_0.Profile.CompositionUntersuchungenUltraschallUltraschallI,
+                MR.V1_1_0.Profile.CompositionUntersuchungenUltraschallUltraschallII,
+                MR.V1_1_0.Profile.CompositionUntersuchungenUltraschallUltraschallIII
             ],
             this.section?.section
         );
@@ -83,22 +87,26 @@ export default class Ultrasound extends Section<MR.V1_0_0.Profile.CompositionUnt
             section.entry.forEach((entry) => {
                 const ref = entry.reference;
                 const res = ParserUtil.getEntryWithRef<
-                    | MR.V1_0_0.Profile.DiagnosticReportUltrasoundI
-                    | MR.V1_0_0.Profile.DiagnosticReportUltrasoundII
-                    | MR.V1_0_0.Profile.DiagnosticReportUltrasoundIII
+                    | MR.V1_1_0.Profile.DiagnosticReportUltrasoundI
+                    | MR.V1_1_0.Profile.DiagnosticReportUltrasoundII
+                    | MR.V1_1_0.Profile.DiagnosticReportUltrasoundIII
                 >(
                     mio,
                     [
-                        MR.V1_0_0.Profile.DiagnosticReportUltrasoundI,
-                        MR.V1_0_0.Profile.DiagnosticReportUltrasoundII,
-                        MR.V1_0_0.Profile.DiagnosticReportUltrasoundIII
+                        MR.V1_1_0.Profile.DiagnosticReportUltrasoundI,
+                        MR.V1_1_0.Profile.DiagnosticReportUltrasoundII,
+                        MR.V1_1_0.Profile.DiagnosticReportUltrasoundIII
                     ],
-                    ref
-                )?.resource;
+                    new Reference(ref, composition.fullUrl)
+                );
 
                 if (res) {
-                    label = Util.Misc.formatDate(res.effectiveDateTime);
-                    toEntry = Util.Misc.toEntryByRef(history, mio, ref);
+                    label = Util.Misc.formatDate(res.resource.effectiveDateTime);
+                    toEntry = Util.Misc.toEntryByRef(
+                        history,
+                        mio,
+                        new Reference(ref, res.fullUrl)
+                    );
                 }
             });
 
@@ -114,9 +122,9 @@ export default class Ultrasound extends Section<MR.V1_0_0.Profile.CompositionUnt
         const others: UI.ListItem.Props[] = [];
 
         const otherSlices =
-            ParserUtil.getSlices<MR.V1_0_0.Profile.CompositionUntersuchungenUltraschallWeitereUltraschallUntersuchungen>(
+            ParserUtil.getSlices<MR.V1_1_0.Profile.CompositionUntersuchungenUltraschallWeitereUltraschallUntersuchungen>(
                 [
-                    MR.V1_0_0.Profile
+                    MR.V1_1_0.Profile
                         .CompositionUntersuchungenUltraschallWeitereUltraschallUntersuchungen
                 ],
                 this.section?.section
@@ -128,15 +136,19 @@ export default class Ultrasound extends Section<MR.V1_0_0.Profile.CompositionUnt
             section.entry.forEach((entry) => {
                 const ref = entry.reference;
                 const res =
-                    ParserUtil.getEntryWithRef<MR.V1_0_0.Profile.ObservationOtherUltrasoundStudies>(
+                    ParserUtil.getEntryWithRef<MR.V1_1_0.Profile.ObservationOtherUltrasoundStudies>(
                         mio,
-                        [MR.V1_0_0.Profile.ObservationOtherUltrasoundStudies],
-                        ref
-                    )?.resource;
+                        [MR.V1_1_0.Profile.ObservationOtherUltrasoundStudies],
+                        new Reference(ref, composition.fullUrl)
+                    );
 
                 if (res) {
-                    label = Util.Misc.formatDate(res.effectiveDateTime);
-                    toEntry = Util.Misc.toEntryByRef(history, mio, ref);
+                    label = Util.Misc.formatDate(res.resource.effectiveDateTime);
+                    toEntry = Util.Misc.toEntryByRef(
+                        history,
+                        mio,
+                        new Reference(ref, res.fullUrl)
+                    );
                 }
             });
 

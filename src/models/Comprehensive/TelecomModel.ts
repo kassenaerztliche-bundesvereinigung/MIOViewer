@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -31,8 +31,8 @@ export default class TelecomModel<
         | Vaccination.V1_1_0.Profile.PractitionerAddendum
         | Vaccination.V1_1_0.Profile.Organization
         | ZAEB.V1_1_0.Profile.Organization
-        | MR.V1_0_0.Profile.Organization
-        | MR.V1_0_0.Profile.Practitioner
+        | MR.V1_1_0.Profile.Organization
+        | MR.V1_1_0.Profile.Practitioner
         | CMR.V1_0_1.Profile.CMRPractitioner
         | CMR.V1_0_1.Profile.CMROrganization
 > extends BaseModel<T> {

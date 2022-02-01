@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -18,7 +18,6 @@
 
 import moment from "moment";
 import purify from "dompurify";
-import { DateTime } from "luxon";
 import { History } from "history";
 
 import {
@@ -30,7 +29,8 @@ import {
     ParserUtil,
     Vaccination,
     ZAEB,
-    FHIR
+    FHIR,
+    Reference
 } from "@kbv/mioparser";
 
 import { EXAMPLE_PREFIX } from "../../store/examples";
@@ -44,7 +44,7 @@ import * as MP from "./MP";
 type patientType =
     | Vaccination.V1_1_0.Profile.Patient
     | ZAEB.V1_1_0.Profile.Patient
-    | MR.V1_0_0.Profile.PatientMother
+    | MR.V1_1_0.Profile.PatientMother
     | CMR.V1_0_1.Profile.CMRPatient;
 
 export function checkIfVaccinationPatient(
@@ -61,8 +61,8 @@ export function checkIfZAEBPatient(
 
 export function checkIfMRPatient(
     patient: patientType
-): patient is MR.V1_0_0.Profile.PatientMother {
-    return !!(patient as MR.V1_0_0.Profile.PatientMother);
+): patient is MR.V1_1_0.Profile.PatientMother {
+    return !!(patient as MR.V1_1_0.Profile.PatientMother);
 }
 
 export function getPatientName(patient: patientType): string {
@@ -84,11 +84,9 @@ export function formatDate(date: string | undefined, time = false): string {
     }
     try {
         return date
-            ? DateTime.fromJSDate(new Date(date)).toFormat("dd.MM.yyyy") +
+            ? moment(new Date(date)).format("DD.MM.yyyy") +
                   (time
-                      ? DateTime.fromJSDate(
-                            new Date(date?.replace("Z", "+00:00"))
-                        ).toFormat(" - HH:mm")
+                      ? moment(new Date(date?.replace("Z", "+00:00"))).format(" - HH:mm")
                       : "")
             : "-";
     } catch (err) {
@@ -114,7 +112,7 @@ export function toEntry(
 ): (() => void) | undefined {
     if (history && entry) {
         const mioRef = ParserUtil.getUuidFromBundle(mio);
-        const ref = ParserUtil.getUuidFromEntry(entry);
+        const ref = new Reference(entry.fullUrl).toURL();
         return () => history.push(`${sub ? "/subEntry/" : "/entry/"}${mioRef}/${ref}`);
     }
 
@@ -124,14 +122,14 @@ export function toEntry(
 export function toEntryByRef(
     history: History | undefined,
     mio: KBVBundleResource,
-    resourceRef: string | undefined,
+    resourceRef: Reference | undefined,
     sub = false,
     filter?: string,
     filterValue?: string
 ): (() => void) | undefined {
     if (history && resourceRef) {
         const mioRef = ParserUtil.getUuidFromBundle(mio);
-        const ref = ParserUtil.getUuid(resourceRef);
+        const ref = resourceRef?.toURL();
         const path = `${sub ? "/subEntry/" : "/entry/"}${mioRef}/${
             ref ? ref : "undefined"
         }`;
@@ -175,8 +173,8 @@ export function getTelecom(
         | Vaccination.V1_1_0.Profile.PractitionerAddendum
         | Vaccination.V1_1_0.Profile.Organization
         | ZAEB.V1_1_0.Profile.Organization
-        | MR.V1_0_0.Profile.Organization
-        | MR.V1_0_0.Profile.Practitioner
+        | MR.V1_1_0.Profile.Organization
+        | MR.V1_1_0.Profile.Practitioner
         | CMR.V1_0_1.Profile.CMRPractitioner
         | CMR.V1_0_1.Profile.CMROrganization
         | CMR.V1_0_1.Profile.CMROrganizationScreeningLaboratoryContact
@@ -276,24 +274,27 @@ export function getPatientIdentifier(
     patient:
         | Vaccination.V1_1_0.Profile.Patient
         | ZAEB.V1_1_0.Profile.Patient
-        | MR.V1_0_0.Profile.PatientMother
+        | MR.V1_1_0.Profile.PatientMother
         | CMR.V1_0_1.Profile.CMRPatient
 ): UI.ListItem.Props[] {
     const identifier: UI.ListItem.Props[] = [];
-
-    // TODO
-    // eslint-disable-next-line
-    patient.identifier?.forEach((i: any) => {
-        const coding = i.type?.coding;
-        if (coding) {
-            const codingString = coding.map((c: { code: string }) => c.code).join(", ");
-            identifier.push({ value: i.value, label: codingString });
-        } else {
-            if (i.system === "http://fhir.de/NamingSystem/gkv/kvid-10") {
-                identifier.push({ value: i.value, label: "GKV" });
+    patient.identifier?.forEach(
+        (i: {
+            type?: { coding: Util.FHIR.CodingEmpty[] };
+            value: string;
+            system?: string;
+        }) => {
+            const coding = i.type?.coding;
+            if (coding) {
+                const codingString = coding.map((c) => c.code).join(", ");
+                identifier.push({ value: i.value, label: codingString });
+            } else {
+                if (i.system === "http://fhir.de/NamingSystem/gkv/kvid-10") {
+                    identifier.push({ value: i.value, label: "GKV" });
+                }
             }
         }
-    });
+    );
 
     return identifier.map((i) => mapIdentifier(i));
 }
@@ -310,7 +311,7 @@ export function getQualification(
     qualification:
         | Vaccination.V1_1_0.Profile.PractitionerQualification[]
         | Vaccination.V1_1_0.Profile.PractitionerAddendumPractitionerspeciality[]
-        | MR.V1_0_0.Profile.PractitionerPractitionerspeciality[]
+        | MR.V1_1_0.Profile.PractitionerQualification[]
         | undefined,
     conceptMaps: ParserUtil.ConceptMap[],
     valueSets: ParserUtil.ValueSet[]

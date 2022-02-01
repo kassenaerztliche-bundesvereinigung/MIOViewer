@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -18,7 +18,7 @@
 
 import { History } from "history";
 
-import { MIOEntry, MR, ParserUtil, AnyType } from "@kbv/mioparser";
+import { MIOEntry, MR, ParserUtil, AnyType, Reference } from "@kbv/mioparser";
 
 import MPBaseModel from "./MPBaseModel";
 import { DetailMapping } from "../../views/Comprehensive/Detail/Types";
@@ -26,24 +26,26 @@ import * as Models from "../index";
 import { ModelValue } from "../index";
 
 export default class InformationAboutModel extends MPBaseModel<
-    | MR.V1_0_0.Profile.ClinicalImpressionBirthExaminationDeliveryInformation
-    | MR.V1_0_0.Profile.ClinicalImpressionFirstExaminationAfterChildbirth
-    | MR.V1_0_0.Profile.ClinicalImpressionSecondExaminationAfterChildbirth
+    | MR.V1_1_0.Profile.ClinicalImpressionBirthExaminationDeliveryInformation
+    | MR.V1_1_0.Profile.ClinicalImpressionFirstExaminationAfterChildbirthMother
+    | MR.V1_1_0.Profile.ClinicalImpressionFirstExaminationAfterChildbirthChild
+    | MR.V1_1_0.Profile.ClinicalImpressionSecondExaminationAfterChildbirth
 > {
-    protected composition: MIOEntry<MR.V1_0_0.Profile.Composition> | undefined;
+    protected composition: MIOEntry<MR.V1_1_0.Profile.Composition> | undefined;
     protected section:
-        | MR.V1_0_0.Profile.CompositionUntersuchungenEpikriseGeburtSection
-        | MR.V1_0_0.Profile.CompositionUntersuchungenEpikriseWochenbettAngabenZumKind
-        | MR.V1_0_0.Profile.CompositionUntersuchungenEpikriseWochenbettAngabenZurMutter
+        | MR.V1_1_0.Profile.CompositionUntersuchungenEpikriseGeburtSection
+        | MR.V1_1_0.Profile.CompositionUntersuchungenEpikriseWochenbettAngabenZumKind
+        | MR.V1_1_0.Profile.CompositionUntersuchungenEpikriseWochenbettAngabenZurMutter
         | undefined;
 
     constructor(
         value:
-            | MR.V1_0_0.Profile.ClinicalImpressionBirthExaminationDeliveryInformation
-            | MR.V1_0_0.Profile.ClinicalImpressionFirstExaminationAfterChildbirth
-            | MR.V1_0_0.Profile.ClinicalImpressionSecondExaminationAfterChildbirth,
+            | MR.V1_1_0.Profile.ClinicalImpressionBirthExaminationDeliveryInformation
+            | MR.V1_1_0.Profile.ClinicalImpressionFirstExaminationAfterChildbirthMother
+            | MR.V1_1_0.Profile.ClinicalImpressionFirstExaminationAfterChildbirthChild
+            | MR.V1_1_0.Profile.ClinicalImpressionSecondExaminationAfterChildbirth,
         fullUrl: string,
-        parent: MR.V1_0_0.Profile.Bundle,
+        parent: MR.V1_1_0.Profile.Bundle,
         history?: History,
         protected mappings: DetailMapping[] = [],
         protected sectionStack: AnyType[] = []
@@ -51,7 +53,7 @@ export default class InformationAboutModel extends MPBaseModel<
         super(value, fullUrl, parent, history);
 
         this.composition = ParserUtil.getEntry(this.parent, [
-            MR.V1_0_0.Profile.Composition
+            MR.V1_1_0.Profile.Composition
         ]);
 
         this.section = this.getSection(sectionStack);
@@ -60,9 +62,9 @@ export default class InformationAboutModel extends MPBaseModel<
 
     protected getSection<
         T extends
-            | MR.V1_0_0.Profile.CompositionUntersuchungenEpikriseGeburtSection
-            | MR.V1_0_0.Profile.CompositionUntersuchungenEpikriseWochenbettAngabenZumKind
-            | MR.V1_0_0.Profile.CompositionUntersuchungenEpikriseWochenbettAngabenZurMutter
+            | MR.V1_1_0.Profile.CompositionUntersuchungenEpikriseGeburtSection
+            | MR.V1_1_0.Profile.CompositionUntersuchungenEpikriseWochenbettAngabenZumKind
+            | MR.V1_1_0.Profile.CompositionUntersuchungenEpikriseWochenbettAngabenZurMutter
     >(sectionStack: AnyType[]): T | undefined {
         let result = undefined;
         let section = this.composition?.resource;
@@ -82,7 +84,7 @@ export default class InformationAboutModel extends MPBaseModel<
                 const result = ParserUtil.getEntryWithRef(
                     this.parent,
                     this.mappings.map((m) => m.profile),
-                    ref
+                    new Reference(ref, this.fullUrl)
                 );
 
                 if (result) this.resolveMapping(result.resource, result.fullUrl);
@@ -94,7 +96,7 @@ export default class InformationAboutModel extends MPBaseModel<
 
     protected resolveMapping(resource: unknown, fullUrl: string): void {
         const mappings = this.mappings;
-        const bundle = this.parent as MR.V1_0_0.Profile.Bundle;
+        const bundle = this.parent as MR.V1_1_0.Profile.Bundle;
 
         if (resource) {
             let model!: Models.Model;

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -18,7 +18,7 @@
 import { History } from "history";
 
 import BaseModel from "../BaseModel";
-import { CMR, KBVBundleResource, ParserUtil } from "@kbv/mioparser";
+import { CMR, KBVBundleResource, ParserUtil, Reference } from "@kbv/mioparser";
 import { Util } from "components";
 import { ModelValue } from "../Types";
 
@@ -74,18 +74,19 @@ export default class QualificationModel<
 
     protected getQualificationIssuer(): ModelValue {
         const issuerRef = this.qualificationCoding?.issuer?.reference ?? "";
+        const ref = new Reference(issuerRef, this.fullUrl);
         const organization =
             ParserUtil.getEntryWithRef<CMR.V1_0_1.Profile.CMROrganization>(
                 this.parent,
                 [CMR.V1_0_1.Profile.CMROrganization],
-                issuerRef
+                ref
             )?.resource;
 
         return {
             value: organization?.name ? organization.name : "-",
             label: "Qualifikation bescheinigt durch",
             onClick: organization
-                ? Util.Misc.toEntryByRef(this.history, this.parent, issuerRef)
+                ? Util.Misc.toEntryByRef(this.history, this.parent, ref)
                 : undefined
         };
     }

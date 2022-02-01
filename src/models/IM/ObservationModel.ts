@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -18,7 +18,7 @@
 
 import { History } from "history";
 
-import { KBVBundleResource, Vaccination } from "@kbv/mioparser";
+import { KBVBundleResource, Vaccination, Reference } from "@kbv/mioparser";
 import { Util } from "../../components";
 
 import BaseModel from "../BaseModel";
@@ -78,7 +78,11 @@ export default class ObservationModel extends BaseModel<Vaccination.V1_1_0.Profi
         return {
             value: this.headline,
             label: Util.Misc.formatDate(this.value.issued),
-            onClick: Util.Misc.toEntryByRef(this.history, this.parent, this.fullUrl)
+            onClick: Util.Misc.toEntryByRef(
+                this.history,
+                this.parent,
+                new Reference(this.fullUrl)
+            )
         };
     }
 }

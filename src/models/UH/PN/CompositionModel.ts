@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -18,7 +18,7 @@
 
 import { History } from "history";
 
-import { CMR } from "@kbv/mioparser";
+import { CMR, Reference } from "@kbv/mioparser";
 import { Util } from "../../../components";
 
 import BaseModel from "./../Basic/CMRBaseModel";
@@ -51,7 +51,11 @@ export default class CompositionModel extends BaseModel<CMR.V1_0_1.Profile.PNCom
                 value: this.value.author.map((author) => author.display).join(", "),
                 label: "Dokumentiert durch"
             },
-            Util.UH.getEncounterModelValue(encounterRef, parent, history)
+            Util.UH.getEncounterModelValue(
+                new Reference(encounterRef, this.fullUrl),
+                parent,
+                history
+            )
         ];
     }
 

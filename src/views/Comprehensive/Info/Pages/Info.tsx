@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -44,6 +44,10 @@ class Info extends React.Component<RouteComponentProps> {
                     {
                         label: "Was sind MIOs?",
                         onClick: () => history.push(match.url + "/intro")
+                    },
+                    {
+                        label: "Unterstützte MIOs",
+                        onClick: () => history.push(match.url + "/mios")
                     },
                     {
                         label: "Technische Fragen",
@@ -91,7 +95,12 @@ class Info extends React.Component<RouteComponentProps> {
         const { history } = this.props;
 
         return (
-            <UI.BasicView headline={"Information"} padding={false} id={"info"}>
+            <UI.BasicView
+                headline={"Information"}
+                padding={false}
+                id={"info"}
+                className={"info-page"}
+            >
                 <div
                     id={"intro-illustration"}
                     onClick={() =>

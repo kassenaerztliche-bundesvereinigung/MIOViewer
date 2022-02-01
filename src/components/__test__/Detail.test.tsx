@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -45,7 +45,7 @@ describe("<Components.Detail />", () => {
         bundle:
             | typeof Vaccination.V1_1_0.Profile.BundleEntry
             | typeof ZAEB.V1_1_0.Profile.Bundle
-            | typeof MR.V1_0_0.Profile.Bundle
+            | typeof MR.V1_1_0.Profile.Bundle
             | typeof CMR.V1_0_1.Profile.CMRBundle;
         definitions: {
             profile: AnyType;
@@ -237,10 +237,10 @@ describe("<Components.Detail />", () => {
         },
         {
             mioString: "MR",
-            bundle: MR.V1_0_0.Profile.Bundle,
+            bundle: MR.V1_1_0.Profile.Bundle,
             definitions: [
                 {
-                    profile: MR.V1_0_0.Profile.PatientMother,
+                    profile: MR.V1_1_0.Profile.PatientMother,
                     models: [Models.MP.Basic.PatientMotherModel, Models.AddressModel],
                     component: Detail,
                     required: ["Geburtsdatum"],

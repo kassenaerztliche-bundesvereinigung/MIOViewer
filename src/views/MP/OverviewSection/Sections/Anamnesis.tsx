@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -16,14 +16,14 @@
  * along with MIO Viewer. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { MR, ParserUtil } from "@kbv/mioparser";
+import { MR, ParserUtil, Reference } from "@kbv/mioparser";
 
 import { UI, Util } from "../../../../components";
 import * as Models from "../../../../models";
 
 import Section, { SectionProps } from "../Section";
 
-export default class Anamnesis extends Section<MR.V1_0_0.Profile.CompositionAnamneseUndAllgemeineBefunde> {
+export default class Anamnesis extends Section<MR.V1_1_0.Profile.CompositionAnamneseUndAllgemeineBefunde> {
     constructor(props: SectionProps) {
         super(props);
 
@@ -33,7 +33,7 @@ export default class Anamnesis extends Section<MR.V1_0_0.Profile.CompositionAnam
         };
 
         this.section = this.getSection([
-            MR.V1_0_0.Profile.CompositionAnamneseUndAllgemeineBefunde
+            MR.V1_1_0.Profile.CompositionAnamneseUndAllgemeineBefunde
         ]);
     }
 
@@ -47,7 +47,7 @@ export default class Anamnesis extends Section<MR.V1_0_0.Profile.CompositionAnam
     }
 
     protected getListGroups(): UI.DetailList.Props[] {
-        const { mio, history } = this.props;
+        const { mio, history, composition } = this.props;
 
         const itemsAnamnesis: UI.ListItem.Props[] = [];
         const itemsPreviousPregnancy: UI.ListItem.Props[] = [];
@@ -55,21 +55,21 @@ export default class Anamnesis extends Section<MR.V1_0_0.Profile.CompositionAnam
         this.section?.entry.forEach((entry) => {
             const ref = entry.reference;
             const resAnamnesis = ParserUtil.getEntryWithRef<
-                | MR.V1_0_0.Profile.ObservationAge
-                | MR.V1_0_0.Profile.ObservationBaselineWeightMother
-                | MR.V1_0_0.Profile.ObservationHeight
-                | MR.V1_0_0.Profile.ObservationGravida
-                | MR.V1_0_0.Profile.ObservationPara
+                | MR.V1_1_0.Profile.ObservationAge
+                | MR.V1_1_0.Profile.ObservationBaselineWeightMother
+                | MR.V1_1_0.Profile.ObservationHeight
+                | MR.V1_1_0.Profile.ObservationGravida
+                | MR.V1_1_0.Profile.ObservationPara
             >(
                 mio,
                 [
-                    MR.V1_0_0.Profile.ObservationAge,
-                    MR.V1_0_0.Profile.ObservationBaselineWeightMother,
-                    MR.V1_0_0.Profile.ObservationHeight,
-                    MR.V1_0_0.Profile.ObservationGravida,
-                    MR.V1_0_0.Profile.ObservationPara
+                    MR.V1_1_0.Profile.ObservationAge,
+                    MR.V1_1_0.Profile.ObservationBaselineWeightMother,
+                    MR.V1_1_0.Profile.ObservationHeight,
+                    MR.V1_1_0.Profile.ObservationGravida,
+                    MR.V1_1_0.Profile.ObservationPara
                 ],
-                ref
+                new Reference(ref, composition.fullUrl)
             );
 
             if (resAnamnesis) {
@@ -83,15 +83,20 @@ export default class Anamnesis extends Section<MR.V1_0_0.Profile.CompositionAnam
                 itemsAnamnesis.push({
                     value: mainValue.value,
                     label: mainValue.label,
-                    onClick: Util.Misc.toEntryByRef(history, mio, ref, true)
+                    onClick: Util.Misc.toEntryByRef(
+                        history,
+                        mio,
+                        new Reference(ref, composition.fullUrl),
+                        true
+                    )
                 });
             }
 
             const resPreviousPregnancy =
-                ParserUtil.getEntryWithRef<MR.V1_0_0.Profile.ObservationPreviousPregnancy>(
+                ParserUtil.getEntryWithRef<MR.V1_1_0.Profile.ObservationPreviousPregnancy>(
                     mio,
-                    [MR.V1_0_0.Profile.ObservationPreviousPregnancy],
-                    ref
+                    [MR.V1_1_0.Profile.ObservationPreviousPregnancy],
+                    new Reference(ref, composition.fullUrl)
                 );
 
             if (resPreviousPregnancy) {
@@ -105,7 +110,12 @@ export default class Anamnesis extends Section<MR.V1_0_0.Profile.CompositionAnam
                 itemsPreviousPregnancy.push({
                     label: mainValue.value,
                     noValue: true,
-                    onClick: Util.Misc.toEntryByRef(history, mio, ref, true)
+                    onClick: Util.Misc.toEntryByRef(
+                        history,
+                        mio,
+                        new Reference(ref, composition.fullUrl),
+                        true
+                    )
                 });
             }
         });

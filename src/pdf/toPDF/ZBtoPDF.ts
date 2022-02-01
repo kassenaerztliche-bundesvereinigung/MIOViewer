@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -18,7 +18,7 @@
 
 import { Content } from "pdfmake/interfaces";
 
-import { ParserUtil, ZAEB } from "@kbv/mioparser";
+import { ParserUtil, ZAEB, Reference } from "@kbv/mioparser";
 import { Util } from "../../components";
 
 import * as Models from "../../models";
@@ -77,7 +77,10 @@ export default class ZBtoPDF extends PDFRepresentation<ZAEB.V1_1_0.Profile.Bundl
 
         let authorContent: Content | undefined = undefined;
         if (ref) {
-            const organization = Util.ZB.getOrganization(this.value, ref);
+            const organization = Util.ZB.getOrganization(
+                this.value,
+                new Reference(ref, composition?.fullUrl)
+            );
 
             if (organization && organization.resource) {
                 const organizationModel = new Models.ZB.OrganizationModel(

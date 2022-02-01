@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -18,7 +18,7 @@
 
 import { History } from "history";
 
-import { ParserUtil, CMR } from "@kbv/mioparser";
+import { ParserUtil, CMR, Reference } from "@kbv/mioparser";
 import { Util } from "../../../components";
 
 import BaseModel from "./../Basic/CMRBaseModel";
@@ -45,7 +45,7 @@ export default class ParentalNotesModel extends BaseModel<CMR.V1_0_1.Profile.PNC
                 ParserUtil.getEntryWithRef<CMR.V1_0_1.Profile.PNObservationParentalNotes>(
                     this.parent,
                     [CMR.V1_0_1.Profile.PNObservationParentalNotes],
-                    entry
+                    new Reference(entry, this.fullUrl)
                 );
 
             if (parentalNote) {
@@ -86,7 +86,11 @@ export default class ParentalNotesModel extends BaseModel<CMR.V1_0_1.Profile.PNC
                         value: pn.valueString,
                         label: "Notiz"
                     },
-                    Util.UH.getPatientModelValue(patientRef, parent, history)
+                    Util.UH.getPatientModelValue(
+                        new Reference(patientRef, this.fullUrl),
+                        parent,
+                        history
+                    )
                 ];
             }
         });

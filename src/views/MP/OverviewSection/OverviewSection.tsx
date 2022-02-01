@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021. Kassenärztliche Bundesvereinigung, KBV
+ * Copyright (c) 2020 - 2022. Kassenärztliche Bundesvereinigung, KBV
  *
  * This file is part of MIO Viewer.
  *
@@ -42,9 +42,9 @@ class OverviewSection extends React.Component<
     render(): JSX.Element {
         const { section, mio, history, location, match, makePDF, devMode } = this.props;
 
-        const composition = ParserUtil.getEntry<MR.V1_0_0.Profile.Composition>(
-            mio as MR.V1_0_0.Profile.Bundle,
-            [MR.V1_0_0.Profile.Composition]
+        const composition = ParserUtil.getEntry<MR.V1_1_0.Profile.Composition>(
+            mio as MR.V1_1_0.Profile.Bundle,
+            [MR.V1_1_0.Profile.Composition]
         );
 
         const sectionMap = [
@@ -69,6 +69,11 @@ class OverviewSection extends React.Component<
                 component: SectionComponents.Epicrisis
             },
             {
+                sectionId: Sections.ErsteUntersuchungNachEntbindung,
+                headline: "Wochenbett",
+                component: SectionComponents.FirstExaminationAfterChildbirth
+            },
+            {
                 sectionId: Sections.KatalogB,
                 headline: "Besondere Befunde",
                 component: SectionComponents.SpecialFindings
@@ -84,12 +89,12 @@ class OverviewSection extends React.Component<
                 component: SectionComponents.Gravidogram
             },
             {
-                sectionId: Sections.Cardiotokographie,
-                headline: "Cardiotokographie",
+                sectionId: Sections.Cardiotokografie,
+                headline: "Cardiotokografie",
                 component: SectionComponents.Cardiotocography
             },
             {
-                sectionId: "Laboruntersuchungen und Rötelnschutz",
+                sectionId: Sections.Laboruntersuchungen,
                 headline: "Laboruntersuchungen",
                 component: SectionComponents.LaboratoryExamination
             },
@@ -126,8 +131,8 @@ class OverviewSection extends React.Component<
                     isExample={Util.Misc.isExample(mio)}
                 >
                     <Component
-                        mio={mio as MR.V1_0_0.Profile.Bundle}
-                        composition={composition.resource}
+                        mio={mio as MR.V1_1_0.Profile.Bundle}
+                        composition={composition}
                         history={history}
                         location={location}
                         match={match}
