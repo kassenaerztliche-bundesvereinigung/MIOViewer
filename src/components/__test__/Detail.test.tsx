@@ -60,11 +60,11 @@ describe("<Components.Detail />", () => {
             required: string[];
             contain: (string | RegExp)[];
         }[];
-    } & TestUtil.HasMioString;
+    } & TestUtil.MIOType;
 
     const detailList: DetailsValue[] = [
         {
-            mioString: "IM",
+            mio: "IM",
             bundle: Vaccination.V1_1_0.Profile.BundleEntry,
             definitions: [
                 {
@@ -184,7 +184,7 @@ describe("<Components.Detail />", () => {
             ]
         },
         {
-            mioString: "ZB",
+            mio: "ZB",
             bundle: ZAEB.V1_1_0.Profile.Bundle,
             definitions: [
                 {
@@ -236,7 +236,7 @@ describe("<Components.Detail />", () => {
             ]
         },
         {
-            mioString: "MR",
+            mio: "MR",
             bundle: MR.V1_1_0.Profile.Bundle,
             definitions: [
                 {
@@ -256,7 +256,7 @@ describe("<Components.Detail />", () => {
             ]
         },
         {
-            mioString: "UH",
+            mio: "UH",
             bundle: CMR.V1_0_1.Profile.CMRBundle,
             definitions: [
                 {
@@ -280,7 +280,7 @@ describe("<Components.Detail />", () => {
 
                 bundles.forEach((file) => {
                     it(file, async () => {
-                        const blob = new Blob([fs.readFileSync(file)]);
+                        const blob = new File([fs.readFileSync(file)], "test.file");
                         const result = await mioParser.parseFile(blob);
                         const bundle = result.value as BundleType;
                         const entries = ParserUtil.getEntries<typeof definition.profile>(

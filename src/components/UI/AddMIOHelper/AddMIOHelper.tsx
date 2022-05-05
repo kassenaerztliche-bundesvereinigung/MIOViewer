@@ -20,9 +20,11 @@ import React from "react";
 
 import { MIOConnectorType } from "../../../store";
 
-import { MIOParserResult, KBVBundleResource, GeneralError } from "@kbv/mioparser";
+import { MIOParserResult, KBVBundleResource, MIOParserError } from "@kbv/mioparser";
 
 import { UI } from "../../index";
+
+import purify from "dompurify";
 
 import * as Comlink from "comlink";
 
@@ -115,14 +117,14 @@ export default class AddMIOHelper {
     };
 
     protected handleResult = (
-        result: MIOParserResult | Error | GeneralError | undefined,
+        result: MIOParserResult | Error | MIOParserError | undefined,
         fileName: string,
         callback?: () => void
     ): void => {
         if (!result) return;
-        // Result is a GeneralError or Error that was thrown during parsing
+        // Result is a MIOParserError or Error that was thrown during parsing
         if (result instanceof Error) {
-            const generalError = result as GeneralError;
+            const generalError = result as MIOParserError;
             this.setState({
                 files: [],
                 errorMessage: generalError.message,
@@ -176,18 +178,52 @@ export default class AddMIOHelper {
                 }
                 // Resource is a bundle
                 else {
-                    const mioExists = this.props.mios.some(
-                        (mio) => mio.identifier.value === value.identifier.value
-                    );
-                    if (mioExists) {
-                        if (callback) callback();
-                    } else {
-                        this.props.addMIO(value).then(callback);
+                    if (!this.isDeprecated(value)) {
+                        const mioExists = this.props.mios.some(
+                            (mio) => mio.identifier.value === value.identifier.value
+                        );
+                        if (mioExists) {
+                            if (callback) callback();
+                        } else {
+                            this.props.addMIO(value).then(callback);
+                        }
                     }
                 }
             }
         }
     };
+
+    protected isDeprecated(value: KBVBundleResource): boolean {
+        const deprecated = [
+            {
+                name: "Mutterpass",
+                profile:
+                    "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_MR_Bundle|1.0.0",
+                currentVersion: "1.1.0"
+            }
+        ];
+
+        const deprecatedResult = deprecated.filter(
+            (d) => d.profile === value.meta.profile[0]
+        );
+
+        const isDeprecated = deprecatedResult.length > 0;
+
+        if (isDeprecated) {
+            const result = deprecatedResult[0];
+            const oldVersion = result.profile.split("|").pop();
+
+            const msg = `Die Version ${oldVersion} des MIOs ${result.name} wird im MIO Viewer nicht mehr unterstützt. MIOs dieses Typs müssen in der Version ${result.currentVersion} vorliegen. Falls Sie diese Datei validieren wollen können Sie den <a href="https://mio-parser.kbv.de/" target="_blank" rel="noopener noreferrer">MIO Parser Web</a> benutzen.`;
+            this.setState({
+                files: [],
+                errorMessage: msg,
+                hasError: true,
+                numErrors: 1
+            });
+        }
+
+        return isDeprecated;
+    }
 
     // handles the files that were put into the MIO Viewer
     protected parseFiles = (): void => {
@@ -201,11 +237,11 @@ export default class AddMIOHelper {
             this.handleResult(new Error(message), "");
         } else {
             const handle = (
-                results: MIOParserResult[] | Error | GeneralError | undefined
+                results: MIOParserResult[] | Error | MIOParserError | undefined
             ) => {
                 if (
                     results &&
-                    (results instanceof Error || results instanceof GeneralError)
+                    (results instanceof Error || results instanceof MIOParserError)
                 ) {
                     this.handleResult(results, files[0].name);
                 } else {
@@ -244,7 +280,8 @@ export default class AddMIOHelper {
                                 results = new Error(parsed.message);
 
                                 if (parsed.details) {
-                                    results = new GeneralError(
+                                    results = new MIOParserError(
+                                        parsed.fileName,
                                         parsed.message,
                                         parsed.details
                                     );
@@ -273,11 +310,17 @@ export default class AddMIOHelper {
         const { errorMessage, errorDetailMessage, errorDetailMessageToCopy, numErrors } =
             this._state;
 
+        purify.setConfig({ ADD_ATTR: ["target"] });
+
         return (
             <div className={"error-content"}>
                 <div className={"texts"}>
                     <p>Beim Import des MIOs ist ein Fehler aufgetreten.</p>
-                    <p>{errorMessage}</p>
+                    <p
+                        dangerouslySetInnerHTML={{
+                            __html: purify.sanitize(errorMessage)
+                        }}
+                    />
                 </div>
                 {errorDetailMessage && (
                     <div className={"error-details"}>

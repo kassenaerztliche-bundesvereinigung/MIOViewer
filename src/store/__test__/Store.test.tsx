@@ -39,7 +39,7 @@ describe("<Store/>", () => {
             test(file, async () => {
                 const store = ViewerTestUtil.createStoreWithMios([]);
                 expect(store.getState().mioState.mios.length).toBe(0);
-                const blob = new Blob([fs.readFileSync(file)]);
+                const blob = new File([fs.readFileSync(file)], "test.file");
                 const result = await AsyncAction.parseMIO(store.dispatch, blob);
 
                 expect(result).toBeDefined();
@@ -58,7 +58,10 @@ describe("<Store/>", () => {
 
     it("Parsed fehlerhaftes MIO", async () => {
         const store = ViewerTestUtil.createStoreWithMios([]);
-        const result = await AsyncAction.parseMIO(store.dispatch, new Blob(["{}"]));
+        const result = await AsyncAction.parseMIO(
+            store.dispatch,
+            new File(["{}"], "test.file")
+        );
 
         expect(result).toBeDefined();
         expect(result instanceof Error).toBeTruthy();

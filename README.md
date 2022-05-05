@@ -21,6 +21,15 @@ Beispiele für bereits entwickelte MIOs sind der Impfpass und das zahnärztliche
 
 Über diese Anwendung können entschlüsselte JSON- und XML MIOs eingelesen werden. Diese werden dann dargestellt und lassen sich auch als PDF exportieren.
 
+Bei der Entwicklung des Viewers ist darauf geachtet worden, dass er für Software-Hersteller und Anbieter weiterverwendbar ist.
+Der Quellcode ist für alle sicht und nutzbar auf der Plattform GitHub veröffentlicht.
+So dient der Viewer nicht nur Patientinnen und Patienten und den an der Versorgung Beteiligten,
+die ihn als Alternative nutzen, falls MIOs aus technischen Gründen mit der gewohnten Software noch nicht angezeigt werden können.
+Er ist auch eine kostenlose Hilfestellung für Hersteller. Sie können den Code für ihre eigenen Anwendungen nutzen
+und weiterentwickeln. Wer also Software entwickelt oder anbieten will, die MIOs verwendet,
+kann dafür einfach die Funktion und/oder Optik des MIO Viewers in Verbindung mit dem MIO Parser übernehmen
+und nach eigenen Wünschen anpassen.
+
 ## Hintergrund
 
 Ab dem Jahr 2022 werden in der elektronische Patientenakte MIOs für alle Versicherten in Deutschland eingeführt.
@@ -36,11 +45,13 @@ Hierfür wird es zur freien Nutzung unter der LGPLv3 Lizenz zur Verfügung geste
 Welche MIOs verarbeitet werden können kann dem [Changelog](https://github.com/kassenaerztliche-bundesvereinigung/MIOViewer/blob/master/CHANGELOG.md) entnommen werden.
 
 ### Derzeit unterstützte MIOs
-Folgende MIOs können mit dem MIO Viewer dargestellt werden: 
-* [Impfpass v1.1.0](https://mio.kbv.de/display/IM1X1X0)
-* [Zahnärztliches Bonusheft v1.1.0](https://mio.kbv.de/display/ZB1X1X0)
-* [Mutterpass v1.1.0](https://mio.kbv.de/display/MP1X1X0/Mutterpass+1.1.0)
-* [Untersuchungsheft v1.0.1](https://mio.kbv.de/display/UH1X0X1)
+
+Folgende MIOs können mit dem MIO Viewer dargestellt werden:
+
+-   [Impfpass v1.1.0](https://mio.kbv.de/display/IM1X1X0)
+-   [Zahnärztliches Bonusheft v1.1.0](https://mio.kbv.de/display/ZB1X1X0)
+-   [Mutterpass v1.1.0](https://mio.kbv.de/display/MP1X1X0/Mutterpass+1.1.0)
+-   [Untersuchungsheft v1.0.1](https://mio.kbv.de/display/UH1X0X1)
 
 ## Setup
 

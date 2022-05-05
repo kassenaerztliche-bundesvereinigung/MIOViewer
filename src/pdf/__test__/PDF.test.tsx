@@ -29,17 +29,22 @@ import PDFMaker from "../PDFMaker";
 describe("<PDF />", () => {
     const mioParser = new MIOParser();
 
-    const detailList: TestUtil.HasMioString[] = [
-        { mioString: "IM" },
-        { mioString: "ZB" },
-        { mioString: "MR" },
-        { mioString: "UH" }
+    type TestValue = {
+        version?: string;
+    } & TestUtil.MIOType;
+
+    const detailList: TestValue[] = [
+        { mio: "IM" },
+        { mio: "ZB" },
+        { mio: "MR", version: "1.1.0" },
+        { mio: "UH" }
     ];
 
-    const renderTest = (bundles: string[]) => {
+    const renderTest = (bundles: string[], value: TestValue, version?: string) => {
         bundles.forEach((file) => {
+            if (value.version && value.version !== version) return;
             it(file, async () => {
-                const blob = new Blob([fs.readFileSync(file)]);
+                const blob = new File([fs.readFileSync(file)], "test.file");
                 const result = await mioParser.parseFile(blob);
                 const bundle = result.value as KBVBundleResource;
                 const store = ViewerTestUtil.createStoreWithMios([bundle]);

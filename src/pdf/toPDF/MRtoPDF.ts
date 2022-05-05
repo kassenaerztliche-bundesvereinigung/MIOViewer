@@ -718,8 +718,6 @@ export default class MRtoPDF extends PDFRepresentation<MR.V1_1_0.Profile.Bundle>
                         childSection
                     );
 
-                    console.log(childSection);
-
                     if (childrenContent.length) {
                         content.push(
                             this.sectionWithContent(
@@ -816,7 +814,6 @@ export default class MRtoPDF extends PDFRepresentation<MR.V1_1_0.Profile.Bundle>
                 const childContent: Content = [];
 
                 const res = Util.MP.getPatientChild(this.value, child);
-                console.log(res);
 
                 if (res) {
                     const childModel = new Models.MP.Basic.PatientChildModel(

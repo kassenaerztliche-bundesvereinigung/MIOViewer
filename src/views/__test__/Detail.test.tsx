@@ -50,11 +50,11 @@ describe("<Detail-View />", () => {
             profile: AnyType;
             required: string[];
         }[];
-    } & TestUtil.HasMioString;
+    } & TestUtil.MIOType;
 
     const detailList: DetailValue[] = [
         {
-            mioString: "IM",
+            mio: "IM",
             component: DetailIM,
             details: [
                 {
@@ -90,7 +90,7 @@ describe("<Detail-View />", () => {
             ]
         },
         {
-            mioString: "ZB",
+            mio: "ZB",
             component: DetailZB,
             details: [
                 {
@@ -120,7 +120,7 @@ describe("<Detail-View />", () => {
             ]
         },
         {
-            mioString: "MR",
+            mio: "MR",
             component: DetailMR,
             details: [
                 {
@@ -138,7 +138,7 @@ describe("<Detail-View />", () => {
             ]
         },
         {
-            mioString: "UH",
+            mio: "UH",
             component: DetailUH,
             details: [
                 {
@@ -156,7 +156,7 @@ describe("<Detail-View />", () => {
             describe(`${detail.getFunction.name.replace("get", "")} Details`, () => {
                 bundles.forEach((file) => {
                     it(file, async () => {
-                        const blob = new Blob([fs.readFileSync(file)]);
+                        const blob = new File([fs.readFileSync(file)], "test.file");
                         const result = await mioParser.parseFile(blob);
                         const bundle =
                             result.value as Vaccination.V1_1_0.Profile.BundleEntry;
@@ -237,7 +237,9 @@ describe("<Detail-View />", () => {
     );
 
     it("Rendert unbekanntes Detail IM", async () => {
-        const file = TestUtil.getExample("/data/bundles/ZB/ZB_Ludger_Koenigsstein.xml");
+        const file = TestUtil.getExample(
+            "/data/bundles/ZB/1.1.0/ZB_Ludger_Koenigsstein.xml"
+        );
         expect(file).toBeDefined();
         if (file) {
             const result = await mioParser.parseString(file);
@@ -267,7 +269,9 @@ describe("<Detail-View />", () => {
     });
 
     it("Rendert unbekanntes Detail ZB", async () => {
-        const file = TestUtil.getExample("/data/bundles/IM/IM_Ludger_Koenigsstein.json");
+        const file = TestUtil.getExample(
+            "/data/bundles/IM/1.1.0/IM_Ludger_Koenigsstein.json"
+        );
         expect(file).toBeDefined();
         if (file) {
             const result = await mioParser.parseString(file);

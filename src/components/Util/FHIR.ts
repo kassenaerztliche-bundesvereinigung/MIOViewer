@@ -99,28 +99,30 @@ export function handleCode(
     code: Code | CodeEmpty,
     conceptMap?: ParserUtil.ConceptMap[]
 ): string[] {
-    const coding = code.coding;
-    if (coding && coding.length) {
+    const codings = code.coding;
+    if (codings && codings.length) {
         const translated: string[] = [];
 
         if (conceptMap) {
-            coding.forEach((code) => {
-                if (!code.code) return;
-                translated.push(...ParserUtil.multiTranslateCode(code.code, conceptMap));
+            codings.forEach((coding) => {
+                if (!coding.code) return;
+                translated.push(
+                    ...ParserUtil.multiTranslateCode(coding.code, conceptMap)
+                );
             });
         }
 
         if (!translated.length) {
             const mapped: string[] = [];
 
-            coding.forEach((code) => {
-                const _display = code._display;
+            codings.forEach((coding) => {
+                const _display = coding._display;
                 if (_display && _display.extension) {
                     mapped.push(...handleCodingDisplay(_display));
-                } else if (code.display) {
-                    mapped.push(code.display);
-                } else if (code.code) {
-                    mapped.push(code.code);
+                } else if (coding.display) {
+                    mapped.push(coding.display);
+                } else if (coding.code) {
+                    mapped.push(coding.code);
                 }
             });
 

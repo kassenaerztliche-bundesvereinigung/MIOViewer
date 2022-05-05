@@ -34,7 +34,7 @@ describe("<ZB.Overview />", () => {
 
     const detailTest = (file: string) => {
         it(file, async () => {
-            const blob = new Blob([fs.readFileSync(file)]);
+            const blob = new File([fs.readFileSync(file)], "test.file");
             const result = await mioParser.parseFile(blob);
             const mio = result.value as ZAEB.V1_1_0.Profile.Bundle;
             const history = createMemoryHistory();
@@ -61,7 +61,7 @@ describe("<ZB.Overview />", () => {
 
     TestUtil.runAllFiles(
         "Rendert",
-        [{ mioString: "ZB" }],
+        [{ mio: "ZB" }],
         detailTest,
         "Bundles",
         true,

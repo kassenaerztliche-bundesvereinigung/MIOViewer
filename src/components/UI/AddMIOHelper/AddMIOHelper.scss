@@ -34,6 +34,11 @@
         p {
             margin-bottom: 0;
             padding-bottom: $space;
+
+            a {
+                color: white;
+                border-bottom-color: white;
+            }
         }
     }
 

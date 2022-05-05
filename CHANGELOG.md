@@ -1,5 +1,9 @@
 # Changelog MIO Viewer
 
+## 1.7.0
+
+- Für veraltete MIOs wird eine Fehlermeldung angezeigt
+
 ## 1.6.0
 
 -   Darstellung Mutterpass, Version 1.1.0

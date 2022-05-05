@@ -32,7 +32,9 @@ describe("Mutterpass Section Tests", () => {
     let store: any = undefined; // eslint-disable-line
 
     it("Loads max example", async () => {
-        const file = TestUtil.getExample("/data/bundles/MR/Bundle-example_max.json");
+        const file = TestUtil.getExample(
+            "/data/bundles/MR/1.1.0/Bundle-example_max.json"
+        );
         expect(file).toBeDefined();
         if (file) {
             const result = await mioParser.parseString(file);

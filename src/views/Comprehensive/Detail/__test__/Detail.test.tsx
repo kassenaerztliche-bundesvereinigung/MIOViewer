@@ -33,11 +33,11 @@ describe("<Detail />", () => {
             testId: string;
             getFunction: any; // eslint-disable-line
         }[];
-    } & TestUtil.HasMioString;
+    } & TestUtil.MIOType;
 
     const detailList: DetailValue[] = [
         {
-            mioString: "IM",
+            mio: "IM",
             values: [
                 {
                     testId: "detail-VaccinationPatient",
@@ -58,7 +58,7 @@ describe("<Detail />", () => {
             ]
         },
         {
-            mioString: "ZB",
+            mio: "ZB",
             values: [
                 {
                     testId: "detail-ZAEBPatient",
@@ -87,7 +87,7 @@ describe("<Detail />", () => {
             describe(value.getFunction.name, () => {
                 bundles.forEach((file) => {
                     it(file, async () => {
-                        const blob = new Blob([fs.readFileSync(file)]);
+                        const blob = new File([fs.readFileSync(file)], "test.file");
                         const result = await mioParser.parseFile(blob);
                         const bundle = result.value as KBVBundleResource;
                         const store = ViewerTestUtil.createStoreWithMios([bundle]);

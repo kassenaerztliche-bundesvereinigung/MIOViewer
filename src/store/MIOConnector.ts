@@ -76,8 +76,8 @@ const mapStateToProps = ({ mioState }: MIOViewerRootState, ownProps: any): MIOSt
 const mapDispatcherToProps = (dispatch: Dispatch<MIOActions>) => {
     return {
         addMIO: (item: KBVBundleResource) => AsyncAction.addMIO(dispatch, item),
-        parseMIO: (file: Blob) => AsyncAction.parseMIO(dispatch, file),
-        parseMIOs: (files: Blob[]) => AsyncAction.parseMIOs(dispatch, files),
+        parseMIO: (file: File) => AsyncAction.parseMIO(dispatch, file),
+        parseMIOs: (files: File[]) => AsyncAction.parseMIOs(dispatch, files),
         setLoading: (value: boolean) => AsyncAction.setLoading(dispatch, value),
         makePDF: (value: KBVResource | KBVBundleResource | undefined) =>
             AsyncAction.makePDF(dispatch, value)

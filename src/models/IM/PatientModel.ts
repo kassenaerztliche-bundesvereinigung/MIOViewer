@@ -69,9 +69,6 @@ export default class PatientModel extends BaseModel<Vaccination.V1_1_0.Profile.P
             })
             .join(", ");
 
-        console.log(gender);
-        console.log(_gender);
-
         return {
             value: gender ? gender : _gender ? _gender : "-",
             label: "Geschlecht"

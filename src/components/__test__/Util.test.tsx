@@ -31,11 +31,12 @@ describe("<Util/>", () => {
 
     type UtilValue = {
         functions: any[]; // eslint-disable-line
-    } & TestUtil.HasMioString;
+        version?: string;
+    } & TestUtil.MIOType;
 
     const utilList: UtilValue[] = [
         {
-            mioString: "IM",
+            mio: "IM",
             functions: [
                 Util.IM.getPatient,
                 Util.IM.getPractitioners,
@@ -45,25 +46,27 @@ describe("<Util/>", () => {
             ]
         },
         {
-            mioString: "ZB",
+            mio: "ZB",
             functions: [Util.ZB.getPatient, Util.ZB.getOrganization, Util.ZB.getEntries]
         },
         {
-            mioString: "MR",
+            mio: "MR",
+            version: "1.1.0",
             functions: [Util.MP.getPatientMother]
         },
         {
-            mioString: "UH",
+            mio: "UH",
             functions: [Util.UH.getPatient, Util.UH.getTypeFromBundle]
         }
     ];
 
-    const detailTest = (bundles: string[], value: UtilValue) => {
+    const detailTest = (bundles: string[], value: UtilValue, version?: string) => {
+        if (value.version && value.version !== version) return;
         value.functions.forEach((func) => {
             describe(func.name, () => {
                 bundles.forEach((file) => {
                     it(`${file}`, async () => {
-                        const blob = new Blob([fs.readFileSync(file)]);
+                        const blob = new File([fs.readFileSync(file)], "test.file");
                         const result = await mioParser.parseFile(blob);
                         const bundle = result.value;
 

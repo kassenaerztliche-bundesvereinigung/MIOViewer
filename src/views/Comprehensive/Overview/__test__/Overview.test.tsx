@@ -30,30 +30,33 @@ describe("<Overview />", () => {
 
     type MIOValue = {
         testId: string | RegExp;
-    } & TestUtil.HasMioString;
+        version?: string;
+    } & TestUtil.MIOType;
 
     const mioList: MIOValue[] = [
         {
-            mioString: "IM",
+            mio: "IM",
             testId: "im-overview"
         },
         {
-            mioString: "ZB",
+            mio: "ZB",
             testId: "zb-overview"
         },
         {
-            mioString: "MR",
+            mio: "MR",
+            version: "1.1.0",
             testId: "mp-overview"
         },
         {
-            mioString: "UH",
+            mio: "UH",
             testId: /(cmr-overview)|(cmr-pc-overview)|(cmr-pn-overview)/
         }
     ];
 
-    const overviewTest = (file: string, value: MIOValue) => {
+    const overviewTest = (file: string, value: MIOValue, version?: string) => {
+        if (value.version && value.version !== version) return;
         it(`${file}`, async () => {
-            const blob = new Blob([fs.readFileSync(file)]);
+            const blob = new File([fs.readFileSync(file)], "test.file");
             const result = await mioParser.parseFile(blob);
             const bundle = result.value as KBVBundleResource;
             const store = ViewerTestUtil.createStoreWithMios([bundle]);

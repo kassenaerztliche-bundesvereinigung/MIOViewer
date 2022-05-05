@@ -29,8 +29,21 @@ describe("<Main />", () => {
     ViewerTestUtil.mock();
     const mioParser = new MIOParser();
 
+    type TestValue = {
+        version?: string;
+    } & TestUtil.MIOType;
+
+    const testValues: TestValue[] = [
+        { mio: "IM" },
+        { mio: "ZB" },
+        { mio: "MR", version: "1.1.0" },
+        { mio: "UH" }
+    ];
+
     it("Rendert", async () => {
-        const file = TestUtil.getExample("/data/bundles/IM/IM_Ludger_Koenigsstein.json");
+        const file = TestUtil.getExample(
+            "/data/bundles/IM/1.1.0/IM_Ludger_Koenigsstein.json"
+        );
         expect(file).toBeDefined();
         if (file) {
             const result = await mioParser.parseString(file);
@@ -53,12 +66,13 @@ describe("<Main />", () => {
         }
     });
 
-    const renderTest = (bundles: string[], value: TestUtil.HasMioString) => {
+    const renderTest = (bundles: string[], value: TestValue, version?: string) => {
+        if (value.version && value.version !== version) return;
         it("mehrere Slider-Seiten", async () => {
             const mios: KBVBundleResource[] = [];
             for (let i = 0; i < bundles.length; i++) {
                 const file = bundles[i];
-                const blob = new Blob([fs.readFileSync(file)]);
+                const blob = new File([fs.readFileSync(file)], "test.file");
                 const result = await mioParser.parseFile(blob);
                 mios.push(result.value as KBVBundleResource);
             }
@@ -78,18 +92,18 @@ describe("<Main />", () => {
             const max = Math.floor(bundles.length / 9);
 
             // U-Heft is grouped folder
-            if (value.mioString !== "UH") {
+            if (value.mio !== "UH") {
                 expect(container.getByTestId(`slide-${max}`)).toBeDefined();
             }
 
             let text;
-            if (value.mioString === "IM") {
+            if (value.mio === "IM") {
                 text = "Impfpass";
-            } else if (value.mioString === "ZB") {
+            } else if (value.mio === "ZB") {
                 text = "Zahnärztliches Bonusheft";
-            } else if (value.mioString === "MR") {
+            } else if (value.mio === "MR") {
                 text = "Mutterpass";
-            } else if (value.mioString === "UH") {
+            } else if (value.mio === "UH") {
                 text = "Kinderuntersuchungsheft";
             }
 
@@ -99,5 +113,12 @@ describe("<Main />", () => {
         }, 50000);
     };
 
-    TestUtil.runAllBundles("Rendert", renderTest);
+    TestUtil.runAll(
+        "Rendert",
+        testValues,
+        renderTest,
+        "Bundles",
+        true,
+        ViewerTestUtil.mock
+    );
 });

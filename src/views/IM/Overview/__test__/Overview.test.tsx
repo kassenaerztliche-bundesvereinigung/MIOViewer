@@ -34,7 +34,7 @@ describe("<IM.Overview />", () => {
 
     const renderTest = (file: string) => {
         it(file, async () => {
-            const blob = new Blob([fs.readFileSync(file)]);
+            const blob = new File([fs.readFileSync(file)], "test.file");
             const result = await mioParser.parseFile(blob);
             const bundle = result.value as Vaccination.V1_1_0.Profile.BundleEntry;
             const history = createMemoryHistory();
@@ -49,7 +49,7 @@ describe("<IM.Overview />", () => {
 
     TestUtil.runAllFiles(
         "Rendert",
-        [{ mioString: "IM" }],
+        [{ mio: "IM" }],
         renderTest,
         "Bundles",
         true,

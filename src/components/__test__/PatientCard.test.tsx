@@ -39,35 +39,37 @@ describe("<PatientCard />", () => {
             | typeof CMR.V1_0_1.Profile.PCBundle
             | typeof CMR.V1_0_1.Profile.PNBundle;
         getFunction: any; // eslint-disable-line
-    } & TestUtil.HasMioString;
+        version?: string;
+    } & TestUtil.MIOType;
     const cardList: CardValue[] = [
         {
-            mioString: "IM",
+            mio: "IM",
             bundleType: Vaccination.V1_1_0.Profile.BundleEntry,
             getFunction: Util.IM.getPatient
         },
         {
-            mioString: "ZB",
+            mio: "ZB",
             bundleType: ZAEB.V1_1_0.Profile.Bundle,
             getFunction: Util.ZB.getPatient
         },
         {
-            mioString: "MR",
+            mio: "MR",
+            version: "1.1.0",
             bundleType: MR.V1_1_0.Profile.Bundle,
             getFunction: Util.MP.getPatientMother
         },
         {
-            mioString: "UH",
+            mio: "UH",
             bundleType: CMR.V1_0_1.Profile.CMRBundle,
             getFunction: Util.UH.getPatient
         },
         {
-            mioString: "UH",
+            mio: "UH",
             bundleType: CMR.V1_0_1.Profile.PCBundle,
             getFunction: Util.UH.getPatient
         },
         {
-            mioString: "UH",
+            mio: "UH",
             bundleType: CMR.V1_0_1.Profile.PNBundle,
             getFunction: Util.UH.getPatient
         }
@@ -75,9 +77,10 @@ describe("<PatientCard />", () => {
 
     const mioParser = new MIOParser();
 
-    const cardTest = (file: string, card: CardValue) => {
+    const cardTest = (file: string, card: CardValue, version?: string) => {
+        if (card.version && version !== card.version) return;
         it(file, async () => {
-            const blob = new Blob([fs.readFileSync(file)]);
+            const blob = new File([fs.readFileSync(file)], "test.file");
             const result = await mioParser.parseFile(blob);
             const mio = result.value;
             const entry = card.getFunction(mio);

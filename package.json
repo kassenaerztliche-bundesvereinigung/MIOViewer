@@ -1,7 +1,7 @@
 {
     "author": "KBV",
     "name": "@kbv/mioviewer",
-    "version": "1.6.0",
+    "version": "1.7.0",
     "license": "LGPL-3.0",
     "description": "MIO Viewer zur Darstellung von MIOs in einem Webbrowser",
     "repository": "github:kassenaerztliche-bundesvereinigung/mioviewer",
@@ -60,7 +60,7 @@
     "dependencies": {
         "@ionic/react": "5.9.2",
         "@ionic/react-router": "5.9.2",
-        "@kbv/mioparser": "^1.6.0",
+        "@kbv/mioparser": "^1.7.1",
         "comlink": "^4.3.1",
         "dompurify": "^2.2.9",
         "lottie-web": "^5.7.11",
@@ -79,7 +79,7 @@
         "swiper": "^6.8.4"
     },
     "devDependencies": {
-        "@kbv/miotestdata": "^1.6.1",
+        "@kbv/miotestdata": "^1.7.1",
         "@testing-library/jest-dom": "^5.14.1",
         "@testing-library/react": "^10.4.8",
         "@types/dompurify": "^2.2.2",

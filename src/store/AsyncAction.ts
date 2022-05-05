@@ -30,7 +30,7 @@ import PDFMaker from "../pdf/PDFMaker";
 
 export async function parseMIO(
     dispatch: Dispatch<MIOActions>,
-    file: Blob
+    file: File
 ): Promise<MIOParserResult | Error> {
     dispatch(Actions.setLoading(true));
 
@@ -51,7 +51,7 @@ export async function parseMIO(
 
 export async function parseMIOs(
     dispatch: Dispatch<MIOActions>,
-    files: Blob[]
+    files: File[]
 ): Promise<MIOParserResult[] | Error> {
     dispatch(Actions.setLoading(true));
 

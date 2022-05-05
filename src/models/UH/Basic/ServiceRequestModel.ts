@@ -72,13 +72,13 @@ export default class ServiceRequestModel extends BaseModel<ServiceRequestType> {
             ? [this.value.requester.reference]
             : [];
 
-        const r = Util.UH.getPerformerModelValues(
-            requesterRefs.map((r) => new Reference(r, this.fullUrl)),
+        const requesters = Util.UH.getPerformerModelValues(
+            requesterRefs.map((ref) => new Reference(ref, this.fullUrl)),
             this.parent as CMR.V1_0_1.Profile.CMRBundle,
             this.history
         );
 
-        return r.map((value) => {
+        return requesters.map((value) => {
             value.label = "Veranlasst von";
             value.subModels = [
                 OrganizationModel,

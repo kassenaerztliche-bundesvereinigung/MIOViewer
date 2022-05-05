@@ -42,7 +42,19 @@ describe("<Home />", () => {
         expect(getByTestId("input-type-file")).toBeDefined();
     });
 
-    const storeTest = (file: string) => {
+    type TestValue = {
+        version?: string;
+    } & TestUtil.MIOType;
+
+    const bundles: TestValue[] = [
+        { mio: "IM" },
+        { mio: "ZB" },
+        { mio: "MR", version: "1.1.0" },
+        { mio: "UH" }
+    ];
+
+    const storeTest = (file: string, value: TestValue, version?: string) => {
+        if (value.version && value.version !== version) return;
         it(file, async () => {
             const store = ViewerTestUtil.createStoreWithMios([]);
             const { getByTestId } = ViewerTestUtil.renderReduxRoute(
@@ -54,7 +66,7 @@ describe("<Home />", () => {
 
             const event = {
                 target: {
-                    files: [new Blob([fs.readFileSync(file)])]
+                    files: [new File([fs.readFileSync(file)], "test.file")]
                 }
             };
 
@@ -70,5 +82,12 @@ describe("<Home />", () => {
         });
     };
 
-    TestUtil.runAllBundleFiles("Parsed ein MIO und fügt es dem Store hinzu", storeTest);
+    TestUtil.runAllFiles(
+        "Parsed ein MIO und fügt es dem Store hinzu",
+        bundles,
+        storeTest,
+        "Bundles",
+        true,
+        ViewerTestUtil.mock
+    );
 });
