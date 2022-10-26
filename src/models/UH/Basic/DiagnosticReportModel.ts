@@ -311,7 +311,9 @@ export default class DiagnosticReportModel extends BaseModel<DiagnosticReportTyp
     }
 
     public getCoding(resource?: { code?: Util.FHIR.Code }): string {
-        if (!resource) resource = this.value;
+        if (!resource) {
+            resource = this.value;
+        }
         return Util.FHIR.getCoding(resource /*, this.codeConceptMap*/);
     }
 

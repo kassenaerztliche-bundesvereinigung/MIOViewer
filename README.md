@@ -50,8 +50,9 @@ Folgende MIOs können mit dem MIO Viewer dargestellt werden:
 
 -   [Impfpass v1.1.0](https://mio.kbv.de/display/IM1X1X0)
 -   [Zahnärztliches Bonusheft v1.1.0](https://mio.kbv.de/display/ZB1X1X0)
--   [Mutterpass v1.1.0](https://mio.kbv.de/display/MP1X1X0/Mutterpass+1.1.0)
+-   [Mutterpass v1.1.0](https://mio.kbv.de/display/MP1X1X0)
 -   [Untersuchungsheft v1.0.1](https://mio.kbv.de/display/UH1X0X1)
+-   [Patientenkurzakte v1.0.0](https://mio.kbv.de/display/PKA1X0X0)
 
 ## Setup
 
@@ -59,7 +60,7 @@ Die folgenden Anweisungen sollen helfen die Software herunterzuladen, installier
 
 ### Voraussetzungen
 
-[![Node Version](http://img.shields.io/badge/node-<=12.19.0-brightgreen.svg?style=flat-square)](https://nodejs.org/)
+[![Node Version](http://img.shields.io/badge/node-<=16.17.0-brightgreen.svg?style=flat-square)](https://nodejs.org/)
 [![NPM Version](https://img.shields.io/npm/v/npm.svg?style=flat-square)](https://www.npmjs.com/)
 
 <a href="http://nodejs.org" target="_blank">Node.js</a> mit NPM muss installiert sein.

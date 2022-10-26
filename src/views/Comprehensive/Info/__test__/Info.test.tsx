@@ -16,7 +16,7 @@
  * along with MIO Viewer. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import * as ViewerTestUtil from "../../../../../test/TestUtil.test";
+import * as ViewerTestUtil from "../../../../TestUtil";
 import * as TestUtil from "@kbv/miotestdata";
 
 import * as Info from "../";
@@ -26,7 +26,11 @@ describe("<Info />", () => {
 
     const renderTest = (file: string) => {
         it(file, async () => {
-            const { getByText } = ViewerTestUtil.renderRoute(Info.Info, "/info", "/info");
+            const { getByText } = await ViewerTestUtil.renderRoute(
+                Info.Info,
+                "/info",
+                "/info"
+            );
             expect(getByText("Hilfethemen")).toBeDefined();
         });
     };

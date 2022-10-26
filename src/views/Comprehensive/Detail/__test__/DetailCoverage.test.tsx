@@ -17,7 +17,7 @@
  */
 
 import { ParserUtil } from "@kbv/mioparser";
-import * as TestUtil from "../../../../../test/TestUtil.test";
+import * as TestUtil from "../../../../TestUtil";
 
 import IMDetail from "../../../IM/Detail";
 import ZBDetail from "../../../ZB/Detail";
@@ -437,13 +437,19 @@ describe("Detail Coverage", () => {
         console.log(`Mapped Profiles: ${usedProfiles.length} / ${profilesMapped.length}`);
 
         const duplicates = findDuplicates(profilesMapped);
-        if (duplicates.length) console.log("Duplicates: ", duplicates);
+        if (duplicates.length) {
+            console.log("Duplicates: ", duplicates);
+        }
 
         const missing = usedProfiles.filter((p) => !profilesMapped.includes(p));
-        if (missing.length) console.log("Missing: ", missing);
+        if (missing.length) {
+            console.log("Missing: ", missing);
+        }
 
         const excess = profilesMapped.filter((p) => !usedProfiles.includes(p));
-        if (excess.length) console.log("Excess: ", excess);
+        if (excess.length) {
+            console.log("Excess: ", excess);
+        }
 
         expect(profilesMapped.length).toEqual(usedProfiles.length);
         expect(missing.length).toEqual(0);
@@ -554,7 +560,9 @@ describe("Detail Coverage", () => {
         );
 
         const missing = observations.filter((p) => !usedObservationsMP.includes(p));
-        if (missing.length) console.log(missing);
+        if (missing.length) {
+            console.log(missing);
+        }
         expect(usedObservationsMP.length).toEqual(observations.length);
         expect(missing.length).toEqual(0);
 
@@ -565,7 +573,9 @@ describe("Detail Coverage", () => {
         const falseProfiles = profileSet.filter(
             (m) => !m.profile.name.includes(namePart)
         );
-        if (falseProfiles.length) console.log(falseProfiles);
+        if (falseProfiles.length) {
+            console.log(falseProfiles);
+        }
         return falseProfiles.length === 0;
     };
 
@@ -691,14 +701,20 @@ describe("Detail Coverage", () => {
         const conceptMapsInMappings = UHDetail.mappings
             .map((m) => {
                 const all = [];
-                if (m.codeConceptMaps) all.push(...m.codeConceptMaps);
-                if (m.valueConceptMaps) all.push(...m.valueConceptMaps);
+                if (m.codeConceptMaps) {
+                    all.push(...m.codeConceptMaps);
+                }
+                if (m.valueConceptMaps) {
+                    all.push(...m.valueConceptMaps);
+                }
                 return all.map((cm) => getCMName(cm)).flat();
             })
             .flat();
 
         const missing = conceptMapsUH.filter((cm) => !conceptMapsInMappings.includes(cm));
-        if (missing.length) console.log(missing);
+        if (missing.length) {
+            console.log(missing);
+        }
 
         expect(missing.length).toBe(0);
 

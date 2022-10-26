@@ -18,10 +18,17 @@
 
 import React from "react";
 
-import { RouteComponentProps } from "react-router";
 import { MIOConnectorType } from "../../../store";
 
-import { KBVBundleResource, MIOEntry, Vaccination, ZAEB, MR, CMR } from "@kbv/mioparser";
+import {
+    KBVBundleResource,
+    MIOEntry,
+    Vaccination,
+    ZAEB,
+    MR,
+    CMR,
+    PKA
+} from "@kbv/mioparser";
 
 import { UI, Util } from "../../../components/";
 
@@ -30,10 +37,15 @@ import * as Models from "../../../models/";
 import DetailComponent from "../../../components/Detail/Detail";
 import { SettingsConnectorType } from "../../../store";
 import { DetailMapping } from "./Types";
+import { RouteProps } from "../../../store";
 
-type DetailProps = MIOConnectorType & SettingsConnectorType & RouteComponentProps;
+export type DetailProps = MIOConnectorType & SettingsConnectorType & RouteProps;
 
-type ListItemType = { header: string; testIdSuffix?: string; component: JSX.Element };
+export type ListItemType = {
+    header: string;
+    testIdSuffix?: string;
+    component: JSX.Element;
+};
 
 export default abstract class DetailBase<
     T extends KBVBundleResource
@@ -46,6 +58,8 @@ export default abstract class DetailBase<
               | ZAEB.V1_1_0.Profile.Patient
               | MR.V1_1_0.Profile.PatientMother
               | CMR.V1_0_1.Profile.CMRPatient
+              | PKA.V1_0_0.Profile.DPEPatientDPE
+              | PKA.V1_0_0.Profile.NFDPatientNFD
           >
         | undefined;
     protected abstract getHeaderClass(): UI.MIOClassName;

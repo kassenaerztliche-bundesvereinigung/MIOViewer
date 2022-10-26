@@ -18,7 +18,7 @@
 
 import { History } from "history";
 
-import { KBVBundleResource, Vaccination, ZAEB, MR, CMR } from "@kbv/mioparser";
+import { KBVBundleResource, Vaccination, ZAEB, MR, CMR, PKA } from "@kbv/mioparser";
 import { UI, Util } from "../../components/";
 
 import BaseModel from "../BaseModel";
@@ -30,11 +30,17 @@ export default class TelecomModel<
         | Vaccination.V1_1_0.Profile.Practitioner
         | Vaccination.V1_1_0.Profile.PractitionerAddendum
         | Vaccination.V1_1_0.Profile.Organization
+        // ZB
         | ZAEB.V1_1_0.Profile.Organization
+        // MR
         | MR.V1_1_0.Profile.Organization
         | MR.V1_1_0.Profile.Practitioner
+        // UH
         | CMR.V1_0_1.Profile.CMRPractitioner
         | CMR.V1_0_1.Profile.CMROrganization
+        // PKA
+        | PKA.V1_0_0.Profile.DPERelatedPersonContactPerson
+        | PKA.V1_0_0.Profile.NFDPatientNFD
 > extends BaseModel<T> {
     constructor(value: T, fullUrl: string, parent: KBVBundleResource, history?: History) {
         super(value, fullUrl, parent, history);

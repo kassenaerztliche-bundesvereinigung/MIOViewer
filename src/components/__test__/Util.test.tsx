@@ -18,7 +18,7 @@
 
 import fs from "fs";
 
-import * as ViewerTestUtil from "../../../test/TestUtil.test";
+import * as ViewerTestUtil from "../../TestUtil";
 import * as TestUtil from "@kbv/miotestdata";
 
 import MIOParser, { Vaccination, ZAEB } from "@kbv/mioparser";
@@ -61,7 +61,9 @@ describe("<Util/>", () => {
     ];
 
     const detailTest = (bundles: string[], value: UtilValue, version?: string) => {
-        if (value.version && value.version !== version) return;
+        if (value.version && value.version !== version) {
+            return;
+        }
         value.functions.forEach((func) => {
             describe(func.name, () => {
                 bundles.forEach((file) => {

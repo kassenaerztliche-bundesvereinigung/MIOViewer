@@ -17,6 +17,8 @@
  */
 
 import React from "react";
+import { match } from "react-router";
+
 import { MR, ParserUtil, Reference } from "@kbv/mioparser";
 
 import DetailComponent from "../../../../components/Detail/Detail";
@@ -84,7 +86,14 @@ export default class InitialExamination extends Section<MR.V1_1_0.Profile.Compos
                         entry={res.resource}
                         location={location}
                         history={history}
-                        match={match}
+                        match={
+                            match as unknown as match<{
+                                id: string;
+                                entry: string;
+                                filter?: string;
+                                filterValue?: string;
+                            }>
+                        }
                         key={details.length}
                         devMode={devMode}
                     />

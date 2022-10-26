@@ -83,9 +83,13 @@ export function handleCodingDisplay(display: _Display): string[] {
 
     if (display.extension) {
         const mapped: string[] = display.extension?.map((ext: _Display) => {
-            if (ext.valueString) return ext.valueString;
-            else if (ext.extension) return handleCodingDisplay(ext).join(", ");
-            else return "";
+            if (ext.valueString) {
+                return ext.valueString;
+            } else if (ext.extension) {
+                return handleCodingDisplay(ext).join(", ");
+            } else {
+                return "";
+            }
         });
         results.push(mapped.join(", "));
     } else if (display.valueString) {
@@ -105,7 +109,9 @@ export function handleCode(
 
         if (conceptMap) {
             codings.forEach((coding) => {
-                if (!coding.code) return;
+                if (!coding.code) {
+                    return;
+                }
                 translated.push(
                     ...ParserUtil.multiTranslateCode(coding.code, conceptMap)
                 );
@@ -130,6 +136,8 @@ export function handleCode(
         } else {
             return Array.from(new Set(translated));
         }
+    } else if (code.text) {
+        return [code.text];
     }
 
     return ["-"];
@@ -140,7 +148,9 @@ export function getCoding(
     conceptMap?: ParserUtil.ConceptMap[],
     separator = ", "
 ): string {
-    if (!resource || !resource.code) return "-";
+    if (!resource || !resource.code) {
+        return "-";
+    }
     const code = handleCode(resource.code, conceptMap);
     return Array.from(new Set<string>(code)).join(separator);
 }
@@ -153,7 +163,9 @@ export function handleCodeVS(
     valueSets.forEach((valueSet) => {
         valueSet.forEach((include) => {
             const result = include.concept.filter((concept) => c.code === concept.code);
-            if (result.length) results.add(result[0].display ?? "-");
+            if (result.length) {
+                results.add(result[0].display ?? "-");
+            }
         });
     });
 

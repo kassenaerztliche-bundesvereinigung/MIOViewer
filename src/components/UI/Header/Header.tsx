@@ -68,7 +68,9 @@ export default class Header extends React.Component<HeaderProps> {
         };
 
         const classes = ["miov", headerClass];
-        if (isExample) classes.push("example");
+        if (isExample) {
+            classes.push("example");
+        }
 
         return (
             <IonHeader className={classes.join(" ")} style={divStyle}>

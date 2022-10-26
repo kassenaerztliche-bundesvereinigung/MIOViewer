@@ -18,7 +18,7 @@
 
 import fs from "fs";
 
-import * as ViewerTestUtil from "../../../test/TestUtil.test";
+import * as ViewerTestUtil from "../../TestUtil";
 import * as TestUtil from "@kbv/miotestdata";
 
 import MIOParser, { ParserUtil, KBVBundleResource } from "@kbv/mioparser";
@@ -42,7 +42,9 @@ describe("<PDF />", () => {
 
     const renderTest = (bundles: string[], value: TestValue, version?: string) => {
         bundles.forEach((file) => {
-            if (value.version && value.version !== version) return;
+            if (value.version && value.version !== version) {
+                return;
+            }
             it(file, async () => {
                 const blob = new File([fs.readFileSync(file)], "test.file");
                 const result = await mioParser.parseFile(blob);
@@ -51,7 +53,7 @@ describe("<PDF />", () => {
 
                 const mioRef = ParserUtil.getUuidFromBundle(bundle);
 
-                const { getByTestId } = ViewerTestUtil.renderReduxRoute(
+                const { getByTestId } = await ViewerTestUtil.renderReduxRoute(
                     Overview,
                     store,
                     `/mio/${mioRef}`,

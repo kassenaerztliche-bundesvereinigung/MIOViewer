@@ -18,64 +18,39 @@
 
 import React from "react";
 
-import { RouteComponentProps } from "react-router";
-
-import { MIOConnector, MIOConnectorType } from "../../../store";
-import { Vaccination, ZAEB, MR, CMR } from "@kbv/mioparser";
+import { MIOConnector, SettingsConnector } from "../../../store";
+import { Vaccination, ZAEB, MR, CMR, PKA } from "@kbv/mioparser";
 
 import DetailIM from "../../IM/Detail";
 import DetailZAEB from "../../ZB/Detail";
 import DetailMP from "../../MP/Detail";
 import DetailUH from "../../UH/Detail";
+import DetailPK from "../../PK/Detail";
 
 import { UI } from "../../../components";
 
-class Detail extends React.Component<MIOConnectorType & RouteComponentProps> {
+import { DetailProps } from "./DetailBase";
+
+class Detail extends React.Component<DetailProps> {
     render(): JSX.Element {
-        const { mio, entry, history, location, match } = this.props;
+        const { mio, entry, history } = this.props;
         let component = undefined;
 
         if (mio) {
             if (Vaccination.V1_1_0.Profile.BundleEntry.is(mio)) {
-                component = (
-                    <DetailIM
-                        mio={mio}
-                        history={history}
-                        location={location}
-                        match={match}
-                    />
-                );
+                component = <DetailIM {...this.props} />;
             } else if (ZAEB.V1_1_0.Profile.Bundle.is(mio)) {
-                component = (
-                    <DetailZAEB
-                        mio={mio}
-                        history={history}
-                        location={location}
-                        match={match}
-                    />
-                );
+                component = <DetailZAEB {...this.props} />;
             } else if (MR.V1_1_0.Profile.Bundle.is(mio)) {
-                component = (
-                    <DetailMP
-                        mio={mio}
-                        history={history}
-                        location={location}
-                        match={match}
-                    />
-                );
+                component = <DetailMP {...this.props} />;
             } else if (
                 CMR.V1_0_1.Profile.CMRBundle.is(mio) ||
                 CMR.V1_0_1.Profile.PCBundle.is(mio) ||
                 CMR.V1_0_1.Profile.PNBundle.is(mio)
             ) {
-                component = (
-                    <DetailUH
-                        mio={mio}
-                        history={history}
-                        location={location}
-                        match={match}
-                    />
-                );
+                component = <DetailUH {...this.props} />;
+            } else if (PKA.V1_0_0.Profile.NFDxDPEBundle.is(mio)) {
+                component = <DetailPK {...this.props} />;
             }
         }
 
@@ -100,4 +75,4 @@ class Detail extends React.Component<MIOConnectorType & RouteComponentProps> {
     }
 }
 
-export default MIOConnector(Detail);
+export default SettingsConnector(MIOConnector(Detail));

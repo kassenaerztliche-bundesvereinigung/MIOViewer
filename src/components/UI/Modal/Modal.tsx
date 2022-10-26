@@ -54,16 +54,22 @@ export default class Modal extends React.Component<ModalProps> {
     };
 
     protected didDismiss = (): void => {
-        if (this.props.onClose) this.props.onClose();
+        if (this.props.onClose) {
+            this.props.onClose();
+        }
     };
 
     protected negativeClick = (): void => {
-        if (this.props.onNegative) this.props.onNegative();
+        if (this.props.onNegative) {
+            this.props.onNegative();
+        }
         this.dismiss();
     };
 
     protected positiveClick = (): void => {
-        if (this.props.onPositive) this.props.onPositive();
+        if (this.props.onPositive) {
+            this.props.onPositive();
+        }
         this.dismiss();
     };
 

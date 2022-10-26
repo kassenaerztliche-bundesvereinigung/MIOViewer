@@ -169,9 +169,9 @@ export default abstract class BaseModel<
         return [{ text: value.label + ":", bold: true }, ["", subContents]];
     }
 
-    protected pdfContentHint(topic: string, parent = "MIO"): Content {
+    protected pdfContentHint(topic: string, parent = "MIO", article = "diesem"): Content {
         return {
-            text: `Unter „${topic}“ sind in diesem ${parent} derzeit keine Einträge vorhanden.`
+            text: `Unter „${topic}“ sind in ${article} ${parent} derzeit keine Einträge vorhanden.`
         };
     }
 

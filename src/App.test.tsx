@@ -18,7 +18,7 @@
 
 import React from "react";
 
-import * as TestUtil from "../test/TestUtil.test";
+import * as TestUtil from "./TestUtil";
 
 import App from "./App";
 

@@ -18,7 +18,7 @@
 
 import fs from "fs";
 
-import * as ViewerTestUtil from "../../../../../test/TestUtil.test";
+import * as ViewerTestUtil from "../../../../TestUtil";
 import * as TestUtil from "@kbv/miotestdata";
 
 import MIOParser, { ParserUtil, KBVBundleResource } from "@kbv/mioparser";
@@ -94,17 +94,17 @@ describe("<Detail />", () => {
 
                         const entryFound = value.getFunction(bundle);
 
-                        const renderDetail = (
+                        const renderDetail = async (
                             entry: { fullUrl: string },
                             arr: boolean
-                        ): void => {
+                        ): Promise<void> => {
                             const mioId = ParserUtil.getUuidFromBundle(bundle);
                             const entryId = entry
                                 ? encodeURIComponent(entry.fullUrl)
                                 : "-";
 
                             const { getByTestId, getAllByTestId } =
-                                ViewerTestUtil.renderReduxRoute(
+                                await ViewerTestUtil.renderReduxRoute(
                                     Detail,
                                     store,
                                     `/entry/${mioId}/${entryId}`,

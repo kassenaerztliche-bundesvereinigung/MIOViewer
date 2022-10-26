@@ -61,7 +61,9 @@ class StartScreen extends React.Component<
 
     forward = (): void => {
         const { history, showIntro } = this.props;
-        if (this.animation) this.animation.removeEventListener("segmentStart");
+        if (this.animation) {
+            this.animation.removeEventListener("segmentStart");
+        }
         history.push(showIntro ? "/intro" : "/home");
     };
 

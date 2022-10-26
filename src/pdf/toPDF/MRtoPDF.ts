@@ -267,7 +267,9 @@ export default class MRtoPDF extends PDFRepresentation<MR.V1_1_0.Profile.Bundle>
             "h2"
         );
 
-        if (itemsCatalogueB.length) content.push(contentCatalogueB, horizontalLine);
+        if (itemsCatalogueB.length) {
+            content.push(contentCatalogueB, horizontalLine);
+        }
 
         const sectionOGTT =
             this.getSection<MR.V1_1_0.Profile.CompositionBesondereBefundeSection>(
@@ -366,7 +368,9 @@ export default class MRtoPDF extends PDFRepresentation<MR.V1_1_0.Profile.Bundle>
 
         const entries: { reference: string }[] = [];
         slices.forEach((slice) => {
-            if (slice.entry) entries.push(...slice.entry);
+            if (slice.entry) {
+                entries.push(...slice.entry);
+            }
         });
 
         const itemsExamination = this.mapToModels(

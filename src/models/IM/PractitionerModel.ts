@@ -70,33 +70,36 @@ export default class PractitionerModel extends BaseModel<PractitionerType> {
                 this.value.identifier
             );
 
-            if (ANR)
+            if (ANR) {
                 return {
                     value: ANR.value,
                     label: "Lebenslange Arztnummer (LANR)"
                 };
+            }
 
             const EFN = ParserUtil.getSlice<Vaccination.V1_1_0.Profile.PractitionerEFN>(
                 Vaccination.V1_1_0.Profile.PractitionerEFN,
                 this.value.identifier
             );
 
-            if (EFN)
+            if (EFN) {
                 return {
                     value: EFN.value,
                     label: "Einheitliche Fortbildungsnummer (EFN)"
                 };
+            }
 
             const ID = ParserUtil.getSlice<Vaccination.V1_1_0.Profile.PractitionerId>(
                 Vaccination.V1_1_0.Profile.PractitionerId,
                 this.value.identifier
             );
 
-            if (ID)
+            if (ID) {
                 return {
                     value: ID.value,
                     label: "Nicht näher spezifizierter Identifikator einer nicht ärztlichen, behandelnden Person"
                 };
+            }
         }
 
         return {

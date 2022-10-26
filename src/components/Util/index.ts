@@ -22,5 +22,6 @@ import * as IM from "./IM";
 import * as ZB from "./ZB";
 import * as MP from "./MP";
 import * as UH from "./UH";
+import * as PK from "./PK";
 
-export { Misc, FHIR, IM, ZB, MP, UH };
+export { Misc, FHIR, IM, ZB, MP, UH, PK };

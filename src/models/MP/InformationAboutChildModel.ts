@@ -106,7 +106,9 @@ export default class InformationAboutChildModel extends InformationAboutModel {
             );
 
             const resource = result?.resource;
-            if (resource) resources.push(resource);
+            if (resource) {
+                resources.push(resource);
+            }
         });
 
         const subjects: Set<string> = new Set<string>();
@@ -118,7 +120,9 @@ export default class InformationAboutChildModel extends InformationAboutModel {
         Array.from(subjects).forEach((subject) => {
             const reference = new Reference(subject, this.composition?.fullUrl);
             const child = Util.MP.getPatientChild(bundle, reference);
-            if (child) children.push(reference);
+            if (child) {
+                children.push(reference);
+            }
         });
 
         return children;

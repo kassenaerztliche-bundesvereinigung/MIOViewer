@@ -16,7 +16,7 @@
  * along with MIO Viewer. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import * as ViewerTestUtil from "../../../../../test/TestUtil.test";
+import * as ViewerTestUtil from "../../../../TestUtil";
 
 import Profil from "../Profil";
 
@@ -25,12 +25,13 @@ describe("<Profil />", () => {
 
     it("Rendert", async () => {
         const store = ViewerTestUtil.createStoreWithMios([]);
-        const { getByText } = ViewerTestUtil.renderReduxRoute(
+        const { getByText } = await ViewerTestUtil.renderReduxRoute(
             Profil,
             store,
             "/profil",
             "/profil"
         );
+
         expect(getByText("Applikationseinstellungen")).toBeDefined();
     });
 });

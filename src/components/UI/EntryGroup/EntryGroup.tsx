@@ -150,7 +150,9 @@ export default class EntryGroup<T extends KBVResource> extends React.Component<
                     {(!content || content.length <= 0) && (
                         <UI.ListItem.Hint
                             label={"Hinweis"}
-                            value={`Unter „${headline}“ sind in diesem ${type} derzeit keine Einträge vorhanden.`}
+                            value={`Unter „${headline}“ sind in ${
+                                type === "Patientenkurzakte" ? "dieser" : "diesem"
+                            } ${type} derzeit keine Einträge vorhanden.`}
                         />
                     )}
                     <IonList className={"ion-no-padding"}>{content}</IonList>

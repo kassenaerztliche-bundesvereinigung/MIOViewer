@@ -53,7 +53,9 @@ export default abstract class DetailListModel extends DetailListStickyHeader<
         const { model, appendItems } = this.props;
         const headline = model.getHeadline();
         const values = model.getValues();
-        if (appendItems) values.push(...appendItems);
+        if (appendItems) {
+            values.push(...appendItems);
+        }
 
         return (
             <DetailListStickyHeader className={"detail-list"}>

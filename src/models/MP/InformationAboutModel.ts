@@ -71,7 +71,9 @@ export default class InformationAboutModel extends MPBaseModel<
         sectionStack.forEach(
             (s) => (section = ParserUtil.getSlice<any>(s, section?.section)) // eslint-disable-line
         );
-        if (section) result = section as unknown as T;
+        if (section) {
+            result = section as unknown as T;
+        }
 
         return result;
     }
@@ -87,7 +89,9 @@ export default class InformationAboutModel extends MPBaseModel<
                     new Reference(ref, this.fullUrl)
                 );
 
-                if (result) this.resolveMapping(result.resource, result.fullUrl);
+                if (result) {
+                    this.resolveMapping(result.resource, result.fullUrl);
+                }
             });
 
             this.headline = this.section.title;
@@ -124,7 +128,9 @@ export default class InformationAboutModel extends MPBaseModel<
                 }
             });
 
-            if (model) this.values.push(model.getMainValue());
+            if (model) {
+                this.values.push(model.getMainValue());
+            }
         }
     }
 

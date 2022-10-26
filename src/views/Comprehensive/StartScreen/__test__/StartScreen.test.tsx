@@ -16,7 +16,7 @@
  * along with MIO Viewer. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import * as ViewerTestUtil from "../../../../../test/TestUtil.test";
+import * as ViewerTestUtil from "../../../../TestUtil";
 
 import StartScreen from "../StartScreen";
 
@@ -25,7 +25,7 @@ describe("<StartScreen />", () => {
 
     it("Rendert", async () => {
         const store = ViewerTestUtil.createStoreWithMios([]);
-        const { getByTestId } = ViewerTestUtil.renderReduxRoute(
+        const { getByTestId } = await ViewerTestUtil.renderReduxRoute(
             StartScreen,
             store,
             "/",

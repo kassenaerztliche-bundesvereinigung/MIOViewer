@@ -41,8 +41,12 @@ export default class Compare {
             const aName = a.resource.name;
             const bName = b.resource.name;
             if (aName && bName) {
-                if (aName > bName) return -1;
-                if (aName < bName) return 1;
+                if (aName > bName) {
+                    return -1;
+                }
+                if (aName < bName) {
+                    return 1;
+                }
             }
         } else if (
             MR.V1_1_0.Profile.Practitioner.is(a.resource) &&
@@ -51,8 +55,12 @@ export default class Compare {
             const aName = Util.MP.getPractitionerName(a.resource);
             const bName = Util.MP.getPractitionerName(b.resource);
             if (aName && bName) {
-                if (aName > bName) return -1;
-                if (aName < bName) return 1;
+                if (aName > bName) {
+                    return -1;
+                }
+                if (aName < bName) {
+                    return 1;
+                }
             }
         }
 

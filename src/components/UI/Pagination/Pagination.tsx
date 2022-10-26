@@ -18,17 +18,19 @@
 
 import React from "react";
 import * as Icons from "react-feather";
-import SwiperClass from "swiper/types/swiper-class";
 
 import { UI } from "../../index";
 
 import "./Pagination.scss";
 
 export type PaginationProps = {
-    swiper?: SwiperClass;
     currentIndex: number;
     numSlides: number;
     showFirstAndLastButton?: boolean;
+    first: (index: number) => void;
+    last: (index: number) => void;
+    next: (index: number) => void;
+    prev: (index: number) => void;
 };
 
 export default class Pagination extends React.Component<PaginationProps> {
@@ -37,25 +39,25 @@ export default class Pagination extends React.Component<PaginationProps> {
     };
 
     protected first = (): void => {
-        this.props.swiper?.slideTo(0);
+        this.props.first(0);
     };
 
     protected last = async (): Promise<void> => {
-        const { swiper, numSlides } = this.props;
-        swiper?.slideTo(numSlides - 1);
+        const { last, numSlides } = this.props;
+        last(numSlides - 1);
     };
 
     protected prev = (): void => {
-        const { swiper, currentIndex } = this.props;
+        const { prev, currentIndex } = this.props;
         if (currentIndex > 0) {
-            swiper?.slideTo(currentIndex - 1);
+            prev(currentIndex - 1);
         }
     };
 
     protected next = (): void => {
-        const { swiper, currentIndex, numSlides } = this.props;
+        const { next, currentIndex, numSlides } = this.props;
         if (currentIndex < numSlides - 1) {
-            swiper?.slideTo(currentIndex + 1);
+            next(currentIndex + 1);
         }
     };
 

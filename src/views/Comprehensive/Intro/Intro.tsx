@@ -31,7 +31,6 @@ import { IonPage, IonContent, withIonLifeCycle } from "@ionic/react";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperClass from "swiper/types/swiper-class";
-import "swiper/swiper.scss";
 
 import { UI } from "components";
 
@@ -114,7 +113,9 @@ class Intro extends React.Component<
                         });
 
                         this.animations.push(animation);
-                        if (index === 0) animation.play();
+                        if (index === 0) {
+                            animation.play();
+                        }
                     }
                 });
             }
@@ -166,7 +167,9 @@ class Intro extends React.Component<
     };
 
     protected setSwiper = (swiper: SwiperClass): void => {
-        if (this.swiper !== swiper) this.swiper = swiper;
+        if (this.swiper !== swiper) {
+            this.swiper = swiper;
+        }
     };
 
     protected changed = (swiper: SwiperClass): void => {
@@ -178,7 +181,9 @@ class Intro extends React.Component<
             this.animations[this.state.currentIndex].goToAndStop(0);
         }
         this.setState({ currentIndex: index }, () => {
-            if (this.animations[index]) this.animations[index].play();
+            if (this.animations[index]) {
+                this.animations[index].play();
+            }
         });
     };
 
@@ -220,8 +225,11 @@ class Intro extends React.Component<
                             ))}
                         </Swiper>
                         <UI.Pagination
+                            first={(i) => this.swiper?.slideTo(i)}
+                            last={(i) => this.swiper?.slideTo(i)}
+                            prev={() => this.swiper?.slidePrev()}
+                            next={() => this.swiper?.slideNext()}
                             currentIndex={currentIndex}
-                            swiper={this.swiper}
                             numSlides={slides.length}
                         />
                         <p className={"small"}>

@@ -168,7 +168,9 @@ export default class ObservationModel<T extends ObservationType> extends MPBaseM
 
             if (performer) {
                 if (MR.V1_1_0.Profile.Organization.is(performer.resource)) {
-                    if (performer.resource.name) performerName = performer.resource.name;
+                    if (performer.resource.name) {
+                        performerName = performer.resource.name;
+                    }
                 } else if (MR.V1_1_0.Profile.Practitioner.is(performer.resource)) {
                     performerName = Util.MP.getPractitionerName(performer.resource);
                 }
@@ -186,15 +188,23 @@ export default class ObservationModel<T extends ObservationType> extends MPBaseM
         this.values = [];
 
         const identifier = this.getIdentifier();
-        if (identifier.value !== "-") this.values.push(identifier);
+        if (identifier.value !== "-") {
+            this.values.push(identifier);
+        }
 
         const pregnancyWeek = Util.MP.getPregnancyWeekValue(this.value);
-        if (pregnancyWeek.value !== "-") this.values.push(pregnancyWeek);
+        if (pregnancyWeek.value !== "-") {
+            this.values.push(pregnancyWeek);
+        }
 
-        if (!noValue) this.values.push(this.getObservationValue());
+        if (!noValue) {
+            this.values.push(this.getObservationValue());
+        }
 
         const interpretation = this.getInterpretation();
-        if (interpretation) this.values.push(interpretation);
+        if (interpretation) {
+            this.values.push(interpretation);
+        }
 
         this.values.push(
             {
@@ -244,7 +254,9 @@ export default class ObservationModel<T extends ObservationType> extends MPBaseM
     }
 
     public getCoding(resource?: { code?: Util.FHIR.Code }): string {
-        if (!resource) resource = this.value;
+        if (!resource) {
+            resource = this.value;
+        }
         return getCoding(resource, this.codeConceptMaps);
     }
 

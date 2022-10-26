@@ -16,7 +16,7 @@
  * along with MIO Viewer. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Content } from "pdfmake/interfaces";
+import { Content, ContentTable, TableCell } from "pdfmake/interfaces";
 
 import {
     KBVBundleResource,
@@ -48,11 +48,12 @@ export default abstract class PDFRepresentation<T extends KBVBundleResource> {
         date?: string,
         authorContent?: Content,
         patient?: Content,
-        encounterContent?: Content
+        encounterContent?: Content,
+        noAuthor = false
     ): Content {
         this.title = title;
 
-        const body = [
+        const body: TableCell[] = [
             [{ text: title, style: "h2" }, ""],
             [
                 {
@@ -63,8 +64,11 @@ export default abstract class PDFRepresentation<T extends KBVBundleResource> {
                     bold: true
                 },
                 Util.Misc.formatDate(date)
-            ],
-            [
+            ]
+        ];
+
+        if (!noAuthor) {
+            body.push([
                 {
                     text: this.singular
                         ? `${this.singular} erstellt von:`
@@ -72,8 +76,8 @@ export default abstract class PDFRepresentation<T extends KBVBundleResource> {
                     bold: true
                 },
                 authorContent ? authorContent : "-"
-            ]
-        ];
+            ]);
+        }
 
         if (encounterContent) {
             body.push([
@@ -85,16 +89,18 @@ export default abstract class PDFRepresentation<T extends KBVBundleResource> {
             ]);
         }
 
+        const tableContent: ContentTable = {
+            layout: "noBorders",
+            margin: [0, -16, 0, 0],
+            table: {
+                headerRows: 0,
+                widths: ["40%", "*"],
+                body: [body]
+            }
+        };
+
         return [
-            {
-                layout: "noBorders",
-                margin: [0, -16, 0, 0],
-                table: {
-                    headerRows: 0,
-                    widths: ["40%", "*"],
-                    body: body
-                }
-            },
+            tableContent,
             horizontalLine,
             pageBreakAfter,
             {
@@ -119,7 +125,9 @@ export default abstract class PDFRepresentation<T extends KBVBundleResource> {
                     section = ParserUtil.getSlice<any>(s, section.section);
                 }
             });
-            if (section) result = section as unknown as T;
+            if (section) {
+                result = section as unknown as T;
+            }
         }
         return result;
     }
@@ -170,7 +178,7 @@ export default abstract class PDFRepresentation<T extends KBVBundleResource> {
                 "(u.a. behandlungsbedürftige Hyperbilirubinämie bei einem vorausgegangenen Kind)"
         ) {
             return { text: `${value.value}`, style: "p", margin: [0, 0, 0, 8] };
-        } else
+        } else {
             return {
                 columns: [
                     {
@@ -190,6 +198,7 @@ export default abstract class PDFRepresentation<T extends KBVBundleResource> {
                     }
                 ]
             };
+        }
     }
 
     protected hintBox(value: ModelValue): Content[] {
@@ -197,7 +206,9 @@ export default abstract class PDFRepresentation<T extends KBVBundleResource> {
             (v) => "– " + v
         );
 
-        if (!bulletStrings.length) bulletStrings.push(value.value);
+        if (!bulletStrings.length) {
+            bulletStrings.push(value.value);
+        }
 
         return [
             {
@@ -262,7 +273,9 @@ export default abstract class PDFRepresentation<T extends KBVBundleResource> {
                     mapping.map((m) => m.profile),
                     new Reference(entry.reference, fullUrl)
                 );
-                if (e) entries.push(e);
+                if (e) {
+                    entries.push(e);
+                }
             });
         } else {
             const e = ParserUtil.getEntries(
@@ -273,7 +286,9 @@ export default abstract class PDFRepresentation<T extends KBVBundleResource> {
             entries.push(...e);
         }
 
-        if (compare) entries.sort(compare);
+        if (compare) {
+            entries.sort(compare);
+        }
 
         const content: Content = [];
 

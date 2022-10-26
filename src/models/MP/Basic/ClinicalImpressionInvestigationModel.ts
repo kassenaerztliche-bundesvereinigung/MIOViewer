@@ -41,12 +41,12 @@ export type ClinicalImpressionInvestigationType =
     | MR.V1_1_0.Profile.ClinicalImpressionFirstExaminationAfterChildbirthChild;
 
 export type InvestigationItemType =
-    | MR.V1_1_0.Profile.ClinicalImpressionInitialExaminationInvestigationItem
-    | MR.V1_1_0.Profile.ClinicalImpressionPregnancyChartEntryInvestigationItem
-    | MR.V1_1_0.Profile.ClinicalImpressionPregnancyExaminationDischargeSummaryInvestigationItem
-    | MR.V1_1_0.Profile.ClinicalImpressionBirthExaminationDeliveryInformationInvestigationItem
-    | MR.V1_1_0.Profile.ClinicalImpressionFirstExaminationAfterChildbirthMotherInvestigationItem
-    | MR.V1_1_0.Profile.ClinicalImpressionFirstExaminationAfterChildbirthChildInvestigationItem;
+    | MR.V1_1_0.Profile.ClinicalImpressionInitialExaminationInvestigationItemReference
+    | MR.V1_1_0.Profile.ClinicalImpressionPregnancyChartEntryInvestigationItemReference
+    | MR.V1_1_0.Profile.ClinicalImpressionPregnancyExaminationDischargeSummaryInvestigationItemReference
+    | MR.V1_1_0.Profile.ClinicalImpressionBirthExaminationDeliveryInformationInvestigationItemReference
+    | MR.V1_1_0.Profile.ClinicalImpressionFirstExaminationAfterChildbirthMotherInvestigationItemReference
+    | MR.V1_1_0.Profile.ClinicalImpressionFirstExaminationAfterChildbirthChildInvestigationItemReference;
 
 export default class ClinicalImpressionInvestigationModel extends MPBaseModel<ClinicalImpressionInvestigationType> {
     constructor(
@@ -81,7 +81,9 @@ export default class ClinicalImpressionInvestigationModel extends MPBaseModel<Cl
                 this.headline = this.headline ?? i.code.text;
                 i.item?.forEach((item: InvestigationItemType) => {
                     const checkedItem = this.checkItem(item);
-                    if (checkedItem) investigations.push(checkedItem);
+                    if (checkedItem) {
+                        investigations.push(checkedItem);
+                    }
                 });
             }
         );

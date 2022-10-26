@@ -123,8 +123,8 @@
         svg {
             stroke: $green-4;
             stroke-width: 1.5px;
-            height: $space-big + $space-small / 4;
-            width: $space-big + $space-small / 4;
+            height: $space-big + calc($space-small / 4);
+            width: $space-big + calc($space-small / 4);
         }
 
         .badge {
@@ -145,7 +145,8 @@
     &.impfpass,
     &.zaeb,
     &.mutterpass,
-    &.uheft {
+    &.uheft,
+    &.pka {
         svg.folder {
             stroke: transparent;
         }
@@ -178,6 +179,12 @@
     &.uheft {
         svg.folder {
             fill: $uheft-color;
+        }
+    }
+
+    &.pka {
+        svg.folder {
+            fill: $pka-color;
         }
     }
 }

@@ -17,7 +17,7 @@
  */
 
 import React from "react";
-import { RouteComponentProps } from "react-router";
+
 import { MR, ParserUtil } from "@kbv/mioparser";
 
 import {
@@ -29,7 +29,7 @@ import {
 
 import { UI, Util } from "../../../components";
 
-import { Sections } from "./Section";
+import { RoutePropsSection, Sections } from "./Section";
 import * as SectionComponents from "./Sections";
 
 type OverviewSectionProps = {
@@ -37,7 +37,7 @@ type OverviewSectionProps = {
 };
 
 class OverviewSection extends React.Component<
-    MIOConnectorType & OverviewSectionProps & RouteComponentProps & SettingsConnectorType
+    MIOConnectorType & OverviewSectionProps & RoutePropsSection & SettingsConnectorType
 > {
     render(): JSX.Element {
         const { section, mio, history, location, match, makePDF, devMode } = this.props;

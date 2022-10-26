@@ -172,7 +172,9 @@ export default class ClinicalImpressionModel extends MPBaseModel<ClinicalImpress
                 });
             }
         } else {
-            if (note) this.values.push(note);
+            if (note) {
+                this.values.push(note);
+            }
         }
 
         if (
@@ -231,7 +233,9 @@ export default class ClinicalImpressionModel extends MPBaseModel<ClinicalImpress
     }
 
     public getCoding(resource?: { code?: Util.FHIR.Code }): string {
-        if (!resource) resource = this.value;
+        if (!resource) {
+            resource = this.value;
+        }
         return getCoding(resource, this.codeConceptMap);
     }
 

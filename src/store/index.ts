@@ -17,7 +17,7 @@
  */
 
 import Store, { MIOViewerRootState } from "./Store";
-import MIOConnector, { MIOConnectorType } from "./MIOConnector";
+import MIOConnector, { MIOConnectorType, RouteProps } from "./MIOConnector";
 import SettingsConnector, { SettingsConnectorType } from "./SettingsConnector";
 import { Constants, MIOState, MIOActions } from "./Types";
 
@@ -29,7 +29,8 @@ export type {
     MIOViewerRootState,
     MIOActions,
     MIOConnectorType,
-    SettingsConnectorType
+    SettingsConnectorType,
+    RouteProps
 };
 
 export { MIOConnector, SettingsConnector, Actions, AsyncAction, Constants };

@@ -16,7 +16,7 @@
  * along with MIO Viewer. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import React from "react";
+import React, { ReactNode } from "react";
 
 import * as Icons from "react-feather";
 
@@ -30,6 +30,7 @@ type ButtonIconProps = {
     dataTestId?: string;
     text?: string;
     rightToLeft?: boolean;
+    children?: ReactNode;
 };
 
 export default class ButtonIcon extends React.Component<ButtonIconProps> {

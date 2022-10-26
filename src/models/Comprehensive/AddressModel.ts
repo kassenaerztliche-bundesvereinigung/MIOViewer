@@ -18,57 +18,39 @@
 
 import { History } from "history";
 
+import { KBVBundleResource, ParserUtil } from "@kbv/mioparser";
 import {
-    ParserUtil,
-    KBVBundleResource,
-    Vaccination,
-    ZAEB,
-    MR,
-    CMR
-} from "@kbv/mioparser";
+    addressLineAdresszusatzTypes,
+    addressLineHausnummerTypes,
+    addressLineStrasseTypes,
+    addressLineTypes,
+    addressTypeArray,
+    addressTypeLineAdresszusatzArray,
+    addressTypeLineArray,
+    addressTypeLineHausnummerArray,
+    addressTypeLineStrasseArray,
+    addressTypes,
+    codecsWithAddressArray,
+    finalAdressType,
+    postfachLineTypes,
+    postfachTypeArray,
+    postfachTypeLineArray,
+    postfachTypes,
+    typesWithAdress
+} from "./AddressModelTypes";
 import { UI } from "../../components/";
 
 import BaseModel from "../BaseModel";
 import { ModelValue } from "../Types";
+import { Extension } from "@kbv/mioparser/dist/Definitions/FHIR/4.0.1/Extension";
 
-export default class AddressModel<
-    T extends
-        | Vaccination.V1_1_0.Profile.Organization
-        // ZB
-        | ZAEB.V1_1_0.Profile.Patient
-        | ZAEB.V1_1_0.Profile.Organization
-        // MR
-        | MR.V1_1_0.Profile.Organization
-        | MR.V1_1_0.Profile.PatientMother
-        | MR.V1_1_0.Profile.Practitioner
-        // UH
-        | CMR.V1_0_1.Profile.CMRPractitioner
-        | CMR.V1_0_1.Profile.CMROrganization
-        | CMR.V1_0_1.Profile.CMROrganizationScreeningLaboratory
-> extends BaseModel<T> {
+export default class AddressModel<T extends typesWithAdress> extends BaseModel<T> {
     constructor(value: T, fullUrl: string, parent: KBVBundleResource, history?: History) {
         super(value, fullUrl, parent, history);
 
         this.headline = "Anschrift";
-
-        if (Vaccination.V1_1_0.Profile.Organization.is(value)) {
-            this.values = [...this.getAddressIMOrganization()];
-        } else if (ZAEB.V1_1_0.Profile.Patient.is(value)) {
-            this.values = [...this.getAddressZBPatient()];
-        } else if (ZAEB.V1_1_0.Profile.Organization.is(value)) {
-            this.values = [...this.getAddressZBOrganization()];
-        } else if (MR.V1_1_0.Profile.Organization.is(value)) {
-            this.values = [...this.getAddressMROrganization()];
-        } else if (MR.V1_1_0.Profile.PatientMother.is(value)) {
-            this.values = [...this.getAddressMRPatientMother()];
-        } else if (MR.V1_1_0.Profile.Practitioner.is(value)) {
-            this.values = [...this.getAddressMRPractitioner()];
-        } else if (CMR.V1_0_1.Profile.CMRPractitioner.is(value)) {
-            this.values = [...this.getAddressCMRPractitioner()];
-        } else if (CMR.V1_0_1.Profile.CMROrganization.is(value)) {
-            this.values = [...this.getAddressCMROrganization()];
-        } else if (CMR.V1_0_1.Profile.CMROrganizationScreeningLaboratory.is(value)) {
-            this.values = [...this.getAddressCMROrganizationScreeningLaboratory()];
+        if (codecsWithAddressArray.some((e) => e.is(value))) {
+            this.values = this.getAddress();
         } else {
             this.values = [
                 {
@@ -80,501 +62,108 @@ export default class AddressModel<
         }
     }
 
-    protected getAddressIMOrganization(): ModelValue[] {
-        const address =
-            ParserUtil.getSlice<Vaccination.V1_1_0.Profile.OrganizationStrassenanschrift>(
-                Vaccination.V1_1_0.Profile.OrganizationStrassenanschrift,
-                this.value.address
-            );
-
-        if (address) {
-            const strassenAnschrift =
-                ParserUtil.getSlice<Vaccination.V1_1_0.Profile.OrganizationStrassenanschriftLine>(
-                    Vaccination.V1_1_0.Profile.OrganizationStrassenanschriftLine,
-                    address?._line
-                );
-
-            const street =
-                ParserUtil.getSlice<Vaccination.V1_1_0.Profile.OrganizationStrassenanschriftLineStrasse>(
-                    Vaccination.V1_1_0.Profile.OrganizationStrassenanschriftLineStrasse,
-                    strassenAnschrift?.extension
-                )?.valueString;
-
-            const number =
-                ParserUtil.getSlice<Vaccination.V1_1_0.Profile.OrganizationStrassenanschriftLineHausnummer>(
-                    Vaccination.V1_1_0.Profile
-                        .OrganizationStrassenanschriftLineHausnummer,
-                    strassenAnschrift?.extension
-                )?.valueString;
-
-            const addition =
-                ParserUtil.getSlice<Vaccination.V1_1_0.Profile.OrganizationStrassenanschriftLineAdresszusatz>(
-                    Vaccination.V1_1_0.Profile
-                        .OrganizationStrassenanschriftLineAdresszusatz,
-                    strassenAnschrift?.extension
-                )?.valueString;
-
-            return this.fillValues(
-                address?.line,
-                street,
-                number,
-                addition,
-                address?.postalCode,
-                address?.city,
-                address?.country
-            );
-        } else {
-            const postbox =
-                ParserUtil.getSlice<Vaccination.V1_1_0.Profile.OrganizationPostfach>(
-                    Vaccination.V1_1_0.Profile.OrganizationPostfach,
-                    this.value.address
-                );
-
-            const postfach =
-                ParserUtil.getSlice<Vaccination.V1_1_0.Profile.OrganizationPostfachLine>(
-                    Vaccination.V1_1_0.Profile.OrganizationPostfachLine,
-                    postbox?._line
-                );
-
-            const postfachLine =
-                ParserUtil.getSlice<Vaccination.V1_1_0.Profile.OrganizationPostfachLinePostfach>(
-                    Vaccination.V1_1_0.Profile.OrganizationPostfachLinePostfach,
-                    postfach?.extension
-                )?.valueString;
-
-            return this.fillValuesPostBox(
-                postfachLine,
-                postbox?.postalCode,
-                postbox?.city,
-                postbox?.country
-            );
-        }
-    }
-
-    protected getAddressZBPatient(): ModelValue[] {
-        const address = ParserUtil.getSlice<ZAEB.V1_1_0.Profile.PatientStrassenanschrift>(
-            ZAEB.V1_1_0.Profile.PatientStrassenanschrift,
+    protected getAddress(): ModelValue[] {
+        const address = ParserUtil.getSlices<addressTypes>(
+            addressTypeArray,
             this.value.address
         );
 
-        const strassenAnschrift =
-            ParserUtil.getSlice<ZAEB.V1_1_0.Profile.PatientStrassenanschriftLine>(
-                ZAEB.V1_1_0.Profile.PatientStrassenanschriftLine,
-                address?._line
+        if (address.length) {
+            const finalAddress: finalAdressType = address[0] as finalAdressType;
+
+            const strassenAnschrift = ParserUtil.getSlices<addressLineTypes>(
+                addressTypeLineArray,
+                finalAddress?._line
+            )[0];
+
+            const streetObject = ParserUtil.getSlices<addressLineStrasseTypes>(
+                addressTypeLineStrasseArray,
+                strassenAnschrift?.extension
             );
 
-        const street =
-            ParserUtil.getSlice<ZAEB.V1_1_0.Profile.PatientStrassenanschriftLineStrasse>(
-                ZAEB.V1_1_0.Profile.PatientStrassenanschriftLineStrasse,
+            const street = streetObject
+                ? streetObject.map((so) => so.valueString).join(", ")
+                : undefined;
+
+            const numberObject = ParserUtil.getSlices<addressLineHausnummerTypes>(
+                addressTypeLineHausnummerArray,
                 strassenAnschrift?.extension
-            )?.valueString;
-
-        const number =
-            ParserUtil.getSlice<ZAEB.V1_1_0.Profile.PatientStrassenanschriftLineHausnummer>(
-                ZAEB.V1_1_0.Profile.PatientStrassenanschriftLineHausnummer,
-                strassenAnschrift?.extension
-            )?.valueString;
-
-        const addition =
-            ParserUtil.getSlice<ZAEB.V1_1_0.Profile.PatientStrassenanschriftLineAdresszusatz>(
-                ZAEB.V1_1_0.Profile.PatientStrassenanschriftLineAdresszusatz,
-                strassenAnschrift?.extension
-            )?.valueString;
-
-        return this.fillValues(
-            address?.line,
-            street,
-            number,
-            addition,
-            address?.postalCode,
-            address?.city,
-            address?.country,
-            address?.use
-        );
-    }
-
-    protected getAddressZBOrganization(): ModelValue[] {
-        const address =
-            ParserUtil.getSlice<ZAEB.V1_1_0.Profile.OrganizationStrassenanschrift>(
-                ZAEB.V1_1_0.Profile.OrganizationStrassenanschrift,
-                this.value.address
             );
 
-        const strassenAnschrift =
-            ParserUtil.getSlice<ZAEB.V1_1_0.Profile.OrganizationStrassenanschriftLine>(
-                ZAEB.V1_1_0.Profile.OrganizationStrassenanschriftLine,
-                address?._line
+            const number = numberObject
+                ? numberObject.map((no) => no.valueString).join(", ")
+                : undefined;
+
+            const additionObject = ParserUtil.getSlices<addressLineAdresszusatzTypes>(
+                addressTypeLineAdresszusatzArray,
+                strassenAnschrift?.extension
             );
 
-        const street =
-            ParserUtil.getSlice<ZAEB.V1_1_0.Profile.OrganizationStrassenanschriftLineStrasse>(
-                ZAEB.V1_1_0.Profile.OrganizationStrassenanschriftLineStrasse,
-                strassenAnschrift?.extension
-            )?.valueString;
-
-        const number =
-            ParserUtil.getSlice<ZAEB.V1_1_0.Profile.OrganizationStrassenanschriftLineHausnummer>(
-                ZAEB.V1_1_0.Profile.OrganizationStrassenanschriftLineHausnummer,
-                strassenAnschrift?.extension
-            )?.valueString;
-
-        const addition =
-            ParserUtil.getSlice<ZAEB.V1_1_0.Profile.OrganizationStrassenanschriftLineAdresszusatz>(
-                ZAEB.V1_1_0.Profile.OrganizationStrassenanschriftLineAdresszusatz,
-                strassenAnschrift?.extension
-            )?.valueString;
-
-        return this.fillValues(
-            address?.line,
-            street,
-            number,
-            addition,
-            address?.postalCode,
-            address?.city,
-            address?.country,
-            address?.use
-        );
-    }
-
-    protected getAddressMROrganization(): ModelValue[] {
-        const address =
-            ParserUtil.getSlice<MR.V1_1_0.Profile.OrganizationStrassenanschrift>(
-                MR.V1_1_0.Profile.OrganizationStrassenanschrift,
-                this.value.address
-            );
-
-        if (address) {
-            const strassenAnschrift =
-                ParserUtil.getSlice<MR.V1_1_0.Profile.OrganizationStrassenanschriftLine>(
-                    MR.V1_1_0.Profile.OrganizationStrassenanschriftLine,
-                    address?._line
-                );
-
-            const street =
-                ParserUtil.getSlice<MR.V1_1_0.Profile.OrganizationStrassenanschriftLineStrasse>(
-                    MR.V1_1_0.Profile.OrganizationStrassenanschriftLineStrasse,
-                    strassenAnschrift?.extension
-                )?.valueString;
-
-            const number =
-                ParserUtil.getSlice<MR.V1_1_0.Profile.OrganizationStrassenanschriftLineHausnummer>(
-                    MR.V1_1_0.Profile.OrganizationStrassenanschriftLineHausnummer,
-                    strassenAnschrift?.extension
-                )?.valueString;
-
-            const addition =
-                ParserUtil.getSlice<MR.V1_1_0.Profile.OrganizationStrassenanschriftLineAdresszusatz>(
-                    MR.V1_1_0.Profile.OrganizationStrassenanschriftLineAdresszusatz,
-                    strassenAnschrift?.extension
-                )?.valueString;
+            const addition = additionObject
+                ? additionObject.map((ao) => ao.valueString).join(", ")
+                : undefined;
 
             return this.fillValues(
-                address?.line,
+                finalAddress?.line,
                 street,
                 number,
                 addition,
-                address?.postalCode,
-                address?.city,
-                address?.country,
-                address?.use
+                finalAddress?.postalCode,
+                finalAddress?.city,
+                finalAddress?.country,
+                finalAddress?.use
             );
         } else {
-            const postbox = ParserUtil.getSlice<MR.V1_1_0.Profile.OrganizationPostfach>(
-                MR.V1_1_0.Profile.OrganizationPostfach,
+            const postbox = ParserUtil.getSlices<postfachTypes>(
+                postfachTypeArray,
                 this.value.address
             );
 
-            const postfach =
-                ParserUtil.getSlice<MR.V1_1_0.Profile.OrganizationPostfachLine>(
-                    MR.V1_1_0.Profile.OrganizationPostfachLine,
-                    postbox?._line
+            if (postbox.length) {
+                const finalPostbox: finalAdressType = postbox[0] as finalAdressType;
+
+                //TODO: figure out why this doesn't work without "as any[]"
+                const postfachExtension = ParserUtil.getSlices<postfachLineTypes>(
+                    postfachTypeLineArray,
+                    finalPostbox?.extension
+                ) as any[];
+
+                console.log(postfachExtension);
+
+                return this.fillValuesPostBox(
+                    finalPostbox.line?.join(", "),
+                    postfachExtension,
+                    finalPostbox?.postalCode,
+                    finalPostbox?.city,
+                    finalPostbox?.country,
+                    finalPostbox?.use
                 );
+            }
 
-            const postfachLine =
-                ParserUtil.getSlice<MR.V1_1_0.Profile.OrganizationPostfachLinePostfach>(
-                    MR.V1_1_0.Profile.OrganizationPostfachLinePostfach,
-                    postfach?.extension
-                )?.valueString;
-
-            return this.fillValuesPostBox(
-                postfachLine,
-                postbox?.postalCode,
-                postbox?.city,
-                postbox?.country,
-                postbox?.use
-            );
+            return [];
         }
     }
 
-    protected getAddressMRPatientMother(): ModelValue[] {
-        const address =
-            ParserUtil.getSlice<MR.V1_1_0.Profile.PatientMotherStrassenanschrift>(
-                MR.V1_1_0.Profile.PatientMotherStrassenanschrift,
-                this.value.address
-            );
-
-        const strassenAnschrift =
-            ParserUtil.getSlice<MR.V1_1_0.Profile.PatientMotherStrassenanschriftLine>(
-                MR.V1_1_0.Profile.PatientMotherStrassenanschriftLine,
-                address?._line
-            );
-
-        const street =
-            ParserUtil.getSlice<MR.V1_1_0.Profile.PatientMotherStrassenanschriftLineStrasse>(
-                MR.V1_1_0.Profile.PatientMotherStrassenanschriftLineStrasse,
-                strassenAnschrift?.extension
-            )?.valueString;
-
-        const number =
-            ParserUtil.getSlice<MR.V1_1_0.Profile.PatientMotherStrassenanschriftLineHausnummer>(
-                MR.V1_1_0.Profile.PatientMotherStrassenanschriftLineHausnummer,
-                strassenAnschrift?.extension
-            )?.valueString;
-
-        const addition =
-            ParserUtil.getSlice<MR.V1_1_0.Profile.PatientMotherStrassenanschriftLineAdresszusatz>(
-                MR.V1_1_0.Profile.PatientMotherStrassenanschriftLineAdresszusatz,
-                strassenAnschrift?.extension
-            )?.valueString;
-
-        return this.fillValues(
-            address?.line,
-            street,
-            number,
-            addition,
-            address?.postalCode,
-            address?.city,
-            address?.country,
-            address?.use
-        );
-    }
-
-    protected getAddressMRPractitioner(): ModelValue[] {
-        const address =
-            ParserUtil.getSlice<MR.V1_1_0.Profile.PractitionerStrassenanschrift>(
-                MR.V1_1_0.Profile.PractitionerStrassenanschrift,
-                this.value.address
-            );
-
-        const strassenAnschrift =
-            ParserUtil.getSlice<MR.V1_1_0.Profile.PractitionerStrassenanschriftLine>(
-                MR.V1_1_0.Profile.PractitionerStrassenanschriftLine,
-                address?._line
-            );
-
-        const street =
-            ParserUtil.getSlice<MR.V1_1_0.Profile.PractitionerStrassenanschriftLineStrasse>(
-                MR.V1_1_0.Profile.PractitionerStrassenanschriftLineStrasse,
-                strassenAnschrift?.extension
-            )?.valueString;
-
-        const number =
-            ParserUtil.getSlice<MR.V1_1_0.Profile.PractitionerStrassenanschriftLineHausnummer>(
-                MR.V1_1_0.Profile.PractitionerStrassenanschriftLineHausnummer,
-                strassenAnschrift?.extension
-            )?.valueString;
-
-        const addition =
-            ParserUtil.getSlice<MR.V1_1_0.Profile.PractitionerStrassenanschriftLineAdresszusatz>(
-                MR.V1_1_0.Profile.PractitionerStrassenanschriftLineAdresszusatz,
-                strassenAnschrift?.extension
-            )?.valueString;
-
-        return this.fillValues(
-            address?.line,
-            street,
-            number,
-            addition,
-            address?.postalCode,
-            address?.city,
-            address?.country,
-            address?.use
-        );
-    }
-
-    protected getAddressCMRPractitioner(): ModelValue[] {
-        const address =
-            ParserUtil.getSlice<CMR.V1_0_1.Profile.CMRPractitionerStrassenanschrift>(
-                CMR.V1_0_1.Profile.CMRPractitionerStrassenanschrift,
-                this.value.address
-            );
-
-        const strassenAnschrift =
-            ParserUtil.getSlice<CMR.V1_0_1.Profile.CMRPractitionerStrassenanschriftLine>(
-                CMR.V1_0_1.Profile.CMRPractitionerStrassenanschriftLine,
-                address?._line
-            );
-
-        const street =
-            ParserUtil.getSlice<CMR.V1_0_1.Profile.CMRPractitionerStrassenanschriftLineStrasse>(
-                CMR.V1_0_1.Profile.CMRPractitionerStrassenanschriftLineStrasse,
-                strassenAnschrift?.extension
-            )?.valueString;
-
-        const number =
-            ParserUtil.getSlice<CMR.V1_0_1.Profile.CMRPractitionerStrassenanschriftLineHausnummer>(
-                CMR.V1_0_1.Profile.CMRPractitionerStrassenanschriftLineHausnummer,
-                strassenAnschrift?.extension
-            )?.valueString;
-
-        const addition =
-            ParserUtil.getSlice<CMR.V1_0_1.Profile.CMRPractitionerStrassenanschriftLineAdresszusatz>(
-                CMR.V1_0_1.Profile.CMRPractitionerStrassenanschriftLineAdresszusatz,
-                strassenAnschrift?.extension
-            )?.valueString;
-
-        return this.fillValues(
-            address?.line,
-            street,
-            number,
-            addition,
-            address?.postalCode,
-            address?.city,
-            address?.country,
-            address?.use
-        );
-    }
-
-    protected getAddressCMROrganization(): ModelValue[] {
-        const address =
-            ParserUtil.getSlice<CMR.V1_0_1.Profile.CMROrganizationStrassenanschrift>(
-                CMR.V1_0_1.Profile.CMROrganizationStrassenanschrift,
-                this.value.address
-            );
-
-        if (address) {
-            const strassenAnschrift =
-                ParserUtil.getSlice<CMR.V1_0_1.Profile.CMROrganizationStrassenanschriftLine>(
-                    CMR.V1_0_1.Profile.CMROrganizationStrassenanschriftLine,
-                    address?._line
-                );
-
-            const street =
-                ParserUtil.getSlice<CMR.V1_0_1.Profile.CMROrganizationStrassenanschriftLineStrasse>(
-                    CMR.V1_0_1.Profile.CMROrganizationStrassenanschriftLineStrasse,
-                    strassenAnschrift?.extension
-                )?.valueString;
-
-            const number =
-                ParserUtil.getSlice<CMR.V1_0_1.Profile.CMROrganizationStrassenanschriftLineHausnummer>(
-                    CMR.V1_0_1.Profile.CMROrganizationStrassenanschriftLineHausnummer,
-                    strassenAnschrift?.extension
-                )?.valueString;
-
-            const addition =
-                ParserUtil.getSlice<CMR.V1_0_1.Profile.CMROrganizationStrassenanschriftLineAdresszusatz>(
-                    CMR.V1_0_1.Profile.CMROrganizationStrassenanschriftLineAdresszusatz,
-                    strassenAnschrift?.extension
-                )?.valueString;
-
-            return this.fillValues(
-                address?.line,
-                street,
-                number,
-                addition,
-                address?.postalCode,
-                address?.city,
-                address?.country,
-                address?.use
-            );
-        } else {
-            const postbox =
-                ParserUtil.getSlice<CMR.V1_0_1.Profile.CMROrganizationPostfach>(
-                    CMR.V1_0_1.Profile.CMROrganizationPostfach,
-                    this.value.address
-                );
-
-            const postfach =
-                ParserUtil.getSlice<CMR.V1_0_1.Profile.CMROrganizationPostfachLine>(
-                    CMR.V1_0_1.Profile.CMROrganizationPostfachLine,
-                    postbox?._line
-                );
-
-            const postfachLine =
-                ParserUtil.getSlice<CMR.V1_0_1.Profile.CMROrganizationPostfachLinePostfach>(
-                    CMR.V1_0_1.Profile.CMROrganizationPostfachLinePostfach,
-                    postfach?.extension
-                )?.valueString;
-
-            return this.fillValuesPostBox(
-                postfachLine,
-                postbox?.postalCode,
-                postbox?.city,
-                postbox?.country
-            );
-        }
-    }
-
-    protected getAddressCMROrganizationScreeningLaboratory(): ModelValue[] {
-        const address =
-            ParserUtil.getSlice<CMR.V1_0_1.Profile.CMROrganizationScreeningLaboratoryStrassenanschrift>(
-                CMR.V1_0_1.Profile.CMROrganizationScreeningLaboratoryStrassenanschrift,
-                this.value.address
-            );
-
-        if (address) {
-            const strassenAnschrift =
-                ParserUtil.getSlice<CMR.V1_0_1.Profile.CMROrganizationScreeningLaboratoryStrassenanschriftLine>(
-                    CMR.V1_0_1.Profile
-                        .CMROrganizationScreeningLaboratoryStrassenanschriftLine,
-                    address?._line
-                );
-
-            const street =
-                ParserUtil.getSlice<CMR.V1_0_1.Profile.CMROrganizationScreeningLaboratoryStrassenanschriftLineStrasse>(
-                    CMR.V1_0_1.Profile.CMROrganizationStrassenanschriftLineStrasse,
-                    strassenAnschrift?.extension
-                )?.valueString;
-
-            const number =
-                ParserUtil.getSlice<CMR.V1_0_1.Profile.CMROrganizationScreeningLaboratoryStrassenanschriftLineHausnummer>(
-                    CMR.V1_0_1.Profile.CMROrganizationStrassenanschriftLineHausnummer,
-                    strassenAnschrift?.extension
-                )?.valueString;
-
-            const addition =
-                ParserUtil.getSlice<CMR.V1_0_1.Profile.CMROrganizationScreeningLaboratoryStrassenanschriftLineAdresszusatz>(
-                    CMR.V1_0_1.Profile.CMROrganizationStrassenanschriftLineAdresszusatz,
-                    strassenAnschrift?.extension
-                )?.valueString;
-
-            return this.fillValues(
-                address?.line,
-                street,
-                number,
-                addition,
-                address?.postalCode,
-                address?.city,
-                address?.country
-            );
-        } else {
-            const postbox =
-                ParserUtil.getSlice<CMR.V1_0_1.Profile.CMROrganizationScreeningLaboratoryPostfach>(
-                    CMR.V1_0_1.Profile.CMROrganizationScreeningLaboratoryPostfach,
-                    this.value.address
-                );
-
-            const postfach =
-                ParserUtil.getSlice<CMR.V1_0_1.Profile.CMROrganizationScreeningLaboratoryPostfachLine>(
-                    CMR.V1_0_1.Profile.CMROrganizationScreeningLaboratoryPostfachLine,
-                    postbox?._line
-                );
-
-            const postfachLine =
-                ParserUtil.getSlice<CMR.V1_0_1.Profile.CMROrganizationScreeningLaboratoryPostfachLinePostfach>(
-                    CMR.V1_0_1.Profile
-                        .CMROrganizationScreeningLaboratoryPostfachLinePostfach,
-                    postfach?.extension
-                )?.valueString;
-
-            return this.fillValuesPostBox(
-                postfachLine,
-                postbox?.postalCode,
-                postbox?.city,
-                postbox?.country
-            );
-        }
-    }
+    /**
+     * TODO
+     * else if (PKA.V1_0_0.Profile.NFDOrganization.is(this.value)) {
+     *             return [
+     *                 {
+     *                     value: this.value.address.map((a) => a.city).join(", "),
+     *                     label: "Stadt"
+     *                 }
+     *             ];
+     *         }
+     *
+     *
+     *         else if (PKA.V1_0_0.Profile.NFDPractitionerPhysician.is(this.value)) {
+     *             return this.value.address.map((a: baseAddress) => {
+     *                 return {
+     *                     value: a.text ?? a.city ?? "-",
+     *                     label: "Anschrift"
+     *                 };
+     *             });
+     */
 
     public toString(): string {
         throw new Error("Method not implemented.");
@@ -631,6 +220,7 @@ export default class AddressModel<
 
     protected fillValuesPostBox(
         line?: string,
+        extensionContent?: (Extension | undefined)[],
         postalCode?: string,
         city?: string,
         country?: string,
@@ -663,6 +253,25 @@ export default class AddressModel<
                 label: "Land"
             }
         );
+
+        extensionContent?.forEach((extension) => {
+            // Adds Stadtteil
+            if (
+                extension?.url ===
+                "http://hl7.org/fhir/StructureDefinition/iso21090-ADXP-precinct"
+            ) {
+                values.push({
+                    value: extension.valueString ?? "-",
+                    label: "Stadtteil"
+                });
+                // default
+            } else if (extension?.valueString) {
+                values.push({
+                    value: extension.valueString ?? "-",
+                    label: "Zuatzinformation"
+                });
+            }
+        });
 
         return values;
     }
@@ -705,7 +314,9 @@ export default class AddressModel<
         ];
         const result = values.filter((v) => v.in === use);
 
-        if (result.length) return result[0].out;
+        if (result.length) {
+            return result[0].out;
+        }
         return "-";
     }
 

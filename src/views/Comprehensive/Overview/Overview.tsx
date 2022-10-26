@@ -18,22 +18,25 @@
 
 import React from "react";
 
-import { RouteComponentProps } from "react-router";
-
-import { MIOConnector, MIOConnectorType } from "../../../store";
-import { ParserUtil, Vaccination, ZAEB, MR, CMR } from "@kbv/mioparser";
+import { MIOConnector, MIOConnectorType, RouteProps } from "../../../store";
+import { ParserUtil, Vaccination, ZAEB, MR, CMR, PKA } from "@kbv/mioparser";
+import { withIonLifeCycle } from "@ionic/react";
 
 import { UI, Util } from "../../../components";
 
 import OverviewIM from "../../IM/Overview";
 import OverviewZAEB from "../../ZB/Overview";
 import OverviewMP from "../../MP/Overview";
-import OverviewUH from "../../UH/Overview";
 import OverviewCMR from "../../UH/Overview/CMR";
 import OverviewPC from "../../UH/Overview/PC";
 import OverviewPN from "../../UH/Overview/PN";
+import OverviewPK from "../../PK/Overview";
 
-class Overview extends React.Component<MIOConnectorType & RouteComponentProps> {
+import OverviewList from "../OverviewList";
+
+import MIOMap from "../../../MIOMap";
+
+class Overview extends React.Component<MIOConnectorType & RouteProps> {
     render(): JSX.Element {
         const { mio, history, location, match, makePDF } = this.props;
 
@@ -42,9 +45,15 @@ class Overview extends React.Component<MIOConnectorType & RouteComponentProps> {
         let component = undefined;
 
         if (match.path.startsWith("/mios") || match.path.startsWith("/examples")) {
-            const params = match.params as { id: string };
-            if (params.id === "uheft") {
-                return <OverviewUH {...this.props} />;
+            const id = match.params.id;
+            const supported = ["impfpass", "zaeb", "mutterpass", "uheft", "pka"];
+            const isSupported = supported.includes(id);
+
+            if (isSupported) {
+                const matching = MIOMap.filter((b) => b.className === id)[0];
+                if (matching) {
+                    return <OverviewList {...matching} {...this.props} />;
+                }
             }
         } else {
             if (mio) {
@@ -109,6 +118,10 @@ class Overview extends React.Component<MIOConnectorType & RouteComponentProps> {
                             match={match}
                         />
                     );
+                } else if (PKA.V1_0_0.Profile.NFDxDPEBundle.is(mio)) {
+                    headline = Util.PK.getCompositionTitle(mio) ?? "Patientenkurzakte";
+                    mioClass = "pka";
+                    component = <OverviewPK mio={mio} history={history} />;
                 }
             }
 
@@ -136,4 +149,4 @@ class Overview extends React.Component<MIOConnectorType & RouteComponentProps> {
     }
 }
 
-export default MIOConnector(Overview);
+export default MIOConnector(withIonLifeCycle(Overview));

@@ -16,7 +16,6 @@
  * along with MIO Viewer. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { MIOConnector, SettingsConnector } from "../../../store";
 import { UI, Util } from "../../../components";
 
 import DetailBase from "../../Comprehensive/Detail/DetailBase";
@@ -65,4 +64,4 @@ class Detail extends DetailBase<ZAEB.V1_1_0.Profile.Bundle> {
     }
 }
 
-export default SettingsConnector(MIOConnector(Detail));
+export default Detail;

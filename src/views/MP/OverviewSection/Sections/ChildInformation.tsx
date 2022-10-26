@@ -19,6 +19,8 @@ import React from "react";
 
 import { MR, ParserUtil, AnyType, Reference } from "@kbv/mioparser";
 
+import { match } from "react-router";
+
 import { UI, Util } from "../../../../components";
 import * as Models from "../../../../models";
 import DetailComponent from "../../../../components/Detail/Detail";
@@ -67,8 +69,10 @@ export default class ChildInformation extends Section<SectionType> {
 
         this.section = this.getSection(sectionStack);
 
-        const params = this.props.match.params as { patient: string };
-        if (params.patient) this.patientId = params.patient;
+        const params = this.props.match.params;
+        if (params.patient) {
+            this.patientId = params.patient;
+        }
     }
 
     protected getDetails(): JSX.Element[] {
@@ -98,7 +102,14 @@ export default class ChildInformation extends Section<SectionType> {
                             entry={res.resource}
                             location={location}
                             history={history}
-                            match={match}
+                            match={
+                                match as unknown as match<{
+                                    id: string;
+                                    entry: string;
+                                    filter?: string;
+                                    filterValue?: string;
+                                }>
+                            }
                             key={details.length}
                             devMode={devMode}
                         />

@@ -21,7 +21,7 @@ import React from "react";
 import { SettingsConnector, SettingsConnectorType } from "./store";
 
 class CookiesModal extends React.Component<SettingsConnectorType> {
-    render() {
+    render(): JSX.Element {
         const { cookiesAccepted, acceptCookies } = this.props;
         return (
             <UI.Modal

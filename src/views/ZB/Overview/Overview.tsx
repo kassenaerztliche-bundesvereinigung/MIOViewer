@@ -19,7 +19,7 @@
 import React from "react";
 import { History } from "history";
 
-import { ZAEB, ZAEBResource, MIOEntry, ParserUtil } from "@kbv/mioparser";
+import { ZAEB, ZAEBResource, MIOEntry } from "@kbv/mioparser";
 
 import { UI, Util } from "../../../components/";
 import PatientCard from "../../../components/PatientCard";
@@ -94,10 +94,7 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
                     values.entry.resource
                 )
             ) {
-                const composition = ParserUtil.getEntry<ZAEB.V1_1_0.Profile.Composition>(
-                    mio,
-                    [ZAEB.V1_1_0.Profile.Composition]
-                );
+                const composition = Util.ZB.getComposition(mio);
 
                 const from = Util.Misc.formatDate(values.entry.resource.valueDateTime);
                 const to = Util.Misc.formatDate(composition?.resource.date);

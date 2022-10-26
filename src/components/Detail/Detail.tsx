@@ -22,7 +22,7 @@ import { IonToast } from "@ionic/react";
 
 import { KBVBundleResource, KBVResource } from "@kbv/mioparser";
 
-import { RouteComponentProps } from "react-router";
+import { RouteProps } from "../../store";
 import { Model } from "../../models";
 import { UI } from "../index";
 
@@ -63,12 +63,12 @@ export type DetailProps = {
 };
 
 export default class Detail extends React.Component<
-    DetailProps & RouteComponentProps,
+    DetailProps & RouteProps,
     DetailState
 > {
     static displayName = "Detail";
 
-    constructor(props: DetailProps & RouteComponentProps) {
+    constructor(props: DetailProps & RouteProps) {
         super(props);
 
         this.state = {
@@ -78,7 +78,9 @@ export default class Detail extends React.Component<
 
     copyToClipboard = (): void => {
         const { devMode, models } = this.props;
-        if (!devMode || !models.length) return;
+        if (!devMode || !models.length) {
+            return;
+        }
 
         const str = JSON.stringify(models[0].getJSON());
         navigator.clipboard.writeText(str).then(() => {

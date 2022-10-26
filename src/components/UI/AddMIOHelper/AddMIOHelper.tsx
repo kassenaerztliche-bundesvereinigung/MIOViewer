@@ -84,7 +84,9 @@ export default class AddMIOHelper {
             }
         }
 
-        if (callback) callback();
+        if (callback) {
+            callback();
+        }
         this.onStateChange();
     };
 
@@ -104,8 +106,6 @@ export default class AddMIOHelper {
         const bigFile = this.bigFile(files);
         const tooBig = this.tooBig(files);
 
-        // console.log(files);
-
         this.setState(
             {
                 files: files,
@@ -121,7 +121,9 @@ export default class AddMIOHelper {
         fileName: string,
         callback?: () => void
     ): void => {
-        if (!result) return;
+        if (!result) {
+            return;
+        }
         // Result is a MIOParserError or Error that was thrown during parsing
         if (result instanceof Error) {
             const generalError = result as MIOParserError;
@@ -154,12 +156,10 @@ export default class AddMIOHelper {
                     numErrors: result.errors.length
                 });
 
-                const value = result.value as KBVBundleResource;
-                const mioExists = this.props.mios.some(
-                    (mio) => mio.identifier.value === value.identifier.value
-                );
-                if (mioExists) {
-                    if (callback) callback();
+                if (this.mioExists(result.value as KBVBundleResource)) {
+                    if (callback) {
+                        callback();
+                    }
                 }
             }
             // No Errors during validation
@@ -179,19 +179,23 @@ export default class AddMIOHelper {
                 // Resource is a bundle
                 else {
                     if (!this.isDeprecated(value)) {
-                        const mioExists = this.props.mios.some(
-                            (mio) => mio.identifier.value === value.identifier.value
-                        );
-                        if (mioExists) {
-                            if (callback) callback();
-                        } else {
-                            this.props.addMIO(value).then(callback);
+                        if (!this.mioExists(value)) {
+                            this.props.mios.push(value);
+                        }
+                        if (callback) {
+                            callback();
                         }
                     }
                 }
             }
         }
     };
+
+    protected mioExists(value: KBVBundleResource): boolean {
+        return this.props.mios.some(
+            (mio) => mio.identifier.value === value.identifier.value
+        );
+    }
 
     protected isDeprecated(value: KBVBundleResource): boolean {
         const deprecated = [
@@ -275,7 +279,7 @@ export default class AddMIOHelper {
                         // Try parse Error and GeneralError
                         try {
                             const parsed = JSON.parse(results);
-                            // console.log(parsed);
+
                             if (parsed.message) {
                                 results = new Error(parsed.message);
 
@@ -371,7 +375,7 @@ export default class AddMIOHelper {
         }
     }
 
-    public render(loading: boolean, id: string): JSX.Element {
+    public renderMain(loading: boolean, id: string): JSX.Element {
         return (
             <>
                 {this.renderLoadingAnimation(loading, id)}

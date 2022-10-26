@@ -17,10 +17,10 @@
  */
 
 import React from "react";
-import { RouteComponentProps } from "react-router";
 import { MR, ParserUtil, AnyType, MIOEntry } from "@kbv/mioparser";
 
 import { UI } from "../../../components";
+import { RouteComponentProps } from "react-router";
 
 export enum Sections {
     Anamnese = "Anamnese",
@@ -38,12 +38,18 @@ export enum Sections {
     AngabenZumKindZeituntersuchung = "Angaben zum Kind Zweituntersuchung"
 }
 
+export type RoutePropsSection = RouteComponentProps<{
+    id: string;
+    section: string;
+    patient?: string;
+}>;
+
 export type SectionProps = {
     mio: MR.V1_1_0.Profile.Bundle;
     composition: MIOEntry<MR.V1_1_0.Profile.Composition>;
     id: string;
     devMode: boolean;
-} & RouteComponentProps;
+} & RoutePropsSection;
 
 export type SectionState = {
     details: JSX.Element[];
@@ -73,7 +79,9 @@ export default abstract class Section<T> extends React.Component<
         sectionStack.forEach(
             (s) => (section = ParserUtil.getSlice<any>(s, section.section)) // eslint-disable-line
         );
-        if (section) result = section as unknown as T;
+        if (section) {
+            result = section as unknown as T;
+        }
 
         return result;
     }

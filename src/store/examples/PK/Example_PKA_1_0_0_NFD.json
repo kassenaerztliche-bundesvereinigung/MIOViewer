@@ -1,0 +1,1179 @@
+{
+    "resourceType": "Bundle",
+    "id": "ec5bf24f-e823-pk46-97c6-14e35ded0ec3",
+    "meta": {
+        "profile": [
+            "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_NFDxDPE_Bundle|1.0.0"
+        ]
+    },
+    "identifier": {
+        "type": {
+            "coding": [
+                {
+                    "code": "NFD"
+                }
+            ]
+        },
+        "system": "urn:ietf:rfc:3986",
+        "value": "urn:uuid:ec5bf24f-e823-pk46-97c6-14e35ded0ec3"
+    },
+    "type": "document",
+    "timestamp": "2021-08-09T12:30:02Z",
+    "entry": [
+        {
+            "fullUrl": "urn:uuid:8e17ccc0-9d1a-11eb-a8b3-0242ac130003",
+            "resource": {
+                "resourceType": "Composition",
+                "id": "8e17ccc0-9d1a-11eb-a8b3-0242ac130003",
+                "meta": {
+                    "versionId": "1.0.0",
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_NFD_Composition_NFD|1.0.0"
+                    ]
+                },
+                "status": "final",
+                "type": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "version": "http://snomed.info/sct/900000000000207008/version/20210731",
+                            "code": "5491000179105",
+                            "display": "Medical record summary (record artifact)"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "urn:uuid:e8610a8a-85dc-4a49-88be-ee8d3ab69f73"
+                },
+                "date": "2009-12-10",
+                "author": [
+                    {
+                        "reference": "urn:uuid:d0117f4a-685c-4659-aa94-14e3514bc86b"
+                    }
+                ],
+                "title": "Notfalldatensatz",
+                "section": [
+                    {
+                        "title": "NFD_Versicherter_Einwilligung",
+                        "code": {
+                            "coding": [
+                                {
+                                    "system": "http://loinc.org",
+                                    "version": "2.71",
+                                    "code": "57016-8",
+                                    "display": "Patient Consent"
+                                }
+                            ]
+                        },
+                        "entry": [
+                            {
+                                "reference": "urn:uuid:1443cb86-df52-11eb-ba80-0242ac130004"
+                            }
+                        ]
+                    },
+                    {
+                        "title": "Allergie/Unverträglichkeit",
+                        "code": {
+                            "coding": [
+                                {
+                                    "system": "http://snomed.info/sct",
+                                    "version": "http://snomed.info/sct/900000000000207008/version/20210731",
+                                    "code": "722446000",
+                                    "display": "Allergy record (record artifact)"
+                                }
+                            ]
+                        },
+                        "entry": [
+                            {
+                                "reference": "urn:uuid:c3fd0113-9833-4333-bfd2-fff813222b64"
+                            }
+                        ]
+                    },
+                    {
+                        "title": "Medikationseinträge",
+                        "code": {
+                            "coding": [
+                                {
+                                    "system": "http://snomed.info/sct",
+                                    "version": "http://snomed.info/sct/900000000000207008/version/20210731",
+                                    "code": "736378000",
+                                    "display": "Medication management plan (record artifact)"
+                                }
+                            ]
+                        },
+                        "entry": [
+                            {
+                                "reference": "urn:uuid:d6b888f6-9d07-11eb-a8b3-0242ac130003"
+                            },
+                            {
+                                "reference": "urn:uuid:292d932c-f62e-11eb-9a03-0242ac130003"
+                            }
+                        ]
+                    },
+                    {
+                        "title": "Diagnose",
+                        "code": {
+                            "coding": [
+                                {
+                                    "system": "http://loinc.org",
+                                    "version": "2.71",
+                                    "code": "29548-5",
+                                    "display": "Diagnosis Narrative"
+                                }
+                            ]
+                        },
+                        "entry": [
+                            {
+                                "reference": "urn:uuid:9ddb500a-2f32-480b-a435-683c27ef444e"
+                            },
+                            {
+                                "reference": "urn:uuid:0269e4f2-f633-11eb-9a03-0242ac130003"
+                            },
+                            {
+                                "reference": "urn:uuid:13bf04ee-f633-11eb-9a03-0242ac130003"
+                            },
+                            {
+                                "reference": "urn:uuid:28558acc-f633-11eb-9a03-0242ac130003"
+                            }
+                        ]
+                    },
+                    {
+                        "title": "Kommunikationsstörung",
+                        "code": {
+                            "coding": [
+                                {
+                                    "system": "http://snomed.info/sct",
+                                    "version": "http://snomed.info/sct/900000000000207008/version/20210731",
+                                    "code": "386053000:363702006=278919001",
+                                    "display": "Evaluation procedure (procedure) : Has focus (attribute) = Communication disorder (disorder)"
+                                }
+                            ]
+                        },
+                        "entry": [
+                            {
+                                "reference": "urn:uuid:534af71e-f9c4-11eb-9a03-0242ac130003"
+                            }
+                        ]
+                    },
+                    {
+                        "title": "Implantat",
+                        "code": {
+                            "coding": [
+                                {
+                                    "system": "http://snomed.info/sct",
+                                    "version": "http://snomed.info/sct/900000000000207008/version/20210731",
+                                    "code": "40388003",
+                                    "display": "Implant, device (physical object)"
+                                }
+                            ]
+                        },
+                        "entry": [
+                            {
+                                "reference": "urn:uuid:7d261218-8678-11eb-8dcd-0242ac130003"
+                            }
+                        ]
+                    },
+                    {
+                        "title": "Freiwillige Zusatzinformationen",
+                        "code": {
+                            "coding": [
+                                {
+                                    "system": "http://snomed.info/sct",
+                                    "version": "http://snomed.info/sct/900000000000207008/version/20210731",
+                                    "code": "866145009",
+                                    "display": "General patient record note (record artifact)"
+                                }
+                            ]
+                        },
+                        "entry": [
+                            {
+                                "reference": "urn:uuid:bd1e4596-df3a-11eb-ba80-0242ac130004"
+                            }
+                        ]
+                    },
+                    {
+                        "title": "Sonstiger Hinweis",
+                        "code": {
+                            "coding": [
+                                {
+                                    "system": "http://snomed.info/sct",
+                                    "version": "http://snomed.info/sct/900000000000207008/version/20210731",
+                                    "code": "866144008",
+                                    "display": "Encounter note (record artifact)"
+                                }
+                            ]
+                        },
+                        "entry": [
+                            {
+                                "reference": "urn:uuid:a4aba0aa-9138-4621-a77c-8ec5b16e2282"
+                            }
+                        ]
+                    },
+                    {
+                        "title": "Prozedur",
+                        "code": {
+                            "coding": [
+                                {
+                                    "system": "http://snomed.info/sct",
+                                    "version": "http://snomed.info/sct/900000000000207008/version/20210731",
+                                    "code": "1003640003",
+                                    "display": "History of past procedure section (record artifact)"
+                                }
+                            ]
+                        },
+                        "entry": [
+                            {
+                                "reference": "urn:uuid:464ee2ce-24f3-4319-934b-b0b994bf9aad"
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:c3fd0113-9833-4333-bfd2-fff813222b64",
+            "resource": {
+                "resourceType": "AllergyIntolerance",
+                "id": "c3fd0113-9833-4333-bfd2-fff813222b64",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_NFD_Allergy_Intolerance|1.0.0"
+                    ]
+                },
+                "clinicalStatus": {
+                    "coding": [
+                        {
+                            "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical",
+                            "version": "4.0.1",
+                            "code": "active",
+                            "display": "Active"
+                        }
+                    ]
+                },
+                "patient": {
+                    "reference": "urn:uuid:e8610a8a-85dc-4a49-88be-ee8d3ab69f73"
+                },
+                "recorder": {
+                    "reference": "urn:uuid:ebefcfca-7168-40e5-8918-7af38c7f10c9"
+                },
+                "reaction": [
+                    {
+                        "substance": {
+                            "text": "Unacid"
+                        },
+                        "manifestation": [
+                            {
+                                "text": "schweres Arzneimittelexanthem"
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:9ddb500a-2f32-480b-a435-683c27ef444e",
+            "resource": {
+                "resourceType": "Condition",
+                "id": "9ddb500a-2f32-480b-a435-683c27ef444e",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_NFD_Condition|1.0.0"
+                    ]
+                },
+                "category": [
+                    {
+                        "coding": [
+                            {
+                                "system": "http://snomed.info/sct",
+                                "version": "http://snomed.info/sct/900000000000207008/version/20210731",
+                                "code": "439401001",
+                                "display": "Diagnosis (observable entity)",
+                                "_display": {
+                                    "extension": [
+                                        {
+                                            "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German",
+                                            "extension": [
+                                                {
+                                                    "url": "content",
+                                                    "valueString": "Diagnose"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    }
+                ],
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://fhir.de/CodeSystem/dimdi/icd-10-gm",
+                            "version": "2020",
+                            "code": "I10.11 G",
+                            "display": "Maligne essentielle Hypertonie"
+                        }
+                    ],
+                    "text": "Maligne essentielle Hypertonie"
+                },
+                "subject": {
+                    "reference": "urn:uuid:e8610a8a-85dc-4a49-88be-ee8d3ab69f73"
+                },
+                "onsetDateTime": "2010-09-09"
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:0269e4f2-f633-11eb-9a03-0242ac130003",
+            "resource": {
+                "resourceType": "Condition",
+                "id": "0269e4f2-f633-11eb-9a03-0242ac130003",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_NFD_Condition|1.0.0"
+                    ]
+                },
+                "category": [
+                    {
+                        "coding": [
+                            {
+                                "system": "http://snomed.info/sct",
+                                "version": "http://snomed.info/sct/900000000000207008/version/20210731",
+                                "code": "439401001",
+                                "display": "Diagnosis (observable entity)",
+                                "_display": {
+                                    "extension": [
+                                        {
+                                            "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German",
+                                            "extension": [
+                                                {
+                                                    "url": "content",
+                                                    "valueString": "Diagnose"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    }
+                ],
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://fhir.de/CodeSystem/dimdi/icd-10-gm",
+                            "version": "2020",
+                            "code": "I60.3 Z R",
+                            "display": "Subarachnoidalblutung, von der A. communicans posterior ausgehend"
+                        }
+                    ],
+                    "text": "Subarachnoidalblutung, von der A. communicans posterior ausgehend"
+                },
+                "subject": {
+                    "reference": "urn:uuid:e8610a8a-85dc-4a49-88be-ee8d3ab69f73"
+                },
+                "onsetDateTime": "1999-11-09"
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:13bf04ee-f633-11eb-9a03-0242ac130003",
+            "resource": {
+                "resourceType": "Condition",
+                "id": "13bf04ee-f633-11eb-9a03-0242ac130003",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_NFD_Condition|1.0.0"
+                    ]
+                },
+                "category": [
+                    {
+                        "coding": [
+                            {
+                                "system": "http://snomed.info/sct",
+                                "version": "http://snomed.info/sct/900000000000207008/version/20210731",
+                                "code": "439401001",
+                                "display": "Diagnosis (observable entity)",
+                                "_display": {
+                                    "extension": [
+                                        {
+                                            "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German",
+                                            "extension": [
+                                                {
+                                                    "url": "content",
+                                                    "valueString": "Diagnose"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    }
+                ],
+                "code": {
+                    "text": "Z.n. Polytrauma nach Verkehrsunfall mit Unterschenkel-Trümmerfraktur, Rippen-serienfraktur, Lungenkontusion, Epiduralhämatom"
+                },
+                "subject": {
+                    "reference": "urn:uuid:e8610a8a-85dc-4a49-88be-ee8d3ab69f73"
+                },
+                "onsetDateTime": "1979-03-11"
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:28558acc-f633-11eb-9a03-0242ac130003",
+            "resource": {
+                "resourceType": "Condition",
+                "id": "28558acc-f633-11eb-9a03-0242ac130003",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_NFD_Condition|1.0.0"
+                    ]
+                },
+                "category": [
+                    {
+                        "coding": [
+                            {
+                                "system": "http://snomed.info/sct",
+                                "version": "http://snomed.info/sct/900000000000207008/version/20210731",
+                                "code": "439401001",
+                                "display": "Diagnosis (observable entity)",
+                                "_display": {
+                                    "extension": [
+                                        {
+                                            "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German",
+                                            "extension": [
+                                                {
+                                                    "url": "content",
+                                                    "valueString": "Diagnose"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    }
+                ],
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://fhir.de/CodeSystem/dimdi/icd-10-gm",
+                            "version": "2020",
+                            "code": "I48.1 G",
+                            "display": "Vorhofflimmern"
+                        }
+                    ],
+                    "text": "Vorhofflimmern"
+                },
+                "subject": {
+                    "reference": "urn:uuid:e8610a8a-85dc-4a49-88be-ee8d3ab69f73"
+                },
+                "onsetDateTime": "2007"
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:534af71e-f9c4-11eb-9a03-0242ac130003",
+            "resource": {
+                "resourceType": "Condition",
+                "id": "534af71e-f9c4-11eb-9a03-0242ac130003",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_NFD_Condition_Communication_Disorder|1.0.0"
+                    ]
+                },
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "version": "http://snomed.info/sct/900000000000207008/version/20210731",
+                            "code": "278919001",
+                            "display": "Communication disorder (disorder)",
+                            "_display": {
+                                "extension": [
+                                    {
+                                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German",
+                                        "extension": [
+                                            {
+                                                "url": "content",
+                                                "valueString": "Kommunikationsstörung"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "urn:uuid:e8610a8a-85dc-4a49-88be-ee8d3ab69f73"
+                },
+                "evidence": [
+                    {
+                        "code": [
+                            {
+                                "text": "Ausgeprägte Presbyakusis; Hörgerat vorhanden"
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:1443cb86-df52-11eb-ba80-0242ac130004",
+            "resource": {
+                "resourceType": "Consent",
+                "id": "1443cb86-df52-11eb-ba80-0242ac130004",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_NFDxDPE_Consent_Active_Advance_Directive|1.0.0"
+                    ]
+                },
+                "status": "active",
+                "scope": {
+                    "coding": [
+                        {
+                            "system": "http://terminology.hl7.org/CodeSystem/consentscope",
+                            "version": "4.0.1",
+                            "code": "patient-privacy",
+                            "display": "Privacy Consent"
+                        }
+                    ]
+                },
+                "category": [
+                    {
+                        "coding": [
+                            {
+                                "system": "http://loinc.org",
+                                "version": "2.71",
+                                "code": "59284-0",
+                                "display": "Consent Document"
+                            }
+                        ]
+                    }
+                ],
+                "patient": {
+                    "reference": "urn:uuid:e8610a8a-85dc-4a49-88be-ee8d3ab69f73"
+                },
+                "dateTime": "2020-03-10",
+                "sourceReference": {
+                    "display": "Rennweg 35, 56626 Andernach, D",
+                    "_display": {
+                        "extension": [
+                            {
+                                "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_MIO_NFDxDPE_Consent_Description_File_Location",
+                                "valueAddress": {
+                                    "line": ["Rennweg 35"],
+                                    "_line": [
+                                        {
+                                            "extension": [
+                                                {
+                                                    "url": "http://hl7.org/fhir/StructureDefinition/iso21090-ADXP-streetName",
+                                                    "valueString": "Rennweg"
+                                                },
+                                                {
+                                                    "url": "http://hl7.org/fhir/StructureDefinition/iso21090-ADXP-houseNumber",
+                                                    "valueString": "35"
+                                                }
+                                            ]
+                                        }
+                                    ],
+                                    "city": "Andernach",
+                                    "postalCode": "56626",
+                                    "country": "D"
+                                }
+                            }
+                        ]
+                    }
+                },
+                "policyRule": {
+                    "coding": [
+                        {
+                            "system": "http://loinc.org",
+                            "version": "2.71",
+                            "code": "57016-8",
+                            "display": "Patient Consent",
+                            "_display": {
+                                "extension": [
+                                    {
+                                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German",
+                                        "extension": [
+                                            {
+                                                "url": "content",
+                                                "valueString": "Einwilligung"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                },
+                "provision": {
+                    "actor": [
+                        {
+                            "role": {
+                                "coding": [
+                                    {
+                                        "system": "http://terminology.hl7.org/CodeSystem/v3-RoleClass",
+                                        "version": "2018-08-12",
+                                        "code": "AGNT",
+                                        "display": "agent"
+                                    }
+                                ]
+                            },
+                            "reference": {
+                                "display": "Peter Müller"
+                            }
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:7d261218-8678-11eb-8dcd-0242ac130003",
+            "resource": {
+                "resourceType": "Device",
+                "id": "7d261218-8678-11eb-8dcd-0242ac130003",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_NFD_Device_Implant|1.0.0"
+                    ]
+                },
+                "deviceName": [
+                    {
+                        "name": "Tyo Medtronic Strata Adjustable Pressure Valve",
+                        "type": "model-name"
+                    }
+                ],
+                "type": {
+                    "text": "VP-Shunt"
+                },
+                "patient": {
+                    "reference": "urn:uuid:e8610a8a-85dc-4a49-88be-ee8d3ab69f73"
+                }
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:82179290-867a-11eb-8dcd-0242ac130003",
+            "resource": {
+                "resourceType": "DeviceUseStatement",
+                "id": "82179290-867a-11eb-8dcd-0242ac130003",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_NFD_Device_Use_Statement_Implant|1.0.0"
+                    ]
+                },
+                "status": "active",
+                "subject": {
+                    "reference": "urn:uuid:e8610a8a-85dc-4a49-88be-ee8d3ab69f73"
+                },
+                "timingPeriod": {
+                    "extension": [
+                        {
+                            "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_MIO_NFD_Date_Implantation",
+                            "valueString": "2020-02-05"
+                        }
+                    ],
+                    "start": "2020-02-05"
+                },
+                "device": {
+                    "reference": "urn:uuid:7d261218-8678-11eb-8dcd-0242ac130003"
+                }
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:d6b888f6-9d07-11eb-a8b3-0242ac130003",
+            "resource": {
+                "resourceType": "MedicationStatement",
+                "id": "d6b888f6-9d07-11eb-a8b3-0242ac130003",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_NFD_Medication_Statement_Administration_Instruction|1.0.0"
+                    ]
+                },
+                "status": "active",
+                "medicationReference": {
+                    "reference": "urn:uuid:846a5feb-840f-4232-8750-6f4cd40f3174"
+                },
+                "subject": {
+                    "reference": "urn:uuid:e8610a8a-85dc-4a49-88be-ee8d3ab69f73"
+                },
+                "dosage": [
+                    {
+                        "text": "1*tgl p.o."
+                    }
+                ]
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:292d932c-f62e-11eb-9a03-0242ac130003",
+            "resource": {
+                "resourceType": "MedicationStatement",
+                "id": "292d932c-f62e-11eb-9a03-0242ac130003",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_NFD_Medication_Statement_Administration_Instruction|1.0.0"
+                    ]
+                },
+                "status": "active",
+                "medicationReference": {
+                    "reference": "urn:uuid:c8854236-f62d-11eb-9a03-0242ac130003"
+                },
+                "subject": {
+                    "reference": "urn:uuid:e8610a8a-85dc-4a49-88be-ee8d3ab69f73"
+                },
+                "dosage": [
+                    {
+                        "text": "nach INR Zielbereich INR 2,5-3"
+                    }
+                ]
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:846a5feb-840f-4232-8750-6f4cd40f3174",
+            "resource": {
+                "resourceType": "Medication",
+                "id": "846a5feb-840f-4232-8750-6f4cd40f3174",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_NFD_Medication|1.0.0"
+                    ]
+                },
+                "extension": [
+                    {
+                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_MIO_NFD_Medication_Name",
+                        "valueString": "Delix"
+                    }
+                ],
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://fhir.de/CodeSystem/ifa/pzn",
+                            "version": "0.2",
+                            "code": "01097987",
+                            "display": "DELIX 5 mg Tabletten"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:c8854236-f62d-11eb-9a03-0242ac130003",
+            "resource": {
+                "resourceType": "Medication",
+                "id": "c8854236-f62d-11eb-9a03-0242ac130003",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_NFD_Medication|1.0.0"
+                    ]
+                },
+                "extension": [
+                    {
+                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_MIO_NFD_Medication_Name",
+                        "valueString": "Marcumar"
+                    }
+                ],
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://fhir.de/CodeSystem/ifa/pzn",
+                            "version": "0.2",
+                            "code": "10269542",
+                            "display": "Phenprocoumon acis 3 mg Tabletten"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:a4aba0aa-9138-4621-a77c-8ec5b16e2282",
+            "resource": {
+                "resourceType": "Observation",
+                "id": "a4aba0aa-9138-4621-a77c-8ec5b16e2282",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_NFD_Observation_Note|1.0.0"
+                    ]
+                },
+                "status": "final",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://loinc.org",
+                            "version": "2.71",
+                            "code": "34878-9",
+                            "display": "Emergency medicine Note",
+                            "_display": {
+                                "extension": [
+                                    {
+                                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German",
+                                        "extension": [
+                                            {
+                                                "url": "content",
+                                                "valueString": "Hinweis"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "urn:uuid:e8610a8a-85dc-4a49-88be-ee8d3ab69f73"
+                },
+                "performer": [
+                    {
+                        "reference": "urn:uuid:ebefcfca-7168-40e5-8918-7af38c7f10c9"
+                    }
+                ],
+                "valueString": "nähere Informationen zum Shunt im persönlichen Ordner (blau, im Schreibtisch d. Pat."
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:e8610a8a-85dc-4a49-88be-ee8d3ab69f73",
+            "resource": {
+                "resourceType": "Patient",
+                "id": "e8610a8a-85dc-4a49-88be-ee8d3ab69f73",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_NFD_Patient_NFD|1.0.0"
+                    ]
+                },
+                "identifier": [
+                    {
+                        "use": "official",
+                        "type": {
+                            "coding": [
+                                {
+                                    "system": "http://fhir.de/CodeSystem/identifier-type-de-basis",
+                                    "code": "GKV",
+                                    "display": "Gesetzliche Krankenversicherung"
+                                }
+                            ]
+                        },
+                        "system": "http://fhir.de/NamingSystem/gkv/kvid-10",
+                        "value": "P234567890"
+                    }
+                ],
+                "name": [
+                    {
+                        "use": "official",
+                        "text": "Prof. Dr. Franz Schneckenröder",
+                        "family": "Schneckenröder",
+                        "_family": {
+                            "extension": [
+                                {
+                                    "url": "http://hl7.org/fhir/StructureDefinition/humanname-own-name",
+                                    "valueString": "Schneckenröder"
+                                }
+                            ]
+                        },
+                        "given": ["Ludger"],
+                        "prefix": ["Prof. Dr."],
+                        "_prefix": [
+                            {
+                                "extension": [
+                                    {
+                                        "url": "http://hl7.org/fhir/StructureDefinition/iso21090-EN-qualifier",
+                                        "valueCode": "AC"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "telecom": [
+                    {
+                        "system": "phone",
+                        "_system": {
+                            "extension": [
+                                {
+                                    "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German",
+                                    "extension": [
+                                        {
+                                            "url": "content",
+                                            "valueString": "Telefonnummer"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        "value": "012345678901"
+                    }
+                ],
+                "gender": "male",
+                "birthDate": "1941-11-11",
+                "contact": [
+                    {
+                        "relationship": [
+                            {
+                                "coding": [
+                                    {
+                                        "system": "http://terminology.hl7.org/CodeSystem/v2-0131",
+                                        "version": "2.9",
+                                        "code": "C",
+                                        "display": "Emergency Contact",
+                                        "_display": {
+                                            "extension": [
+                                                {
+                                                    "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German",
+                                                    "extension": [
+                                                        {
+                                                            "url": "content",
+                                                            "valueString": "Ansprechpartner in Notfällen"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    }
+                                ],
+                                "text": "Notfallkontakt"
+                            }
+                        ],
+                        "name": {
+                            "family": "Meyer",
+                            "given": ["Marta"]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "_system": {
+                                    "extension": [
+                                        {
+                                            "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German",
+                                            "extension": [
+                                                {
+                                                    "url": "content",
+                                                    "valueString": "Telefonnummer"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                "value": "09876543210"
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:d0117f4a-685c-4659-aa94-14e3514bc86b",
+            "resource": {
+                "resourceType": "Practitioner",
+                "id": "d0117f4a-685c-4659-aa94-14e3514bc86b",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_NFD_Practitioner|1.0.0"
+                    ]
+                },
+                "name": [
+                    {
+                        "use": "official",
+                        "text": "Dr. T. Hausarzt",
+                        "family": "Hausarzt",
+                        "_family": {
+                            "extension": [
+                                {
+                                    "url": "http://hl7.org/fhir/StructureDefinition/humanname-own-name",
+                                    "valueString": "Hausarzt"
+                                }
+                            ]
+                        },
+                        "given": ["T."],
+                        "prefix": ["Dr."],
+                        "_prefix": [
+                            {
+                                "extension": [
+                                    {
+                                        "url": "http://hl7.org/fhir/StructureDefinition/iso21090-EN-qualifier",
+                                        "valueCode": "AC"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "telecom": [
+                    {
+                        "system": "phone",
+                        "_system": {
+                            "extension": [
+                                {
+                                    "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German",
+                                    "extension": [
+                                        {
+                                            "url": "content",
+                                            "valueString": "Telefonnummer"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        "value": "0123456789"
+                    }
+                ]
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:b99a6afc-aedb-4c1a-9433-589eb967c680",
+            "resource": {
+                "resourceType": "Practitioner",
+                "id": "b99a6afc-aedb-4c1a-9433-589eb967c680",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_NFD_Practitioner_Physician|1.0.0"
+                    ]
+                },
+                "name": [
+                    {
+                        "use": "official",
+                        "text": "Dr. T. Hausarzt",
+                        "family": "Hausarzt",
+                        "_family": {
+                            "extension": [
+                                {
+                                    "url": "http://hl7.org/fhir/StructureDefinition/humanname-own-name",
+                                    "valueString": "Hausarzt"
+                                }
+                            ]
+                        },
+                        "given": ["T."],
+                        "prefix": ["Dr."],
+                        "_prefix": [
+                            {
+                                "extension": [
+                                    {
+                                        "url": "http://hl7.org/fhir/StructureDefinition/iso21090-EN-qualifier",
+                                        "valueCode": "AC"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "address": [
+                    {
+                        "type": "both",
+                        "city": "Berlin"
+                    }
+                ]
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:464ee2ce-24f3-4319-934b-b0b994bf9aad",
+            "resource": {
+                "resourceType": "Procedure",
+                "id": "464ee2ce-24f3-4319-934b-b0b994bf9aad",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_NFD_Procedure|1.0.0"
+                    ]
+                },
+                "status": "completed",
+                "_status": {
+                    "extension": [
+                        {
+                            "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German",
+                            "extension": [
+                                {
+                                    "url": "content",
+                                    "valueString": "Zustand nach"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "code": {
+                    "text": "Shuntimplantation"
+                },
+                "subject": {
+                    "reference": "urn:uuid:e8610a8a-85dc-4a49-88be-ee8d3ab69f73"
+                },
+                "performedDateTime": "2000-02-02"
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:bd1e4596-df3a-11eb-ba80-0242ac130004",
+            "resource": {
+                "resourceType": "Observation",
+                "id": "bd1e4596-df3a-11eb-ba80-0242ac130004",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_NFD_Observation_Voluntary_Additional_Information|1.0.0"
+                    ]
+                },
+                "status": "final",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://loinc.org",
+                            "version": "2.71",
+                            "code": "77599-9",
+                            "display": "Additional documentation",
+                            "_display": {
+                                "extension": [
+                                    {
+                                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German",
+                                        "extension": [
+                                            {
+                                                "url": "content",
+                                                "valueString": "Freiwillige Zusatzinformationen"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "urn:uuid:e8610a8a-85dc-4a49-88be-ee8d3ab69f73"
+                },
+                "effectiveDateTime": "2009-12-10",
+                "valueString": "Blutgruppe AB Rh neg."
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:ebefcfca-7168-40e5-8918-7af38c7f10c9",
+            "resource": {
+                "resourceType": "PractitionerRole",
+                "id": "ebefcfca-7168-40e5-8918-7af38c7f10c9",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_NFD_Practitioner_Role_With_Organization|1.0.0"
+                    ]
+                },
+                "practitioner": {
+                    "reference": "urn:uuid:b99a6afc-aedb-4c1a-9433-589eb967c680"
+                },
+                "code": [
+                    {
+                        "coding": [
+                            {
+                                "system": "http://snomed.info/sct",
+                                "version": "http://snomed.info/sct/900000000000207008/version/20210731",
+                                "code": "158965000",
+                                "display": "Medical practitioner (occupation)",
+                                "_display": {
+                                    "extension": [
+                                        {
+                                            "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German",
+                                            "extension": [
+                                                {
+                                                    "url": "content",
+                                                    "valueString": "Arzt"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    ]
+}

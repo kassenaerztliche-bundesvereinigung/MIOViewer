@@ -18,7 +18,7 @@
 
 import fs from "fs";
 
-import * as ViewerTestUtil from "../../../test/TestUtil.test";
+import * as ViewerTestUtil from "../../TestUtil";
 import * as TestUtil from "@kbv/miotestdata";
 
 import { KBVBundleResource } from "@kbv/mioparser";

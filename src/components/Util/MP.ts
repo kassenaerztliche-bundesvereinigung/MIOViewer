@@ -72,7 +72,9 @@ export function getPatientMotherName(patient: MR.V1_1_0.Profile.PatientMother): 
                         nameSlice._family.extension
                     )?.valueString;
 
-                if (addition) partsFamily.push(addition);
+                if (addition) {
+                    partsFamily.push(addition);
+                }
 
                 const pre =
                     ParserUtil.getSlice<MR.V1_1_0.Profile.PatientMotherNameFamilyVorsatzwort>(
@@ -80,7 +82,9 @@ export function getPatientMotherName(patient: MR.V1_1_0.Profile.PatientMother): 
                         nameSlice._family.extension
                     )?.valueString;
 
-                if (pre) partsFamily.push(pre);
+                if (pre) {
+                    partsFamily.push(pre);
+                }
 
                 const family =
                     ParserUtil.getSlice<MR.V1_1_0.Profile.PatientMotherNameFamilyNachname>(
@@ -88,7 +92,9 @@ export function getPatientMotherName(patient: MR.V1_1_0.Profile.PatientMother): 
                         nameSlice._family.extension
                     )?.valueString;
 
-                if (family) partsFamily.push(family);
+                if (family) {
+                    partsFamily.push(family);
+                }
 
                 parts.push(partsFamily.join(" "));
             }
@@ -140,7 +146,9 @@ export function getPatientMotherMaidenName(
                         maidenSlice._family.extension
                     )?.valueString;
 
-                if (addition) parts.push(addition);
+                if (addition) {
+                    parts.push(addition);
+                }
 
                 const pre =
                     ParserUtil.getSlice<MR.V1_1_0.Profile.PatientMotherGeburtsnameFamilyVorsatzwort>(
@@ -148,7 +156,9 @@ export function getPatientMotherMaidenName(
                         maidenSlice._family.extension
                     )?.valueString;
 
-                if (pre) parts.push(pre);
+                if (pre) {
+                    parts.push(pre);
+                }
 
                 const family =
                     ParserUtil.getSlice<MR.V1_1_0.Profile.PatientMotherGeburtsnameFamilyNachname>(
@@ -156,7 +166,9 @@ export function getPatientMotherMaidenName(
                         maidenSlice._family.extension
                     )?.valueString;
 
-                if (family) parts.push(family);
+                if (family) {
+                    parts.push(family);
+                }
 
                 maidenStr = parts.join(" ");
             }
@@ -200,7 +212,9 @@ export function getPractitionerName(
                         nameSlice._family.extension
                     )?.valueString;
 
-                if (addition) partsFamily.push(addition);
+                if (addition) {
+                    partsFamily.push(addition);
+                }
 
                 const pre =
                     ParserUtil.getSlice<MR.V1_1_0.Profile.PractitionerNameFamilyVorsatzwort>(
@@ -208,7 +222,9 @@ export function getPractitionerName(
                         nameSlice._family.extension
                     )?.valueString;
 
-                if (pre) partsFamily.push(pre);
+                if (pre) {
+                    partsFamily.push(pre);
+                }
 
                 const family =
                     ParserUtil.getSlice<MR.V1_1_0.Profile.PractitionerNameFamilyNachname>(
@@ -216,7 +232,9 @@ export function getPractitionerName(
                         nameSlice._family.extension
                     )?.valueString;
 
-                if (family) partsFamily.push(family);
+                if (family) {
+                    partsFamily.push(family);
+                }
 
                 parts.push(partsFamily.join(" "));
             }

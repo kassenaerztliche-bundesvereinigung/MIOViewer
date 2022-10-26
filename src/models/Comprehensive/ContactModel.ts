@@ -18,15 +18,18 @@
 
 import { History } from "history";
 
-import { KBVBundleResource, CMR, Reference } from "@kbv/mioparser";
+import { KBVBundleResource, CMR, PKA, Reference } from "@kbv/mioparser";
 import { UI, Util } from "../../components/";
 
 import BaseModel from "../BaseModel";
 import { Content } from "pdfmake/interfaces";
 import { ModelValue } from "../Types";
+import { ContactDetailsModel } from "./index";
 
 export default class ContactModel<
-    T extends CMR.V1_0_1.Profile.CMROrganizationScreeningLaboratory
+    T extends
+        | CMR.V1_0_1.Profile.CMROrganizationScreeningLaboratory
+        | PKA.V1_0_0.Profile.NFDPatientNFD
 > extends BaseModel<T> {
     constructor(value: T, fullUrl: string, parent: KBVBundleResource, history?: History) {
         super(value, fullUrl, parent, history);
@@ -35,20 +38,29 @@ export default class ContactModel<
 
         this.values = [];
         if (this.value.contact) {
-            this.value.contact.forEach((contact) => {
-                this.values.push({
-                    value: Util.Misc.humanNameToString(contact.name),
-                    label: "Kontaktperson",
-                    onClick: Util.Misc.toEntryByRef(
-                        this.history,
-                        this.parent,
-                        new Reference(this.value.id, this.fullUrl),
-                        true,
-                        "contact",
-                        Util.Misc.humanNameToString(contact.name)
-                    )
-                });
-            });
+            // TODO:
+            this.value.contact.forEach(
+                (
+                    contact:
+                        | CMR.V1_0_1.Profile.CMROrganizationScreeningLaboratoryContact
+                        | PKA.V1_0_0.Profile.NFDPatientNFDContact
+                ) => {
+                    this.values.push({
+                        value: Util.Misc.humanNameToString(contact.name),
+                        label: "Kontaktperson",
+                        onClick: Util.Misc.toEntryByRef(
+                            this.history,
+                            this.parent,
+                            new Reference(this.fullUrl),
+                            true,
+                            "contact",
+                            Util.Misc.humanNameToString(contact.name)
+                        ),
+                        subEntry: { resource: this.value, fullUrl: this.fullUrl },
+                        subModels: [ContactDetailsModel]
+                    });
+                }
+            );
         } else {
             this.values = [
                 {
@@ -58,19 +70,6 @@ export default class ContactModel<
                 }
             ];
         }
-    }
-
-    public getTelecom(
-        contact: CMR.V1_0_1.Profile.CMROrganizationScreeningLaboratoryContact
-    ): ModelValue[] {
-        return Util.Misc.getTelecom(contact).map((t) => {
-            return {
-                value: t.value,
-                href: t.href,
-                label: t.label,
-                renderAs: UI.ListItem.Link
-            } as ModelValue;
-        });
     }
 
     public toPDFContent(
@@ -88,7 +87,7 @@ export default class ContactModel<
     public getMainValue(): ModelValue {
         return {
             value: this.values.length ? this.values.map((v) => v.value).join(", ") : "-",
-            label: this.headline
+            label: this.headline // TODO: contact.relationship
         };
     }
 }

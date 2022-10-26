@@ -16,7 +16,7 @@
  * along with MIO Viewer. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import React from "react";
+import React, { ReactNode } from "react";
 
 import { withIonLifeCycle, IonContent, IonPage } from "@ionic/react";
 import { MIOClassName } from "../";
@@ -33,6 +33,7 @@ type BasicViewProps = {
     testId?: string;
     id: string;
     isExample?: boolean;
+    children?: ReactNode;
 };
 
 type BasicViewState = {

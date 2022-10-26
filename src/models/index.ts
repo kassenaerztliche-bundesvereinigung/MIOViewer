@@ -33,6 +33,8 @@ import * as IM from "./IM";
 import * as ZB from "./ZB";
 import * as MP from "./MP";
 import * as UH from "./UH";
+import * as PK from "./PK";
+
 import { ModelValue } from "./Types";
 
 type Model =
@@ -93,6 +95,21 @@ type Model =
     | UH.PC.ParticipationCardModel
     | UH.PN.CompositionModel
     | UH.PN.ParentalNotesModel
+    | PK.Patient
+    | PK.Practitioner
+    | PK.PractitionerRole
+    | PK.Consent
+    | PK.AllergyIntolerance
+    | PK.AllergyIntoleranceReaction
+    | PK.DeviceImplant
+    | PK.DeviceUseStatement
+    | PK.Observation
+    | PK.Organization
+    | PK.Condition
+    | PK.Medication
+    | PK.MedicationStatement
+    | PK.Procedure
+    | PK.RelatedPerson
     | AdditionalCommentModel
     | AddressModel<
           | Vaccination.V1_1_0.Profile.Organization
@@ -164,6 +181,21 @@ type ModelType =
     | typeof UH.PC.ParticipationCardModel
     | typeof UH.PN.CompositionModel
     | typeof UH.PN.ParentalNotesModel
+    | typeof PK.Patient
+    | typeof PK.Practitioner
+    | typeof PK.PractitionerRole
+    | typeof PK.Consent
+    | typeof PK.AllergyIntolerance
+    | typeof PK.AllergyIntoleranceReaction
+    | typeof PK.DeviceImplant
+    | typeof PK.DeviceUseStatement
+    | typeof PK.Observation
+    | typeof PK.Organization
+    | typeof PK.Condition
+    | typeof PK.Medication
+    | typeof PK.MedicationStatement
+    | typeof PK.Procedure
+    | typeof PK.RelatedPerson
     | typeof AdditionalCommentModel
     | typeof AddressModel
     | typeof ContactModel
@@ -180,6 +212,7 @@ export {
     ZB,
     MP,
     UH,
+    PK,
     AdditionalCommentModel,
     AddressModel,
     ContactModel,

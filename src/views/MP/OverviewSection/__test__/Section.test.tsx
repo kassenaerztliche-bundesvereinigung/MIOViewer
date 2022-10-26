@@ -18,7 +18,7 @@
 
 import MIOParser, { ParserUtil, MR } from "@kbv/mioparser";
 
-import * as ViewerTestUtil from "../../../../../test/TestUtil.test";
+import * as ViewerTestUtil from "../../../../TestUtil";
 import * as TestUtil from "@kbv/miotestdata";
 
 import OverviewSection from "../../../Comprehensive/OverviewSection";
@@ -44,8 +44,8 @@ describe("Mutterpass Section Tests", () => {
     });
 
     // eslint-disable-next-line
-    const checkSub = (route: string, profile: string): any => {
-        const { container, getByTestId } = ViewerTestUtil.renderReduxRoute(
+    const checkSub = async (route: string, profile: string): Promise<HTMLElement> => {
+        const { container, getByTestId } = await ViewerTestUtil.renderReduxRoute(
             Detail,
             store,
             route,
@@ -61,7 +61,7 @@ describe("Mutterpass Section Tests", () => {
 
             const sectionId = "Epikrise";
 
-            const { getByTestId } = ViewerTestUtil.renderReduxRoute(
+            const { getByTestId } = await ViewerTestUtil.renderReduxRoute(
                 OverviewSection,
                 store,
                 `/section/${mioId}/${sectionId}`,

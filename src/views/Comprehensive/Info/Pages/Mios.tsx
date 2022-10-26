@@ -55,9 +55,7 @@ class Mios extends React.Component<RouteComponentProps> {
                         </li>
                         <li>
                             <a
-                                href={
-                                    "https://mio.kbv.de/display/MP1X1X0/Mutterpass+1.1.0"
-                                }
+                                href={"https://mio.kbv.de/display/MP1X1X0"}
                                 target={"_blank"}
                                 rel={"noopener noreferrer"}
                             >
@@ -71,6 +69,15 @@ class Mios extends React.Component<RouteComponentProps> {
                                 rel={"noopener noreferrer"}
                             >
                                 Untersuchungsheft (1.0.1)
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href={"https://mio.kbv.de/display/PKA1X0X0"}
+                                target={"_blank"}
+                                rel={"noopener noreferrer"}
+                            >
+                                Patientenkurzakte (1.0.0)
                             </a>
                         </li>
                     </ul>

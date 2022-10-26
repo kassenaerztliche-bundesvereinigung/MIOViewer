@@ -64,7 +64,9 @@ export default class ServiceRequestModel extends BaseModel<ServiceRequestType> {
         ];
 
         const reason = this.getReasonReference();
-        if (reason) this.values.push(reason);
+        if (reason) {
+            this.values.push(reason);
+        }
     }
 
     protected getRequester(): ModelValue[] {
@@ -130,7 +132,9 @@ export default class ServiceRequestModel extends BaseModel<ServiceRequestType> {
     }
 
     public getCoding(resource?: { code?: Util.FHIR.Code }): string {
-        if (!resource) resource = this.value;
+        if (!resource) {
+            resource = this.value;
+        }
         return Util.FHIR.getCoding(resource /*, this.codeConceptMap*/);
     }
 

@@ -73,7 +73,6 @@ export default class FirstExaminationAfterChildbirth extends Section<MR.V1_1_0.P
 
                     if (res) {
                         const subjectRef = res.subject.reference;
-                        console.log(subjectRef);
 
                         const subject = ParserUtil.getEntryWithRef<
                             | MR.V1_1_0.Profile.PatientMother

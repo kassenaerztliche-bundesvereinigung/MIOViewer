@@ -91,7 +91,7 @@ class Info extends React.Component<RouteComponentProps> {
         }
     }
 
-    render() {
+    render(): JSX.Element {
         const { history } = this.props;
 
         return (

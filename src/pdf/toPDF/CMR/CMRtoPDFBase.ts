@@ -41,7 +41,9 @@ export default abstract class CMRtoPDFBase<
     protected getHints(
         composition?: MIOEntry<Models.UH.Basic.CompositionHintsType>
     ): Content {
-        if (!composition) return [];
+        if (!composition) {
+            return [];
+        }
 
         const hintsModel = new Models.UH.Basic.CompositionHintsModel(
             composition.resource,

@@ -61,11 +61,15 @@ export default class EncounterModel extends BaseModel<EncounterType> {
         ];
 
         const provider = this.getServiceProvider();
-        if (provider) this.values.push(provider);
+        if (provider) {
+            this.values.push(provider);
+        }
     }
 
     protected getParticipants(label = "Untersucht durch"): Models.ModelValue[] {
-        if (CMR.V1_0_1.Profile.PNEncounter.is(this.value)) return [];
+        if (CMR.V1_0_1.Profile.PNEncounter.is(this.value)) {
+            return [];
+        }
         return this.value.participant.map((p) => {
             const ref = p.individual.reference;
             const practitioner =

@@ -18,19 +18,15 @@
 
 import React from "react";
 
-import { MIOConnector, SettingsConnector } from "../../../store";
-
 import * as Models from "../../../models";
 
 import DetailComponent from "../../../components/Detail/Detail";
-import DetailBase from "../../Comprehensive/Detail/DetailBase";
+import DetailBase, { ListItemType } from "../../Comprehensive/Detail/DetailBase";
 import { DetailMapping } from "../../Comprehensive/Detail/Types";
 import { UI } from "../../../components";
 
 import { MIOEntry, MR } from "@kbv/mioparser";
 import Mappings from "../Mappings";
-
-type ListItemType = { header: string; testIdSuffix?: string; component: JSX.Element };
 
 class Detail extends DetailBase<MR.V1_1_0.Profile.Bundle> {
     protected getHeaderClass(): UI.MIOClassName {
@@ -173,4 +169,4 @@ class Detail extends DetailBase<MR.V1_1_0.Profile.Bundle> {
     }
 }
 
-export default SettingsConnector(MIOConnector(Detail));
+export default Detail;

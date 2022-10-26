@@ -33,7 +33,9 @@ export default class Toggle extends React.Component<ToggleProps> {
     };
 
     protected onChange = (checked: boolean): void => {
-        if (this.props.onChange) this.props.onChange(checked);
+        if (this.props.onChange) {
+            this.props.onChange(checked);
+        }
     };
 
     render(): JSX.Element {

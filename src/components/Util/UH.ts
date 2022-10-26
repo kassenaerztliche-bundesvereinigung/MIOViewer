@@ -89,8 +89,11 @@ export function translateQualification(qualificationCoding: {
             }
         }
     });
-    if (results.size) return Array.from(results).join(", ");
-    else return qualificationCoding.code;
+    if (results.size) {
+        return Array.from(results).join(", ");
+    } else {
+        return qualificationCoding.code;
+    }
 }
 
 export function getUComposition(
@@ -165,11 +168,15 @@ export function getComposition(
       >
     | undefined {
     const composition = getUComposition(mio);
-    if (composition) return composition;
-    else if (CMR.V1_0_1.Profile.CMRBundle.is(mio)) {
+    if (composition) {
+        return composition;
+    } else if (CMR.V1_0_1.Profile.CMRBundle.is(mio)) {
         const special = getSpecialComposition(mio);
-        if (special) return special;
-        else return getPercentileComposition(mio);
+        if (special) {
+            return special;
+        } else {
+            return getPercentileComposition(mio);
+        }
     } else {
         return ParserUtil.getEntry<
             | CMR.V1_0_1.Profile.PCCompositionExaminationParticipation
@@ -400,7 +407,9 @@ export function getPatientName(
                         nameSlice._family.extension
                     )?.valueString;
 
-                if (addition) partsFamily.push(addition);
+                if (addition) {
+                    partsFamily.push(addition);
+                }
 
                 const pre =
                     ParserUtil.getSlice<CMR.V1_0_1.Profile.CMRPatientNameFamilyVorsatzwort>(
@@ -408,7 +417,9 @@ export function getPatientName(
                         nameSlice._family.extension
                     )?.valueString;
 
-                if (pre) partsFamily.push(pre);
+                if (pre) {
+                    partsFamily.push(pre);
+                }
 
                 const family =
                     ParserUtil.getSlice<CMR.V1_0_1.Profile.CMRPatientNameFamilyNachname>(
@@ -416,7 +427,9 @@ export function getPatientName(
                         nameSlice._family.extension
                     )?.valueString;
 
-                if (family) partsFamily.push(family);
+                if (family) {
+                    partsFamily.push(family);
+                }
 
                 parts.push(partsFamily.join(" "));
             }
@@ -454,7 +467,9 @@ export function getPatientBirthName(
                         nameSlice._family.extension
                     )?.valueString;
 
-                if (addition) partsFamily.push(addition);
+                if (addition) {
+                    partsFamily.push(addition);
+                }
 
                 const pre =
                     ParserUtil.getSlice<CMR.V1_0_1.Profile.CMRPatientGeburtsnameFamilyVorsatzwort>(
@@ -462,7 +477,9 @@ export function getPatientBirthName(
                         nameSlice._family.extension
                     )?.valueString;
 
-                if (pre) partsFamily.push(pre);
+                if (pre) {
+                    partsFamily.push(pre);
+                }
 
                 const family =
                     ParserUtil.getSlice<CMR.V1_0_1.Profile.CMRPatientGeburtsnameFamilyNachname>(
@@ -470,7 +487,9 @@ export function getPatientBirthName(
                         nameSlice._family.extension
                     )?.valueString;
 
-                if (family) partsFamily.push(family);
+                if (family) {
+                    partsFamily.push(family);
+                }
 
                 parts.push(partsFamily.join(" "));
             }
@@ -517,7 +536,9 @@ export function getPractitionerName(
                         nameSlice._family.extension
                     );
 
-                if (addition.length) partsFamily.push(addition[0].valueString);
+                if (addition.length) {
+                    partsFamily.push(addition[0].valueString);
+                }
 
                 const pre =
                     ParserUtil.getSlices<CMR.V1_0_1.Profile.CMRPractitionerNameFamilyVorsatzwort>(
@@ -525,7 +546,9 @@ export function getPractitionerName(
                         nameSlice._family.extension
                     );
 
-                if (pre.length) partsFamily.push(pre[0].valueString);
+                if (pre.length) {
+                    partsFamily.push(pre[0].valueString);
+                }
 
                 const family =
                     ParserUtil.getSlices<CMR.V1_0_1.Profile.CMRPractitionerNameFamilyNachname>(
@@ -533,7 +556,9 @@ export function getPractitionerName(
                         nameSlice._family.extension
                     );
 
-                if (family.length) partsFamily.push(family[0].valueString);
+                if (family.length) {
+                    partsFamily.push(family[0].valueString);
+                }
 
                 parts.push(partsFamily.join(" "));
             }

@@ -18,44 +18,86 @@
 import { History } from "history";
 
 import BaseModel from "../BaseModel";
-import { CMR, KBVBundleResource } from "@kbv/mioparser";
+import { CMR, PKA, FHIR, KBVBundleResource } from "@kbv/mioparser";
 import { UI, Util } from "components";
 import { ModelValue } from "../Types";
 
 export default class ContactDetailsModel<
-    T extends CMR.V1_0_1.Profile.CMROrganizationScreeningLaboratory
+    T extends
+        | CMR.V1_0_1.Profile.CMROrganizationScreeningLaboratory
+        | PKA.V1_0_0.Profile.NFDPatientNFD
 > extends BaseModel<T> {
-    protected contact?: CMR.V1_0_1.Profile.CMROrganizationScreeningLaboratoryContact;
+    protected contacts: (
+        | CMR.V1_0_1.Profile.CMROrganizationScreeningLaboratoryContact
+        | PKA.V1_0_0.Profile.NFDPatientNFDContact
+    )[] = [];
 
-    constructor(value: T, fullUrl: string, parent: KBVBundleResource, history?: History) {
+    constructor(
+        value: T,
+        fullUrl: string,
+        parent: KBVBundleResource,
+        history?: History,
+        contactName?: string
+    ) {
         super(value, fullUrl, parent, history);
-        const contactFindings = value.contact?.filter(
-            (c) =>
-                Util.Misc.humanNameToString(c.name) ===
-                history?.location.pathname.split("/").pop()
-        );
-        if (contactFindings && contactFindings.length === 1) {
-            this.contact = contactFindings[0];
+        const contact = value.contact as {
+            name: FHIR.V4_0_1.Profile.HumanName | undefined;
+        }[];
+
+        const filter = history?.location.pathname.split("/").pop() ?? contactName;
+        const contactFindings = contact
+            ? contact.filter((c) => {
+                  return filter ? Util.Misc.humanNameToString(c.name) === filter : true;
+              })
+            : [];
+
+        if (filter && contactFindings && contactFindings.length === 1) {
+            this.contacts = [contactFindings[0]];
+        } else {
+            this.contacts = contactFindings;
         }
-        this.headline = Util.Misc.humanNameToString(this.contact?.name) ?? ""; //Util.Misc.humanNameToString(value);
-        if (this.contact) {
-            const telecom = Util.Misc.getTelecom(this.contact);
-            this.values = telecom.length
-                ? telecom.map((t) => {
-                      return {
-                          value: t.value,
-                          href: t.value,
-                          label: t.label,
-                          renderAs: UI.ListItem.Link
-                      } as ModelValue;
-                  })
-                : [
-                      {
-                          value: `Unter „${this.headline}“ sind derzeit keine Inhalte vorhanden.`,
-                          label: "Hinweis",
-                          renderAs: UI.ListItem.Hint
-                      }
-                  ];
+
+        this.contacts.forEach((contact) => {
+            this.headline = Util.Misc.humanNameToString(contact.name) ?? ""; //Util.Misc.humanNameToString(value);
+
+            const telecom = Util.Misc.getTelecom(contact);
+
+            this.values = [
+                ...telecom.map((t) => {
+                    return {
+                        value: t.value ?? "-",
+                        href: t.value,
+                        label: t.label,
+                        renderAs: UI.ListItem.Link
+                    };
+                })
+            ];
+
+            if (PKA.V1_0_0.Profile.NFDPatientNFDContact.is(contact)) {
+                this.values.push(
+                    ...contact.relationship.map((r) => {
+                        return {
+                            value:
+                                Util.FHIR.handleCode(r)
+                                    .filter((r) => r != "-")
+                                    .join(", ") ??
+                                r.text ??
+                                "-",
+                            label: "Beziehung zum Patienten"
+                        };
+                    })
+                );
+            }
+        });
+
+        if (!this.values.length) {
+            this.values = [
+                {
+                    value: `Unter „${this.headline}“ sind derzeit keine Inhalte vorhanden.`,
+                    label: "Hinweis",
+                    renderAs: UI.ListItem.Hint
+                }
+            ];
         }
     }
 

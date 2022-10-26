@@ -29,6 +29,7 @@ type InputFileProps = {
     onSelect?: (files: File[]) => void;
     green?: boolean;
     className?: string;
+    children?: React.ReactNode;
 } & InputProps;
 
 type InputFileState = {
@@ -59,7 +60,18 @@ class InputFile extends React.Component<InputFileProps, InputFileState> {
         };
     }
 
+    get hasDragAndDropZone(): boolean {
+        return (
+            this.dragAndDropZone !== undefined ||
+            document.getElementsByClassName("drag-drop-zone").length > 0
+        );
+    }
+
     ionViewDidEnter(): void {
+        if (this.hasDragAndDropZone) {
+            return;
+        }
+
         this.dragAndDropZone = document.createElement("div");
         this.dragAndDropZone.textContent = "Loslassen um MIO zu öffnen";
         this.dragAndDropZone.classList.add("drag-drop-zone");
@@ -112,7 +124,9 @@ class InputFile extends React.Component<InputFileProps, InputFileState> {
         event.stopPropagation();
         event.preventDefault();
         // Style the drag-and-drop as a "copy file" operation.
-        if (event.dataTransfer) event.dataTransfer.dropEffect = "copy";
+        if (event.dataTransfer) {
+            event.dataTransfer.dropEffect = "copy";
+        }
         this.setState({ dragOver: true });
     };
 
@@ -126,7 +140,9 @@ class InputFile extends React.Component<InputFileProps, InputFileState> {
     onDrop = (event: DragEvent): void => {
         event.stopPropagation();
         event.preventDefault();
-        if (!this.state.dragOver || !event.dataTransfer) return;
+        if (!this.state.dragOver || !event.dataTransfer) {
+            return;
+        }
         const files = event.dataTransfer.files;
         this.setFiles(files);
         this.hideDropZone();

@@ -28,6 +28,11 @@ import UHExample_1_0_1_U9 from "./UH/1_0_1/KBV_PR_MIO_CMR_Bundle_U9.json";
 import UHExample_1_0_1_PC from "./UH/1_0_1/KBV_PR_MIO_CMR_Bundle_PC.json";
 import UHExample_1_0_1_PN from "./UH/1_0_1/KBV_PR_MIO_CMR_Bundle_PN.json";
 
+import PKExample_1_0_0_DPE_Gewebe_Organspendeerklaerung from "./PK/Example_PKA_1_0_0_DPE_Gewebe_Organspendeerklaerung.json";
+import PKExample_1_0_0_DPE_Patientenverfuegung from "./PK/Example_PKA_1_0_0_DPE_Patientenverfuegung.json";
+import PKExample_1_0_0_DPE_Vorsorgevollmacht from "./PK/Example_PKA_1_0_0_DPE_Vorsorgevollmacht.json";
+import PKExample_1_0_0_NFD from "./PK/Example_PKA_1_0_0_NFD.json";
+
 // A bundle uuid starts with 8 chars 'example' has 7 - should be unique
 const EXAMPLE_PREFIX = "example-";
 
@@ -39,7 +44,12 @@ const exampleFiles = [
     UHExample_1_0_1_U3,
     UHExample_1_0_1_U9,
     UHExample_1_0_1_PC,
-    UHExample_1_0_1_PN
+    UHExample_1_0_1_PN,
+
+    PKExample_1_0_0_DPE_Gewebe_Organspendeerklaerung,
+    PKExample_1_0_0_DPE_Patientenverfuegung,
+    PKExample_1_0_0_DPE_Vorsorgevollmacht,
+    PKExample_1_0_0_NFD
 ];
 
 const Examples = exampleFiles.map((e) => {

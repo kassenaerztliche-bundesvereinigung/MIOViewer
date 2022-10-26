@@ -58,7 +58,9 @@ export default class InformationAboutChildModelBirth extends InformationAboutMod
                     new Reference(ref, this.fullUrl)
                 );
 
-            if (result) resources.push(result);
+            if (result) {
+                resources.push(result);
+            }
         });
 
         return resources;

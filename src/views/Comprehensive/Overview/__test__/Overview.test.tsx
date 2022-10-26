@@ -18,7 +18,7 @@
 
 import fs from "fs";
 
-import * as ViewerTestUtil from "../../../../../test/TestUtil.test";
+import * as ViewerTestUtil from "../../../../TestUtil";
 import * as TestUtil from "@kbv/miotestdata";
 
 import MIOParser, { ParserUtil, KBVBundleResource } from "@kbv/mioparser";
@@ -50,11 +50,17 @@ describe("<Overview />", () => {
         {
             mio: "UH",
             testId: /(cmr-overview)|(cmr-pc-overview)|(cmr-pn-overview)/
+        },
+        {
+            mio: "PKA",
+            testId: "pka-overview"
         }
     ];
 
     const overviewTest = (file: string, value: MIOValue, version?: string) => {
-        if (value.version && value.version !== version) return;
+        if (value.version && value.version !== version) {
+            return;
+        }
         it(`${file}`, async () => {
             const blob = new File([fs.readFileSync(file)], "test.file");
             const result = await mioParser.parseFile(blob);
@@ -63,7 +69,7 @@ describe("<Overview />", () => {
 
             const mioRef = ParserUtil.getUuidFromBundle(bundle);
 
-            const { getByTestId } = ViewerTestUtil.renderReduxRoute(
+            const { getByTestId } = await ViewerTestUtil.renderReduxRoute(
                 Overview,
                 store,
                 `/mio/${mioRef}`,
@@ -90,7 +96,7 @@ describe("<Overview />", () => {
         const mio = {} as KBVBundleResource;
         const store = ViewerTestUtil.createStoreWithMios([mio]);
 
-        const { getByTestId } = ViewerTestUtil.renderReduxRoute(
+        const { getByTestId } = await ViewerTestUtil.renderReduxRoute(
             Overview,
             store,
             "/mio/0}",
@@ -100,10 +106,10 @@ describe("<Overview />", () => {
         expect(getByTestId("error-list")).toBeDefined();
     });
 
-    it("Zurück Button führt zu Main", (done) => {
+    it("Zurück Button führt zu Main", async () => {
         const store = ViewerTestUtil.createStoreWithMios([]);
 
-        const { getAllByText } = ViewerTestUtil.renderReduxRoute(
+        const { getAllByText } = await ViewerTestUtil.renderReduxRoute(
             Overview,
             store,
             "/mio/0}",
@@ -111,7 +117,5 @@ describe("<Overview />", () => {
         );
 
         expect(getAllByText("Sorry")).toBeDefined();
-
-        done();
     });
 });

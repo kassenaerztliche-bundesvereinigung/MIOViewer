@@ -21,15 +21,17 @@ import purify from "dompurify";
 import { History } from "history";
 
 import {
-    CMR,
     KBVBundleResource,
     KBVResource,
     MIOEntry,
-    MR,
     ParserUtil,
     Vaccination,
     ZAEB,
+    MR,
+    CMR,
+    PKA,
     FHIR,
+    HL7DE,
     Reference
 } from "@kbv/mioparser";
 
@@ -40,12 +42,15 @@ import { UI, Util } from "../index";
 import * as IM from "./IM";
 import * as ZB from "./ZB";
 import * as MP from "./MP";
+import { ModelValue } from "../../models";
 
 type patientType =
     | Vaccination.V1_1_0.Profile.Patient
     | ZAEB.V1_1_0.Profile.Patient
     | MR.V1_1_0.Profile.PatientMother
-    | CMR.V1_0_1.Profile.CMRPatient;
+    | CMR.V1_0_1.Profile.CMRPatient
+    | PKA.V1_0_0.Profile.DPEPatientDPE
+    | PKA.V1_0_0.Profile.NFDPatientNFD;
 
 export function checkIfVaccinationPatient(
     patient: patientType
@@ -66,14 +71,21 @@ export function checkIfMRPatient(
 }
 
 export function getPatientName(patient: patientType): string {
-    if (checkIfVaccinationPatient(patient)) return IM.getPatientName(patient);
-    else if (checkIfZAEBPatient(patient)) return ZB.getPatientName(patient);
-    else if (checkIfMRPatient(patient)) return MP.getPatientMotherName(patient);
-    else return "";
+    if (checkIfVaccinationPatient(patient)) {
+        return IM.getPatientName(patient);
+    } else if (checkIfZAEBPatient(patient)) {
+        return ZB.getPatientName(patient);
+    } else if (checkIfMRPatient(patient)) {
+        return MP.getPatientMotherName(patient);
+    } else {
+        return "";
+    }
 }
 
 export function formatDate(date: string | undefined, time = false): string {
-    if (date?.includes("SSW")) return date;
+    if (date?.includes("SSW")) {
+        return date;
+    }
     date = date?.replace(":60", ":59");
     const precisionRegex = /(\.[0-9]+)/;
     const precision = precisionRegex.exec(date ?? "");
@@ -143,14 +155,16 @@ export function toEntryByRef(
 export function humanNameToString(
     name: FHIR.V4_0_1.Profile.HumanName | undefined
 ): string {
-    if (!name) return "-";
+    if (!name) {
+        return "-";
+    }
 
     const prefix = name.prefix?.join(" ");
     const given = name.given?.join(" ");
     const family = name.family;
     const suffix = name.suffix?.join(" ");
 
-    const nameStr = [prefix, given, family, suffix].join(" ");
+    const nameStr = [prefix, given, family, suffix].join(" ").trim();
 
     return nameStr ? nameStr : name.text ? name.text : "-";
 }
@@ -159,12 +173,20 @@ export function getNameFromContact(
     contact?: CMR.V1_0_1.Profile.CMROrganizationScreeningLaboratoryContact
 ): string {
     if (contact) {
-        if (contact.id) return contact.id;
-        if (contact.name && contact.name.family && contact.name.given)
+        if (contact.id) {
+            return contact.id;
+        }
+        if (contact.name && contact.name.family && contact.name.given) {
             return contact.name.family + contact.name.given;
-        if (contact.name && contact.name.family) return contact.name.family;
-        else return "laboratory";
-    } else return "laboratory";
+        }
+        if (contact.name && contact.name.family) {
+            return contact.name.family;
+        } else {
+            return "laboratory";
+        }
+    } else {
+        return "laboratory";
+    }
 }
 
 export function getTelecom(
@@ -178,9 +200,12 @@ export function getTelecom(
         | CMR.V1_0_1.Profile.CMRPractitioner
         | CMR.V1_0_1.Profile.CMROrganization
         | CMR.V1_0_1.Profile.CMROrganizationScreeningLaboratoryContact
+        | PKA.V1_0_0.Profile.NFDPatientNFD
+        | PKA.V1_0_0.Profile.DPERelatedPersonContactPerson
+        | PKA.V1_0_0.Profile.NFDPatientNFDContact
 ): UI.ListItem.Props[] {
     if (entry.telecom && entry.telecom.length) {
-        const mapLabel = (v: string): string => {
+        const mapLabel = (v?: string): string => {
             // phone   | fax | email  | pager | url     | sms   | other
             // Telefon | Fax | E-Mail | Pager | Website | Mobil | Sonstige
             switch (v) {
@@ -202,10 +227,10 @@ export function getTelecom(
         };
 
         const mapValue = (t: {
-            value: string;
-            system: string;
+            value?: string;
+            system?: string;
         }): { value: string; href?: string } => {
-            const val = purify.sanitize(t.value);
+            const val = purify.sanitize(t.value ?? "");
             switch (t.system) {
                 case "phone":
                 case "sms":
@@ -241,7 +266,7 @@ export function getTelecom(
         };
 
         const results: UI.ListItem.Props[] = [];
-        entry.telecom.forEach((t) => {
+        entry.telecom.forEach((t: { system?: string; value?: string }) => {
             results.push({
                 value: mapValue(t).value,
                 href: mapValue(t).href,
@@ -257,8 +282,12 @@ export function getTelecom(
 export function mapIdentifier(identifier: UI.ListItem.Props): UI.ListItem.Props {
     const name = identifier.label;
     let label = "Versichertennummer (" + name + ")";
-    if (name === "MR") label = "Patientenidentifikationsnummer (PID)";
-    if (name === "PPN") label = "Reisepassnummer";
+    if (name === "MR") {
+        label = "Patientenidentifikationsnummer (PID)";
+    }
+    if (name === "PPN") {
+        label = "Reisepassnummer";
+    }
 
     return {
         value: identifier.value,
@@ -276,6 +305,8 @@ export function getPatientIdentifier(
         | ZAEB.V1_1_0.Profile.Patient
         | MR.V1_1_0.Profile.PatientMother
         | CMR.V1_0_1.Profile.CMRPatient
+        | PKA.V1_0_0.Profile.DPEPatientDPE
+        | PKA.V1_0_0.Profile.NFDPatientNFD
 ): UI.ListItem.Props[] {
     const identifier: UI.ListItem.Props[] = [];
     patient.identifier?.forEach(
@@ -316,12 +347,16 @@ export function getQualification(
     conceptMaps: ParserUtil.ConceptMap[],
     valueSets: ParserUtil.ValueSet[]
 ): string {
-    if (!qualification) return "-";
+    if (!qualification) {
+        return "-";
+    }
 
     return (qualification as { code: Util.FHIR.CodeEmpty }[])
         .map((q) => {
             const codings = q.code?.coding;
-            if (!codings || !codings.length) return "-";
+            if (!codings || !codings.length) {
+                return "-";
+            }
             return codings
                 .map((coding) => {
                     const translated = Util.FHIR.translateCode(
@@ -342,4 +377,104 @@ export function getQualification(
                 .join(", ");
         })
         .join(", ");
+}
+
+// https://simplifier.net/packages/de.basisprofil.r4/0.9.13/files/309987
+export type HumanName = {
+    use?: string;
+    text?: string;
+    family?: string;
+    _family?: {
+        extension?: {
+            url?: string;
+            valueString?: string;
+        }[];
+    };
+    given?: string[];
+    prefix?: string[];
+    suffix?: string[];
+    period?: {
+        start?: string;
+        end?: string;
+    };
+};
+export function getHumanName(names: HumanName[]): string {
+    const n = names.map((n) => {
+        const prefix = n.prefix?.join(" ") ?? "";
+        const given = n.given?.join(" ") ?? "";
+        const family = n.family
+            ? n.family
+            : n._family?.extension?.map((e) => e.valueString).join(" ") ?? "";
+        const suffix = n.suffix?.join(" ") ?? "";
+        return [prefix, given, family, suffix].join(" ");
+    });
+    return n.join(", ") ?? "-";
+}
+
+export function getGender(
+    resource:
+        | Vaccination.V1_1_0.Profile.Patient
+        | MR.V1_1_0.Profile.PatientChild
+        | PKA.V1_0_0.Profile.DPEPatientDPE
+        | PKA.V1_0_0.Profile.NFDPatientNFD,
+    valueSet: ParserUtil.ValueSet[] = [HL7DE.V0_9_12.ValueSet.GenderamtlichdeValueSet],
+    conceptMap?: ParserUtil.ConceptMap[]
+): ModelValue {
+    let g = "-";
+    let valueGenderExtension = "";
+
+    const gender = resource.gender;
+    const _gender = resource._gender?.extension;
+
+    if (gender) {
+        if (conceptMap) {
+            g = Util.FHIR.translateCode(gender, conceptMap).join(", ");
+        } else {
+            const translation = [
+                {
+                    in: "male",
+                    out: "männlich"
+                },
+                {
+                    in: "female",
+                    out: "weiblich"
+                },
+                {
+                    in: "other",
+                    out: "andere"
+                },
+                {
+                    in: "unknown",
+                    out: "unbekannt"
+                }
+            ];
+
+            const result = translation.filter((v) => v.in === gender);
+            g = result.length ? result[0].out : gender;
+        }
+    }
+
+    if (_gender) {
+        const others: string[] = [];
+        _gender.forEach((ex) => {
+            if (!ex.valueCoding) {
+                others.push("");
+            } else if (Array.isArray(ex.valueCoding)) {
+                ex.valueCoding.map((coding) => {
+                    others.push(Util.FHIR.handleCodeVS(coding, valueSet).join(", "));
+                });
+            } else {
+                others.push(Util.FHIR.handleCodeVS(ex.valueCoding, valueSet).join(", "));
+            }
+        });
+
+        valueGenderExtension = Array.from(new Set(others)).join(", ");
+    }
+
+    const _g = valueGenderExtension ? ` (${valueGenderExtension})` : "";
+
+    return {
+        value: (g !== "-" ? g + _g : valueGenderExtension) ?? "-",
+        label: "Geschlecht"
+    };
 }

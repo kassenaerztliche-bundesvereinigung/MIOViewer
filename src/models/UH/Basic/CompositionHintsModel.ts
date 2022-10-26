@@ -53,7 +53,9 @@ export default class CompositionHintsModel extends BaseModel<CompositionHintsTyp
         this.headline = "Hinweise";
 
         const extension = this.value?.extension;
-        if (!extension) return;
+        if (!extension) {
+            return;
+        }
 
         const urlComment = "KBV_EX_Base_Additional_Comment";
         const urlNote = "KBV_EX_MIO_CMR_Note";

@@ -49,11 +49,12 @@ export default class OrganizationModel extends BaseModel<
                     this.value.identifier
                 );
 
-            if (iknr)
+            if (iknr) {
                 return {
                     value: iknr.value,
                     label: "Institutionskennzeichen (IKNR)"
                 };
+            }
 
             const bsnr =
                 ParserUtil.getSlice<Vaccination.V1_1_0.Profile.OrganizationBetriebsstaettennummer>(
@@ -61,11 +62,12 @@ export default class OrganizationModel extends BaseModel<
                     this.value.identifier
                 );
 
-            if (bsnr)
+            if (bsnr) {
                 return {
                     value: bsnr.value,
                     label: "Betriebsstättennummer (BSNR)"
                 };
+            }
         }
 
         return {

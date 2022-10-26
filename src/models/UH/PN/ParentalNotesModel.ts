@@ -35,7 +35,7 @@ export default class ParentalNotesModel extends BaseModel<CMR.V1_0_1.Profile.PNC
 
         const entries = this.value.section.map((s) =>
             s.entry.map(
-                (e: CMR.V1_0_1.Profile.PNCompositionParentalNotesSectionEntry) =>
+                (e: CMR.V1_0_1.Profile.PNCompositionParentalNotesSectionEntryReference) =>
                     e.reference
             )
         );
@@ -67,8 +67,11 @@ export default class ParentalNotesModel extends BaseModel<CMR.V1_0_1.Profile.PNC
                                     slice?.extension
                                 );
 
-                            if (sliceContent) return sliceContent.valueString;
-                            else return c.display;
+                            if (sliceContent) {
+                                return sliceContent.valueString;
+                            } else {
+                                return c.display;
+                            }
                         } else {
                             return c.display;
                         }

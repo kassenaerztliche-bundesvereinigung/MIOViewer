@@ -23,6 +23,7 @@ export type MIOClassName =
     | "zaeb"
     | "mutterpass"
     | "uheft"
+    | "pka"
     | "basic"
     | "undefined"
     | undefined;

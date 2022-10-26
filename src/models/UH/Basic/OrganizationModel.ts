@@ -56,11 +56,12 @@ export default class OrganizationModel extends BaseModel<OrganizationType> {
                     this.value.identifier
                 );
 
-            if (iknr)
+            if (iknr) {
                 return {
                     value: iknr.value,
                     label: "Institutionskennzeichen (IKNR)"
                 };
+            }
 
             const bsnr =
                 ParserUtil.getSlice<CMR.V1_0_1.Profile.CMROrganizationBetriebsstaettennummer>(

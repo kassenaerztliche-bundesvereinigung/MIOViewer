@@ -93,7 +93,7 @@ class Home extends React.Component<MIOConnectorType & RouteComponentProps> {
                         </div>
                     </div>
                 </IonRow>
-                {this.addMIOHelper.render(loading, "home")}
+                {this.addMIOHelper.renderMain(loading, "home")}
             </UI.BasicView>
         );
     }

@@ -32,6 +32,7 @@
     "rules": {
         "quotes": ["warn", "double"],
         "no-prototype-builtins": ["warn"],
-        "import/no-webpack-loader-syntax": "off"
+        "import/no-webpack-loader-syntax": "off",
+        "curly": "error"
     }
 }

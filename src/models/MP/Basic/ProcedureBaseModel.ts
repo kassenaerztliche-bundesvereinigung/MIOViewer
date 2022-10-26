@@ -64,7 +64,9 @@ export default class ProcedureBaseModel<
                 toPerformerEntry = Util.Misc.toEntry(history, parent, performer, true);
 
                 if (MR.V1_1_0.Profile.Organization.is(performer.resource)) {
-                    if (performer.resource.name) performerName = performer.resource.name;
+                    if (performer.resource.name) {
+                        performerName = performer.resource.name;
+                    }
                 } else if (MR.V1_1_0.Profile.Practitioner.is(performer.resource)) {
                     performerName = Util.MP.getPractitionerName(performer.resource);
                 }
@@ -111,7 +113,9 @@ export default class ProcedureBaseModel<
         );
 
         const note = this.getNote();
-        if (note) this.values.push(note);
+        if (note) {
+            this.values.push(note);
+        }
     }
 
     public getCoding(): string {

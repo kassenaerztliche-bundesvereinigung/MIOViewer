@@ -19,7 +19,7 @@
 import { History } from "history";
 import { Content } from "pdfmake/interfaces";
 
-import { KBVBundleResource, Vaccination, HL7DE } from "@kbv/mioparser";
+import { KBVBundleResource, Vaccination } from "@kbv/mioparser";
 import { Util } from "../../components";
 
 import BaseModel from "../BaseModel";
@@ -34,45 +34,19 @@ export default class PatientModel extends BaseModel<Vaccination.V1_1_0.Profile.P
     ) {
         super(value, fullUrl, parent, history);
 
-        this.headline = Util.IM.getPatientName(this.value);
+        this.headline = Util.IM.getPatientName(value);
         this.values = [
             {
-                value: Util.IM.getPatientMaidenName(this.value),
+                value: Util.IM.getPatientMaidenName(value),
                 label: "Geburtsname"
             },
             {
-                value: Util.Misc.formatDate(this.value.birthDate),
+                value: Util.Misc.formatDate(value.birthDate),
                 label: "Geburtsdatum"
             },
-            this.getGender(),
+            Util.Misc.getGender(value),
             ...this.getIdentifier()
         ];
-    }
-
-    public getGender(): ModelValue {
-        const gender = this.value.gender ? this.value.gender : undefined;
-        const _gender = this.value._gender?.extension
-            ?.map((ex) => {
-                if (!ex.valueCoding) {
-                    return "-";
-                } else if (Array.isArray(ex.valueCoding)) {
-                    return ex.valueCoding.map((coding) => {
-                        return Util.FHIR.handleCodeVS(coding, [
-                            HL7DE.V0_9_12.ValueSet.GenderamtlichdeValueSet
-                        ]).join(", ");
-                    });
-                } else {
-                    return Util.FHIR.handleCodeVS(ex.valueCoding, [
-                        HL7DE.V0_9_12.ValueSet.GenderamtlichdeValueSet
-                    ]).join(", ");
-                }
-            })
-            .join(", ");
-
-        return {
-            value: gender ? gender : _gender ? _gender : "-",
-            label: "Geschlecht"
-        };
     }
 
     public getIdentifier(): ModelValue[] {

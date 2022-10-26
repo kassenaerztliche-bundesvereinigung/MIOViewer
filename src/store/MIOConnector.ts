@@ -30,9 +30,16 @@ import {
     Reference
 } from "@kbv/mioparser";
 
+export type RouteProps = RouteComponentProps<{
+    id: string;
+    entry: string;
+    filter?: string;
+    filterValue?: string;
+}>;
+
 function findMIO(
     mios: KBVBundleResource[],
-    props: RouteComponentProps<{ id: string }>
+    props: RouteProps
 ): KBVBundleResource | undefined {
     if (props.match && props.match.params && props.match.params.id) {
         const result = mios.filter(
@@ -41,7 +48,9 @@ function findMIO(
                 m.identifier.value &&
                 ParserUtil.getUuidFromBundle(m) === props.match.params.id
         );
-        if (result.length > 0) return result[0];
+        if (result.length > 0) {
+            return result[0];
+        }
     }
 
     return undefined;
@@ -49,10 +58,11 @@ function findMIO(
 
 function findEntryByRouteProps(
     mio: KBVBundleResource | undefined,
-    props: RouteComponentProps<{ id: string; entry: string }>
+    props: RouteProps
 ): MIOEntry<KBVResource> | undefined {
-    if (mio && props.match && props.match.params && props.match.params.entry) {
-        const entry = decodeURIComponent(props.match.params.entry);
+    const match = props.match;
+    if (mio && match && match.params && match.params.entry) {
+        const entry = decodeURIComponent(match.params.entry);
         return ParserUtil.findEntryByReference(mio, new Reference(entry));
     }
 
@@ -65,9 +75,9 @@ const mapStateToProps = ({ mioState }: MIOViewerRootState, ownProps: any): MIOSt
     const mio = findMIO(mios, ownProps) || findMIO(examples, ownProps);
 
     return {
-        mios: mios,
-        examples: examples,
-        mio: mio,
+        mios,
+        examples,
+        mio,
         entry: findEntryByRouteProps(mio, ownProps),
         loading
     };

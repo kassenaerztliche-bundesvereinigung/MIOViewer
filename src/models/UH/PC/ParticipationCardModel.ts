@@ -52,6 +52,8 @@ export default class ParticipationCardModel extends EncounterModel {
         ];
 
         const provider = this.getServiceProvider();
-        if (provider) this.values.push(provider);
+        if (provider) {
+            this.values.push(provider);
+        }
     }
 }

@@ -16,7 +16,7 @@
  * along with MIO Viewer. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import React from "react";
+import React, { ReactNode } from "react";
 
 import { MIOClassName } from "../";
 
@@ -30,6 +30,7 @@ export interface MIOFolderProps {
     subline?: string;
     labelBG?: boolean;
     badge?: string;
+    children?: ReactNode;
 }
 
 export default class MIOFolder extends React.Component<MIOFolderProps> {

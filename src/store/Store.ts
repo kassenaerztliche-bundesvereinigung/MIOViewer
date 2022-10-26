@@ -37,7 +37,9 @@ const useLocalStore = false;
 
 const miosName = "MIO-Viewer-MIOs";
 let storedMIOs = undefined;
-if (useLocalStore) storedMIOs = localStorage.getItem(miosName);
+if (useLocalStore) {
+    storedMIOs = localStorage.getItem(miosName);
+}
 
 const settingsName = "MIO-Viewer-Settings";
 const storedSettings = localStorage.getItem(settingsName);

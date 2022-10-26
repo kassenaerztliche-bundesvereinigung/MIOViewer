@@ -72,33 +72,36 @@ export default class PractitionerModel extends BaseModel<PractitionerType> {
                 this.value.identifier
             );
 
-            if (ANR)
+            if (ANR) {
                 return {
                     value: ANR.value,
                     label: "Lebenslange Arztnummer (LANR)"
                 };
+            }
 
             const EFN = ParserUtil.getSlice<CMR.V1_0_1.Profile.CMRPractitionerEFN>(
                 CMR.V1_0_1.Profile.CMRPractitionerEFN,
                 this.value.identifier
             );
 
-            if (EFN)
+            if (EFN) {
                 return {
                     value: EFN.value,
                     label: "Einheitliche Fortbildungsnummer (EFN)"
                 };
+            }
 
             const IK = ParserUtil.getSlice<CMR.V1_0_1.Profile.CMRPractitionerHebammenIK>(
                 CMR.V1_0_1.Profile.CMRPractitionerHebammenIK,
                 this.value.identifier
             );
 
-            if (IK)
+            if (IK) {
                 return {
                     value: IK.value,
                     label: "Hebammen Institutionskennzeichen (IK)"
                 };
+            }
         }
 
         return {

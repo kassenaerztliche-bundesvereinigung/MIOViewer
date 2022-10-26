@@ -22,6 +22,7 @@ import "./DetailListStickyHeader.scss";
 
 export type DetailListStickyHeaderProps = {
     className?: string;
+    children?: React.ReactNode;
 };
 
 export type DetailListStickyHeaderState = {

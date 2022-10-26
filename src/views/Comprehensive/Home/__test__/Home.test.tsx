@@ -19,7 +19,7 @@
 import fs from "fs";
 import { fireEvent, waitFor } from "@testing-library/react";
 
-import * as ViewerTestUtil from "../../../../../test/TestUtil.test";
+import * as ViewerTestUtil from "../../../../TestUtil";
 import * as TestUtil from "@kbv/miotestdata";
 
 import Home from "../";
@@ -29,13 +29,12 @@ describe("<Home />", () => {
 
     it("Rendert", async () => {
         const store = ViewerTestUtil.createStoreWithMios([]);
-        const { getByTestId } = ViewerTestUtil.renderReduxRoute(
+        const { getByTestId } = await ViewerTestUtil.renderReduxRoute(
             Home,
             store,
-            "/main",
-            "/main"
+            "/home",
+            "/home"
         );
-
         expect(getByTestId("header-headline")).toHaveTextContent("Herzlich Willkommen");
         expect(getByTestId("intro-text")).toBeDefined();
         expect(getByTestId("input-file")).toBeDefined();
@@ -50,14 +49,17 @@ describe("<Home />", () => {
         { mio: "IM" },
         { mio: "ZB" },
         { mio: "MR", version: "1.1.0" },
-        { mio: "UH" }
+        { mio: "UH" },
+        { mio: "PKA" }
     ];
 
     const storeTest = (file: string, value: TestValue, version?: string) => {
-        if (value.version && value.version !== version) return;
+        if (value.version && value.version !== version) {
+            return;
+        }
         it(file, async () => {
             const store = ViewerTestUtil.createStoreWithMios([]);
-            const { getByTestId } = ViewerTestUtil.renderReduxRoute(
+            const { getByTestId } = await ViewerTestUtil.renderReduxRoute(
                 Home,
                 store,
                 "/main",
@@ -77,7 +79,7 @@ describe("<Home />", () => {
                     const state = store.getState().mioState;
                     expect(state.mios.length).toBe(1);
                 },
-                { timeout: 10000, interval: 500 }
+                { timeout: 5000, interval: 50 }
             );
         });
     };

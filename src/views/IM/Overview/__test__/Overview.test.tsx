@@ -22,7 +22,7 @@ import fs from "fs";
 import { createMemoryHistory } from "history";
 import { render } from "@testing-library/react";
 
-import * as ViewerTestUtil from "../../../../../test/TestUtil.test";
+import * as ViewerTestUtil from "../../../../TestUtil";
 import * as TestUtil from "@kbv/miotestdata";
 
 import MIOParser, { ParserUtil, Vaccination } from "@kbv/mioparser";

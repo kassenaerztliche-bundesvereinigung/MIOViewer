@@ -44,11 +44,12 @@ export default class OrganizationModel extends BaseModel<ZAEB.V1_1_0.Profile.Org
                     this.value.identifier
                 );
 
-            if (iknr)
+            if (iknr) {
                 return {
                     value: iknr.value,
                     label: "Institutionskennzeichen (IKNR)"
                 };
+            }
 
             const bsnr =
                 ParserUtil.getSlice<ZAEB.V1_1_0.Profile.OrganizationBetriebsstaettennummer>(

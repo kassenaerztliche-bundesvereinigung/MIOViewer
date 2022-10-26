@@ -109,7 +109,9 @@ export default class CMRtoPDF extends Base<
         models.forEach((model) => content.push(model.toPDFContent(), horizontalLine));
 
         const contentU = this.getContentU();
-        if (contentU) content.push(contentU);
+        if (contentU) {
+            content.push(contentU);
+        }
 
         content.push(this.getHints(this.composition));
 
@@ -199,7 +201,9 @@ export default class CMRtoPDF extends Base<
                                 });
                             }
 
-                            if (model) models.push(model);
+                            if (model) {
+                                models.push(model);
+                            }
                         });
                     }
 
@@ -227,7 +231,9 @@ export default class CMRtoPDF extends Base<
                         ? group.minorHints.map((h) => {
                               if (h.renderAs === UI.ListItem.HintBox) {
                                   return this.hintBox(h);
-                              } else return this.hint(h);
+                              } else {
+                                  return this.hint(h);
+                              }
                           })
                         : [],
                     ...contentModels
@@ -324,8 +330,9 @@ export default class CMRtoPDF extends Base<
                         telecom.toPDFContent(["subTable"])
                     ]);
 
-                    if (additionalComment)
+                    if (additionalComment) {
                         authorContent.push(additionalComment.toPDFContent(["subTable"]));
+                    }
                 }
             });
         }
@@ -363,6 +370,8 @@ export default class CMRtoPDF extends Base<
             return "Teilnahmekarte";
         } else if (CMR.V1_0_1.Profile.PNBundle.is(this.value)) {
             return "Elternnotiz";
-        } else return "-";
+        } else {
+            return "-";
+        }
     }
 }

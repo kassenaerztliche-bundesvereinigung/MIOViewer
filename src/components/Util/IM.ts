@@ -43,7 +43,9 @@ export function getPatient(
 ): MIOEntry<Vaccination.V1_1_0.Profile.Patient> | undefined {
     const composition = getComposition(mio);
     const ref = composition?.resource.subject.reference;
-    if (!ref) return;
+    if (!ref) {
+        return;
+    }
     return ParserUtil.getEntryWithRef<Vaccination.V1_1_0.Profile.Patient>(
         mio,
         [Vaccination.V1_1_0.Profile.Patient],
@@ -87,7 +89,9 @@ export function getEntries(
                     ],
                     new Reference(ref, composition.fullUrl)
                 );
-                if (resource) entries.push(resource);
+                if (resource) {
+                    entries.push(resource);
+                }
             });
         } else {
             const refs = composition.resource.section
@@ -101,7 +105,9 @@ export function getEntries(
                         [Vaccination.V1_1_0.Profile.RecordAddendum],
                         new Reference(ref, composition.fullUrl)
                     );
-                if (resource) entries.push(resource);
+                if (resource) {
+                    entries.push(resource);
+                }
             });
         }
     }
@@ -273,7 +279,9 @@ export function getPractitionerroleByExtension(
             value.extension
         );
 
-        if (party && party.length) ref = party[0].valueReference.reference;
+        if (party && party.length) {
+            ref = party[0].valueReference.reference;
+        }
     }
 
     return getPractitionerrole(mio, new Reference(ref)); // TODO: parents fullURL missing
@@ -319,7 +327,9 @@ export function getPractitionerName(
                         nameSlice._family.extension
                     )?.valueString;
 
-                if (addition) partsFamily.push(addition);
+                if (addition) {
+                    partsFamily.push(addition);
+                }
 
                 const pre =
                     ParserUtil.getSlice<Vaccination.V1_1_0.Profile.PractitionerNameFamilyVorsatzwort>(
@@ -327,7 +337,9 @@ export function getPractitionerName(
                         nameSlice._family.extension
                     )?.valueString;
 
-                if (pre) partsFamily.push(pre);
+                if (pre) {
+                    partsFamily.push(pre);
+                }
 
                 const family =
                     ParserUtil.getSlice<Vaccination.V1_1_0.Profile.PractitionerNameFamilyNachname>(
@@ -335,7 +347,9 @@ export function getPractitionerName(
                         nameSlice._family.extension
                     )?.valueString;
 
-                if (family) partsFamily.push(family);
+                if (family) {
+                    partsFamily.push(family);
+                }
 
                 parts.push(partsFamily.join(" "));
             }
@@ -376,7 +390,9 @@ export function getPractitionerMaidenName(
                         maidenSlice._family.extension
                     )?.valueString;
 
-                if (addition) parts.push(addition);
+                if (addition) {
+                    parts.push(addition);
+                }
 
                 const pre =
                     ParserUtil.getSlice<Vaccination.V1_1_0.Profile.PractitionerGeburtsnameFamilyVorsatzwort>(
@@ -385,7 +401,9 @@ export function getPractitionerMaidenName(
                         maidenSlice._family.extension
                     )?.valueString;
 
-                if (pre) parts.push(pre);
+                if (pre) {
+                    parts.push(pre);
+                }
 
                 const family =
                     ParserUtil.getSlice<Vaccination.V1_1_0.Profile.PractitionerGeburtsnameFamilyNachname>(
@@ -393,7 +411,9 @@ export function getPractitionerMaidenName(
                         maidenSlice._family.extension
                     )?.valueString;
 
-                if (family) parts.push(family);
+                if (family) {
+                    parts.push(family);
+                }
 
                 maidenStr = parts.join(" ");
             }
@@ -439,7 +459,9 @@ export function getPatientName(patient: Vaccination.V1_1_0.Profile.Patient): str
                         nameSlice._family.extension
                     )?.valueString;
 
-                if (addition) partsFamily.push(addition);
+                if (addition) {
+                    partsFamily.push(addition);
+                }
 
                 const pre =
                     ParserUtil.getSlice<Vaccination.V1_1_0.Profile.PatientNameFamilyVorsatzwort>(
@@ -447,7 +469,9 @@ export function getPatientName(patient: Vaccination.V1_1_0.Profile.Patient): str
                         nameSlice._family.extension
                     )?.valueString;
 
-                if (pre) partsFamily.push(pre);
+                if (pre) {
+                    partsFamily.push(pre);
+                }
 
                 const family =
                     ParserUtil.getSlice<Vaccination.V1_1_0.Profile.PatientNameFamilyNachname>(
@@ -455,7 +479,9 @@ export function getPatientName(patient: Vaccination.V1_1_0.Profile.Patient): str
                         nameSlice._family.extension
                     )?.valueString;
 
-                if (family) partsFamily.push(family);
+                if (family) {
+                    partsFamily.push(family);
+                }
 
                 parts.push(partsFamily.join(" "));
             }
@@ -492,7 +518,9 @@ export function getPatientMaidenName(
                         maidenSlice._family.extension
                     )?.valueString;
 
-                if (addition) parts.push(addition);
+                if (addition) {
+                    parts.push(addition);
+                }
 
                 const pre =
                     ParserUtil.getSlice<Vaccination.V1_1_0.Profile.PatientGeburtsnameFamilyVorsatzwort>(
@@ -500,7 +528,9 @@ export function getPatientMaidenName(
                         maidenSlice._family.extension
                     )?.valueString;
 
-                if (pre) parts.push(pre);
+                if (pre) {
+                    parts.push(pre);
+                }
 
                 const family =
                     ParserUtil.getSlice<Vaccination.V1_1_0.Profile.PatientGeburtsnameFamilyNachname>(
@@ -508,7 +538,9 @@ export function getPatientMaidenName(
                         maidenSlice._family.extension
                     )?.valueString;
 
-                if (family) parts.push(family);
+                if (family) {
+                    parts.push(family);
+                }
 
                 maidenStr = parts.join(" ");
             }

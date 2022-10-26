@@ -137,7 +137,9 @@ export default class ProcedureModel extends BaseModel<ProcedureType> {
         }
 
         const note = this.getNote();
-        if (note) this.values.push(note);
+        if (note) {
+            this.values.push(note);
+        }
     }
 
     protected getStatusReason(): string {
@@ -298,7 +300,9 @@ export default class ProcedureModel extends BaseModel<ProcedureType> {
                         .CMRProcedureU1U3NewbornBloodSpotScreeningErstabnahmeVorVollendeter36Lebensstunde,
                     this.value.extension
                 );
-            if (!slice) return;
+            if (!slice) {
+                return;
+            }
 
             return {
                 value: "Erstabnahme vor der vollendeten 36. Lebensstunde bei einer Entbindung vor der vollendeten 32. Schwangerschaftswoche",
@@ -317,7 +321,9 @@ export default class ProcedureModel extends BaseModel<ProcedureType> {
     }
 
     public getCoding(resource?: { code?: Util.FHIR.Code }, separator?: string): string {
-        if (!resource) resource = this.value;
+        if (!resource) {
+            resource = this.value;
+        }
         return Util.FHIR.getCoding(resource, this.codeConceptMaps, separator);
     }
 

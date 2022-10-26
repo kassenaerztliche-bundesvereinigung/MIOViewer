@@ -96,10 +96,17 @@ class Main extends UI.MIOSlides<UI.MIOSlidesProps, UI.MIOSlidesState> {
 
     render(): JSX.Element {
         const { loading } = this.props;
+        const { testId } = this.state;
 
         return (
-            <UI.BasicView headline={"Meine MIOs"} padding={false} id={"main"}>
-                {this.renderSlides(this.addMIOHelper.render(loading, "main"))}
+            <UI.BasicView
+                headline={"Meine MIOs"}
+                padding={false}
+                id={"main"}
+                testId={testId}
+            >
+                {this.renderSlides()}
+                {this.addMIOHelper.renderMain(loading, "main")}
             </UI.BasicView>
         );
     }

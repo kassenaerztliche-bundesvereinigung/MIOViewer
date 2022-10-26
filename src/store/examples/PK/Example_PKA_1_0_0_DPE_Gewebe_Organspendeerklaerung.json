@@ -1,0 +1,319 @@
+{
+    "resourceType": "Bundle",
+    "id": "ec5bf24f-e823-pk46-97c6-14e35ded0ec0",
+    "meta": {
+        "profile": [
+            "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_NFDxDPE_Bundle|1.0.0"
+        ]
+    },
+    "identifier": {
+        "type": {
+            "coding": [
+                {
+                    "code": "DPE_Gewebe_Organspendeerklaerung"
+                }
+            ]
+        },
+        "system": "urn:ietf:rfc:3986",
+        "value": "urn:uuid:ec5bf24f-e823-pk46-97c6-14e35ded0ec0"
+    },
+    "type": "document",
+    "timestamp": "2021-08-09T12:30:02Z",
+    "entry": [
+        {
+            "fullUrl": "urn:uuid:8e17ccc0-9d1a-11eb-a8b3-0242ac130003",
+            "resource": {
+                "resourceType": "Composition",
+                "id": "8e17ccc0-9d1a-11eb-a8b3-0242ac130003",
+                "meta": {
+                    "versionId": "1.0",
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_DPE_Composition_DPE|1.0.0"
+                    ]
+                },
+                "status": "final",
+                "type": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "version": "http://snomed.info/sct/900000000000207008/version/20210731",
+                            "code": "408403008",
+                            "display": "Patient held record (record artifact)"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "urn:uuid:e8610a8a-85dc-4a49-88be-ee8d3ab69f73"
+                },
+                "date": "2009-12-10",
+                "author": [
+                    {
+                        "extension": [
+                            {
+                                "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+                                "valueCode": "unknown"
+                            }
+                        ]
+                    }
+                ],
+                "title": "DPE",
+                "section": [
+                    {
+                        "title": "Persönliche Erklärungen",
+                        "code": {
+                            "coding": [
+                                {
+                                    "system": "http://snomed.info/sct",
+                                    "version": "http://snomed.info/sct/900000000000207008/version/20210731",
+                                    "code": "371538006",
+                                    "display": "Advance directive report (record artifact)"
+                                }
+                            ]
+                        },
+                        "entry": [
+                            {
+                                "reference": "urn:uuid:f3f8f8ea-054a-43b8-8442-2c4f84028ad3"
+                            },
+                            {
+                                "reference": "urn:uuid:1443cb86-df52-11eb-ba80-0242ac130004"
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:1443cb86-df52-11eb-ba80-0242ac130004",
+            "resource": {
+                "resourceType": "Consent",
+                "id": "1443cb86-df52-11eb-ba80-0242ac130004",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_NFDxDPE_Consent_Active_Advance_Directive|1.0.0"
+                    ]
+                },
+                "status": "active",
+                "scope": {
+                    "coding": [
+                        {
+                            "system": "http://terminology.hl7.org/CodeSystem/consentscope",
+                            "version": "4.0.1",
+                            "code": "patient-privacy",
+                            "display": "Privacy Consent"
+                        }
+                    ]
+                },
+                "category": [
+                    {
+                        "coding": [
+                            {
+                                "system": "http://loinc.org",
+                                "version": "2.71",
+                                "code": "59284-0",
+                                "display": "Consent Document"
+                            }
+                        ]
+                    }
+                ],
+                "patient": {
+                    "reference": "urn:uuid:e8610a8a-85dc-4a49-88be-ee8d3ab69f73"
+                },
+                "dateTime": "2020-03-10",
+                "sourceReference": {
+                    "display": "Rennweg 35, 56626 Andernach, D",
+                    "_display": {
+                        "extension": [
+                            {
+                                "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_MIO_NFDxDPE_Consent_Description_File_Location",
+                                "valueAddress": {
+                                    "line": ["Rennweg 35"],
+                                    "_line": [
+                                        {
+                                            "extension": [
+                                                {
+                                                    "url": "http://hl7.org/fhir/StructureDefinition/iso21090-ADXP-streetName",
+                                                    "valueString": "Rennweg"
+                                                },
+                                                {
+                                                    "url": "http://hl7.org/fhir/StructureDefinition/iso21090-ADXP-houseNumber",
+                                                    "valueString": "35"
+                                                }
+                                            ]
+                                        }
+                                    ],
+                                    "city": "Andernach",
+                                    "postalCode": "56626",
+                                    "country": "D"
+                                }
+                            }
+                        ]
+                    }
+                },
+                "policyRule": {
+                    "coding": [
+                        {
+                            "system": "http://loinc.org",
+                            "version": "2.71",
+                            "code": "57016-8",
+                            "display": "Patient Consent",
+                            "_display": {
+                                "extension": [
+                                    {
+                                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German",
+                                        "extension": [
+                                            {
+                                                "url": "content",
+                                                "valueString": "Einwilligung"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                },
+                "provision": {
+                    "actor": [
+                        {
+                            "role": {
+                                "coding": [
+                                    {
+                                        "system": "http://terminology.hl7.org/CodeSystem/v3-RoleClass",
+                                        "version": "2018-08-12",
+                                        "code": "AGNT",
+                                        "display": "agent"
+                                    }
+                                ]
+                            },
+                            "reference": {
+                                "display": "Peter Müller"
+                            }
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:f3f8f8ea-054a-43b8-8442-2c4f84028ad3",
+            "resource": {
+                "resourceType": "Consent",
+                "id": "f3f8f8ea-054a-43b8-8442-2c4f84028ad3",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_DPE_Consent_Personal_Consent|1.0.0"
+                    ]
+                },
+                "status": "active",
+                "scope": {
+                    "coding": [
+                        {
+                            "system": "http://terminology.hl7.org/CodeSystem/consentscope",
+                            "version": "4.0.1",
+                            "code": "adr",
+                            "display": "Privacy Consent"
+                        }
+                    ]
+                },
+                "category": [
+                    {
+                        "coding": [
+                            {
+                                "system": "http://loinc.org",
+                                "version": "2.71",
+                                "code": "59284-0",
+                                "display": "Consent Document"
+                            }
+                        ]
+                    }
+                ],
+                "patient": {
+                    "reference": "urn:uuid:e8610a8a-85dc-4a49-88be-ee8d3ab69f73"
+                },
+                "dateTime": "2009-12-10",
+                "sourceReference": {
+                    "display": "in Geldbörse"
+                },
+                "policyRule": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "version": "http://snomed.info/sct/900000000000207008/version/20210731",
+                            "code": "772790007",
+                            "display": "Organ donor card (record artifact)",
+                            "_display": {
+                                "extension": [
+                                    {
+                                        "url": "https://fhir.kbv.de/StructureDefinition/KBV_EX_Base_Terminology_German",
+                                        "extension": [
+                                            {
+                                                "url": "content",
+                                                "valueString": "DPE_Gewebe_Organspendeerklärung"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:e8610a8a-85dc-4a49-88be-ee8d3ab69f73",
+            "resource": {
+                "resourceType": "Patient",
+                "id": "e8610a8a-85dc-4a49-88be-ee8d3ab69f73",
+                "meta": {
+                    "profile": [
+                        "https://fhir.kbv.de/StructureDefinition/KBV_PR_MIO_DPE_Patient_DPE|1.0.0"
+                    ]
+                },
+                "identifier": [
+                    {
+                        "use": "official",
+                        "type": {
+                            "coding": [
+                                {
+                                    "system": "http://fhir.de/CodeSystem/identifier-type-de-basis",
+                                    "code": "GKV",
+                                    "display": "Gesetzliche Krankenversicherung"
+                                }
+                            ]
+                        },
+                        "system": "http://fhir.de/NamingSystem/gkv/kvid-10",
+                        "value": "P234567890"
+                    }
+                ],
+                "name": [
+                    {
+                        "use": "official",
+                        "text": "Prof. Dr. Franz Schneckenröder",
+                        "family": "Schneckenröder",
+                        "_family": {
+                            "extension": [
+                                {
+                                    "url": "http://hl7.org/fhir/StructureDefinition/humanname-own-name",
+                                    "valueString": "Schneckenröder"
+                                }
+                            ]
+                        },
+                        "given": ["Ludger"],
+                        "prefix": ["Prof. Dr."],
+                        "_prefix": [
+                            {
+                                "extension": [
+                                    {
+                                        "url": "http://hl7.org/fhir/StructureDefinition/iso21090-EN-qualifier",
+                                        "valueCode": "AC"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "gender": "male",
+                "birthDate": "1941-11-11"
+            }
+        }
+    ]
+}

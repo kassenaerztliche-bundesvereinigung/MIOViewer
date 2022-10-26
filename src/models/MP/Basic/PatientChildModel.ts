@@ -36,10 +36,7 @@ export default class PatientChildModel extends MPBaseModel<MR.V1_1_0.Profile.Pat
 
         this.headline = "Kind"; // (identifier.value ? identifier.value + ". " : "") + "Kind";
         this.values = [
-            {
-                value: this.value.gender ? this.translateGender(this.value.gender) : "-",
-                label: "Geschlecht"
-            },
+            Util.Misc.getGender(value),
             {
                 value: Util.Misc.formatDate(this.value.birthDate),
                 label: "Geburtsdatum"
@@ -56,7 +53,9 @@ export default class PatientChildModel extends MPBaseModel<MR.V1_1_0.Profile.Pat
             "Besonderheiten"
         );
         const comment = commentModel.getValues();
-        if (comment.length) this.values.push(...comment);
+        if (comment.length) {
+            this.values.push(...comment);
+        }
     }
 
     public getDeceased(): ModelValue {
@@ -100,29 +99,5 @@ export default class PatientChildModel extends MPBaseModel<MR.V1_1_0.Profile.Pat
                 true
             )
         };
-    }
-
-    protected translateGender(gender: string): string {
-        const values = [
-            {
-                in: "male",
-                out: "männlich"
-            },
-            {
-                in: "female",
-                out: "weiblich"
-            },
-            {
-                in: "other",
-                out: "andere"
-            },
-            {
-                in: "unknown",
-                out: "unbekannt"
-            }
-        ];
-
-        const result = values.filter((v) => v.in === gender);
-        return result.length ? result[0].out : gender;
     }
 }

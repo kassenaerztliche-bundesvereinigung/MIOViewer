@@ -119,7 +119,9 @@ export default class CarePlanModel extends BaseModel<CarePlanType> {
                     renderAs: UI.ListItem.Bullet
                 }
             ];
-        } else return values;
+        } else {
+            return values;
+        }
     }
 
     public getMainValue(): ModelValue {

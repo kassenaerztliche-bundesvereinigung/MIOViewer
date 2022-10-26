@@ -1,8 +1,12 @@
 # Changelog MIO Viewer
 
+## 1.8.0
+
+-   Darstellung Patientenkurzakte, Version 1.0.0
+
 ## 1.7.0
 
-- Für veraltete MIOs wird eine Fehlermeldung angezeigt
+-   Für veraltete MIOs wird eine Fehlermeldung angezeigt
 
 ## 1.6.0
 

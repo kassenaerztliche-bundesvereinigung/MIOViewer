@@ -66,12 +66,13 @@ export default class Epicrisis extends Section<MR.V1_1_0.Profile.CompositionUnte
                         new Reference(ref, composition.fullUrl)
                     )?.resource;
 
-                if (res)
+                if (res) {
                     toEntry = Util.Misc.toEntryByRef(
                         history,
                         mio,
                         new Reference(ref, composition.fullUrl)
                     );
+                }
             });
 
             pregnancyItems.push({
@@ -102,12 +103,13 @@ export default class Epicrisis extends Section<MR.V1_1_0.Profile.CompositionUnte
                         new Reference(ref, composition.fullUrl)
                     )?.resource;
 
-                if (res)
+                if (res) {
                     toEntry = Util.Misc.toEntryByRef(
                         history,
                         mio,
                         new Reference(ref, composition.fullUrl)
                     );
+                }
             });
 
             birthItems.push({
@@ -126,13 +128,19 @@ export default class Epicrisis extends Section<MR.V1_1_0.Profile.CompositionUnte
             );
 
         slicesFirstExamination.forEach((section) => {
-            if (hasFirstExamination) return;
+            if (hasFirstExamination) {
+                return;
+            }
 
             section.section?.forEach((s) => {
-                if (hasFirstExamination) return;
+                if (hasFirstExamination) {
+                    return;
+                }
 
                 s.entry?.forEach((entry) => {
-                    if (hasFirstExamination) return;
+                    if (hasFirstExamination) {
+                        return;
+                    }
 
                     const ref = entry.reference;
                     const res = ParserUtil.getEntryWithRef<
@@ -149,7 +157,9 @@ export default class Epicrisis extends Section<MR.V1_1_0.Profile.CompositionUnte
                         new Reference(ref, composition.fullUrl)
                     )?.resource;
 
-                    if (res) hasFirstExamination = true;
+                    if (res) {
+                        hasFirstExamination = true;
+                    }
                 });
 
                 firstExaminationTitle = section.title;

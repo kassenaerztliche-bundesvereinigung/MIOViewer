@@ -74,7 +74,9 @@ export default class OverviewPercentileCurve extends React.Component<OverviewPro
                             history
                         );
                         const mainValue = model.getMainValue();
-                        if (mainValue) this.entries.push(mainValue);
+                        if (mainValue) {
+                            this.entries.push(mainValue);
+                        }
                         break;
                     }
                 }

@@ -31,12 +31,17 @@ export function getCoding(
         } else {
             if (codeConceptMap) {
                 const translatedCode = Util.FHIR.translateCode(c.code, codeConceptMap);
-                if (translatedCode.length) return translatedCode;
+                if (translatedCode.length) {
+                    return translatedCode;
+                }
             }
 
             if (c.display) {
-                if (c.code && c.code === "364599001") return "Angaben zum Fötus/Kind";
-                else return c.display;
+                if (c.code && c.code === "364599001") {
+                    return "Angaben zum Fötus/Kind";
+                } else {
+                    return c.display;
+                }
             } else {
                 return c.code;
             }

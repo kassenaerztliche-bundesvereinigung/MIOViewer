@@ -104,6 +104,7 @@ ion-header.miov {
     &.zaeb,
     &.mutterpass,
     &.uheft,
+    &.pka,
     &.basic {
         nav {
             button.icon {
@@ -159,6 +160,16 @@ ion-header.miov {
         .example-hint {
             p {
                 color: $uheft-color;
+            }
+        }
+    }
+
+    &.pka {
+        background-color: $pka-color;
+
+        .example-hint {
+            p {
+                color: $pka-color;
             }
         }
     }

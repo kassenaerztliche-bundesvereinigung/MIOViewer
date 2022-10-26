@@ -41,7 +41,6 @@ import "theme/default.scss";
 
 import { IonReactHashRouter } from "@ionic/react-router";
 import { Route } from "react-router";
-import { hot, setConfig } from "react-hot-loader";
 
 import MIOParser from "@kbv/mioparser";
 
@@ -87,7 +86,7 @@ class App extends React.Component<Record<string, unknown>, AppState> {
         }
     }
 
-    pushOnHistory(direction: string) {
+    pushOnHistory(direction: string): void {
         if (this.router.current) {
             this.router.current.history.push(direction);
         }
@@ -96,7 +95,7 @@ class App extends React.Component<Record<string, unknown>, AppState> {
     render(): JSX.Element {
         return (
             <>
-                <IonApp id="app">
+                <IonApp id={"app"}>
                     <IonReactHashRouter ref={this.router}>
                         <IonPage>
                             <IonContent
@@ -144,9 +143,4 @@ class App extends React.Component<Record<string, unknown>, AppState> {
     }
 }
 
-// https://stackoverflow.com/questions/54770535/react-hot-loader-react-dom-patch-is-not-detected
-setConfig({
-    showReactDomPatchNotification: false
-});
-
-export default hot(module)(App);
+export default App;

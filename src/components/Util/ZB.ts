@@ -42,7 +42,9 @@ export function getPatientByRef(
     mio: Bundle,
     ref?: Reference
 ): MIOEntry<ZAEB.V1_1_0.Profile.Patient> | undefined {
-    if (!ref) return;
+    if (!ref) {
+        return;
+    }
     return ParserUtil.getEntryWithRef<ZAEB.V1_1_0.Profile.Patient>(
         mio,
         [ZAEB.V1_1_0.Profile.Patient],
@@ -80,7 +82,9 @@ export function getEntries(
                 ],
                 new Reference(ref, composition.fullUrl)
             );
-            if (resource) entries.push(resource);
+            if (resource) {
+                entries.push(resource);
+            }
         });
     }
 
@@ -152,7 +156,9 @@ export function getPatientName(patient: ZAEB.V1_1_0.Profile.Patient): string {
                         nameSlice._family.extension
                     )?.valueString;
 
-                if (addition) partsFamily.push(addition);
+                if (addition) {
+                    partsFamily.push(addition);
+                }
 
                 const pre =
                     ParserUtil.getSlice<ZAEB.V1_1_0.Profile.PatientNameFamilyVorsatzwort>(
@@ -160,7 +166,9 @@ export function getPatientName(patient: ZAEB.V1_1_0.Profile.Patient): string {
                         nameSlice._family.extension
                     )?.valueString;
 
-                if (pre) partsFamily.push(pre);
+                if (pre) {
+                    partsFamily.push(pre);
+                }
 
                 const family =
                     ParserUtil.getSlice<ZAEB.V1_1_0.Profile.PatientNameFamilyNachname>(
@@ -168,7 +176,9 @@ export function getPatientName(patient: ZAEB.V1_1_0.Profile.Patient): string {
                         nameSlice._family.extension
                     )?.valueString;
 
-                if (family) partsFamily.push(family);
+                if (family) {
+                    partsFamily.push(family);
+                }
 
                 parts.push(partsFamily.join(" "));
             }

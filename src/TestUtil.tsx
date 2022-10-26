@@ -18,41 +18,42 @@
 
 import React from "react";
 
-import { render } from "@testing-library/react";
+import { render, RenderResult, waitFor } from "@testing-library/react";
 import { Provider } from "react-redux";
-import { Store } from "redux";
-import { Route, RouteComponentProps, Router, match } from "react-router";
-import { createMemoryHistory, createLocation } from "history";
+import { combineReducers, createStore, Store } from "redux";
+import { match, Route, RouteComponentProps, Router } from "react-router";
+import { createLocation, createMemoryHistory } from "history";
 
 import "@testing-library/jest-dom/extend-expect";
 import "jest-canvas-mock";
 
-import { KBVBundleResource } from "../../mioparser";
-import { combineReducers, createStore } from "redux";
-import { mioReducer, settingsReducer } from "../src/store/reducers";
+import { KBVBundleResource } from "@kbv/mioparser";
+import { mioReducer, settingsReducer } from "./store/reducers";
 
-import { MIOViewerRootState } from "../src/store";
+import { MIOViewerRootState } from "./store";
+
+const waitForOptions = { timeout: 10000, interval: 50 };
 
 export function renderReduxRoute(
     component: React.ComponentType<any>,
     store: Store,
     route: string,
     path = "/"
-): any {
+): Promise<RenderResult> {
     const history = createMemoryHistory();
-    history.push("/");
-
-    const result = render(
-        <Provider store={store}>
-            <Router history={history}>
-                <Route path={path} component={component} />
-            </Router>
-        </Provider>
-    );
-
     history.push(route);
 
-    return result;
+    return waitFor(
+        () =>
+            render(
+                <Provider store={store}>
+                    <Router history={history}>
+                        <Route path={path} component={component} />
+                    </Router>
+                </Provider>
+            ),
+        waitForOptions
+    );
 }
 
 export function renderRedux(component: JSX.Element, store: Store): any {
@@ -63,19 +64,19 @@ export function renderRoute(
     component: React.ComponentType<any>,
     route: string,
     path = "/"
-): any {
+): Promise<RenderResult> {
     const history = createMemoryHistory();
-    history.push("/");
-
-    const result = render(
-        <Router history={history}>
-            <Route path={path} component={component} />
-        </Router>
-    );
-
     history.push(route);
 
-    return result;
+    return waitFor(
+        () =>
+            render(
+                <Router history={history}>
+                    <Route path={path} component={component} />
+                </Router>
+            ),
+        waitForOptions
+    );
 }
 
 export function createStoreWithMios(mios: KBVBundleResource[]): any {

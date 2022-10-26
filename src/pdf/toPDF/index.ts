@@ -22,5 +22,6 @@ import MRtoPDF from "./MRtoPDF";
 import CMRtoPDF from "./CMR/CMRtoPDF";
 import PCtoPDF from "./CMR/PCtoPDF";
 import PNtoPDF from "./CMR/PNtoPDF";
+import PKtoPDF from "./PKtoPDF";
 
-export { IMtoPDF, ZBtoPDF, MRtoPDF, CMRtoPDF, PCtoPDF, PNtoPDF };
+export { IMtoPDF, ZBtoPDF, MRtoPDF, CMRtoPDF, PCtoPDF, PNtoPDF, PKtoPDF };

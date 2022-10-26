@@ -18,20 +18,16 @@
 
 import React from "react";
 
-import { MIOConnector, SettingsConnector } from "../../../store";
-
 import * as Models from "../../../models";
 
 import DetailComponent from "../../../components/Detail/Detail";
-import DetailBase from "../../Comprehensive/Detail/DetailBase";
+import DetailBase, { ListItemType } from "../../Comprehensive/Detail/DetailBase";
 import { DetailMapping } from "../../Comprehensive/Detail/Types";
 
 import { UI } from "../../../components";
 
 import { MIOEntry, CMR } from "@kbv/mioparser";
 import Mappings from "../Mappings";
-
-type ListItemType = { header: string; testIdSuffix?: string; component: JSX.Element };
 
 class Detail extends DetailBase<
     | CMR.V1_0_1.Profile.CMRBundle
@@ -66,7 +62,7 @@ class Detail extends DetailBase<
 
             let detailMappings = this.getMappings();
 
-            const matchParams = match.params as { filter: string; filterValue: string };
+            const matchParams = match.params;
             if (matchParams.filter && matchParams.filterValue) {
                 detailMappings = Mappings.Filterable;
             }
@@ -129,4 +125,4 @@ class Detail extends DetailBase<
     }
 }
 
-export default SettingsConnector(MIOConnector(Detail));
+export default Detail;

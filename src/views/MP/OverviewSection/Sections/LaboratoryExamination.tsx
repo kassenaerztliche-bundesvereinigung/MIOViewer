@@ -52,7 +52,7 @@ export default class LaboratoryExamination extends Section<MR.V1_1_0.Profile.Com
 
         this.section?.entry?.forEach((entry) => {
             const ref = entry.reference;
-            console.log(new Reference(ref, composition.fullUrl).toString());
+
             const res = ParserUtil.getEntryWithRef<
                 | MR.V1_1_0.Profile.ObservationBloodGroupSerology
                 | MR.V1_1_0.Profile.ObservationBloodGroupSerologyFetus

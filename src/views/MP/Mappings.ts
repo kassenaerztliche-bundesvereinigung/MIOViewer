@@ -27,7 +27,6 @@ export default class Mappings {
             header: "Patient/-in",
             models: [Models.MP.Basic.PatientMotherModel, Models.AddressModel]
         },
-
         {
             profile: MR.V1_1_0.Profile.EncounterGeneral,
             header: "Details",

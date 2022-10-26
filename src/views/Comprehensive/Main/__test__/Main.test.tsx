@@ -16,9 +16,7 @@
  * along with MIO Viewer. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import fs from "fs";
-
-import * as ViewerTestUtil from "../../../../../test/TestUtil.test";
+import * as ViewerTestUtil from "../../../../TestUtil";
 import * as TestUtil from "@kbv/miotestdata";
 
 import MIOParser, { KBVBundleResource } from "@kbv/mioparser";
@@ -28,17 +26,6 @@ import Main from "../";
 describe("<Main />", () => {
     ViewerTestUtil.mock();
     const mioParser = new MIOParser();
-
-    type TestValue = {
-        version?: string;
-    } & TestUtil.MIOType;
-
-    const testValues: TestValue[] = [
-        { mio: "IM" },
-        { mio: "ZB" },
-        { mio: "MR", version: "1.1.0" },
-        { mio: "UH" }
-    ];
 
     it("Rendert", async () => {
         const file = TestUtil.getExample(
@@ -50,7 +37,7 @@ describe("<Main />", () => {
             const bundle = result.value as KBVBundleResource;
             const store = ViewerTestUtil.createStoreWithMios([bundle]);
 
-            const { getByTestId, getAllByText } = ViewerTestUtil.renderReduxRoute(
+            const { getByTestId, getAllByText } = await ViewerTestUtil.renderReduxRoute(
                 Main,
                 store,
                 "/main",
@@ -59,66 +46,6 @@ describe("<Main />", () => {
 
             expect(getByTestId("main-view")).toBeDefined();
             expect(getAllByText("Meine MIOs").length).toBe(2);
-
-            expect(getByTestId("slide-0")).toBeDefined();
-
-            expect(getAllByText("Impfpass").length).toBe(1);
         }
     });
-
-    const renderTest = (bundles: string[], value: TestValue, version?: string) => {
-        if (value.version && value.version !== version) return;
-        it("mehrere Slider-Seiten", async () => {
-            const mios: KBVBundleResource[] = [];
-            for (let i = 0; i < bundles.length; i++) {
-                const file = bundles[i];
-                const blob = new File([fs.readFileSync(file)], "test.file");
-                const result = await mioParser.parseFile(blob);
-                mios.push(result.value as KBVBundleResource);
-            }
-
-            const store = ViewerTestUtil.createStoreWithMios([...mios]);
-
-            const container = ViewerTestUtil.renderReduxRoute(
-                Main,
-                store,
-                "/main",
-                "/main"
-            );
-
-            expect(container.getByTestId("slide-0")).toBeDefined();
-            expect(container.getByTestId("input-type-file")).toBeDefined();
-
-            const max = Math.floor(bundles.length / 9);
-
-            // U-Heft is grouped folder
-            if (value.mio !== "UH") {
-                expect(container.getByTestId(`slide-${max}`)).toBeDefined();
-            }
-
-            let text;
-            if (value.mio === "IM") {
-                text = "Impfpass";
-            } else if (value.mio === "ZB") {
-                text = "Zahnärztliches Bonusheft";
-            } else if (value.mio === "MR") {
-                text = "Mutterpass";
-            } else if (value.mio === "UH") {
-                text = "Kinderuntersuchungsheft";
-            }
-
-            if (text) {
-                expect(container.getAllByText(text).length).toBeGreaterThan(0);
-            }
-        }, 50000);
-    };
-
-    TestUtil.runAll(
-        "Rendert",
-        testValues,
-        renderTest,
-        "Bundles",
-        true,
-        ViewerTestUtil.mock
-    );
 });

@@ -21,7 +21,7 @@ import fs from "fs";
 
 import { render } from "@testing-library/react";
 
-import * as ViewerTestUtil from "../../../test/TestUtil.test";
+import * as ViewerTestUtil from "../../TestUtil";
 import * as TestUtil from "@kbv/miotestdata";
 
 import MIOParser, { Vaccination, ZAEB, MR, CMR } from "@kbv/mioparser";
@@ -78,7 +78,9 @@ describe("<PatientCard />", () => {
     const mioParser = new MIOParser();
 
     const cardTest = (file: string, card: CardValue, version?: string) => {
-        if (card.version && version !== card.version) return;
+        if (card.version && version !== card.version) {
+            return;
+        }
         it(file, async () => {
             const blob = new File([fs.readFileSync(file)], "test.file");
             const result = await mioParser.parseFile(blob);

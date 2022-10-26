@@ -149,16 +149,24 @@ export default class ObservationModel extends BaseModel<ObservationType> {
 
         this.values = [];
 
-        if (!noValue) this.values.push(this.getObservationValue());
+        if (!noValue) {
+            this.values.push(this.getObservationValue());
+        }
 
         const component = this.getComponent();
-        if (component) this.values.push(component);
+        if (component) {
+            this.values.push(component);
+        }
 
         const bodySite = this.getBodySite();
-        if (bodySite) this.values.push(bodySite);
+        if (bodySite) {
+            this.values.push(bodySite);
+        }
 
         const interpretation = this.getInterpretation();
-        if (interpretation) this.values.push(interpretation);
+        if (interpretation) {
+            this.values.push(interpretation);
+        }
 
         this.values.push(...this.getDerivedFrom());
 
@@ -270,8 +278,9 @@ export default class ObservationModel extends BaseModel<ObservationType> {
             };
         } else {
             const component = this.getComponent();
-            if (component) return component;
-            else {
+            if (component) {
+                return component;
+            } else {
                 return {
                     value: "-",
                     label: label
@@ -309,7 +318,9 @@ export default class ObservationModel extends BaseModel<ObservationType> {
                         l = Util.FHIR.handleCode(c.code).join(", ");
                     } else if (c.code.text) {
                         l = c.code.text;
-                        if (l === "schwangerschaftstage") schwangerschaftstage = true;
+                        if (l === "schwangerschaftstage") {
+                            schwangerschaftstage = true;
+                        }
                     }
                 }
 
@@ -332,7 +343,9 @@ export default class ObservationModel extends BaseModel<ObservationType> {
             if (isLengthGestationAtBirth && values.length === 1) {
                 const n = { value: "0", label: "" };
                 const v = values.pop();
-                if (!v) return;
+                if (!v) {
+                    return;
+                }
                 schwangerschaftstage ? values.push(n, v) : values.push(v, n);
             }
 
@@ -406,7 +419,9 @@ export default class ObservationModel extends BaseModel<ObservationType> {
     }
 
     public getCoding(resource?: { code?: Util.FHIR.Code }): string {
-        if (!resource) resource = this.value;
+        if (!resource) {
+            resource = this.value;
+        }
         return Util.FHIR.getCoding(resource, this.codeConceptMaps);
     }
 

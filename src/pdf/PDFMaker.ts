@@ -22,7 +22,8 @@ import {
     Vaccination,
     ZAEB,
     MR,
-    CMR
+    CMR,
+    PKA
 } from "@kbv/mioparser";
 import { Util } from "../components";
 import { TDocumentDefinitions, Content } from "pdfmake/interfaces";
@@ -31,7 +32,7 @@ import { vfs } from "../assets/fonts/vfs_fonts";
 
 import { horizontalLine } from "./PDFHelper";
 
-import { IMtoPDF, ZBtoPDF, MRtoPDF, CMRtoPDF, PCtoPDF, PNtoPDF } from "./toPDF";
+import { IMtoPDF, ZBtoPDF, MRtoPDF, CMRtoPDF, PCtoPDF, PNtoPDF, PKtoPDF } from "./toPDF";
 
 import splashLogos from "../assets/img/logos-pdf.png";
 
@@ -68,6 +69,10 @@ export default class PDFMaker {
             valueContent = new PNtoPDF(value).getContent();
             style = "cmr";
             exportHeader = "Kinderuntersuchungsheft";
+        } else if (PKA.V1_0_0.Profile.NFDxDPEBundle.is(value)) {
+            valueContent = new PKtoPDF(value).getContent();
+            style = "pka";
+            exportHeader = "Patientenkurzakte";
         }
 
         const baseContent: Content = [

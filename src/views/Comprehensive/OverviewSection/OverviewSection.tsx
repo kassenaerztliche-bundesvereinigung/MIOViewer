@@ -18,18 +18,15 @@
 
 import React from "react";
 
-import { RouteComponentProps } from "react-router";
-
 import { MIOConnector, MIOConnectorType } from "../../../store";
 import { MR } from "@kbv/mioparser";
 
 import { UI } from "../../../components";
 
 import OverviewSectionMP from "../../MP/OverviewSection";
+import { RoutePropsSection } from "../../MP/OverviewSection/Section";
 
-class OverviewSection extends React.Component<
-    MIOConnectorType & RouteComponentProps<{ section: string }>
-> {
+class OverviewSection extends React.Component<MIOConnectorType & RoutePropsSection> {
     render(): JSX.Element {
         const { mio, history, location, match } = this.props;
 

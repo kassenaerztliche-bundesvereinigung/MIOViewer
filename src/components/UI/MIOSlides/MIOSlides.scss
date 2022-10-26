@@ -23,56 +23,56 @@
 .mio-slides {
     height: 100%;
 
+    .swiper,
     .swiper-wrapper {
         height: calc(100% - (#{$space-big} + #{$space}));
     }
 
-    .swiper-container {
-        height: calc(100% - (#{$space-big} + #{$space}));
+    .swiper-slide {
+        display: flex;
+        position: relative;
+        align-items: center;
+        flex-shrink: 0;
+        justify-content: center;
+        text-align: center;
+    }
 
-        .swiper-slide {
-            display: flex;
-            position: relative;
-            align-items: center;
-            flex-shrink: 0;
-            justify-content: center;
-            text-align: center;
+    .mio-container {
+        width: 100%;
+        max-width: calc(162px * 2 + #{$space} + #{$space-big});
+        height: 100%;
+        max-height: calc(130px * 2 + #{$space} + #{$space-big * 2});
+        padding: $space-big $space;
+
+        display: grid;
+
+        grid-template-columns: repeat(2, 1fr);
+        grid-auto-columns: minmax(150px, calc(150px + #{$space}));
+
+        grid-template-rows: repeat(2, 1fr);
+        grid-auto-rows: minmax(150px, calc(150px + #{$space}));
+
+        .mio-folder {
+            margin: 4px;
+            align-self: center;
+            justify-self: center;
         }
 
-        .mio-container {
-            width: 100%;
-            max-width: calc(162px * 2 + #{$space} + #{$space-big});
-            height: 100%;
-            max-height: calc(130px * 2 + #{$space} + #{$space-big * 2});
-            padding: $space-big $space;
+        @include for-tablet-down {
+            max-width: calc(162px * 3 + #{$space} + #{$space-big});
+            max-height: calc(130px * 4 + #{$space} + #{$space-big * 2});
 
-            display: grid;
-
-            grid-template-columns: repeat(2, 1fr);
-            grid-auto-columns: minmax(150px, calc(150px + #{$space}));
-
-            grid-template-rows: repeat(2, 1fr);
-            grid-auto-rows: minmax(150px, calc(150px + #{$space}));
-
-            .mio-folder {
-                margin: 4px;
-                align-self: center;
-                justify-self: center;
-            }
-
-            @include for-tablet-down {
-                max-width: calc(162px * 3 + #{$space} + #{$space-big});
-                max-height: calc(130px * 4 + #{$space} + #{$space-big * 2});
-
-                grid-template-columns: repeat(3, 1fr);
-                grid-template-rows: repeat(4, 1fr);
-            }
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(4, 1fr);
         }
     }
 
+    /*
     .swiper-pagination {
         display: none;
     }
+    
+     */
 
     .pagination {
         bottom: $space-big;

@@ -16,7 +16,7 @@
  * along with MIO Viewer. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import * as ViewerTestUtil from "../../../../../test/TestUtil.test";
+import * as ViewerTestUtil from "../../../../TestUtil";
 import * as TestUtil from "@kbv/miotestdata";
 
 import Examples from "../";
@@ -27,7 +27,7 @@ describe("<Examples />", () => {
     const renderTest = (file: string) => {
         it(file, async () => {
             const store = ViewerTestUtil.createStoreWithMios([]);
-            const { getAllByText } = ViewerTestUtil.renderReduxRoute(
+            const { getAllByText } = await ViewerTestUtil.renderReduxRoute(
                 Examples,
                 store,
                 "/examples",

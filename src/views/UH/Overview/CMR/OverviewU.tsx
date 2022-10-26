@@ -207,7 +207,9 @@ export default class OverviewU extends React.Component<OverviewProps> {
                 }
             });
 
-            if (minorHints.length) return minorHints;
+            if (minorHints.length) {
+                return minorHints;
+            }
         }
 
         section.extension?.forEach((ext: { url: string; valueString?: string }) => {
