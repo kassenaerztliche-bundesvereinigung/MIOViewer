@@ -45,11 +45,13 @@ export default class OrganizationModel extends BaseModel<OrganizationType> {
         );
 
         this.headline = this.value.name ? this.value.name : "-";
-        this.values = [this.getIdentifier()];
+        this.values = [...this.getIdentifiers()];
     }
 
-    protected getIdentifier(): ModelValue {
+    protected getIdentifiers(): ModelValue[] {
         if (this.value.identifier) {
+            const values: ModelValue[] = [];
+
             const iknr =
                 ParserUtil.getSlice<CMR.V1_0_1.Profile.CMROrganizationInstitutionskennzeichen>(
                     CMR.V1_0_1.Profile.CMROrganizationInstitutionskennzeichen,
@@ -57,10 +59,10 @@ export default class OrganizationModel extends BaseModel<OrganizationType> {
                 );
 
             if (iknr) {
-                return {
+                values.push({
                     value: iknr.value,
                     label: "Institutionskennzeichen (IKNR)"
-                };
+                });
             }
 
             const bsnr =
@@ -70,17 +72,21 @@ export default class OrganizationModel extends BaseModel<OrganizationType> {
                 );
 
             if (bsnr) {
-                return {
+                values.push({
                     value: bsnr.value,
                     label: "Betriebsstättennummer (BSNR)"
-                };
+                });
             }
+
+            return values;
         }
 
-        return {
-            value: "-",
-            label: "Identifier"
-        };
+        return [
+            {
+                value: "-",
+                label: "Identifier"
+            }
+        ];
     }
 
     public getCoding(): string {

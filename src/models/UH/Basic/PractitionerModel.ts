@@ -36,7 +36,7 @@ export default class PractitionerModel extends BaseModel<PractitionerType> {
     ) {
         super(value, fullUrl, parent as CMR.V1_0_1.Profile.CMRBundle, history);
         this.headline = Util.UH.getPractitionerName(this.value);
-        this.values = [...this.getQualification(), this.getIdentifier()];
+        this.values = [...this.getQualification(), ...this.getIdentifiers()];
     }
 
     protected getQualification(): ModelValue[] {
@@ -65,18 +65,20 @@ export default class PractitionerModel extends BaseModel<PractitionerType> {
         return modelValueArray;
     }
 
-    protected getIdentifier(): ModelValue {
+    protected getIdentifiers(): ModelValue[] {
         if (this.value.identifier) {
+            const values: ModelValue[] = [];
+
             const ANR = ParserUtil.getSlice<CMR.V1_0_1.Profile.CMRPractitionerANR>(
                 CMR.V1_0_1.Profile.CMRPractitionerANR,
                 this.value.identifier
             );
 
             if (ANR) {
-                return {
+                values.push({
                     value: ANR.value,
                     label: "Lebenslange Arztnummer (LANR)"
-                };
+                });
             }
 
             const EFN = ParserUtil.getSlice<CMR.V1_0_1.Profile.CMRPractitionerEFN>(
@@ -85,10 +87,10 @@ export default class PractitionerModel extends BaseModel<PractitionerType> {
             );
 
             if (EFN) {
-                return {
+                values.push({
                     value: EFN.value,
                     label: "Einheitliche Fortbildungsnummer (EFN)"
-                };
+                });
             }
 
             const IK = ParserUtil.getSlice<CMR.V1_0_1.Profile.CMRPractitionerHebammenIK>(
@@ -97,17 +99,21 @@ export default class PractitionerModel extends BaseModel<PractitionerType> {
             );
 
             if (IK) {
-                return {
+                values.push({
                     value: IK.value,
                     label: "Hebammen Institutionskennzeichen (IK)"
-                };
+                });
             }
+
+            return values;
         }
 
-        return {
-            value: "-",
-            label: "Identifier"
-        };
+        return [
+            {
+                value: "-",
+                label: "Identifier"
+            }
+        ];
     }
 
     public getCoding(): string {
